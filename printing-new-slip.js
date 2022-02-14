@@ -246,4 +246,5 @@ function convertCounterObj(obj, options) {
 }
 module.exports = {
   convertReceiptObj,
+  convertCounterObj,
 };

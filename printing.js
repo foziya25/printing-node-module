@@ -1,6 +1,6 @@
 const { getAddons, separateAddress, getOnlySuccessfulPayments, getOrderTypeText, unMappedItemMapping, comboPrinting } = require("./utils/utils.js");
 const { getPmtMethodName, getPmtMethods } = require("./classes/payment.js");
-const { convertReceiptObj, convertCounterObj } = require("./printing-new-slip");
+const { convertReceiptObj, convertCounterObj } = require("./printing-new-slip.js");
 
 function generateBillReceipt(rest_details, order_details, bill_details) {
   const order_id = order_details["order_id"];
@@ -380,9 +380,9 @@ function generateCounterReceipt(kitchen_details, rest_details, order_details, it
       }
     }
   }
-
+  let obj = {};
   for (const key of Object.keys(temp_item_obj)) {
-    const obj = {};
+    obj = {};
     obj["type"] = "counter";
     obj["counterName"] = temp_kitchen_data[key][0]["counterName"];
     obj["printerName"] = temp_kitchen_data[key][0]["printerName"];
@@ -430,8 +430,11 @@ function generateCounterReceipt(kitchen_details, rest_details, order_details, it
     }
     obj["body"]["NUMBER OF ITEMS"] = noOfItems.toString();
   }
-
-  return convertCounterObj(obj);
+  if (Object.keys(obj).length > 0) {
+    return convertCounterObj(obj);
+  } else {
+    return null;
+  }
 }
 
 module.exports = { generateBillReceipt, generateCounterReceipt };
