@@ -1,6 +1,6 @@
-const { getAddons, separateAddress, getOnlySuccessfulPayments, getOrderTypeText, unMappedItemMapping, comboPrinting } = require("./utils/utils.js");
-const { getPmtMethodName, getPmtMethods } = require("./classes/payment.js");
-const { convertReceiptObj, convertCounterObj } = require("./printing-new-slip.js");
+const { getAddons, separateAddress, getOnlySuccessfulPayments, getOrderTypeText, unMappedItemMapping, comboPrinting } = require("./utils/utils");
+const { getPmtMethodName, getPmtMethods } = require("./classes/payment");
+const { convertReceiptObj, convertCounterObj } = require("./printing-new-slip");
 
 function generateBillReceipt(rest_details, order_details, bill_details) {
   const order_id = order_details["order_id"];

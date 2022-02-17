@@ -1,4 +1,4 @@
-const { FontAlign, FontSize, FontType, SlipType, changeFontSize, powered_by, formatv2, line_break, insertOrderSequence, insertHeaders, addItems } = require("./utils/printing-v2-utils.js");
+const { FontAlign, FontSize, FontType, SlipType, changeFontSize, powered_by, formatv2, line_break, insertOrderSequence, insertHeaders, addItems } = require("./utils/printing-v2-utils");
 
 function convertReceiptObj(obj, rest_details) {
   const is_unpaid = obj["order"]["bill"].some((e) => e["name"] === "Payment Mode" && e["value"] === "Unpaid");
