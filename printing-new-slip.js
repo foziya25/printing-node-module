@@ -30,7 +30,6 @@ function convertReceiptObj(obj, rest_details) {
   });
 
   data["data"].push(line_break());
-  console.log(obj["body"]["Type"]);
   data["data"].push(
     formatv2(
       "",
