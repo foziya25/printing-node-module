@@ -1,3 +1,5 @@
+const { getPmtMethodName } = require("../classes/payment");
+
 //Separate address to different lines
 function separateAddress(orig_array, str, max_length = 30) {
   const string_array = str.split(",");

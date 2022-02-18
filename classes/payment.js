@@ -251,5 +251,4 @@ const getPmtMethods = (type) => {
 module.exports = {
   getPmtMethodName,
   getPmtMethods,
-  PaymentConfig,
 };
