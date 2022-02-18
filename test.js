@@ -2735,6 +2735,6 @@ const kitchen_details = {
   printer_name: "198.120.1.200:9100",
 };
 //console.log(getReceiptObject(rest_details, order_details, bill_details));
-//console.log(generateCounterReceipt(kitchen_details, rest_details, order_details));
+console.log(generateCounterReceipt(kitchen_details, rest_details, order_details));
 // NOTE - Delete _id, ISODate types
-console.log(generateBillReceipt(rest_details, order_details, bill_details));
+//console.log(generateBillReceipt(rest_details, order_details, bill_details));
