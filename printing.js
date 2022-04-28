@@ -37,11 +37,11 @@ function generateBillReceipt(rest_details, order_details, bill_details) {
   if (!["", null, undefined].includes(order_details["table_no"])) {
     obj["body"]["Table"] = order_details["table_no"].toString();
   }
-  obj["body"]["Order"] = order_details["order_no"];
+  obj["body"]["Invoice"] = order_details["order_no"];
 
   const guest_name = order_details.guest_name;
   if (guest_name && guest_name.trim()) {
-    obj["body"]["Order"] += ` (${guest_name})`;
+    obj["body"]["Invoice"] += ` (${guest_name})`;
   }
 
   // const get_date_time = this.getReceiptDataUtils.addDateTime(order_details, rest_details);
@@ -393,9 +393,11 @@ function generateCounterReceipt(kitchen_details, rest_details, order_details, it
     } else if (temp_kitchen_data[key][0]["kitchen_counter_id"] === "default_override") {
       obj["note"].push("Counters set for these items are invalid & overriding the counters of their subcategories");
     }
-    for (const note of order_details["special_notes"]) {
-      if (note["note"].trim() && note["itr"] == key.split("_")[0]) {
-        obj["note"].push(note["note"].trim());
+    if (order_details["special_notes"] && order_details["special_notes"].length) {
+      for (const note of order_details["special_notes"]) {
+        if (note["note"].trim() && note["itr"] == key.split("_")[0]) {
+          obj["note"].push(note["note"].trim());
+        }
       }
     }
     obj["allergic_items"] = order_details["allergic_items"];
@@ -407,7 +409,7 @@ function generateCounterReceipt(kitchen_details, rest_details, order_details, it
       obj["body"]["Table"] = order_details["table_no"].toString();
     }
 
-    obj["body"]["Order"] = order_details["order_no"];
+    obj["body"]["Invoice"] = order_details["order_no"];
     // const get_date_time = this.getReceiptDataUtils.addDateTime(order_details, rest_details);
     // obj["body"]["Date"] = get_date_time["date"];
     // obj["body"]["Time"] = get_date_time["time"];

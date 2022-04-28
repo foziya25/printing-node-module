@@ -1,2683 +1,2119 @@
 const { generateBillReceipt, generateCounterReceipt } = require("./printing.js");
 
-const rest_details = {
-  "id": "c49dee80aeee27ab5e19689fcec88480",
-  "nameid": "jibril",
-  "name": "Jibril",
-  "alias": "a3MO",
-  "logo": "c49dee80aeee27ab5e19689fcec88480_1624605220.png",
-  "address": "LG24, LG Floor Da Men Mall USJ, Persiaran Masjid, Shah Alam, Selangor, Malaysia",
-  "menu_cover_img": "https://d208quqxsjalxm.cloudfront.net/coverimage/custom/a5324d483c544565b24d715a55a9a8d7/canton-selayang-2021-09-03-07-58-43.jpg",
-  "city": "Kuala Lumpur",
-  "area": "",
-  "country": "Malaysia",
-  "country_code": "MY",
-  "cashier": "Ashutosh",
-  "status": 1,
-  "type": 3,
-  "on_whatsapp": 1,
-  "phone": "9871467833",
-  "dial_code": "+91",
-  "base_roundoff": 0.05,
-  "email": "cdc9@easyeat.ai",
-  "default_customer_phone": "+60123456789",
-  "geo_location": {
-    "type": "Point",
-    "coordinates": [101.587342520213, 3.07588585009742],
+const  rest_details= {
+  "_id": {
+      "$oid": "616d14d6e4276f3d6223b7a1"
   },
-  "printer": "192.168.1.200:9100",
-  "cash_mgt_printer": null,
-  "dkick_code": [27, 112, 0, 50, 250],
+  "id": "482a7a5888614fa69d3672c6a681c7a0",
+  "name": "Caravan Dev",
+  "phone": "01111402823",
+  "dial_code": "+60",
+  "email": "caravandev@gmail.com",
+  "emails": {
+      "cm": [
+          "caravandev@gmail.com"
+      ],
+      "pm": [
+          "caravandev@gmail.com"
+      ],
+      "am": [
+          "caravandev@gmail.com"
+      ]
+  },
+  "logo": "https://d1xkxcid7icwfl.cloudfront.net/restaurant_image/482a7a5888614fa69d3672c6a681c7a0_1650605514.jpg",
+  "address": "LG24, LG Floor Da Men Mall USj11, Persiaran Masjid, Shah Alam, Selangor, Malaysia",
+  "city": "Shah Alam",
+  "pin_code": "40000",
+  "state": "Selangor",
+  "country": "Malaysia",
+  "location": {
+      "lat": 3.0766184,
+      "lon": 101.5153446
+  },
+  "priority": 10,
+  "rest_timings": {
+      "DELIVERY": [
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          }
+      ],
+      "DINING": [
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          }
+      ],
+      "TAKEAWAY": [
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          },
+          {
+              "is_enabled": true,
+              "slot": [
+                  {
+                      "start": 1,
+                      "end": 1439
+                  }
+              ]
+          }
+      ]
+  },
   "filters": [
-    {
-      "id": "veg",
-      "name": "Veg",
-      "filter-type": "preference",
-      "status": 1,
-    },
-    {
-      "id": "non-veg",
-      "name": "Non Veg",
-      "filter-type": "preference",
-      "status": 1,
-    },
-    {
-      "id": "halal",
-      "name": "Halal",
-      "filter-type": "preference",
-      "status": 0,
-    },
-    {
-      "id": "kosher",
-      "name": "Kosher",
-      "filter-type": "preference",
-      "status": 0,
-    },
-    {
-      "id": "gluten-free",
-      "name": "Gluten Free",
-      "filter-type": "preference",
-      "status": 0,
-    },
-    {
-      "id": "vegan",
-      "name": "Vegan",
-      "filter-type": "preference",
-      "status": 0,
-    },
-    {
-      "id": "price-5",
-      "name": "5",
-      "currency": "MYR",
-      "filter-type": "price",
-      "status": 0,
-    },
-    {
-      "id": "price-10",
-      "name": "10",
-      "currency": "MYR",
-      "filter-type": "price",
-      "status": 0,
-    },
-    {
-      "id": "price-15",
-      "name": "15",
-      "currency": "MYR",
-      "filter-type": "price",
-      "status": 0,
-    },
-    {
-      "id": "price-20",
-      "name": "20",
-      "currency": "MYR",
-      "filter-type": "price",
-      "status": 1,
-    },
-    {
-      "id": "price-30",
-      "name": "30",
-      "currency": "MYR",
-      "filter-type": "price",
-      "status": 1,
-    },
-    {
-      "id": "price-40",
-      "name": "40",
-      "currency": "MYR",
-      "filter-type": "price",
-      "status": 0,
-    },
-    {
-      "id": "price-50",
-      "name": "15",
-      "currency": "MYR",
-      "filter-type": "price",
-      "status": 1,
-    },
-    {
-      "id": "available",
-      "name": "available",
-      "filter-type": "preference",
-      "status": 1,
-    },
+      {
+          "id": "veg",
+          "name": "Veg",
+          "filter-type": "preference",
+          "status": 1
+      },
+      {
+          "id": "non-veg",
+          "name": "Non Veg",
+          "filter-type": "preference",
+          "status": 1
+      },
+      {
+          "id": "available",
+          "name": "available",
+          "filter-type": "preference",
+          "status": 1,
+          "selected": true
+      },
+      {
+          "id": "price-10",
+          "name": "10",
+          "currency": "MYR",
+          "filter-type": "price",
+          "status": 1
+      },
+      {
+          "id": "price-20",
+          "name": "20",
+          "currency": "MYR",
+          "filter-type": "price",
+          "status": 1
+      },
+      {
+          "id": "price-30",
+          "name": "30",
+          "currency": "MYR",
+          "filter-type": "price",
+          "status": 1
+      }
   ],
   "services": [
-    {
-      "category_id": "cutlery",
-      "category_name": "Cutlery",
-      "icon": "cutlery-1.png",
-      "subcategories": [
-        {
-          "subcategory_id": "cutlery-plate",
-          "subcategory_name": "Plate",
-          "icon": "dish_plate.png",
-          "price_flag": 0,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "cutlery-bowl",
-          "subcategory_name": "Bowl",
-          "icon": "bowl-1.png",
-          "price_flag": 0,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "cutlery-glass",
-          "subcategory_name": "Glass",
+      {
+          "category_id": "cutlery",
+          "category_name": "Cutlery",
+          "icon": "cutlery-1.png",
+          "subcategories": [
+              {
+                  "subcategory_id": "cutlery-plate",
+                  "subcategory_name": "Plate",
+                  "icon": "dish_plate.png",
+                  "price_flag": 0,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 1
+              },
+              {
+                  "subcategory_id": "cutlery-bowl",
+                  "subcategory_name": "Bowl",
+                  "icon": "bowl-1.png",
+                  "price_flag": 0,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 1
+              },
+              {
+                  "subcategory_id": "cutlery-glass",
+                  "subcategory_name": "Glass",
+                  "icon": "glass.png",
+                  "price_flag": 0,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 1
+              },
+              {
+                  "subcategory_id": "cutlery-spoon",
+                  "subcategory_name": "Spoon",
+                  "icon": "spoon.png",
+                  "price_flag": 0,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 1
+              },
+              {
+                  "subcategory_id": "cutlery-fork",
+                  "subcategory_name": "Fork",
+                  "icon": "fork.png",
+                  "price_flag": 0,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 1
+              },
+              {
+                  "subcategory_id": "cutlery-chopstick",
+                  "subcategory_name": "Chopstick",
+                  "icon": "chopsticks.svg",
+                  "price_flag": 0,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "cutlery-knife",
+                  "subcategory_name": "Knife",
+                  "icon": "knife.png",
+                  "price_flag": 0,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "cutlery-straw",
+                  "subcategory_name": "Straw",
+                  "icon": "drinking-straw.svg",
+                  "price_flag": 0,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 0
+              }
+          ],
+          "status": 1
+      },
+      {
+          "category_id": "water",
+          "category_name": "Water",
           "icon": "glass.png",
-          "price_flag": 0,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "cutlery-spoon",
-          "subcategory_name": "Spoon",
-          "icon": "spoon.png",
-          "price_flag": 0,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "cutlery-fork",
-          "subcategory_name": "Fork",
-          "icon": "fork.png",
-          "price_flag": 0,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "cutlery-chopstick",
-          "subcategory_name": "Chopstick",
-          "icon": "chopsticks.svg",
-          "price_flag": 0,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "cutlery-knife",
-          "subcategory_name": "Knife",
-          "icon": "knife.png",
-          "price_flag": 0,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "cutlery-straw",
-          "subcategory_name": "Straw",
-          "icon": "drinking-straw.svg",
-          "price_flag": 0,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 0,
-        },
-      ],
-      "status": 0,
-    },
-    {
-      "category_id": "water",
-      "category_name": "Water",
-      "icon": "glass.png",
-      "subcategories": [
-        {
-          "subcategory_id": "water-regular",
-          "subcategory_name": "Regular Water",
-          "icon": "glass.png",
-          "price_flag": 1,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "water-mineral",
-          "subcategory_name": "Mineral Water",
-          "icon": "water.png",
-          "price_flag": 1,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "water-hot",
-          "subcategory_name": "Hot Water",
-          "icon": "water-1.png",
-          "price_flag": 1,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "water-lemon",
-          "subcategory_name": "Lemon Water",
-          "icon": "glass.png",
-          "price_flag": 1,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "water-filtered",
-          "subcategory_name": "Filtered Water",
-          "icon": "glass.png",
-          "price_flag": 1,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "water-ice",
-          "subcategory_name": "Ice Water",
-          "icon": "glass.png",
-          "price_flag": 1,
-          "quantity_flag": 1,
-          "price": 0,
-          "status": 1,
-        },
-      ],
-      "status": 0,
-    },
-    {
-      "category_id": "sauces",
-      "category_name": "Sauces",
-      "icon": "sauces.png",
-      "subcategories": [
-        {
-          "subcategory_id": "sauces-tomato",
-          "subcategory_name": "Tomato Sauce",
-          "icon": "tomato-ketchup.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-alfredo",
-          "subcategory_name": "Alfredo",
+          "subcategories": [
+              {
+                  "subcategory_id": "water-regular",
+                  "subcategory_name": "Regular Water",
+                  "icon": "glass.png",
+                  "price_flag": 1,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "water-mineral",
+                  "subcategory_name": "Mineral Water",
+                  "icon": "water.png",
+                  "price_flag": 1,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "water-hot",
+                  "subcategory_name": "Hot Water",
+                  "icon": "water-1.png",
+                  "price_flag": 1,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "water-lemon",
+                  "subcategory_name": "Lemon Water",
+                  "icon": "glass.png",
+                  "price_flag": 1,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "water-filtered",
+                  "subcategory_name": "Filtered Water",
+                  "icon": "glass.png",
+                  "price_flag": 1,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "water-ice",
+                  "subcategory_name": "Ice Water",
+                  "icon": "glass.png",
+                  "price_flag": 1,
+                  "quantity_flag": 1,
+                  "price": 0,
+                  "status": 0
+              }
+          ],
+          "status": 0
+      },
+      {
+          "category_id": "sauces",
+          "category_name": "Sauces",
+          "icon": "sauces.png",
+          "subcategories": [
+              {
+                  "subcategory_id": "sauces-tomato",
+                  "subcategory_name": "Tomato Sauce",
+                  "icon": "tomato-ketchup.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-alfredo",
+                  "subcategory_name": "Alfredo",
+                  "icon": "",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-pesto",
+                  "subcategory_name": "Pesto Sauce",
+                  "icon": "pesto-sauce.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-marinara",
+                  "subcategory_name": "Marinara",
+                  "icon": "",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-bbq",
+                  "subcategory_name": "Barbeque Sauce",
+                  "icon": "bbq-sauce.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-chilli",
+                  "subcategory_name": "Chilli Sauce",
+                  "icon": "chilli-sauce.svg",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-salsa",
+                  "subcategory_name": "Salsa",
+                  "icon": "",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-garlic",
+                  "subcategory_name": "Garlic Sauce",
+                  "icon": "garlic-sauce.svg",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-mustard",
+                  "subcategory_name": "Mustard Sauce",
+                  "icon": "mustard-1.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-mayo",
+                  "subcategory_name": "Mayonnaise",
+                  "icon": "mayonnaise-sauce.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-tamarind",
+                  "subcategory_name": "Tamarind",
+                  "icon": "imli-chatni.svg",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-mint",
+                  "subcategory_name": "Mint Sauce",
+                  "icon": "mint-chatni.svg",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-tobasco",
+                  "subcategory_name": "Tobasco",
+                  "icon": "tobasco.svg",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-coconut-chutney",
+                  "subcategory_name": "Coconut chutney",
+                  "icon": "coconut-chatni.svg",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-coriander-chutney",
+                  "subcategory_name": "Coriander chutney",
+                  "icon": "coriander-chatni.svg",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-samber",
+                  "subcategory_name": "Samber",
+                  "icon": "Samber.svg",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-sriranha-mayo",
+                  "subcategory_name": "Sriracha Mayo",
+                  "icon": "sriracha-mayo.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-duck",
+                  "subcategory_name": "Duck Sauce",
+                  "icon": "duck-sauce.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "sauces-teriyaki",
+                  "subcategory_name": "Teriyaki Sauce",
+                  "icon": "teriyaki-sauce.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              }
+          ],
+          "status": 0
+      },
+      {
+          "category_id": "condiments",
+          "category_name": "Condiments",
           "icon": "",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-pesto",
-          "subcategory_name": "Pesto Sauce",
-          "icon": "pesto-sauce.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-marinara",
-          "subcategory_name": "Marinara",
-          "icon": "",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-bbq",
-          "subcategory_name": "Barbeque Sauce",
-          "icon": "bbq-sauce.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-chilli",
-          "subcategory_name": "Chilli Sauce",
-          "icon": "chilli-sauce.svg",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-salsa",
-          "subcategory_name": "Salsa",
-          "icon": "",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-garlic",
-          "subcategory_name": "Garlic Sauce",
-          "icon": "garlic-sauce.svg",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-mustard",
-          "subcategory_name": "Mustard Sauce",
-          "icon": "mustard-1.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-mayo",
-          "subcategory_name": "Mayonnaise",
-          "icon": "mayonnaise-sauce.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-tamarind",
-          "subcategory_name": "Tamarind",
-          "icon": "imli-chatni.svg",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-mint",
-          "subcategory_name": "Mint Sauce",
-          "icon": "mint-chatni.svg",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-tobasco",
-          "subcategory_name": "Tobasco",
-          "icon": "tobasco.svg",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-coconut-chutney",
-          "subcategory_name": "Coconut chutney",
-          "icon": "coconut-chatni.svg",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-coriander-chutney",
-          "subcategory_name": "Coriander chutney",
-          "icon": "coriander-chatni.svg",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-samber",
-          "subcategory_name": "Samber",
-          "icon": "Samber.svg",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "sauces-sriranha-mayo",
-          "subcategory_name": "Sriracha Mayo",
-          "icon": "sriracha-mayo.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "sauces-duck",
-          "subcategory_name": "Duck Sauce",
-          "icon": "duck-sauce.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "sauces-teriyaki",
-          "subcategory_name": "Teriyaki Sauce",
-          "icon": "teriyaki-sauce.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-      ],
-      "status": 0,
-    },
-    {
-      "category_id": "condiments",
-      "category_name": "Condiments",
-      "icon": "",
-      "subcategories": [
-        {
-          "subcategory_id": "condiments-salt",
-          "subcategory_name": "Salt",
-          "icon": "salt.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "condiments-pepper",
-          "subcategory_name": "Pepper",
-          "icon": "pepper-1.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "condiments-oregano",
-          "subcategory_name": "Oregano",
-          "icon": "",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "condiments-chilli-flakes",
-          "subcategory_name": "Chilli Flakes",
-          "icon": "salt.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 0,
-        },
-        {
-          "subcategory_id": "condiments-parmesan-cheese",
-          "subcategory_name": "Parmesan Cheese",
-          "icon": "parmesan-cheese.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "condiments-parmesan-cheese",
-          "subcategory_name": "Parmesan Cheese",
-          "icon": "parmesan-cheese.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-      ],
-      "status": 0,
-    },
-    {
-      "category_id": "napkin",
-      "category_name": "Napkin",
-      "icon": "napkin.png",
-      "subcategories": [],
-      "status": 0,
-    },
-    {
-      "category_id": "call-server",
-      "category_name": "Call the Server",
-      "icon": "waiter.png",
-      "subcategories": [],
-      "status": 0,
-    },
-    {
-      "category_id": "wifi-password",
-      "category_name": "Wifi Password",
-      "icon": "wifi-signal.png",
-      "ssid": "",
-      "password": "",
-      "subcategories": [],
-      "status": 0,
-    },
-    {
-      "category_id": "smoking-accessories",
-      "category_name": "Smoking",
-      "icon": "smoking-cat.png",
-      "subcategories": [
-        {
-          "subcategory_id": "smoking-ashtray",
-          "subcategory_name": "Ashtray",
-          "icon": "ashtray.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "smoking-lighter",
-          "subcategory_name": "Lighter",
-          "icon": "lighter.png",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-      ],
-      "status": 0,
-    },
-    {
-      "category_id": "drink",
-      "category_name": "Drink",
-      "icon": "soft-drink.svg",
-      "subcategories": [
-        {
-          "subcategory_id": "drink-water",
-          "subcategory_name": "Water",
-          "icon": "drink-water.svg",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "drink-soup",
-          "subcategory_name": "Soup",
-          "icon": "drink-soup.svg",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-        {
-          "subcategory_id": "drink-tea",
-          "subcategory_name": "Tea",
-          "icon": "drink-tea.svg",
-          "price_flag": 0,
-          "quantity_flag": 0,
-          "price": 0,
-          "status": 1,
-        },
-      ],
-      "status": 0,
-    },
+          "subcategories": [
+              {
+                  "subcategory_id": "condiments-salt",
+                  "subcategory_name": "Salt",
+                  "icon": "salt.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "condiments-pepper",
+                  "subcategory_name": "Pepper",
+                  "icon": "pepper-1.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "condiments-oregano",
+                  "subcategory_name": "Oregano",
+                  "icon": "",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "condiments-chilli-flakes",
+                  "subcategory_name": "Chilli Flakes",
+                  "icon": "salt.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "condiments-parmesan-cheese",
+                  "subcategory_name": "Parmesan Cheese",
+                  "icon": "parmesan-cheese.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "condiments-parmesan-cheese",
+                  "subcategory_name": "Parmesan Cheese",
+                  "icon": "parmesan-cheese.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              }
+          ],
+          "status": 0
+      },
+      {
+          "category_id": "napkin",
+          "category_name": "Napkin",
+          "icon": "napkin.png",
+          "subcategories": [],
+          "status": 0
+      },
+      {
+          "category_id": "call-server",
+          "category_name": "Call the Server",
+          "icon": "waiter.png",
+          "subcategories": [],
+          "status": 1
+      },
+      {
+          "category_id": "wifi-password",
+          "category_name": "Wifi Password",
+          "icon": "wifi-signal.png",
+          "ssid": "",
+          "password": "",
+          "subcategories": [],
+          "status": 0
+      },
+      {
+          "category_id": "smoking-accessories",
+          "category_name": "Smoking",
+          "icon": "smoking-cat.png",
+          "subcategories": [
+              {
+                  "subcategory_id": "smoking-ashtray",
+                  "subcategory_name": "Ashtray",
+                  "icon": "ashtray.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              },
+              {
+                  "subcategory_id": "smoking-lighter",
+                  "subcategory_name": "Lighter",
+                  "icon": "lighter.png",
+                  "price_flag": 0,
+                  "quantity_flag": 0,
+                  "price": 0,
+                  "status": 0
+              }
+          ],
+          "status": 0
+      }
   ],
-  "discount": [15, 10, 8],
+  "discount": [
+      0,
+      0,
+      0
+  ],
+  "restaurant_certificates": [],
+  "account_details": [],
+  "tax_details": [],
+  "preparation_time": [],
+  "type": 3,
   "delivery_time": 20,
-  "fees": [
-    {
-      "id": "delivery",
-      "status": 1,
-      "name": "Delivery Fee",
-      "tax": 0,
-      "data": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
-    },
-    {
-      "status": 1,
-      "type": "percentage",
-      "order_type": [0, 1, 2],
-      "data": {
-        "percentage_amount": 10,
-      },
-      "tax": 0,
-      "applicable_on": ["category"],
-      "applicable_cat": [
-        "36adbd9eb76ab27f1eafc961de53f5e57fea2ab7eaa9e0b3cbee3b2dc14a7e45",
-        "3049ab65a9bde42a14ac21576fe50d568c914008e0b00f9c9e30e3afeb9898a2",
-        "932f91ab5f188bd505d5d3da403033e2af70af8058d6b19d4c682090769949b3",
-        "d9e85b37fe092dd28903f127084a28d5478ce3ebb083d64d583bf803d7787b70",
-        "f3b9abccddda9fe8bda7afef7934ae0872cd122fe5ef473748b68f6d2d437d12",
-        "78a9bb4b006346b6ca45706667f50e68",
-        "b083a3baa1507b476d2701bf9bbfe424",
-        "53a27d70da77e7be012482ee132a4254",
-        "03963afaf3d4eaf243c72b9097828eb6d58cf4a900c30044c414e2c8e72092c5",
-        "1abb496036806253609cdc51eb39ec863821d404b1a3a1759ff8e56680dd464d",
-        "b1d74cbd0f4a3e3b7154e7dc1964f07da5ef1867ae3d9f97dbd73c44213fbcbc",
-        "dbedf2215519de4de695eba0f4c2333efc36d8636e9240c2a8a655c7998e1b90",
-        "ea2394793ff6c1f6fd8fb213b51189f316f8bdb8ea74401b954fd74dac494c62",
-        "18657aac2940168ea784f90a7c9751e799f55e98b83d2e254998f223d7b19503",
-        "d572cc6d11b135694bad795680cbdf3da2f925f395d02ca85510e6e76869779c",
-        "a0ecd8ac83314d2cd3d8e8424f914cc813601fca7cc7566e89c2d012f6dfd8de",
-        "b003350130f2450cb0286d06d6a353a6",
-        "13cd7bd766fc3b5918f98fd318a779d838f218d8e73c82daa4d1e3804802663c",
-        "3427840838b9110ced55420cb8228676ba304b3260d2e5b5a0a4aa629d385fa8",
-        "10f26140e1e4cd64e9a61b2c500e113641dfb923328d20116fee6bfec6ea13c0",
-        "fc675b180b404d14bbb4a8353c9ab58f",
-        "701274df02ae42be82b23f92656a7916",
-        "50fcfb553e4643e89953c0ae7f3f4b88",
-        "388e1a907f0d4146964dfaa47d3cbd64",
-        "c80876c5347e4c61906d7a3324b9a1b2",
-        "2b9d7f6fe49143b5a21eac31841cfd6e",
-        "3d96d92739dfc5efde5fed905443979d4c8d3747932e530daa2aa69dd1013623",
-        "dfa84706e9294a7ebe53093ea80d7eca",
-        "0e1e8501a2ba4d16917df960aaaa170d",
-        "859668b4db0642cda04e071ecf1e0c4f",
-        "d9d5c514eced4d84a1329da3e57514a0",
-        "53dd2eccb98596a56a43ae8094a3364174a0fe9ec974b34cc6e3f8c6f81df76c",
-        "d295a8cdda1866644ff6ff97d934ac31d83ad08584b05302d539663a568cfd61",
-        "880035069b1779a2680ac182af725830654053dda7054d30cd0837eb11bb813a",
-        "edd5da80ce88cc2f22474b756a9067e4b61b2cea70da8e7ce87e63529579bc35",
-        "3ef3df1437efa44dca4a3404272af021db474f133cfce388017c98d61ce2a10d",
-        "eadb536ef34a40da156014f7035d46881defd1a20115ae6649b1e993aa24e3ae",
-        "cec55cfd02857ca0885132510e1187c611217fd46828db83dcef5f07b01a201c",
-        "b53d692bfe6740ef69287a9f68768fce8ef8098e887238cd96118ddb22f1497c",
-        "2acffb7c14d89ce5b58e30d84afbf2a7ccaa2184487176fba5e6d1a81c4b6901",
-        "df6766d85fe321b242ca52b56996c56f51683bb4c8122b7e01f41b50fc09f49c",
-        "01b0494835d8c20af390549702dc02e05aee6165a7c6d11b5ff9a481bec55538",
-        "2545efb2b6a5785a068d7aeabc5a52541f4f4bae5b1a45d0d2b8918de4492501",
-        "d07fa49a6c458d6549786ce0305947ef85be5f8c378a5b1efc796954f8aec52d",
-        "65179aed4f866fdd35a54fc50ce46daaf7abce7b2679bc46a1579ae62f2dbbd6",
-        "48616d97ea23fd19e07fe5ea1272d7c8ab48943dbdb66d6d12955ce38bb8c368",
-        "046d7e28ca734a0e357b01f3601ab2f4d25adc70d8b5f157fe45d30097593a59",
-        "5e669a3e30f0ddc4d424c0f4c41de02fbca7de63acebb66bbc55cf232d534842",
-        "8538ea70e5cc65689965b818cb61c3867636382fde80076f18de2384b76fcb77",
-        "6ea0b96457d83d7d439d66f654bde205253a7d707110230a156bd66fc31a149a",
-        "0e65d13c594669dd5651fc5bcf7df1b147d424112879fcaa601187e5aac83814",
-        "6bb6bc99ab3b14902b6dd74f912c45ea1913171d9326b373f74a23b1bc156d0b",
-        "7660fa8a28fb4e5e9d95061c4377616441baa50dc09296b353075187e6bb5f81",
-        "55113c3a71469375873705679954dc8fe47206dcbf20a5ba9ce715b029973b66",
-        "6dbe3fc8e0577af53273f058043af808d73151999bf2ea4e57143a4a5f6cb43a",
-        "20bb99b156cfafc5f7d3efe8f9427e5ed0d367b2c5b2e459de31d8d166c00a54",
-        "72f289e931428f4dddf1266cdf6b78d4a2e9e461d0c581e59c9ae46b2d375dca",
-        "726f365104dd4ad68d6770679baf85904059a137bb78734946bff689f11c5d4b",
-        "335674ad3ba87e88e424af8a8bbd488749d73c6a8334e82d9ee4f2aa95245871",
-        "8e65edaa722b022e5fdc754b24027fb1235450599065d7119166c8d023f3368f",
-        "f44790a0ce6b8185fd69031a4a25f4aa37c35ba56ba5fbebb6d3e3e77485e730",
-        "3e642409754231a3780ed2f3e07ac1d46dabd95b1c9c2427d65b3a0eecc66744",
-        "0bbaece9772cda53550d50c2c4dc68fd31a066b16cb025ff98ba3f84cf7274ff",
-        "d6bd101a36078294687e66d3ac138e924f2b2c9bcb3d191c20d0fcdb5fc34bf5",
-        "468adcd9e6e71334e71933e9552eac90c269cdaaf3e97b7b902f4e9d6677ed18",
-        "c891e843204ab8d42f5ae66d734fbb78c3a94e6d1a9711fee73c22938e89aff2",
-        "27e3cacf4c7103e3722c97833b1d3faedaebf90f6fd01261dd56f02c304d75b0",
-        "9c015f5539b8f67c678cc9510b16a887b6f78ad269b23977f5a0899cc5c55f54",
-        "84338e354a59b37c3e099644c9d6ef41b528290dff137c0078fd85f8e4b85e76",
-      ],
-      "applicable_subcat": [
-        "6c6f81ca5d0ccee31837ec165de7d5f22b19493bdcff0fe83ac9f40630865e0d",
-        "07cceee095c5c111ea530aa2bfa1fe206981998cb6ca48f1fee0fc49b5ba7da5",
-        "751c709510318e91ce5712a28c994718b5e587ce2ea58e1314be0c54ef14dd5d",
-        "efd360506f9c8a72b4ae53eec0d25695ce7354000b5047bda2c7bde7ee0e450d",
-        "59c36385e3bdd30708fc7cc4ad097a67912d01450e60634fd04fb711ffbc43a0",
-        "e9bed89fe261852160510f336a53abbff5a56685d97fa8481c18d92fc15bd09f",
-        "1c7c564fa20f69f09a8a5c426e5130bcf250f6fac1cfc67250887bf8d31b85a1",
-        "32b379d7cc0d19e1d0d60cf436f42106",
-        "9ba1ebe5df57bb9ede7eaeee791c1d2c",
-        "49f271934bf3781e3086070be6f19133271fba73e3712d4fcb58a664638fba03",
-        "96fcd5c29b0ccc233c380e23cc0a8f96f5b7e3f2d4d9ce77831006e3ce9194ac",
-        "23a65934787b4b51ac8700701a289471",
-        "09a0bb559ac98e05dec4189d8af765b8c6611ab6611713fb1b7ab2d1afc41036",
-        "0255a9b2492e1f36a86c6cb57fcf1f27",
-        "f57cbd9a0aeb63a2e03bd0a23d33d3c6",
-        "72fc01d3457d014c402bdc504f751102",
-        "30dcae5dcdac86e2f79617c3dc75fe1e",
-        "6da0ec1275afad621f3c5c8f8a0582d6",
-        "b19772f287408e249af9908cad9e850a",
-        "df48119dfc5af55f144053edfbad6f04a97045c8e463dfbf273db08354673e92",
-        "2837ee86a17f5e466cf9d10434db79de478ea9cf4eb82aba7ec9ed3c79939595",
-        "828f7eba8f7e080d3c41bf301ebd7d5058661e25f27219d7c334656a75dd6dd5",
-        "b9bed73b9b7b21b921013b9547b5ac2aba1ee4f5a6fe979a88dbdb0c46e98cc7",
-        "6660ca504f0eaf7f638eb2557c44a69e9a0277a151a9eee3a0c0e9d54a629fb3",
-        "720cd113467554667cc68c0a8f071373b97d3a72b5055a5f03712cfe4c9e91fd",
-        "6c10b9e7aac14da0731e240a6824e8fcccfe7bd163a9fc31b6085d5fdb37e653",
-        "9f40e1d49621777a21238d6e1bc7a07fd226d0ad1b1f13e1cc107f6087711b29",
-        "5f482a4151554f71b2d0938fbea73760",
-        "d02477316369b8300a6df1b15dfba20efd7cf50b11f7558dcd27a7c7ca1c27d6",
-        "b866953448344023a602e874c2d421d1",
-        "cdedfe2f73ac4c62a820415f72171392",
-        "6c061e6aba364e5bbc049117c8c04439",
-        "eaa29b57f16249ebac01a17008c3298d",
-        "2b84af8eaf284140bf26bc2e5baeb694",
-        "b679a490e5834604b0bb775e728e8c29",
-        "8b2d101589a9831994e26c920bf51e633d84a69ec3c5572eb50d75cf283ca280",
-        "bd4452d3f812432ea0013ad428b690de",
-        "10a988ce189f4c6fb9ed050a19b25a6b",
-        "f6a74cceb2f143d8bbc714de34a15242",
-        "20fd5ea0670342b396bc479cd9ab8c40",
-        "3c4349b1be354a3f913d4f9c4d079944",
-        "ca8de6f9b1ea4412829b8dd475626b11",
-        "a163a18d199b4d9488ba79732a3accfb",
-        "8c7c12cbc0b64dd4a86139991ebb1040",
-        "1b55c804c9504c7fb9e4f598afe8df68",
-        "ee182b7838fb4a57a50d28649aa882f0",
-        "d6b778938d8841c6b63eb0828b4126ab",
-        "0db4c60743eb42b399a48c887efe5cd0",
-        "c8d8a4ed8b795c95596ee7690bee60658f26f7ba314696ed7e8866b0cd5dca55",
-        "62d0df20b077c71b1729e2601cb1dd0c48ebaac43af76349f93592d4cf457902",
-        "3ec3e10eef27372d30e88d71930b4db8f6dad39bc8d07e259f3b8160c32b66b0",
-        "9ae4be53be34492d28ea9e4303ff2b54b5e4102ab78b3c50c03e5424f03a7738",
-        "e59280a26bccc4ba48efc2107750d1508288724d8abf31f8efb12dc358d65665",
-        "07f364052755481bc450cdd71a3c0892eea667320fbaf0ba7d0f214cc8e3701a",
-        "ba411cc89857bb8fbf0c4cdb2e6b3ae89695999ad1d8dced0cc2927952f04150",
-        "9bec5257d648398b20f33d58d133574aefb2844df898b188d06252b359893db1",
-        "30e5658e53dd07e3165e95e15179e5eec98ec3017552ff3a32026309787a985c",
-      ],
-      "class": "service_tax",
-      "id": "service_tax",
-      "name": "Service Charge",
-    },
-    {
-      "status": 1,
-      "type": "percentage",
-      "order_type": [0, 1, 2],
-      "data": {
-        "percentage_amount": 6,
-      },
-      "tax": 0,
-      "applicable_on": ["order"],
-      "applicable_cat": [],
-      "applicable_subcat": [],
-      "class": "sst_tax",
-      "id": "sst_tax",
-      "name": "SST",
-    },
-    {
-      "status": 1,
-      "type": "percentage",
-      "order_type": [2],
-      "data": {
-        "percentage_amount": 1,
-      },
-      "tax": 0,
-      "applicable_on": ["category"],
-      "applicable_cat": [
-        "36adbd9eb76ab27f1eafc961de53f5e57fea2ab7eaa9e0b3cbee3b2dc14a7e45",
-        "3049ab65a9bde42a14ac21576fe50d568c914008e0b00f9c9e30e3afeb9898a2",
-        "932f91ab5f188bd505d5d3da403033e2af70af8058d6b19d4c682090769949b3",
-        "d9e85b37fe092dd28903f127084a28d5478ce3ebb083d64d583bf803d7787b70",
-        "f3b9abccddda9fe8bda7afef7934ae0872cd122fe5ef473748b68f6d2d437d12",
-        "78a9bb4b006346b6ca45706667f50e68",
-        "b083a3baa1507b476d2701bf9bbfe424",
-        "53a27d70da77e7be012482ee132a4254",
-        "03963afaf3d4eaf243c72b9097828eb6d58cf4a900c30044c414e2c8e72092c5",
-        "1abb496036806253609cdc51eb39ec863821d404b1a3a1759ff8e56680dd464d",
-        "b1d74cbd0f4a3e3b7154e7dc1964f07da5ef1867ae3d9f97dbd73c44213fbcbc",
-        "dbedf2215519de4de695eba0f4c2333efc36d8636e9240c2a8a655c7998e1b90",
-        "ea2394793ff6c1f6fd8fb213b51189f316f8bdb8ea74401b954fd74dac494c62",
-        "18657aac2940168ea784f90a7c9751e799f55e98b83d2e254998f223d7b19503",
-        "d572cc6d11b135694bad795680cbdf3da2f925f395d02ca85510e6e76869779c",
-        "a0ecd8ac83314d2cd3d8e8424f914cc813601fca7cc7566e89c2d012f6dfd8de",
-        "b003350130f2450cb0286d06d6a353a6",
-        "13cd7bd766fc3b5918f98fd318a779d838f218d8e73c82daa4d1e3804802663c",
-        "3427840838b9110ced55420cb8228676ba304b3260d2e5b5a0a4aa629d385fa8",
-        "10f26140e1e4cd64e9a61b2c500e113641dfb923328d20116fee6bfec6ea13c0",
-        "fc675b180b404d14bbb4a8353c9ab58f",
-        "701274df02ae42be82b23f92656a7916",
-        "50fcfb553e4643e89953c0ae7f3f4b88",
-        "388e1a907f0d4146964dfaa47d3cbd64",
-        "c80876c5347e4c61906d7a3324b9a1b2",
-        "2b9d7f6fe49143b5a21eac31841cfd6e",
-        "3d96d92739dfc5efde5fed905443979d4c8d3747932e530daa2aa69dd1013623",
-        "dfa84706e9294a7ebe53093ea80d7eca",
-        "0e1e8501a2ba4d16917df960aaaa170d",
-        "859668b4db0642cda04e071ecf1e0c4f",
-        "d9d5c514eced4d84a1329da3e57514a0",
-        "53dd2eccb98596a56a43ae8094a3364174a0fe9ec974b34cc6e3f8c6f81df76c",
-        "d295a8cdda1866644ff6ff97d934ac31d83ad08584b05302d539663a568cfd61",
-        "880035069b1779a2680ac182af725830654053dda7054d30cd0837eb11bb813a",
-        "edd5da80ce88cc2f22474b756a9067e4b61b2cea70da8e7ce87e63529579bc35",
-        "3ef3df1437efa44dca4a3404272af021db474f133cfce388017c98d61ce2a10d",
-        "eadb536ef34a40da156014f7035d46881defd1a20115ae6649b1e993aa24e3ae",
-        "cec55cfd02857ca0885132510e1187c611217fd46828db83dcef5f07b01a201c",
-        "b53d692bfe6740ef69287a9f68768fce8ef8098e887238cd96118ddb22f1497c",
-        "2acffb7c14d89ce5b58e30d84afbf2a7ccaa2184487176fba5e6d1a81c4b6901",
-        "df6766d85fe321b242ca52b56996c56f51683bb4c8122b7e01f41b50fc09f49c",
-        "01b0494835d8c20af390549702dc02e05aee6165a7c6d11b5ff9a481bec55538",
-        "2545efb2b6a5785a068d7aeabc5a52541f4f4bae5b1a45d0d2b8918de4492501",
-        "d07fa49a6c458d6549786ce0305947ef85be5f8c378a5b1efc796954f8aec52d",
-        "65179aed4f866fdd35a54fc50ce46daaf7abce7b2679bc46a1579ae62f2dbbd6",
-        "48616d97ea23fd19e07fe5ea1272d7c8ab48943dbdb66d6d12955ce38bb8c368",
-        "046d7e28ca734a0e357b01f3601ab2f4d25adc70d8b5f157fe45d30097593a59",
-        "5e669a3e30f0ddc4d424c0f4c41de02fbca7de63acebb66bbc55cf232d534842",
-        "8538ea70e5cc65689965b818cb61c3867636382fde80076f18de2384b76fcb77",
-        "6ea0b96457d83d7d439d66f654bde205253a7d707110230a156bd66fc31a149a",
-        "0e65d13c594669dd5651fc5bcf7df1b147d424112879fcaa601187e5aac83814",
-        "6bb6bc99ab3b14902b6dd74f912c45ea1913171d9326b373f74a23b1bc156d0b",
-        "7660fa8a28fb4e5e9d95061c4377616441baa50dc09296b353075187e6bb5f81",
-        "55113c3a71469375873705679954dc8fe47206dcbf20a5ba9ce715b029973b66",
-        "6dbe3fc8e0577af53273f058043af808d73151999bf2ea4e57143a4a5f6cb43a",
-        "20bb99b156cfafc5f7d3efe8f9427e5ed0d367b2c5b2e459de31d8d166c00a54",
-        "72f289e931428f4dddf1266cdf6b78d4a2e9e461d0c581e59c9ae46b2d375dca",
-        "726f365104dd4ad68d6770679baf85904059a137bb78734946bff689f11c5d4b",
-        "335674ad3ba87e88e424af8a8bbd488749d73c6a8334e82d9ee4f2aa95245871",
-        "8e65edaa722b022e5fdc754b24027fb1235450599065d7119166c8d023f3368f",
-        "f44790a0ce6b8185fd69031a4a25f4aa37c35ba56ba5fbebb6d3e3e77485e730",
-        "3e642409754231a3780ed2f3e07ac1d46dabd95b1c9c2427d65b3a0eecc66744",
-        "0bbaece9772cda53550d50c2c4dc68fd31a066b16cb025ff98ba3f84cf7274ff",
-        "d6bd101a36078294687e66d3ac138e924f2b2c9bcb3d191c20d0fcdb5fc34bf5",
-        "468adcd9e6e71334e71933e9552eac90c269cdaaf3e97b7b902f4e9d6677ed18",
-        "c891e843204ab8d42f5ae66d734fbb78c3a94e6d1a9711fee73c22938e89aff2",
-        "27e3cacf4c7103e3722c97833b1d3faedaebf90f6fd01261dd56f02c304d75b0",
-        "9c015f5539b8f67c678cc9510b16a887b6f78ad269b23977f5a0899cc5c55f54",
-        "085f432582cd8013f31f8286ffb0901609d5a6135a80ff0056a56dd9c211afc8",
-        "84338e354a59b37c3e099644c9d6ef41b528290dff137c0078fd85f8e4b85e76",
-      ],
-      "applicable_subcat": [
-        "6c6f81ca5d0ccee31837ec165de7d5f22b19493bdcff0fe83ac9f40630865e0d",
-        "07cceee095c5c111ea530aa2bfa1fe206981998cb6ca48f1fee0fc49b5ba7da5",
-        "751c709510318e91ce5712a28c994718b5e587ce2ea58e1314be0c54ef14dd5d",
-        "efd360506f9c8a72b4ae53eec0d25695ce7354000b5047bda2c7bde7ee0e450d",
-        "59c36385e3bdd30708fc7cc4ad097a67912d01450e60634fd04fb711ffbc43a0",
-        "e9bed89fe261852160510f336a53abbff5a56685d97fa8481c18d92fc15bd09f",
-        "1c7c564fa20f69f09a8a5c426e5130bcf250f6fac1cfc67250887bf8d31b85a1",
-        "32b379d7cc0d19e1d0d60cf436f42106",
-        "9ba1ebe5df57bb9ede7eaeee791c1d2c",
-        "49f271934bf3781e3086070be6f19133271fba73e3712d4fcb58a664638fba03",
-        "96fcd5c29b0ccc233c380e23cc0a8f96f5b7e3f2d4d9ce77831006e3ce9194ac",
-        "23a65934787b4b51ac8700701a289471",
-        "09a0bb559ac98e05dec4189d8af765b8c6611ab6611713fb1b7ab2d1afc41036",
-        "0255a9b2492e1f36a86c6cb57fcf1f27",
-        "f57cbd9a0aeb63a2e03bd0a23d33d3c6",
-        "72fc01d3457d014c402bdc504f751102",
-        "30dcae5dcdac86e2f79617c3dc75fe1e",
-        "6da0ec1275afad621f3c5c8f8a0582d6",
-        "b19772f287408e249af9908cad9e850a",
-        "df48119dfc5af55f144053edfbad6f04a97045c8e463dfbf273db08354673e92",
-        "2837ee86a17f5e466cf9d10434db79de478ea9cf4eb82aba7ec9ed3c79939595",
-        "828f7eba8f7e080d3c41bf301ebd7d5058661e25f27219d7c334656a75dd6dd5",
-        "b9bed73b9b7b21b921013b9547b5ac2aba1ee4f5a6fe979a88dbdb0c46e98cc7",
-        "6660ca504f0eaf7f638eb2557c44a69e9a0277a151a9eee3a0c0e9d54a629fb3",
-        "720cd113467554667cc68c0a8f071373b97d3a72b5055a5f03712cfe4c9e91fd",
-        "6c10b9e7aac14da0731e240a6824e8fcccfe7bd163a9fc31b6085d5fdb37e653",
-        "9f40e1d49621777a21238d6e1bc7a07fd226d0ad1b1f13e1cc107f6087711b29",
-        "5f482a4151554f71b2d0938fbea73760",
-        "d02477316369b8300a6df1b15dfba20efd7cf50b11f7558dcd27a7c7ca1c27d6",
-        "b866953448344023a602e874c2d421d1",
-        "cdedfe2f73ac4c62a820415f72171392",
-        "6c061e6aba364e5bbc049117c8c04439",
-        "eaa29b57f16249ebac01a17008c3298d",
-        "2b84af8eaf284140bf26bc2e5baeb694",
-        "b679a490e5834604b0bb775e728e8c29",
-        "8b2d101589a9831994e26c920bf51e633d84a69ec3c5572eb50d75cf283ca280",
-        "bd4452d3f812432ea0013ad428b690de",
-        "10a988ce189f4c6fb9ed050a19b25a6b",
-        "f6a74cceb2f143d8bbc714de34a15242",
-        "20fd5ea0670342b396bc479cd9ab8c40",
-        "3c4349b1be354a3f913d4f9c4d079944",
-        "ca8de6f9b1ea4412829b8dd475626b11",
-        "a163a18d199b4d9488ba79732a3accfb",
-        "8c7c12cbc0b64dd4a86139991ebb1040",
-        "1b55c804c9504c7fb9e4f598afe8df68",
-        "ee182b7838fb4a57a50d28649aa882f0",
-        "d6b778938d8841c6b63eb0828b4126ab",
-        "0db4c60743eb42b399a48c887efe5cd0",
-        "c8d8a4ed8b795c95596ee7690bee60658f26f7ba314696ed7e8866b0cd5dca55",
-        "62d0df20b077c71b1729e2601cb1dd0c48ebaac43af76349f93592d4cf457902",
-        "3ec3e10eef27372d30e88d71930b4db8f6dad39bc8d07e259f3b8160c32b66b0",
-        "9ae4be53be34492d28ea9e4303ff2b54b5e4102ab78b3c50c03e5424f03a7738",
-        "e59280a26bccc4ba48efc2107750d1508288724d8abf31f8efb12dc358d65665",
-        "07f364052755481bc450cdd71a3c0892eea667320fbaf0ba7d0f214cc8e3701a",
-        "ba411cc89857bb8fbf0c4cdb2e6b3ae89695999ad1d8dced0cc2927952f04150",
-        "9bec5257d648398b20f33d58d133574aefb2844df898b188d06252b359893db1",
-        "30e5658e53dd07e3165e95e15179e5eec98ec3017552ff3a32026309787a985c",
-      ],
-      "class": "packaging_charge",
-      "id": "packaging_charge_Sibm",
-      "name": "Packaging Charges",
-      "sub_name": "Packaging Charges",
-    },
-  ],
+  "fee": [],
+  "status": 1,
+  "nameid": "caravan-dev",
   "deliverylimit": 40,
-  "delivery_partner": [
-    {
-      "partner_id": "1",
-      "partner_name": "mrspeedy",
-      "priority": 1,
-      "status": 0,
-    },
-    {
-      "partner_id": "2",
-      "partner_name": "lalamove",
-      "priority": 2,
-      "status": 0,
-    },
-    {
-      "partner_id": "3",
-      "partner_name": "grab",
-      "priority": 0,
-      "status": 1,
-    },
-  ],
-  "preparation_time": 20,
-  "config_timings": [
-    {
-      "name": "Full Day",
-      "id": "1632730729475Full_Day",
-      "timing": [0, 1439],
-    },
-    {
-      "name": "Shift1",
-      "id": "1632755612478Shift1",
-      "timing": [0, 719],
-    },
-    {
-      "name": "Shift2",
-      "id": "1633325892997Shift2",
-      "timing": [780, 1439],
-    },
-    {
-      "name": "shift3",
-      "id": "1635491521936shift3",
-      "timing": [60, 1380],
-    },
-    {
-      "name": "Morning shift",
-      "id": "1637579090533Morning_shift",
-      "timing": [540, 680],
-    },
-    {
-      "name": "Evening shift",
-      "id": "1637579090533Evening_shift",
-      "timing": [975, 1260],
-    },
-  ],
-  "rest_timings": {
-    "DELIVERY": [
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-    ],
-    "DINING": [
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-    ],
-    "TAKEAWAY": [
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-      {
-        "is_enabled": true,
-        "slot": [
-          {
-            "start": 0,
-            "end": 1439,
-          },
-        ],
-      },
-    ],
+  "on_whatsapp": 1,
+  "geo_location": {
+      "type": "Point",
+      "coordinates": [
+          101.5153446,
+          3.0766184
+      ]
   },
   "restaurant_open_days": [
-    ["1632730729475Full_Day"],
-    ["1632730729475Full_Day", "1635491521936shift3", "1632755612478Shift1"],
-    ["1632730729475Full_Day"],
-    ["1632730729475Full_Day"],
-    ["1632730729475Full_Day"],
-    ["1635491521936shift3", "1632730729475Full_Day", "1632755612478Shift1"],
-    ["1637579090533Morning_shift", "1637579090533Evening_shift", "1632730729475Full_Day"],
+      [
+          "1639329894782Break_fast"
+      ],
+      [],
+      [
+          "1639329894782Break_fast"
+      ],
+      [
+          "1639329894782Break_fast"
+      ],
+      [
+          "1639329894782Break_fast"
+      ],
+      [
+          "1639329894782Break_fast"
+      ],
+      [
+          "1639329894782Break_fast"
+      ]
+  ],
+  "config_timings": [
+      {
+          "name": "Dinner",
+          "id": "1640001825607Dinner",
+          "timing": [
+              0,
+              1439
+          ]
+      }
   ],
   "time_zone": "Asia/Kuala_Lumpur",
-  "next_open_epoch": 1639410708,
-  "working_days": [
-    {
-      "day": 0,
-      "time": [0, 1440],
-    },
-    {
-      "day": 1,
-      "time": [0, 1440],
-    },
-    {
-      "day": 2,
-      "time": [0, 1440],
-    },
-    {
-      "day": 3,
-      "time": [0, 1440],
-    },
-    {
-      "day": 4,
-      "time": [0, 1440],
-    },
-    {
-      "day": 5,
-      "time": [0, 1440],
-    },
-    {
-      "day": 6,
-      "time": [0, 1440],
-    },
-  ],
+  "next_open_epoch": 1642484067,
   "mall": "empress",
   "foodcourt": "empress",
-  "sub_domain": "empress",
+  "delivery_partner": [
+      {
+          "partner_id": "1",
+          "partner_name": "mrspeedy",
+          "priority": 1,
+          "status": 1
+      },
+      {
+          "partner_id": "2",
+          "partner_name": "lalamove",
+          "priority": 2,
+          "status": 0
+      },
+      {
+          "partner_id": "3",
+          "partner_name": "grab",
+          "priority": 0,
+          "status": 0
+      }
+  ],
+  "base_roundoff": 0.05,
   "addons": [
-    {
-      "id": "1",
-      "name": "mayo",
-      "price": 0,
-      "printer": "Addon Printer",
-      "itemids": [
-        "eb8ef5297ac5fcb690237d324198c6ec",
-        "7bbf432bb559fb4776a4c6c21e306a0b",
-        "2a2ba1332672199cabe6b19186448ee7",
-        "1b01fb55ee30a97b5a72fdec45b391f3",
-        "6c4ff95126c44a2eb0e01b1cb155809d",
-        "b460dbc309ba4ed0979838cf701ac54e",
-        "0f4902b3d9744062bbeaceb9c1abc6fe",
-        "7b8c9c5acacc160ef0fed27ff278e074521a67732c6187dd40c98fd58b33ff26",
-        "1e130b7faecd4ddd8a6468057df5f073",
-        "a5da2721bfe4482bbfa14a72957c4e21",
-        "9ed803b2fbb4478593f06f046485d972",
-        "8b10313806c54acebdb5851543cdf533",
-        "675dfa4f09b24870a02431733c72fd1d",
-        "624112975c7247c3a72e500ac7bd07a5",
-        "5c08a61dc8c7415f936099a68964ee99",
-        "89381a24da5145c7b246bc8fff2342a3",
-        "cb61c5dfb8714d1f9ffc6bff2fc155a1",
-        "dc194e0fca09430086d1f4a8ecffb9d2",
-        "d5e442377d704dcda2386867539967b3",
-        "c38055cbc3824a648825e18807e36f74",
-        "40cac0f2de7d458c900e031debef4959",
-        "7687932fda5c462ea25ced5cd47aca34",
-        "58a39c106fc14ba8835d9f78fd761855",
-        "40c820f8d7674456b0b432b02f5a6d70",
-        "e44f61dff91f478db4384ce6022aa6e8",
-        "9151f0964d85f8da0fc9ad9a2371daa4fdf3c16cc060bb41257aefed6b8c9c22",
-        "8d3ade2f9a58288a11d0346d6f2108c2",
-        "14f6089a551e4e94b84ad04651cc5eeb",
-        "07acab141e414ca4bd27937df5478271",
-        "90e1ff7aa3174393986c7efc5fe78737",
-        "ccfc9445d1b54cbd9b0f887f2687ed7a",
-        "d2bee05d778c45388f25991323106b14",
-        "f0663ab114ea402cb41734a047249e9c",
-        "ecccb2709bb744c08254987237468645",
-        "5c8b4cf87d294991acb2eb4d4fe18518",
-        "9181aa8d81a74ca28a1a7b231b8906a6",
-        "155a6db75c854399a2081e21a1cf1375",
-        "965f36ef31f84c068d0159239cb4723c",
-        "1c1dd0007f41495c8a64bf08eb0c77e7",
-        "cbb88cb6d09e4fdd9d5b44aae600a133",
-        "69cf0f4982b44db4a215071c6d2e8b85",
-        "b8adea02985f49dd80fd8c3a49d6d211",
-        "25e0534df0d23d91090dfaea0d02d5a6",
-        "9a5d09fd014942c0b426da85eb3238d3",
-      ],
-    },
-    {
-      "id": "s1",
-      "name": "DOUBLE MEAT",
-      "price": 5.2,
-      "itemids": [
-        "20961749b0952288bc5e49ac0a918701",
-        "6c4ff95126c44a2eb0e01b1cb155809d",
-        "f5bf5d1793454098aa5b3783229de560",
-        "5aac08f0e0c341f1817439655859acd6",
-        "6d7ccd4b22684b5fa9759cbc1bd6f7e5",
-        "1e130b7faecd4ddd8a6468057df5f073",
-        "1c1dd0007f41495c8a64bf08eb0c77e7",
-        "69cf0f4982b44db4a215071c6d2e8b85",
-        "452f830897554ffca72d3841be00cfa5",
-        "d8e299eb38514ad8819d4637f2279549",
-        "bc89d9ef369943ba961abd36770c702d",
-        "feba889444bd4d6ca8ffd9cf51fd2bf1",
-        "32df4861789092b464477cbea03161c6",
-        "3851e9cf90574711afc27cd2720ef346",
-      ],
-    },
-    {
-      "id": "s2",
-      "name": "Streaky Chicken Strips",
-      "price": 2.85,
-      "itemids": [
-        "20961749b0952288bc5e49ac0a918701",
-        "5aac08f0e0c341f1817439655859acd6",
-        "1e130b7faecd4ddd8a6468057df5f073",
-        "69cf0f4982b44db4a215071c6d2e8b85",
-        "452f830897554ffca72d3841be00cfa5",
-        "d8e299eb38514ad8819d4637f2279549",
-        "bc89d9ef369943ba961abd36770c702d",
-        "32df4861789092b464477cbea03161c6",
-      ],
-    },
-    {
-      "id": "s23",
-      "name": "Extra Cheese",
-      "price": 1.8,
-      "itemids": [
-        "20961749b0952288bc5e49ac0a918701",
-        "0f4902b3d9744062bbeaceb9c1abc6fe",
-        "f5bf5d1793454098aa5b3783229de560",
-        "5aac08f0e0c341f1817439655859acd6",
-        "6d7ccd4b22684b5fa9759cbc1bd6f7e5",
-        "9fee5c6667d741aa89b2fd59b0ebc9ff",
-        "1e130b7faecd4ddd8a6468057df5f073",
-        "07acab141e414ca4bd27937df5478271",
-        "cbb88cb6d09e4fdd9d5b44aae600a133",
-        "69cf0f4982b44db4a215071c6d2e8b85",
-        "452f830897554ffca72d3841be00cfa5",
-        "feba889444bd4d6ca8ffd9cf51fd2bf1",
-        "32df4861789092b464477cbea03161c6",
-      ],
-    },
-    {
-      "id": "s3",
-      "name": "Avocado",
-      "price": 3,
-      "itemids": [
-        "20961749b0952288bc5e49ac0a918701",
-        "0eb964b2ad4b429cf14dd6462b242b02",
-        "5aac08f0e0c341f1817439655859acd6",
-        "6d7ccd4b22684b5fa9759cbc1bd6f7e5",
-        "7b8c9c5acacc160ef0fed27ff278e074521a67732c6187dd40c98fd58b33ff26",
-        "1e130b7faecd4ddd8a6468057df5f073",
-        "2a2ba1332672199cabe6b19186448ee7",
-        "07acab141e414ca4bd27937df5478271",
-        "cbb88cb6d09e4fdd9d5b44aae600a133",
-        "452f830897554ffca72d3841be00cfa5",
-        "feba889444bd4d6ca8ffd9cf51fd2bf1",
-        "32df4861789092b464477cbea03161c6",
-      ],
-    },
-    {
-      "id": "s4",
-      "name": "Chopped Mushroom",
-      "price": 2.5,
-      "itemids": [
-        "20961749b0952288bc5e49ac0a918701",
-        "b90a1f5a65604ee5b95c050f86e0e048",
-        "f5bf5d1793454098aa5b3783229de560",
-        "1e130b7faecd4ddd8a6468057df5f073",
-        "07acab141e414ca4bd27937df5478271",
-        "9c4ff5581c824ee98dd756a812f3b8a4",
-        "cbb88cb6d09e4fdd9d5b44aae600a133",
-        "32df4861789092b464477cbea03161c6",
-      ],
-    },
-    {
-      "id": "s5",
-      "name": "LETTUCE",
-      "price": 0,
-      "itemids": [
-        "20961749b0952288bc5e49ac0a918701",
-        "0eb964b2ad4b429cf14dd6462b242b02",
-        "7b8c9c5acacc160ef0fed27ff278e074521a67732c6187dd40c98fd58b33ff26",
-        "a9caee4ca86b4c579378d2fa16dbc38d",
-        "1e130b7faecd4ddd8a6468057df5f073",
-      ],
-    },
-    {
-      "id": "s6",
-      "name": "TOMATOES",
-      "price": 0,
-      "itemids": ["20961749b0952288bc5e49ac0a918701", "a9caee4ca86b4c579378d2fa16dbc38d", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "s7",
-      "name": "CUCUMBER",
-      "price": 0,
-      "itemids": ["20961749b0952288bc5e49ac0a918701", "a9caee4ca86b4c579378d2fa16dbc38d", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "s8",
-      "name": "GREEN PEPPERS",
-      "price": 0,
-      "itemids": ["20961749b0952288bc5e49ac0a918701", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "s9",
-      "name": "ONIONS",
-      "price": 0,
-      "itemids": ["20961749b0952288bc5e49ac0a918701", "a9caee4ca86b4c579378d2fa16dbc38d", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "s10",
-      "name": "PICKLES",
-      "price": 0,
-      "itemids": ["20961749b0952288bc5e49ac0a918701", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "s11",
-      "name": "OLIVES",
-      "price": 0,
-      "itemids": ["20961749b0952288bc5e49ac0a918701", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "s12",
-      "name": "JALAPENOS",
-      "price": 0,
-      "itemids": ["20961749b0952288bc5e49ac0a918701", "a9caee4ca86b4c579378d2fa16dbc38d", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "l1",
-      "name": "DOUBLE MEAT",
-      "price": 9.9,
-      "itemids": ["825be9c7941a1007dee32efee913f29d", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "l2",
-      "name": "Streaky Chicken Strips",
-      "price": 5.2,
-      "itemids": ["825be9c7941a1007dee32efee913f29d", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "l23",
-      "name": "Extra Cheese",
-      "price": 3.1,
-      "itemids": ["825be9c7941a1007dee32efee913f29d", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "l3",
-      "name": "Avocado",
-      "price": 5.5,
-      "itemids": [
-        "825be9c7941a1007dee32efee913f29d",
-        "3d124e0766f644b597cba2c1d7c32ba0",
-        "dfeb13cbc73b4da1942e2336d2295b40",
-        "855e167d6d7540f89e3798172916a3a1",
-        "8a4825a3ee1e4636b433fcf10810da4b",
-        "1e130b7faecd4ddd8a6468057df5f073",
-      ],
-    },
-    {
-      "id": "l4",
-      "name": "Chopped Mushroom",
-      "price": 4.5,
-      "itemids": ["825be9c7941a1007dee32efee913f29d", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "g1",
-      "name": "Thousand Island",
-      "price": 0,
-      "itemids": ["825be9c7941a1007dee32efee913f29d"],
-    },
-    {
-      "id": "g2",
-      "name": "Mayonnaise",
-      "price": 0,
-      "itemids": [
-        "825be9c7941a1007dee32efee913f29d",
-        "3d124e0766f644b597cba2c1d7c32ba0",
-        "dfeb13cbc73b4da1942e2336d2295b40",
-        "855e167d6d7540f89e3798172916a3a1",
-        "8a4825a3ee1e4636b433fcf10810da4b",
-        "bf1f70c499dc4039b066790f5a99adfd",
-        "2684990cd3984028979ad64c88fe838f",
-        "6541bc343a104b30aa3c6c009002dad0",
-      ],
-    },
-    {
-      "id": "g3",
-      "name": "BBQ",
-      "price": 0,
-      "itemids": ["825be9c7941a1007dee32efee913f29d", "788292b77ec24a658aba0455ceb71ac0"],
-    },
-    {
-      "id": "g4",
-      "name": "Chili",
-      "price": 0,
-      "itemids": ["825be9c7941a1007dee32efee913f29d", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "g5",
-      "name": "Sweet Onion",
-      "price": 0,
-      "itemids": ["825be9c7941a1007dee32efee913f29d", "a9caee4ca86b4c579378d2fa16dbc38d"],
-    },
-    {
-      "id": "g6",
-      "name": "Honey Mustard",
-      "price": 0,
-      "itemids": ["825be9c7941a1007dee32efee913f29d"],
-    },
-    {
-      "id": "g7",
-      "name": "Ranch",
-      "price": 0,
-      "itemids": ["825be9c7941a1007dee32efee913f29d", "3d124e0766f644b597cba2c1d7c32ba0", "dfeb13cbc73b4da1942e2336d2295b40", "855e167d6d7540f89e3798172916a3a1", "8a4825a3ee1e4636b433fcf10810da4b"],
-    },
-    {
-      "id": "g8",
-      "name": "Chipotle Southwest",
-      "price": 0,
-      "itemids": ["825be9c7941a1007dee32efee913f29d"],
-    },
-    {
-      "id": "g9",
-      "name": "Salt",
-      "price": 0,
-      "itemids": ["825be9c7941a1007dee32efee913f29d", "a9caee4ca86b4c579378d2fa16dbc38d"],
-    },
-    {
-      "id": "g10",
-      "name": "Pepper",
-      "price": 0,
-      "itemids": [
-        "825be9c7941a1007dee32efee913f29d",
-        "248d03b537394f31bc16c2fc4e55bdef",
-        "3d124e0766f644b597cba2c1d7c32ba0",
-        "dfeb13cbc73b4da1942e2336d2295b40",
-        "855e167d6d7540f89e3798172916a3a1",
-        "8a4825a3ee1e4636b433fcf10810da4b",
-        "7b8c9c5acacc160ef0fed27ff278e074521a67732c6187dd40c98fd58b33ff26",
-      ],
-    },
-    {
-      "id": "g11",
-      "name": "Chili Flakes",
-      "price": 0,
-      "itemids": ["825be9c7941a1007dee32efee913f29d", "248d03b537394f31bc16c2fc4e55bdef"],
-    },
-    {
-      "name": "bbbbbb",
-      "price": 10,
-      "id": "2v0f6ns",
-      "status": 1,
-      "itemids": ["3d124e0766f644b597cba2c1d7c32ba0", "dfeb13cbc73b4da1942e2336d2295b40", "855e167d6d7540f89e3798172916a3a1", "8a4825a3ee1e4636b433fcf10810da4b"],
-    },
-    {
-      "name": "Faluda",
-      "price": 10,
-      "id": "vhoah4n",
-      "status": 1,
-      "itemids": ["248d03b537394f31bc16c2fc4e55bdef", "bf1f70c499dc4039b066790f5a99adfd", "2684990cd3984028979ad64c88fe838f", "6541bc343a104b30aa3c6c009002dad0", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "name": "kari patta",
-      "price": 2,
-      "id": "vm2b7742bh",
-      "status": 1,
-      "itemids": ["2a2ba1332672199cabe6b19186448ee7", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "name": "Penne",
-      "price": 10,
-      "id": "sqfqlfuxr2",
-      "status": 1,
-      "itemids": ["bf1f70c499dc4039b066790f5a99adfd", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "name": "Penne",
-      "price": 10,
-      "id": "0dxiymyo4x",
-      "status": 1,
-      "itemids": ["6541bc343a104b30aa3c6c009002dad0", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "name": "Chocobar",
-      "price": 11,
-      "id": "qnq3ef6zy2",
-      "status": 1,
-      "itemids": ["b90a1f5a65604ee5b95c050f86e0e048", "1ae3d481797d4539b73a2c5155242190", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "name": "Faluda",
-      "price": 11,
-      "id": "m62dyitdz7",
-      "status": 1,
-      "itemids": ["1ae3d481797d4539b73a2c5155242190", "1e130b7faecd4ddd8a6468057df5f073"],
-    },
-    {
-      "id": "um5lwv48n1",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["a5da2721bfe4482bbfa14a72957c4e21"],
-    },
-    {
-      "id": "lla1lujonn",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["a5da2721bfe4482bbfa14a72957c4e21"],
-    },
-    {
-      "id": "w7joxrq4p7",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["9ed803b2fbb4478593f06f046485d972"],
-    },
-    {
-      "id": "xnh8qblx10",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["9ed803b2fbb4478593f06f046485d972"],
-    },
-    {
-      "id": "t965uqb16x",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["8b10313806c54acebdb5851543cdf533"],
-    },
-    {
-      "id": "9dusr2ca4e",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["8b10313806c54acebdb5851543cdf533"],
-    },
-    {
-      "name": "Balloon",
-      "price": 5,
-      "id": "0adtm7e80f",
-      "status": 1,
-      "itemids": ["4c31a6fcf86145d3a92eb58a82515168"],
-    },
-    {
-      "name": "Onion",
-      "price": 1,
-      "id": "mdqr154f3c",
-      "status": 1,
-      "itemids": [],
-    },
-    {
-      "name": "Onion",
-      "price": 1,
-      "id": "ij0xtqoys2",
-      "status": 1,
-      "itemids": ["7b8c9c5acacc160ef0fed27ff278e074521a67732c6187dd40c98fd58b33ff26"],
-    },
-    {
-      "id": "nw1zqd963q",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["624112975c7247c3a72e500ac7bd07a5"],
-    },
-    {
-      "id": "tyv985jnch",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["624112975c7247c3a72e500ac7bd07a5"],
-    },
-    {
-      "id": "0eu6xrks4y",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": [],
-    },
-    {
-      "id": "bp1w9gu5dk",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": [],
-    },
-    {
-      "id": "9bn6lne0qf",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["89381a24da5145c7b246bc8fff2342a3"],
-    },
-    {
-      "id": "ajz25j0ggq",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["89381a24da5145c7b246bc8fff2342a3"],
-    },
-    {
-      "id": "xjegfh839z",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["cb61c5dfb8714d1f9ffc6bff2fc155a1"],
-    },
-    {
-      "id": "hn0j0oxjzn",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["cb61c5dfb8714d1f9ffc6bff2fc155a1"],
-    },
-    {
-      "id": "tfl1urppcc",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": [],
-    },
-    {
-      "id": "24t7igyzyh",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": [],
-    },
-    {
-      "id": "cymyei4gij",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["d5e442377d704dcda2386867539967b3"],
-    },
-    {
-      "id": "sytn7txskr",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["d5e442377d704dcda2386867539967b3"],
-    },
-    {
-      "id": "r2wyrry2qa",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["c38055cbc3824a648825e18807e36f74"],
-    },
-    {
-      "id": "yj82rlo9rc",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["c38055cbc3824a648825e18807e36f74"],
-    },
-    {
-      "id": "sta4sprha7",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["40cac0f2de7d458c900e031debef4959"],
-    },
-    {
-      "id": "aghqyjssoa",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["40cac0f2de7d458c900e031debef4959"],
-    },
-    {
-      "id": "mouqwpeet9",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["7687932fda5c462ea25ced5cd47aca34"],
-    },
-    {
-      "id": "vtvkt387tk",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["7687932fda5c462ea25ced5cd47aca34"],
-    },
-    {
-      "id": "qvkwld3d3g",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["58a39c106fc14ba8835d9f78fd761855"],
-    },
-    {
-      "id": "u5uam1xwy9",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["58a39c106fc14ba8835d9f78fd761855"],
-    },
-    {
-      "id": "oitthy32m0",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["40c820f8d7674456b0b432b02f5a6d70"],
-    },
-    {
-      "id": "mv4nbw1kb8",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["40c820f8d7674456b0b432b02f5a6d70"],
-    },
-    {
-      "id": "wkypw1d7v3",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["e44f61dff91f478db4384ce6022aa6e8"],
-    },
-    {
-      "id": "v4vj6v97ex",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["e44f61dff91f478db4384ce6022aa6e8"],
-    },
-    {
-      "id": "gq8lz3qjwa",
-      "name": "ashu test",
-      "price": 10,
-      "status": 1,
-      "itemids": ["90e1ff7aa3174393986c7efc5fe78737"],
-    },
-    {
-      "id": "iz0gyix47k",
-      "name": "ashu test 2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["90e1ff7aa3174393986c7efc5fe78737"],
-    },
-    {
-      "name": "岩盐",
-      "price": 1,
-      "id": "dus37aqiau",
-      "status": 1,
-      "itemids": ["fc83b5106bff4c4fb9c04e58c1c00573"],
-    },
-    {
-      "name": "柠檬汽水",
-      "price": 2,
-      "id": "jer2785mtg",
-      "status": 1,
-      "itemids": ["fc83b5106bff4c4fb9c04e58c1c00573"],
-    },
-    {
-      "id": "1ll3nbldub",
-      "name": "hq-addon-1",
-      "price": 10,
-      "status": 1,
-      "itemids": ["ccfc9445d1b54cbd9b0f887f2687ed7a"],
-    },
-    {
-      "id": "tey4sksyq9",
-      "name": "hq-addon-2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["ccfc9445d1b54cbd9b0f887f2687ed7a"],
-    },
-    {
-      "id": "tivhw96thi",
-      "name": "hq-addon-1",
-      "price": 10,
-      "status": 1,
-      "itemids": ["d2bee05d778c45388f25991323106b14"],
-    },
-    {
-      "id": "kcemvu5eol",
-      "name": "hq-addon-2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["d2bee05d778c45388f25991323106b14"],
-    },
-    {
-      "id": "vadqahcg4l",
-      "name": "hq-addon-1",
-      "price": 10,
-      "status": 1,
-      "itemids": ["f0663ab114ea402cb41734a047249e9c"],
-    },
-    {
-      "id": "gkcks63j78",
-      "name": "hq-addon-2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["f0663ab114ea402cb41734a047249e9c"],
-    },
-    {
-      "id": "5lmogwd6h6",
-      "name": "hq-addon-1",
-      "price": 10,
-      "status": 1,
-      "itemids": ["ecccb2709bb744c08254987237468645"],
-    },
-    {
-      "id": "812m9csjwz",
-      "name": "hq-addon-2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["ecccb2709bb744c08254987237468645"],
-    },
-    {
-      "id": "deahkizq7h",
-      "name": "hq-addon-1",
-      "price": 10,
-      "status": 1,
-      "itemids": ["5c8b4cf87d294991acb2eb4d4fe18518"],
-    },
-    {
-      "id": "g30x2oar22",
-      "name": "hq-addon-2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["5c8b4cf87d294991acb2eb4d4fe18518"],
-    },
-    {
-      "id": "k4dyt2a3wa",
-      "name": "hq-addon-1",
-      "price": 10,
-      "status": 1,
-      "itemids": ["9181aa8d81a74ca28a1a7b231b8906a6"],
-    },
-    {
-      "id": "941spneb5e",
-      "name": "hq-addon-2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["9181aa8d81a74ca28a1a7b231b8906a6"],
-    },
-    {
-      "id": "6fk0vf03hi",
-      "name": "hq-addon-1",
-      "price": 10,
-      "status": 1,
-      "itemids": ["155a6db75c854399a2081e21a1cf1375"],
-    },
-    {
-      "id": "devlurdfdp",
-      "name": "hq-addon-2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["155a6db75c854399a2081e21a1cf1375"],
-    },
-    {
-      "id": "jvtoymk7va",
-      "name": "hq-addon-1",
-      "price": 10,
-      "status": 1,
-      "itemids": ["965f36ef31f84c068d0159239cb4723c"],
-    },
-    {
-      "id": "u3zktxqzl2",
-      "name": "hq-addon-2",
-      "price": 15,
-      "status": 1,
-      "itemids": ["965f36ef31f84c068d0159239cb4723c"],
-    },
-    {
-      "name": "test1",
-      "price": 2,
-      "id": "bd8sybpsbx",
-      "status": 1,
-      "itemids": ["d8e299eb38514ad8819d4637f2279549"],
-    },
-    {
-      "name": "dum1",
-      "price": 2,
-      "id": "hdpkpv1fg7",
-      "status": 1,
-      "itemids": [],
-    },
-    {
-      "name": "Imrankhan",
-      "price": 12,
-      "id": "hidf1if7qh",
-      "status": 1,
-      "itemids": ["20d04d1b94bc4fb18ba17be0c33ab5c4"],
-    },
+      {
+          "id": "c49db88e107d4b4a852aa46732ea03bf",
+          "name": "hq-addon-2",
+          "price": 15,
+          "status": 1,
+          "itemids": [
+              "5fe3b819e5a24b469ec1b2746d370dec",
+              "1333a00b393b48b99e66a89e86f056e8",
+              "25a5c6555d153243dd820dad12e1073a554574b02cfa39fb8ffb59c943c7d125",
+              "f15080c86cfb494fa6e294048275e215"
+          ]
+      },
+      {
+          "name": "Chicken soup",
+          "price": 5,
+          "id": "e3b15031398347bca1dbaa2a0deef91d",
+          "status": 1,
+          "itemids": [
+              "905d5b85bf8542f59ce4abe3db467ef0",
+              "1333a00b393b48b99e66a89e86f056e8",
+              "25a5c6555d153243dd820dad12e1073a554574b02cfa39fb8ffb59c943c7d125",
+              "13ff0ca80bb74d5cb04d31bb4d48b8ae",
+              "f15080c86cfb494fa6e294048275e215"
+          ]
+      },
+      {
+          "id": "8ac7ca19a5694e3abbadd742c9405acd",
+          "name": "hq-addon-1",
+          "price": 10,
+          "status": 1,
+          "itemids": [
+              "60846e2300294d8c85621cd50f619fe9"
+          ]
+      },
+      {
+          "id": "c33dcca3bb7940049659834a7d3a38e3",
+          "name": "hq-addon-2",
+          "price": 15,
+          "status": 1,
+          "itemids": [
+              "60846e2300294d8c85621cd50f619fe9",
+              "59359b7b38764580a70b1f4032a63d84",
+              "f15080c86cfb494fa6e294048275e215"
+          ]
+      },
+      {
+          "id": "2e55ccfec0054830ac2709a049e87614",
+          "name": "hq-addon-2",
+          "price": 15,
+          "status": 1,
+          "itemids": [
+              "5fe3b819e5a24b469ec1b2746d370dec",
+              "59359b7b38764580a70b1f4032a63d84",
+              "f15080c86cfb494fa6e294048275e215"
+          ]
+      },
+      {
+          "id": "25dcd6557347448fb3475ca9bbf57879",
+          "name": "hq-addon-2",
+          "price": 15,
+          "status": 1,
+          "itemids": [
+              "60846e2300294d8c85621cd50f619fe9",
+              "f15080c86cfb494fa6e294048275e215"
+          ]
+      },
+      {
+          "name": "test",
+          "price": 1,
+          "id": "c021489f3d29457f93ddad9dabb0ffaf",
+          "status": 1,
+          "itemids": [
+              "a68bd84eee50044a54a0ece12921aa070e272f2c937cb7d2d86240dc9a048c1e",
+              "59359b7b38764580a70b1f4032a63d84",
+              "51aa2a5dbd6e40ceb8274aaaafdd2115",
+              "25a5c6555d153243dd820dad12e1073a554574b02cfa39fb8ffb59c943c7d125",
+              "f15080c86cfb494fa6e294048275e215"
+          ]
+      },
+      {
+          "name": "test_manish",
+          "price": 1,
+          "id": "ac15159cea464afa905b641cd63cea47",
+          "status": 1,
+          "itemids": [
+              "1333a00b393b48b99e66a89e86f056e8"
+          ]
+      },
+      {
+          "id": "7510f7c38ad549008db0bfd873f801ee",
+          "name": "hq-addon-1",
+          "price": 10,
+          "status": 1,
+          "itemids": [
+              "5fe3b819e5a24b469ec1b2746d370dec"
+          ]
+      },
+      {
+          "id": "a2c88471bcc94015a0acacd81ee2817e",
+          "name": "hq-addon-1",
+          "price": 10,
+          "status": 1,
+          "itemids": [
+              "5fe3b819e5a24b469ec1b2746d370dec",
+              "25a5c6555d153243dd820dad12e1073a554574b02cfa39fb8ffb59c943c7d125"
+          ]
+      },
+      {
+          "id": "a23b97325a42400bbb225a16beb279a0",
+          "name": "hq-addon-1",
+          "price": 10,
+          "status": 1,
+          "itemids": [
+              "60846e2300294d8c85621cd50f619fe9"
+          ]
+      },
+      {
+          "name": "test_manish",
+          "price": 1,
+          "id": "b647271010e04d6c9ff289baeb203b72",
+          "status": 1,
+          "itemids": [
+              "25a5c6555d153243dd820dad12e1073a554574b02cfa39fb8ffb59c943c7d125"
+          ]
+      },
+      {
+          "name": "test_abcd",
+          "price": 1,
+          "id": "ea8c8dccfeac44f2b0402fc83339c4f6",
+          "status": 1,
+          "itemids": [
+              "25a5c6555d153243dd820dad12e1073a554574b02cfa39fb8ffb59c943c7d125"
+          ]
+      },
+      {
+          "name": "test",
+          "price": 1,
+          "id": "997600da8bec4622adf2e4e6345cce50",
+          "status": 1,
+          "printer": "window",
+          "itemids": [
+              "a68bd84eee50044a54a0ece12921aa070e272f2c937cb7d2d86240dc9a048c1e",
+              "51aa2a5dbd6e40ceb8274aaaafdd2115"
+          ]
+      },
+      {
+          "id": "4a8a03f2507f430391686c41ea613d7f",
+          "name": "hq-addon-1",
+          "price": 10,
+          "status": 1,
+          "itemids": [
+              "60846e2300294d8c85621cd50f619fe9"
+          ]
+      },
+      {
+          "id": "63c6fd9033e2400592b8cef3eb502f6e",
+          "name": "hq-addon-2",
+          "price": 15,
+          "status": 1,
+          "itemids": [
+              "60846e2300294d8c85621cd50f619fe9"
+          ]
+      },
+      {
+          "id": "7fee14efe405465699be174dca225d3e",
+          "name": "hq-addon-2",
+          "price": 15,
+          "status": 1,
+          "itemids": [
+              "5fe3b819e5a24b469ec1b2746d370dec"
+          ]
+      },
+      {
+          "name": "test",
+          "price": 1,
+          "id": "af1bc39d33d3439ba56014794b061ac8",
+          "status": 1,
+          "printer": 2,
+          "itemids": [
+              "a68bd84eee50044a54a0ece12921aa070e272f2c937cb7d2d86240dc9a048c1e",
+              "51aa2a5dbd6e40ceb8274aaaafdd2115"
+          ]
+      },
+      {
+          "id": "d53c46e521574b15a141c7991083cb50",
+          "name": "hq-addon-1",
+          "price": 10,
+          "status": 1,
+          "itemids": [
+              "5fe3b819e5a24b469ec1b2746d370dec"
+          ]
+      },
+      {
+          "name": "Cheese Slices",
+          "price": 2,
+          "id": "7afd667a78f848b2950ea65845f1e5c9",
+          "status": 1,
+          "itemids": [
+              "a1edeed9fdb74f2bad11af7c377026f2"
+          ],
+          "max_qty": 2
+      },
+      {
+          "name": "Onion Rings",
+          "price": 2,
+          "id": "ae09e7d8f07f4639b3117757156898ca",
+          "status": 1,
+          "itemids": [
+              "03a9427914774f1c91cf892eb9d64436",
+              "a1edeed9fdb74f2bad11af7c377026f2",
+              "1802ac0bacc64e4994ddf78af6cc4265"
+          ],
+          "max_qty": 5
+      },
+      {
+          "name": "Barbecue Sauce",
+          "price": 1,
+          "id": "733c24b23d7245aeb84596d9eeef6322",
+          "status": 1,
+          "itemids": [
+              "a1edeed9fdb74f2bad11af7c377026f2"
+          ],
+          "max_qty": 1
+      },
+      {
+          "name": "Hot Sauce",
+          "price": 1,
+          "id": "debf9d386b8244639d46f01b49ab046d",
+          "status": 1,
+          "itemids": [
+              "a1edeed9fdb74f2bad11af7c377026f2",
+              "e941b41cbe4f4745bfb374651b70be72",
+              "13ff0ca80bb74d5cb04d31bb4d48b8ae"
+          ],
+          "max_qty": 1
+      },
+      {
+          "name": "Mustard",
+          "price": 1,
+          "id": "3255208ba07241ff94c53a4410cfdf4e",
+          "status": 1,
+          "itemids": [
+              "a1edeed9fdb74f2bad11af7c377026f2",
+              "39489550251748cba95c2c650a087fe5",
+              "13ff0ca80bb74d5cb04d31bb4d48b8ae"
+          ]
+      },
+      {
+          "name": "taj mahal",
+          "price": 2,
+          "id": "8014c44ef2df45c4a5addfab3d0b8e76",
+          "status": 0,
+          "itemids": [
+              "73edc24d70644ef9a59aa5d31b29ea80",
+              "4b1fb90810a540e8aa4f9ee5c1fefdff",
+              "bbed5450fa5e4b03836eb22dad887180"
+          ]
+      },
+      {
+          "name": "Carrots",
+          "price": 234,
+          "status": 1,
+          "id": "6be6115e4bfb457bb0938451087e6501",
+          "itemids": [
+              "3565a70305654828b31ecaab0d364fc3"
+          ],
+          "max_qty": 12
+      },
+      {
+          "name": "Kurkure",
+          "price": 342,
+          "status": 1,
+          "id": "2cb7598dc0d24624a1439d70a20acf20",
+          "itemids": [
+              "45103eeec77446e9bc50678d6923e43d"
+          ],
+          "max_qty": 321
+      },
+      {
+          "name": "Coke",
+          "price": 231,
+          "status": 1,
+          "id": "1c15f907fb154c0b8540b1a3e135def6",
+          "itemids": [
+              "45103eeec77446e9bc50678d6923e43d"
+          ],
+          "max_qty": 234
+      },
+      {
+          "name": "dsf",
+          "price": 234,
+          "status": 1,
+          "id": "b24c7c8f02ab40d19f161b476acae401",
+          "itemids": [
+              "45103eeec77446e9bc50678d6923e43d"
+          ],
+          "max_qty": 2342
+      },
+      {
+          "name": "cheese",
+          "price": 90,
+          "status": 1,
+          "id": "0b085061d8c146919b8be73a07c10c6c",
+          "itemids": [
+              "2be22c55464c4b309ea50a2ff6378431",
+              "7791de81bfff4deaae5a93d55121719a"
+          ],
+          "max_qty": 1
+      },
+      {
+          "name": "Lemon",
+          "price": 34,
+          "status": 1,
+          "id": "ff417be482ef4dfaa3efc1f0e77719fe",
+          "itemids": [
+              "773606cc77464ee080d49141b20e6c88",
+              "7791de81bfff4deaae5a93d55121719a"
+          ],
+          "max_qty": 43
+      },
+      {
+          "name": "Paneer",
+          "price": 90,
+          "status": 1,
+          "id": "d47aa35ed3c04e76b9b2b29a11f87ce2",
+          "itemids": [
+              "773606cc77464ee080d49141b20e6c88",
+              "7791de81bfff4deaae5a93d55121719a"
+          ],
+          "max_qty": 1
+      },
+      {
+          "name": "Punugulu",
+          "price": 30,
+          "status": 1,
+          "id": "ab7f944ed1a544769068849be9c13645",
+          "itemids": [
+              "773606cc77464ee080d49141b20e6c88",
+              "7791de81bfff4deaae5a93d55121719a"
+          ],
+          "max_qty": 1
+      },
+      {
+          "name": "Butter Masala",
+          "price": 0,
+          "status": 1,
+          "id": "e660b200607746d5afcee5394aa8fc29",
+          "itemids": [
+              "d1a4493854174ad4b7ce57e8ca1a733f",
+              "21b5eaa89dce4a958af8ffcd8f49e788",
+              "a54577c0df5d48e08de7c63989c152f9",
+              "abba2f6033dd499e8c337ecd5173b811",
+              "c59f2e688b3d4cf58c1a5d5515d77325",
+              "80cc8fb9621240d8b8dc27ff6944a7f8",
+              "1802ac0bacc64e4994ddf78af6cc4265"
+          ],
+          "max_qty": 1
+      },
+      {
+          "name": "Butter Masala",
+          "price": 0,
+          "status": 1,
+          "id": "e660b200607746d5afcee5394aa8fc29",
+          "itemids": [
+              "d1a4493854174ad4b7ce57e8ca1a733f",
+              "21b5eaa89dce4a958af8ffcd8f49e788",
+              "a54577c0df5d48e08de7c63989c152f9",
+              "abba2f6033dd499e8c337ecd5173b811",
+              "c59f2e688b3d4cf58c1a5d5515d77325",
+              "80cc8fb9621240d8b8dc27ff6944a7f8",
+              "1802ac0bacc64e4994ddf78af6cc4265"
+          ],
+          "max_qty": 1
+      },
+      {
+          "name": "Butter Masala",
+          "price": 0,
+          "status": 1,
+          "id": "e660b200607746d5afcee5394aa8fc29",
+          "itemids": [
+              "d1a4493854174ad4b7ce57e8ca1a733f",
+              "21b5eaa89dce4a958af8ffcd8f49e788",
+              "a54577c0df5d48e08de7c63989c152f9",
+              "abba2f6033dd499e8c337ecd5173b811",
+              "c59f2e688b3d4cf58c1a5d5515d77325",
+              "80cc8fb9621240d8b8dc27ff6944a7f8",
+              "1802ac0bacc64e4994ddf78af6cc4265"
+          ],
+          "max_qty": 1
+      },
+      {
+          "name": "fff",
+          "price": 0,
+          "status": 1,
+          "id": "56157ef0ad2c44fba47550fb95a2edc4",
+          "itemids": [
+              "68703a47a58b430ab47b4fb7e9b49f3d"
+          ],
+          "max_qty": 2
+      },
+      {
+          "name": "crunchy beer",
+          "price": 2,
+          "id": "fdb6cacd66c940efaa9b5fb59bd5ca73",
+          "status": 0,
+          "itemids": [
+              "905d5b85bf8542f59ce4abe3db467ef0"
+          ]
+      },
+      {
+          "name": "Hari Chatni",
+          "price": 0,
+          "status": 1,
+          "id": "59fa10a1151a43b7906b256f83ee1f9e",
+          "itemids": [
+              "511a9d3536664f7195549d2917a5d5be",
+              "4b5d9212fd6246c795f39f60a2a2a79b",
+              "1802ac0bacc64e4994ddf78af6cc4265"
+          ],
+          "max_qty": 5
+      },
+      {
+          "name": "qwerty",
+          "price": 12,
+          "id": "3e651696f0fc406a9e6f2c8c8dcfbb0f",
+          "status": 0,
+          "itemids": [
+              "1802ac0bacc64e4994ddf78af6cc4265"
+          ]
+      }
   ],
-  "emails": {
-    "cm": ["ashutosh.kumar@easyeat.ai", "admin@easyeat.ai"],
-    "pm": ["ashutosh.kumar@easyeat.ai"],
-    "am": ["ashutosh.kumar@easyeat.ai"],
-  },
+  "country_code": "MY",
+  "company_name": "New Restaurant Ipoh Chicken Rice",
+  "cuisine": [
+      "Chinese"
+  ],
+  "pref_filter": [
+      "Non Halal"
+  ],
+  "bnk_nm": "TBA",
+  "bnk_accn": 1234,
+  "acc_holder_nm": "TBA",
   "offline_platforms": [
-    {
-      "id": "hungry2u",
-      "order_type": 3,
-      "name": "Hungry2U",
-      "img": "hungry2u.png",
-      "status": 1,
-      "comm_amt": 10,
-      "comm_typ": "percentage",
-      "pkg_applicable": 1,
-    },
-    {
-      "id": "deliver_eat",
-      "order_type": 3,
-      "name": "DeliverEat",
-      "img": "delivereat.png",
-      "status": 1,
-      "comm_amt": 5,
-      "comm_typ": "percentage",
-      "pkg_applicable": 1,
-    },
-    {
-      "id": "grab",
-      "name": "Grab",
-      "img": "grab.png",
-      "order_type": 1,
-      "status": 1,
-      "code": "",
-      "comm_amt": 30,
-      "comm_typ": "percentage",
-      "pkg_applicable": 1,
-      "password": "0a0b2bbdb112d0e28e1144f7a55764cf",
-      "username": "kafebendibukittinggi@gmail.com",
-      "sync": 1,
-    },
-  ],
-  "block_pmt": [
-    {
-      "payment_method": "NET-BANKING",
-      "channel_id": ["fpx_rhb"],
-    },
-    {
-      "payment_method": "OFFLINE-POS",
-      "channel_id": ["offline_mb2u_qrpay-push", "offline_tng-ewallet", "offline_lazada_pay", "offline_fave_pay", "offline_hungry2u", "offline_add_to_room"],
-    },
-  ],
-  "priority": 3,
-  "pmt_commissions": [
-    {
-      "start_epoch": 0,
-      "charge": 1.25,
-      "end_epoch": 1607558400,
-    },
-    {
-      "start_epoch": 1607558400,
-      "charge": 0,
-    },
-  ],
-  "tech_charges": [
-    {
-      "id": "123456",
-      "start_epoch": 1617235200,
-      "end_epoch": null,
-      "user": {
-        "dine_in": {
-          "charge_type": "percent",
-          "charge": 2,
-        },
-        "delivery": {
-          "charge_type": "percent",
-          "charge": 2,
-        },
-        "pickup": {
-          "charge_type": "percent",
-          "charge": 2,
-        },
+      {
+          "id": "deliver_eat",
+          "order_type": 1,
+          "name": "DeliverEat",
+          "img": "delivereat.png",
+          "comm_amt": 20,
+          "comm_typ": "percentage",
+          "pkg_applicable": 0
       },
-      "pos": {
-        "dine_in": {
-          "charge_type": "percent",
-          "charge": 3,
-        },
-        "delivery": {
-          "charge_type": "percent",
-          "charge": 3,
-        },
-        "pickup": {
-          "charge_type": "percent",
-          "charge": 3,
-        },
+      {
+          "id": "grab",
+          "name": "Grab",
+          "img": "grab.png",
+          "order_type": 3,
+          "status": 1,
+          "code": "",
+          "comm_amt": 4,
+          "comm_typ": "percentage",
+          "pkg_applicable": 1
       },
-    },
-  ],
-  "pg_charges": [
-    {
-      "id": "123456",
-      "start_epoch": 0,
-      "end_epoch": 1619625600,
-      "online": {
-        "charge_type": "percent",
-        "charge": 2,
-        "fpm_cimb": {
-          "charge_type": "percent",
-          "charge": 0,
-          "start_epoch": 1617235200,
-          "end_epoch": 1625097599,
-          "valid_from": "01 Apr 2021",
-          "valid_to": "01 Jul 2021",
-        },
-        "boost": {
-          "start_epoch": 1617235200,
-          "end_epoch": 1625097599,
-          "charge_type": "percent",
-          "charge": 1,
-          "valid_from": "01 Apr 2021",
-          "valid_to": "01 Jul 2021",
-        },
+      {
+          "id": "foodpanda",
+          "name": "Foodpanda",
+          "img": "panda.png",
+          "order_type": 3,
+          "status": 1,
+          "code": "",
+          "comm_amt": 10,
+          "comm_typ": "percentage",
+          "pkg_applicable": 1,
+          "email": "mchee86@gmail.com",
+          "password": "74347a030dc5953c3b69da6b33a8385f",
+          "rest_id": "x1xm",
+          "sync": 1
       },
-      "offline": {
-        "charge_type": "percent",
-        "charge": 1,
-      },
-    },
-    {
-      "online": {
-        "charge_type": "percent",
-        "charge": 2,
-        "netbanking": {
-          "charge_type": "percent",
-          "charge": 5,
-          "start_epoch": 1619712000,
-          "end_epoch": null,
-        },
-      },
-      "offline": {
-        "charge_type": "percent",
-        "charge": 0,
-      },
-      "start_epoch": 1619712000,
-      "end_epoch": null,
-    },
-  ],
-  "promo_charges": [
-    {
-      "id": "123456",
-      "start_epoch": 0,
-      "end_epoch": 1619625600,
-      "limit": 5000,
-      "tech_charges": {
-        "user": {
-          "dine_in": {
-            "charge_type": "percent",
-            "charge": 2,
-          },
-          "delivery": {
-            "charge_type": "percent",
-            "charge": 2,
-          },
-          "pickup": {
-            "charge_type": "percent",
-            "charge": 2,
-          },
-        },
-        "pos": {},
-      },
-      "pg_charges": {
-        "online": {
-          "charge_type": "percent",
-          "charge": 2,
-          "net_banking": {
-            "charge_type": "percent",
-            "charge": 2,
-          },
-          "credit_card": {},
-          "wallet": {},
-          "fpm_amb": {
-            "charge_type": "percent",
-            "charge": 2,
-          },
-        },
-        "offline": {
-          "charge_type": "percent",
-          "charge": 2,
-        },
-      },
-    },
-    {
-      "limit": 15000,
-      "tech_charges": {
-        "user": {
-          "dine_in": {
-            "charge_type": "percent",
-            "charge": 0,
-          },
-          "delivery": {
-            "charge_type": "percent",
-            "charge": 0,
-          },
-          "pickup": {
-            "charge_type": "percent",
-            "charge": 0,
-          },
-        },
-        "pos": {
-          "dine_in": {
-            "charge_type": "percent",
-            "charge": 0,
-          },
-          "delivery": {
-            "charge_type": "percent",
-            "charge": 0,
-          },
-          "pickup": {
-            "charge_type": "percent",
-            "charge": 0,
-          },
-        },
-      },
-      "pg_charges": {
-        "online": {
-          "charge_type": "percent",
-          "charge": 0,
-        },
-        "offline": {
-          "charge_type": "percent",
-          "charge": 0,
-        },
-      },
-      "start_epoch": 1622304000,
-      "end_epoch": 1619702382,
-      "orig_end_epoch": 1622390399,
-    },
-  ],
-  "ee_wallet": {
-    "amount": 500,
-    "expiry": 1634237064,
-  },
-  "open_items": {
-    "def_cat": "c891e843204ab8d42f5ae66d734fbb78c3a94e6d1a9711fee73c22938e89aff2",
-    "def_subcat": "9bec5257d648398b20f33d58d133574aefb2844df898b188d06252b359893db1",
-  },
-  "special_menu": [
-    {
-      "id": "141b108a57506f924d69cfa83b0f74c8f99171b4ce621d8b6457e7a8e73b9c7d",
-      "sp_id": "1",
-      "name": "Chinese New Year Menu",
-      "img": "sunday.png",
-      "bg_img": "sunday_bg.png",
-      "description": "Available for Pre-order now.",
-      "start_date": "2021-02-01",
-      "end_date": "2021-04-25",
-      "status": 1,
-    },
-    {
-      "id": "60325b1a732cdc189a20d83a37170d5d5bb468d606c6178643f2d59b23ac4aa8",
-      "name": "Eid Special Menu",
-      "sp_id": "2",
-      "img": "eid.jpg",
-      "bg_img": "eid_bg.jpg",
-      "description": "Eid Special Category",
-      "start_date": "2021-01-29",
-      "end_date": "2021-02-25",
-      "status": 1,
-    },
+      {
+          "id": "go_eat",
+          "order_type": 3,
+          "name": "Go Eat",
+          "img": "go_eat.png",
+          "status": 1,
+          "code": "",
+          "comm_amt": 12,
+          "comm_typ": "percentage",
+          "pkg_applicable": 1
+      }
   ],
   "settings": {
-    "marketing": {
-      "fb_pixel": "4038234622896695",
-    },
-    "print": {
-      "cash_drawer": 31,
-      "master_docket": 1,
-      "master_order_printer": ["192.168.1.200:9100", "192.168.1.210:9100"],
-      "on_decline": 15,
-      "on_void_unaccepted": 15,
-      "on_void_accepted": 15,
-      "on_void_new_itr": 15,
-      "on_accept_new_order": 15,
-      "on_accept_new_itr": 15,
-      "on_settle": 15,
-      "on_table_change": 15,
-      "format_code": null,
-      "separate_docket": 1,
-      "void_format_code": null,
-      "void_separate_docket": 0,
-      "show_logo": 1,
-      "print_delay": 7000,
-      "split_addon_variant": 2,
-      "item_align": "r",
-      "font_size": "s",
-      "on_accept_enabled": 1,
-      "void_enabled": 1,
-      "enabled": 1,
-      "header": {
-        "prepend": ["Easy Eat Sdn Bhd", "Co. No. 123456789"],
-        "append": ["", "SST No.: B16-2011-32100018", ""],
+      "print": {
+          "cash_drawer": 31,
+          "master_counter_list": 1,
+          "master_docket": 1,
+          "on_decline": 3,
+          "on_void_unaccepted": 3,
+          "on_void_accepted": 3,
+          "on_void_new_itr": 3,
+          "on_accept_new_order": 3,
+          "on_accept_new_itr": 3,
+          "on_settle": 3,
+          "on_table_change": 3,
+          "show_logo": 1,
+          "format_code": "002",
+          "separate_docket": 1,
+          "void_format_code": "001",
+          "void_separate_docket": 1,
+          "header": {
+              "prepend": [
+                  "Caravan Cafe Sdn Bhd",
+                  "Co. No. 123456789"
+              ],
+              "append": [
+                  "",
+                  "SST No.: B16-2011-32100018",
+                  "",
+                  "Dine-In, Home Delivery & Takeaway",
+                  "www.caravandev.com",
+                  "019 291 4801",
+                  "",
+                  "Follow us on Instagram",
+                  "@caravandev"
+              ]
+          },
+          "pmt_mode_in_body": 1,
+          "print_delay": 3000,
+          "item_align": "l",
+          "font_size": "s",
+          "enabled": 1,
+          "on_accept_enabled": 1,
+          "post_settle": 3,
+          "void_enabled": 1,
+          "show_op_order_id": 11,
+          "inst_font": "s",
+          "sname": 0,
+          "table_no_position": "t",
+          "uname": 0,
+          "char_page_code": 1053,
+          "feed_point": 45,
+          "language_code": 96,
+          "response_format": 1,
+          "cash_mgt_format_override": 0,
+          "slip_font": {
+              "bill": "s",
+              "counter": "s",
+              "master_order_list": "s",
+              "master_docket": "s",
+              "table_change": "s",
+              "cash_in_out": "s",
+              "cash_mgt_report": "s"
+          },
+          "configurable_settings": {
+              "bill_receipt": [],
+              "counter_receipt": {
+                  "counter_name": {
+                      "fs": "s",
+                      "ft": "n"
+                  },
+                  "order_type": {
+                      "show": 1,
+                      "section": "h",
+                      "fs": "m",
+                      "o_type": 7,
+                      "ft": "b",
+                      "priority": 1
+                  },
+                  "order_seq": {
+                      "name": "ORDER NO",
+                      "show": 1,
+                      "section": "h",
+                      "fs": "m",
+                      "o_type": 7,
+                      "ft": "b",
+                      "priority": 1
+                  },
+                  "invoice_no": {
+                      "name": "INVOICE NO",
+                      "show": 1,
+                      "section": "h",
+                      "fs": "s",
+                      "o_type": 7,
+                      "ft": "b",
+                      "priority": 1
+                  },
+                  "pax": {
+                      "name": "PAX",
+                      "show": 1,
+                      "section": "h",
+                      "fs": "s",
+                      "o_type": 7,
+                      "ft": "n",
+                      "priority": 1
+                  },
+                  "date": {
+                      "name": "DATE",
+                      "show": 0,
+                      "section": "h",
+                      "fs": "s",
+                      "o_type": 7,
+                      "ft": "n",
+                      "priority": 1
+                  },
+                  "date_time": {
+                      "name": "BILL DATE",
+                      "show": 1,
+                      "section": "h",
+                      "fs": "s",
+                      "o_type": 7,
+                      "ft": "n",
+                      "priority": 1
+                  },
+                  "time": {
+                      "name": "TIME",
+                      "show": 1,
+                      "section": "h",
+                      "fs": "s",
+                      "o_type": 7,
+                      "ft": "n",
+                      "priority": 1
+                  },
+                  "table": {
+                      "name": "TABLE NO",
+                      "show": 1,
+                      "section": "h",
+                      "fs": "m",
+                      "o_type": 7,
+                      "ft": "b",
+                      "priority": 1
+                  },
+                  "staff_name": {
+                      "name": "STAFF NAME",
+                      "show": 1,
+                      "section": "h",
+                      "fs": "s",
+                      "o_type": 7,
+                      "ft": "n",
+                      "priority": 1
+                  },
+                  "customer_name": {
+                      "name": "CUSTOMER NAME",
+                      "show": 1,
+                      "section": "h",
+                      "fs": "s",
+                      "o_type": 7,
+                      "ft": "n",
+                      "priority": 1
+                  },
+                  "customer_phone": {
+                      "name": "CUSTOMER PHONE",
+                      "show": 0,
+                      "section": "h",
+                      "fs": "s",
+                      "o_type": 7,
+                      "ft": "n",
+                      "priority": 1
+                  },
+                  "no_of_items": {
+                      "name": "NUMBER OF ITEMS",
+                      "show": 0,
+                      "section": "h",
+                      "fs": "m",
+                      "o_type": 7,
+                      "ft": "b",
+                      "priority": 1,
+                      "fa": "r"
+                  },
+                  "item_name": {
+                      "fs": "m",
+                      "ft": "n"
+                  },
+                  "variant": {
+                      "fs": "m",
+                      "ft": "b"
+                  },
+                  "addon": {
+                      "fs": "m",
+                      "ft": "n"
+                  },
+                  "notes": {
+                      "fs": "s",
+                      "ft": "n"
+                  },
+                  "allergies": {
+                      "fs": "s",
+                      "ft": "n"
+                  }
+              }
+          }
       },
-      "footer": ["Thank you for ordering", "Visit us again"],
-      "inst_font": "s",
-      "pmt_mode_in_body": 1,
-      "post_settle": 15,
-      "show_op_order_id": 15,
-      "sname": 1,
-      "table_no_position": "t",
-      "uname": 1,
-      "show_mob": 1,
-      "cash_mgt_format_override": 0,
-      "response_format": 1,
-      "slip_font": {
-        "bill": "s",
-        "counter": "s",
-        "master_order_list": "s",
-        "master_docket": "s",
-        "table_change": "s",
-        "cash_in_out": "s",
-        "cash_mgt_report": "s",
+      "settlement": {
+          "enable": 0,
+          "visible": 0
       },
-    },
-    "settlement": {
-      "enable": 1,
-      "visible": 1,
-    },
-    "menu": {
-      "item_code": 31,
-      "pax": 1,
-      "item_code_max_len": 3,
-      "new_variation": 1,
-      "collapse": 0,
-    },
-    "global": {
-      "enable_pre_paid_order": 0,
-      "pre_paid_order": 7,
-      "quick_service": 0,
-      "visible_on_app": 1,
-      "posItemPriceTKasDinein": 1,
-      "pos_view": "l",
-      "fp_integration": 0,
-      "loyalty": 0,
-      "pos": 1,
-      "void": 0,
-      "tossed_specific": 1,
-      "hide_action_button": 0,
-      "cash_registry": 1,
-      "edit_commision": 0,
-      "special_menu": 0,
-      "lock_screen": 0,
-      "lock_screen_idle": 200,
-      "lock_screen_timeout": 200,
-      "split_bill": 1,
-      "skip_pkg_chrg": 3,
-      "skip_pkg_chrg_order_type": 7,
-      "auto_accept": 7,
-      "auto_accept_sch": 7,
-      "table_layout": 1,
-      "delete_order": 1,
-      "void_item_after_completed": 0,
-      "gf_integration": 1,
-      "mark_prepared_sms": 1,
-      "tp_voucher": 1,
-      "delete_table_floor": 1,
-      "loyalty_v2": true,
-      "takeaway_cash_enable": 1,
-      "multiple_addon": 1,
-      "loyalty_v2_visible_on_pos": 0,
-      "service_bell_enable": 1,
-      "cust_info_popup": 0,
-      "item_level_discount": 1,
-      "veg_option_enable": 1,
-      "enable_schedule_order": 1,
-    },
-    "discount": {
-      "enabled": 1,
-      "applicable_day": [0, 0, 0, 1, 0, 0, 0],
-      "custom_percentage_list": [
-        {
-          "id": 1,
-          "name": "5% off",
-          "value": "5",
-          "type": "discount",
-        },
-        {
-          "id": 2,
-          "name": "10% off",
-          "value": "10",
-          "type": "discount",
-        },
-        {
-          "id": 3,
-          "name": "20% off",
-          "subname": "(Senior Citizen)",
-          "value": "20",
-          "type": "discount",
-        },
-      ],
-      "custom_flat_list": [
-        {
-          "id": 1,
-          "name": "-RM 5",
-          "value": "5",
-          "type": "flat",
-        },
-        {
-          "id": 2,
-          "name": "-RM 10",
-          "value": "10",
-          "type": "flat",
-        },
-        {
-          "id": 3,
-          "name": "-RM 20",
-          "value": "20",
-          "type": "flat",
-        },
-      ],
-      "custom_flatTopup_list": [
-        {
-          "id": 1,
-          "name": "+RM 5",
-          "value": "5",
-          "type": "flat",
-        },
-        {
-          "id": 2,
-          "name": "+RM 10",
-          "value": "10",
-          "type": "flat",
-        },
-        {
-          "id": 3,
-          "name": "+RM 20",
-          "value": "20",
-          "type": "flat",
-        },
-      ],
-      "preset": 1,
-    },
-    "sounds": {
-      "repeat": 1,
-      "selected": "sound1.wav",
-      "timeout": 200,
-      "notification_sound": "sound1.wav",
-    },
-    "logo": {
-      "width": 250,
-      "height": 250,
-      "delay": 5,
-    },
-    "delivery": {
-      "rest_reach_min_time": 2,
-      "car_min_items": 5,
-      "auto_assign_car": 1,
-    },
-    "login": {
-      "skip_verification": 0,
-    },
-    "reports": {
-      "enable_eod": 1,
-      "eod_font_size": "11px",
-      "eod_page_width": "200px",
-      "eod_printer": "192.168.1.200:9100",
-      "full_eod": 1,
-    },
+      "login": {
+          "skip_verification": 0
+      },
+      "reports": {
+          "enable_eod": 1,
+          "eod_printer": "192.168.1.150:9100",
+          "eod_font_size": "6px",
+          "eod_page_width": "130px",
+          "full_eod": 0
+      },
+      "global": {
+          "visible_on_app": 1,
+          "posItemPriceTKasDinein": 1,
+          "fp_integration": 1,
+          "pos": 1,
+          "lock_screen": 0,
+          "cash_registry": 1,
+          "edit_commision": 1,
+          "hide_action_button": 0,
+          "lock_screen_idle": 10,
+          "lock_screen_timeout": 20,
+          "loyalty": 0,
+          "pos_view": "l",
+          "skip_pkg_chrg": 2,
+          "skip_pkg_chrg_order_type": 4,
+          "special_menu": 1,
+          "split_bill": 1,
+          "tossed_specific": 1,
+          "void": 1,
+          "table_layout": 1,
+          "delete_order": 1,
+          "gf_integration": 0,
+          "void_item_after_completed": 0,
+          "mark_prepared_sms": 1,
+          "loyalty_v2": true,
+          "auto_accept": 7,
+          "auto_accept_sch": 7,
+          "loyalty_v2_visible_on_pos": 0,
+          "multiple_addon": 1,
+          "takeaway_cash_enable": 1,
+          "service_bell_enable": 1,
+          "cust_info_popup": 1,
+          "veg_option_enable": 1,
+          "enable_schedule_order": 1,
+          "enable_pre_paid_order": 1,
+          "pre_paid_order": 7,
+          "item_level_discount": 1,
+          "store_credit_hq_lvl": 0,
+          "use_es_service": 1,
+          "whatsapp_notifier_order_status": 1,
+          "skip_service_chrg": 0,
+          "offline_sync": 1,
+          "custom_order_dashboard": 0,
+          "socket_printing": 1,
+          "tp_voucher": 1,
+          "enable_rest_food_logo": 0,
+          "no_login_workflow": 0,
+          "disable_add_more_items": 0,
+          "hide_download_popup": 0,
+          "hide_order_image": 0
+      },
+      "menu": {
+          "item_code": 31,
+          "pax": 1,
+          "item_code_max_len": 4,
+          "new_variation": 1
+      },
+      "sounds": {
+          "selected": "sound3.wav",
+          "repeat": 1,
+          "timeout": 10000
+      },
+      "discount": {
+          "preset": 0
+      },
+      "delivery": {
+          "enabled": 1,
+          "car_min_items": 6,
+          "rest_reach_min_time": "3",
+          "rest_reach_min_time_scheduled": 4
+      },
+      "hubspot": {
+          "deal_id": 123870987
+      }
   },
+  "open_items": {
+      "def_cat": "f46738154879d768c15c689d131431b7669061c5da880501d3bc528c1c57e30d",
+      "def_subcat": "0e2e40824d5f1f9f35bda1e322e6598ef279d44aa52b6e8720727793496df7d0"
+  },
+  "fees": [
+      {
+          "id": "delivery",
+          "status": 1,
+          "name": "Delivery Fee",
+          "tax": 0,
+          "data": [
+              0
+          ]
+      },
+      {
+          "status": 1,
+          "type": "percentage",
+          "order_type": [
+              0,
+              1,
+              2
+          ],
+          "data": {
+              "percentage_amount": 5
+          },
+          "tax": 0,
+          "applicable_on": [
+              "order"
+          ],
+          "class": "sst_tax",
+          "id": "sst_tax",
+          "name": "SST",
+          "applicable_cat": [],
+          "applicable_subcat": []
+      },
+      {
+          "status": 1,
+          "type": "percentage",
+          "order_type": [
+              0,
+              1,
+              2
+          ],
+          "data": {
+              "percentage_amount": 10
+          },
+          "tax": 0,
+          "applicable_on": [
+              "order"
+          ],
+          "class": "service_tax",
+          "id": "service_tax",
+          "name": "Service Charge",
+          "applicable_cat": [],
+          "applicable_subcat": []
+      },
+      {
+          "status": 1,
+          "type": "fixed",
+          "order_type": [
+              2
+          ],
+          "data": {
+              "fixed_amount": 5
+          },
+          "tax": 0,
+          "applicable_on": [
+              "order"
+          ],
+          "applicable_cat": [],
+          "applicable_subcat": [],
+          "class": "packaging_charge",
+          "id": "packaging_charge_7kqy",
+          "name": "Packaging Charges",
+          "sub_name": "Packaging Charges"
+      }
+  ],
   "quick_notes": [
-    {
-      "id": "fJXwA",
-      "note": "less spicy",
-      "visible_to_user": 1,
-    },
-    {
-      "id": "FMHQ2",
-      "note": "more spicy",
-      "visible_to_user": 1,
-    },
-    {
-      "id": "lQz47",
-      "note": "add more salt",
-      "visible_to_user": 1,
-    },
-    {
-      "id": "yezJD",
-      "note": "sugar free",
-      "visible_to_user": 1,
-    },
-    {
-      "id": "b5PGc",
-      "note": "hot '/",
-      "visible_to_user": 1,
-    },
-    {
-      "id": "45FnG",
-      "note": "less salty",
-      "visible_to_user": 1,
-    },
-    {
-      "id": "coXak",
-      "note": "e",
-      "visible_to_user": 0,
-    },
-    {
-      "id": "cYhw0",
-      "note": "worm",
-      "visible_to_user": 1,
-    },
-    {
-      "id": "v8U3j",
-      "note": "Test-note",
-      "visible_to_user": 1,
-    },
-    {
-      "id": "TPTUR",
-      "note": "extra extra sweet",
-      "visible_to_user": 1,
-    },
-    {
-      "id": "9PQ4b",
-      "note": "make it bitter",
-      "visible_to_user": 1,
-    },
-    {
-      "id": "GgsOQ",
-      "note": "can i write here ednlessly for things no onw will ever read or will use. 2 5 of orders have kitchennnnnnnnn. I can absolutely write anything. whatever n noted app;ied to hem ",
-      "visible_to_user": 0,
-    },
+      {
+          "id": "Z1rK2",
+          "note": "hot and spicy",
+          "visible_to_user": 1
+      },
+      {
+          "id": "c6DRh",
+          "note": "Sweet & Sour",
+          "visible_to_user": 1
+      },
+      {
+          "id": "79XzU",
+          "note": "Less Chilly",
+          "visible_to_user": 0
+      },
+      {
+          "id": "w0mMN",
+          "note": "extreme spicy",
+          "visible_to_user": 0
+      },
+      {
+          "id": "c64cc517c4fc46ad9d6bb8842670106a",
+          "note": "fdfv",
+          "visible_to_user": 1
+      },
+      {
+          "id": "ayhVH",
+          "note": "dfsgdfhfgjgyhjkghkmfchtsefwafdwadAfDCAsfCSZDFSDHGDFHDFHGFJGHMJHGJGHJGHJFJFHDFHSGSD",
+          "visible_to_user": 1
+      },
+      {
+          "id": "dMKvY",
+          "note": "Testinnnngg sldjflsjdflesdf lsdkfjlsdjf lsdkjflsjf lsdkjflsdjf ldjdflkjsdflkj lsdflsdjflsfjlsdkjflksdjf sldjfjlsdkjflksdjflksdjflksdflkj",
+          "visible_to_user": 1
+      },
+      {
+          "id": "04c5cdee91cd4fc1bb1e69715a0b81b1",
+          "note": ".,,LML",
+          "visible_to_user": 1
+      }
   ],
-  "created_at": 1587946893,
-  "report_timing": [
-    {
-      "name": "ALL DAY(DEFAULT)",
-      "id": "1576a",
-      "timing": [0, 1440],
-    },
-  ],
-  "location": {
-    "lat": 3.07588585009742,
-    "lon": 101.587342520213,
-  },
-  "voucher_items": {
-    "v_cat": "d9e85b37fe092dd28903f127084a28d5478ce3ebb083d64d583bf803d7787b70",
-    "v_subcat": "e9bed89fe261852160510f336a53abbff5a56685d97fa8481c18d92fc15bd09f",
-  },
-  "state": "Terengganu",
-  "pin_code": "40000",
+  "printer": "192.168.1.150:9100",
+  "created_at": 1610646834,
   "address_1": "Persiaran Masjid, Shah Alam, Selangor, Malaysia",
-  "address_2": "LG24, LG Floor Da Men Mall USJ",
-  "report_timings": [
-    {
-      "id": "aaCwTLlPa51O",
-      "name": "Shift2",
-      "timings": [0, 720],
-      "is_default": 0,
-      "status": 1,
-    },
-    {
-      "id": "MGEdpRZQODGA",
-      "name": "Graveyard shift",
-      "timings": [390, 1110],
-      "is_default": 0,
-      "status": 1,
-    },
-  ],
+  "address_2": "LG24, LG Floor Da Men Mall USj11",
   "delivery_settings": {
-    "del_fee_concession": {
-      "status": 1,
-      "type": null,
-      "amount": null,
-      "min_cart_value": 100,
-    },
-    "delivery_type": 2,
-    "fixed_distance": 10,
-    "fixed_price": 2,
-    "self_delivery_limit": {
-      "delivery_limit": 5,
-      "status": 1,
-    },
-    "subsequent_price": 1,
+      "del_fee_concession": {
+          "status": 1,
+          "type": null,
+          "amount": null,
+          "min_cart_value": 100
+      },
+      "delivery_type": 1,
+      "fixed_distance": null,
+      "fixed_price": null,
+      "self_delivery_limit": {
+          "delivery_limit": null,
+          "status": 0
+      },
+      "subsequent_price": null
   },
-  "old_fees": {
-    "id": "delivery",
-    "status": 1,
-    "name": "Delivery Fee",
-    "tax": 0,
-    "data": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
-  },
-  "menu_cover": {
-    "img": "bakery.png",
-    "is_custom": 0,
-  },
-  "last_order_at": 1636741491,
-  "custom_print": [
-    {
-      "item_id": "ed200db8dd61409596050f50e2f9fab3",
-      "count": 4,
-    },
-    {
-      "item_id": "c2b806b56ca043da93ae05337d82464e",
-      "count": 3,
-    },
-    {
-      "item_id": "dc27ace1ab024f4383d3ee81b7635467",
-      "count": 2,
-    },
+  "last_order_at": 1636722352,
+  "alias": "YGAf",
+  "report_timings": [
+      {
+          "id": "VM0cd8Xfcp4l",
+          "name": "reporting hour 1",
+          "timings": [
+              540,
+              1260
+          ],
+          "is_default": 0,
+          "status": 1
+      },
+      {
+          "id": "EXfIA7bWF5fK",
+          "name": "dummy timing",
+          "timings": [
+              600,
+              1080
+          ],
+          "is_default": 1,
+          "status": 1
+      },
+      {
+          "id": "PbKZ0eTT9PEk",
+          "name": "sdff",
+          "timings": [
+              540,
+              1325
+          ],
+          "is_default": 0,
+          "status": 1
+      },
+      {
+          "id": "JvGaMjTqWsgc",
+          "name": "ewrw",
+          "timings": [
+              660,
+              1260
+          ],
+          "is_default": 0,
+          "status": 1
+      }
   ],
   "loyalty_settings_v2": {
-    "cashback": 50,
-    "banner_path":
-      '{"id":"template-9","type":1,"img":"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/bg-1.png","img_with_text":"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/bg-1-text.png","bg_color":"#f8d77b","bottom":{"img1":"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/menu-1.svg","img2":"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/order-1.svg","img3":"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/payment-1.svg"},"properties":{"text1":{"color":"#000000","font-size":"16px","font-weight":"bold","align":"center"},"text2":{"color":"#F75841","font-size":"36px","font-weight":"bold","align":"center"},"text3":{"color":"#000000","font-size":"16px","font-weight":"bold","align":"center"},"text4":{"color":"#000000","font-size":"14px","font-weight":"normal","align":"center"}},"button":{"color":"#6cc433","font-size":"13px","font-weight":"bold"}}',
-    "order_types": ["DINEIN"],
-    "visibility": true,
-    "is_loyalty_active": true,
-    "min_item_value": 30,
-    "sub_text": "Get 50% cashback",
-    "heading": "GET LOYALTY CASHBACK",
-    "expiry_days": 45,
-    "order_type_names": {
-      "DINEIN": "Dine in",
-    },
+      "cashback": 50,
+      "banner_path": "{\"id\":\"template-1\",\"type\":1,\"img\":\"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/bg-1.png\",\"img_with_text\":\"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/bg-1-text.png\",\"bg_color\":\"#f8d77b\",\"bottom\":{\"img1\":\"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/menu-1.svg\",\"img2\":\"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/order-1.svg\",\"img3\":\"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/payment-1.svg\"},\"properties\":{\"text1\":{\"color\":\"#000000\",\"font-size\":\"16px\",\"font-weight\":\"bold\",\"align\":\"center\"},\"text2\":{\"color\":\"#F75841\",\"font-size\":\"36px\",\"font-weight\":\"bold\",\"align\":\"center\"},\"text3\":{\"color\":\"#000000\",\"font-size\":\"16px\",\"font-weight\":\"bold\",\"align\":\"center\"},\"text4\":{\"color\":\"#000000\",\"font-size\":\"14px\",\"font-weight\":\"normal\",\"align\":\"center\"}},\"button\":{\"color\":\"#6cc433\",\"font-size\":\"13px\",\"font-weight\":\"bold\"}}",
+      "order_types": [
+          "DINEIN",
+          "TAKEAYPICKUP",
+          "DLEV"
+      ],
+      "visibility": true,
+      "is_loyalty_active": true,
+      "min_item_value": 30,
+      "sub_category_ids": "7dbc198b5d39982a71b3a611439b4c9187095b27d0bf0e08685c8376d532d0af,166d22616b4256c288b3cb8d8a916de7e20d6a18246a6e4ed8f1bb924594f624,38d2aa7a04b1277fe817d80a2f5549efdece35a695044634c416cb0ac8145e39",
+      "sub_text": "abcd",
+      "heading": "abcd",
+      "expiry_days": 45,
+      "order_type_names": {
+          "DINEIN": "Dine in",
+          "TAKEAYPICKUP": "Pick Up",
+          "DLEV": "Delivery"
+      }
   },
-};
-
-const order_details = {
-  "order_id": "TBuK7POEI41639637109",
-  "order_no": "71637109",
-  "user_id": "ff6bc5fba174a1a9a16beceae413ed22f8620cf17428ed184b8fb233145d3243",
-  "restaurant_id": "c49dee80aeee27ab5e19689fcec88480",
-  "restaurant_name": "Jibril",
-  "order_status": 1,
-  "bill_id": "",
-  "created_at": 1639637109,
-  "date": "2021-12-16",
-  "confirmed_at": 0,
-  "canceled_at": 0,
-  "mark_prepared_at": 0,
-  "schedule_confirmed_at": 0,
-  "estimated_time": 0,
-  "completed_at": 0,
-  "table_id": "jJdAtBz7ma",
-  "table_no": "S3",
-  "floor_id": "CwT6i9jj",
-  "floor_name": "fourth floor",
-  "items": [
-    {
-      "itr": 1,
-      "item_id": "13ac572067944539a09b31238f49cbc1",
-      "item_name": "reetika testing on inventory 1",
-      "item_quantity": 1,
-      "item_price": 30,
-      "original_price": 30,
-      "discount_per": 0,
-      "reward_id": "",
-      "created_at": "1639637109",
-      "confirmed_at": "",
-      "completed_at": "",
-      "kitchen_counter_id": "",
-      "kitchen_picked_at": "",
-      "kitchen_picked_by": "",
-      "kitchen_time_to_complete": 10,
-      "item_status": 0,
-      "order_item_id": "IxauX13ac572067944539a09b31238f49cbc1",
-      "prepared_at": 0,
-      "canceled_at": 0,
-      "void_at": 0,
-      "declined_at": 0,
-      "special_note": "",
-      "decline_reason": [],
-      "base_qty": 1,
-      "unit": "number",
-      "gvariations": null,
-      "variation_ids": "",
-      "addons": [],
-      "addon_ids": "",
-      "gvariation_name": "",
-      "variation_name": "",
-      "addons_name": "",
-      "category_id": "36adbd9eb76ab27f1eafc961de53f5e57fea2ab7eaa9e0b3cbee3b2dc14a7e45",
-      "subcategory_id": "07cceee095c5c111ea530aa2bfa1fe206981998cb6ca48f1fee0fc49b5ba7da5",
-      "is_combo_item": 0,
-      "combo_items": [],
-      "open_item": 0,
-      "item_code": null,
-      "image_path": "https://d1xkxcid7icwfl.cloudfront.net/menu_items/diet.png",
-    },
+  "custom_print": [
+      {
+          "item_id": "7bdb5ff9d82d47a99f3f929f1220e8bc",
+          "count": 10
+      },
+      {
+          "item_id": "c2b806b56ca043da93ae05337d82464e",
+          "count": 3
+      },
+      {
+          "item_id": "4e1c1568ecb045fd9176b9134356785b",
+          "count": 20
+      },
+      {
+          "item_id": "dc27ace1ab024f4383d3ee81b7635467",
+          "count": 2
+      }
   ],
-  "special_notes": "",
-  "allergic_items": [],
-  "address": "",
-  "distance": 0,
+  "avg_rating": 4.55555555555556,
+  "total_rating": 9,
+  "hq_id": "5a28e2885772410ba5ef29a0f07d9603",
+  "curr_code": "MYR",
+  "curr_sym": "RM",
+  "language": "en_US",
+  "restaurant_food_logo": "https://d1xkxcid7icwfl.cloudfront.net/restaurant_image/482a7a5888614fa69d3672c6a681c7a0_1650605514.jpg",
+  "serviceable": {
+      "next_serviceable_day": 1,
+      "next_serviceable_day_string": "Tomorrow",
+      "next_serviceable_time_string": "12:01 AM",
+      "next_serviceable_string": "Restaurant is currently closed. Will open Tomorrow at 12:01 AM.",
+      "next_serviceable_minute": 1,
+      "is_serviceable": 1,
+      "is_dl_serviceable": 1,
+      "is_ta_serviceable": 1,
+      "is_dn_serviceable": 1,
+      "is_next_serviceable": 1
+  }
+}
+
+const order_details= {
+  "order_id": "OFF-jpnwqw7wu7xpw573wv3t8zicm3shmuqa",
+  "order_no": "56722102",
+  "order_seq": "L-1",
+  "floor_id": "NzO15b8H",
+  "floor_name": "3rd Floor",
+  "user_id": "280576f206d3e9c751779668bdff069c6a52ca45d438e068a4f943fc35bef5ef",
+  "items": [
+      {
+          "itr": 1,
+          "item_id": "4b5d9212fd6246c795f39f60a2a2a79b",
+          "item_name": "Burger with green sauce",
+          "item_quantity": 1,
+          "original_price": 12,
+          "item_price": 12,
+          "discount_per": 0,
+          "reward_id": "",
+          "kitchen_counter_id": null,
+          "kitchen_picked_at": null,
+          "kitchen_picked_by": "",
+          "kitchen_time_to_complete": null,
+          "order_item_id": "ei5m0qa985snk5f5uc4dm5okjn2okjba5yscj",
+          "item_status": 1,
+          "is_combo_item": 0,
+          "prepared_at": 0,
+          "canceled_at": 0,
+          "void_at": 0,
+          "declined_at": 0,
+          "decline_reason": [],
+          "base_qty": 1,
+          "unit": "number",
+          "gvariations": null,
+          "variation_ids": null,
+          "is_new_variation": 1,
+          "new_variation": [
+              {
+                  "status": 1,
+                  "options": [
+                      {
+                          "option_id": "WD3f1DHAQr",
+                          "option_name": "Coca cola",
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 0,
+                          "inventory_usage_details": [],
+                          "status": 1,
+                          "selected": true
+                      },
+                      {
+                          "option_id": "wZlENQT9RN",
+                          "option_name": "Sprite",
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 0,
+                          "inventory_usage_details": [],
+                          "status": 1,
+                          "selected": false
+                      },
+                      {
+                          "option_id": "P8oNMkWhH9",
+                          "option_name": "Fanta",
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 0,
+                          "status": 1,
+                          "selected": false
+                      },
+                      {
+                          "option_id": "zWc1YQrZDE",
+                          "option_name": "Pepsi",
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 0,
+                          "status": 1,
+                          "selected": false
+                      }
+                  ],
+                  "visible": [
+                      0,
+                      1,
+                      2
+                  ],
+                  "group_id": "fdc7c721b22640f6a92b69a3d35f8384",
+                  "next_available": 0,
+                  "type": 1,
+                  "group_name": "Choices Of Soft Drinks",
+                  "choice_type": 1,
+                  "min_choice": 1,
+                  "max_choice": 1
+              },
+              {
+                  "status": 1,
+                  "options": [
+                      {
+                          "option_id": "25ca8wb0II",
+                          "option_name": "1",
+                          "status": 1,
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 0,
+                          "selected": false
+                      },
+                      {
+                          "option_id": "r99ymPXrop",
+                          "option_name": "2",
+                          "status": 1,
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 0,
+                          "selected": false
+                      },
+                      {
+                          "option_id": "D7KOmJzXxQ",
+                          "option_name": "3",
+                          "status": 1,
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 0,
+                          "selected": false
+                      },
+                      {
+                          "option_id": "kcuHh4Pte2",
+                          "option_name": "4",
+                          "status": 1,
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 0,
+                          "selected": false
+                      },
+                      {
+                          "option_id": "JhF5QJCAOI",
+                          "option_name": "5",
+                          "status": 1,
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 1,
+                          "selected": false
+                      },
+                      {
+                          "option_id": "FDRx3XIhBx",
+                          "option_name": "6",
+                          "status": 1,
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 0,
+                          "selected": false
+                      },
+                      {
+                          "option_id": "Yt6pHY096J",
+                          "option_name": "7",
+                          "status": 1,
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 0,
+                          "selected": false
+                      },
+                      {
+                          "option_id": "OPsxg9H0RK",
+                          "option_name": "8",
+                          "status": 1,
+                          "next_available": 0,
+                          "visible": [
+                              0,
+                              1,
+                              2
+                          ],
+                          "price": 0,
+                          "selected": false
+                      }
+                  ],
+                  "visible": [
+                      0,
+                      1,
+                      2
+                  ],
+                  "group_id": "d54bd728f7de4cfdb59c4af7abd3bf5c",
+                  "next_available": 0,
+                  "type": 1,
+                  "group_name": "test 2",
+                  "choice_type": 2,
+                  "min_choice": 0,
+                  "max_choice": 7
+              }
+          ],
+          "addon": [
+              {
+                  "id": "59fa10a1151a43b7906b256f83ee1f9e",
+                  "qty": 5,
+                  "name": "Hari Chatni",
+                  "price": "0.00"
+              }
+          ],
+          "addon_ids": "|59fa10a1151a43b7906b256f83ee1f9e",
+          "gvariation_name": null,
+          "variation_name": "Coca cola",
+          "addons_name": "Hari Chatni",
+          "category_id": "3b7e026637afb5b88f435ff20741500ec5c57370ddd51341183a8445b8ab8442",
+          "subcategory_id": "8f4e2f08577a8e9ea3b0fd1a52d641b5eb811ea489dfd04d4ddfa53e1e3c1ec5",
+          "open_item": 0,
+          "item_code": "reg",
+          "image_path": "https://d1xkxcid7icwfl.cloudfront.net/menu_items/diet.png",
+          "item_hash": "4b5d9212fd6246c795f39f60a2a2a79b59fa10a1151a43b7906b256f83ee1f9e5WD3f1DHAQr"
+      }
+  ],
+  "restaurant_name": "Caravan Dev",
+  "order_status": 2,
+  "created_at": 1650867356,
+  "confirmed_at": 1650867356,
+  "table_id": "i0Oim8TnYv",
+  "table_no": "C1",
   "order_type": 0,
-  "delivery_partner": null,
-  "delivery_assign_type": null,
-  "address_obj": null,
   "platform": "easyeat",
-  "pax": 2,
-  "order_seq": "1-30",
+  "pax": 1,
+  "base_roundoff": "0.05",
   "op_no": null,
   "coupon_id": "",
   "coupon_name": "",
+  "no_enter": "922564999169865",
+  "is_paid": 1,
   "reason": null,
-  "base_roundoff": 0.05,
-  "discovery_page": 2,
+  "discovery_page": null,
   "order_by": "MM",
-  "no_enter": 0,
-  "name": "Easy Eat",
-  "phone": "8VdGxDOXVl6qW4c",
+  "name": "easyeat user",
+  "phone": "922564999169865",
   "dial_code": "+60",
-  "time_epoch": 0,
-  "scheduled": 0,
-  "rest_reach_min_time": 2,
-  "bill_total": 30,
-  "cart_token": "",
-  "offline_sync": true,
-  "source": "",
-  "username": "Easy Eat",
-  "verify_coupon": "",
-};
+  "is_duplicate_order": null,
+  "payment_status": 1,
+  "restaurant_id": "482a7a5888614fa69d3672c6a681c7a0",
+  "bill": {
+      "bill_total": 13.8,
+      "item_total": 12,
+      "fees": [
+          {
+              "fee": 12,
+              "fee_name": "Item Total",
+              "id": "item_total",
+              "tax": 0
+          },
+          {
+              "fee": 0.6,
+              "fee_name": "SST @5%",
+              "id": "sst_tax",
+              "tax": 0
+          },
+          {
+              "fee": 1.2,
+              "fee_name": "Service Charge @10%",
+              "id": "service_tax",
+              "tax": 0
+          },
+          {
+              "fee": 0,
+              "fee_name": "Round Off",
+              "id": "round_off",
+              "tax": 0
+          }
+      ],
+      "payments": [],
+      "balance": 13.8,
+      "paid": 0
+  },
+  "created_locally": 1,
+  "duplicate_order": false
+}
 
 const bill_details = {
   "bill_id": "gLpaEKnUG61639637109",
@@ -2730,11 +2166,11 @@ const bill_details = {
 };
 
 const kitchen_details = {
-  kitchen_counter_id: "default",
-  counter_name: "KITCHEN COUNTER",
-  printer_name: "198.120.1.200:9100",
-};
+  "kitchen_counter_id": "default",
+  "counter_name": "unmapped items",
+  "printer_name": "192.168.1.150:9100"
+}
 //console.log(getReceiptObject(rest_details, order_details, bill_details));
-//console.log(generateCounterReceipt(kitchen_details, rest_details, order_details));
+console.log(generateCounterReceipt(kitchen_details, rest_details, order_details));
 // NOTE - Delete _id, ISODate types
-console.log(generateBillReceipt(rest_details, order_details, bill_details));
+//console.log(generateBillReceipt(rest_details, order_details, bill_details));
