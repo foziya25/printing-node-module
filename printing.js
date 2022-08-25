@@ -19,7 +19,7 @@ const {
   getOrderTypeString,
   getModifiedOrderNo,
 } = require('./utils/utils');
-const { localize } = require('./utils/printing-utils').default;
+const { localize } = require('./utils/printing-utils');
 const { getPmtMethodName, getPmtMethods } = require('./classes/payment');
 const {
   convertReceiptObj,

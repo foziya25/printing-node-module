@@ -1,4 +1,4 @@
-const { generate } = require('../printData');
+const { generatePrintData } = require('../printData');
 
 let rest_details = {
   _id: { $oid: '629f1445c204870048f0b9e7' },
@@ -963,7 +963,7 @@ let counter_id = 'X6MPxmwbZj62b1883dbfbd3';
 
 console.log(
   JSON.stringify(
-    generate(
+    generatePrintData(
       order_details,
       rest_details,
       0,

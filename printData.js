@@ -4,14 +4,14 @@ const {
   generateMasterOrderReceipt,
 } = require('./printing');
 const { getSettingVal } = require('./utils/utils');
-const { localize } = require('./utils/printing-utils').default;
+const { localize } = require('./utils/printing-utils');
 
 const KeyName = {
   TABLE_CHANGED: 'table_changed',
 };
 
 /* main print handler for generating print data for given orders */
-function generate(
+function generatePrintData(
   order_details,
   rest_details,
   type,
@@ -186,4 +186,4 @@ function generate(
   return receipt_data;
 }
 
-module.exports = { generate };
+module.exports = { generatePrintData };

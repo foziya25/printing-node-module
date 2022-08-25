@@ -1,4 +1,4 @@
-const { generate } = require('./../printData');
+const { generatePrintData } = require('./../printData');
 
 let rest_details = {
   _id: { $oid: '629f1445c204870048f0b9e7' },
@@ -972,7 +972,7 @@ let subcat_counters = {
 
 console.log(
   JSON.stringify(
-    generate(
+    generatePrintData(
       order_details,
       rest_details,
       6,

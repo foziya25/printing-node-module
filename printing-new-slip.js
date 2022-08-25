@@ -16,7 +16,7 @@ const {
   splitAddonVariantByLine,
   localiseFeeNames,
   insertCustomHeaderAndFooter,
-} = require('./utils/printing-utils').default;
+} = require('./utils/printing-utils');
 
 const {
   getPrintLanguage,
