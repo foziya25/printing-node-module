@@ -1,26 +1,294 @@
-const { getPmtMethodName } = require("../classes/payment");
+const { getPmtMethodName } = require('../classes/payment');
+const ReceiptType = {
+  STICKER_PRINTER: 'sticker_printer',
+};
+const moment = require('moment-timezone');
+
+const PrintLanguage = {
+  DEFAULT: 'en-US',
+  INDONESIA: 'id-ID',
+};
+
+const FontSize = {
+  SMALL: 's',
+  MEDIUM: 'm',
+  LARGE: 'l',
+};
+
+const FontType = {
+  BOLD: 'b',
+  NORMAL: 'n',
+  ITALIC: 'i',
+};
+
+const FontAlign = {
+  LEFT: 'l',
+  RIGHT: 'r',
+  CENTER: 'c',
+};
+
+const ToShow = {
+  SHOW: 1,
+  HIDE: 0,
+};
+
+const PrintSection = {
+  HEADER: 'h',
+  FOOTER: 'f',
+};
+
+const ForOrderType = {
+  DINEIN: 1,
+  DELIVERY: 2,
+  TAKEAWAY: 4,
+  ALL: 7,
+};
+
+const KeyName = {
+  INVOICE: 'invoice_no',
+  DATE: 'date',
+  TIME: 'time',
+  TABLE: 'table',
+  NO_OF_ITEMS: 'no_of_items',
+  ORDER_SEQ: 'order_seq',
+  ORDERTYPE: 'order_type',
+  CASHIER: 'cashier',
+  PAX: 'pax',
+  STAFF_NAME: 'staff_name',
+  CUSTOMER_NAME: 'customer_name',
+  CUSTOMER_PHONE: 'customer_phone',
+  PAYMENT_TYPE: 'payment_type',
+  PAYMENT_MODE: 'payment_mode',
+  TOTAL: 'total',
+  SUB_TOTAL: 'sub-total',
+  BALANCE: 'balance',
+  UNPAID: 'unpaid',
+  PAID: 'paid',
+  DINEIN: 'dine_in',
+  DELIVERY: 'delivery',
+  TAKEAWAY: 'takeaway',
+  PICKUP: 'pickup',
+  OLD_TABLE: 'old_table',
+  DATETIME: 'date_time',
+  NO_OF_ITEMS_VOIDED: 'noOfItemsVoid',
+  TABLE_TRANSFER: 'tableTransfer',
+  OPENING_CASH_FLOAT: 'opening_cash_float',
+  TOTAL_CASH_IN: 'total_cash_in',
+  CASH_IN_SALES: 'cash_in_sales',
+  CASH_IN_OTHERS: 'cash_in_others',
+  TOTAL_CASH_OUT: 'total_cash_out',
+  NET_CASH_BALANCE: 'net_cash_balance',
+  EXPECTED_CASH_IN_DRAWER: 'expected_cash_in_drawer',
+  ACTUAL_CASH_IN_DRAWER: 'actual_cash_in_drawer',
+  EXCESS_SHORT: 'excess_short_cash',
+  CLOSE_CASHIER: 'close_cashier',
+  AMOUNT: 'amount',
+  REASON: 'reason',
+  DRAWER_KICK: 'drawer_kick',
+  OPEN_CASHIER: 'open_cashier',
+  CASH_IN: 'cash_in',
+  CASH_OUT: 'cash_out',
+  POWERED_BY: 'powered_by',
+  OLD: 'old',
+  NEW: 'new',
+  NOTES: 'notes',
+  ALLERGIES: 'allergies',
+  ADDON: 'addon',
+  VARIANT: 'variant',
+  DISCOUNT: 'discount',
+  DELIVERY_FEE: 'delivery_fee',
+  ROUND_OFF: 'round_off',
+  TOTAL_AMOUNT: 'total_amount',
+  AMOUNT_PAID: 'amount_paid',
+  CASH_RECEIVED: 'cash_received',
+  CASH_RETURNED: 'cash_returned',
+  TRANSACTION_ID: 'txn_id',
+  ITEM_NAME: 'item_name',
+  BILl_DATE: 'bill_date',
+  COUNTER_NAME: 'counter_name',
+  UNMAPPED_ITEM_TEXT: 'unmapped_item_text',
+  INVALID_COUNTER_TEXT: 'invalid_counter_text',
+  MASTER_COUNTER_TEXT: 'master_counter_text',
+  CANCELED_ITEMS_TEXT: 'canceled_items_text',
+  ITEM_NOT_AVAILABLE_TEXT: 'item_not_available_text',
+  ITEMS_NOT_AVAILABLE_TEXT: 'items_not_available_text',
+  SOME_ITEMS_NOT_AVAILABLE_TEXT: 'some_items_not_available_text',
+  ORDER_DECLINED_TEXT: 'order_declined_text',
+  ITEMS_DECLINED_TEXT: 'items_declined_text',
+  SIGNED_BY: 'signed_by',
+  MASTER_DOCKET: 'master_docket',
+  MASTER_ORDER_LIST: 'master_order_list',
+  VOID_ITEM: 'void_item',
+  CANCEL_ITEM: 'cancel_item',
+  ITEM_VOIDED: 'item_voided',
+  DECLINED_ORDER: 'declined_order',
+  COUNTER_DECLINE_TEXT: 'counter_decline_text',
+  COUNTER_CANCEL_TEXT: 'counter_cancel_text',
+  TABLE_CHANGED: 'table_changed',
+  DISH_OUT_OF_STOCK_TEXT: 'dish_out_of_stock',
+  VARIANT_OUT_OF_STOCK_TEXT: 'variant_out_of_stock',
+  ADDON_OUT_OF_STOCK_TEXT: 'addon_out_of_stock',
+};
+
+const DefaultConfigurablePrintSettings = {
+  bill_receipt: {},
+  counter_receipt: {
+    header_space: 1,
+    [KeyName.COUNTER_NAME]: {
+      fs: FontSize.MEDIUM,
+      ft: FontType.BOLD,
+    },
+    [KeyName.ORDERTYPE]: {
+      show: ToShow.SHOW,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.BOLD,
+      priority: 1,
+    },
+    [KeyName.ORDER_SEQ]: {
+      name: 'ORDER NO',
+      show: ToShow.SHOW,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.BOLD,
+      priority: 1,
+    },
+    [KeyName.INVOICE]: {
+      name: 'INVOICE NO',
+      show: ToShow.SHOW,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.NORMAL,
+      priority: 1,
+    },
+    [KeyName.PAX]: {
+      name: 'PAX',
+      show: ToShow.HIDE,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.NORMAL,
+      priority: 1,
+    },
+    [KeyName.DATE]: {
+      name: 'DATE',
+      show: ToShow.HIDE,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.NORMAL,
+      priority: 1,
+    },
+    [KeyName.DATETIME]: {
+      name: 'BILL DATE',
+      show: ToShow.SHOW,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.NORMAL,
+      priority: 1,
+    },
+    [KeyName.TIME]: {
+      name: 'TIME',
+      show: ToShow.HIDE,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.NORMAL,
+      priority: 1,
+    },
+    [KeyName.TABLE]: {
+      name: 'TABLE NO',
+      show: ToShow.SHOW,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.BOLD,
+      priority: 1,
+    },
+    [KeyName.STAFF_NAME]: {
+      name: 'STAFF NAME',
+      show: ToShow.HIDE,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.NORMAL,
+      priority: 1,
+    },
+    [KeyName.CUSTOMER_NAME]: {
+      name: 'CUSTOMER NAME',
+      show: ToShow.HIDE,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.NORMAL,
+      priority: 1,
+    },
+    [KeyName.CUSTOMER_PHONE]: {
+      name: 'CUSTOMER PHONE',
+      show: ToShow.HIDE,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.NORMAL,
+      priority: 1,
+    },
+    [KeyName.NO_OF_ITEMS]: {
+      name: 'NUMBER OF ITEMS',
+      show: ToShow.SHOW,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.NORMAL,
+      priority: 1,
+    },
+    [KeyName.ITEM_NAME]: {
+      fs: FontSize.MEDIUM,
+      ft: FontType.BOLD,
+    },
+    [KeyName.VARIANT]: {
+      fs: FontSize.MEDIUM,
+      ft: FontType.NORMAL,
+    },
+    [KeyName.ADDON]: {
+      fs: FontSize.MEDIUM,
+      ft: FontType.NORMAL,
+    },
+    [KeyName.NOTES]: {
+      fs: FontSize.MEDIUM,
+      ft: FontType.NORMAL,
+    },
+    [KeyName.ALLERGIES]: {
+      fs: FontSize.MEDIUM,
+      ft: FontType.NORMAL,
+    },
+  },
+};
 
 //Separate address to different lines
 function separateAddress(orig_array, str, max_length = 30) {
-  const string_array = str.split(",");
-  let temp = "";
+  const string_array = str.split(',');
+  let temp = '';
   for (let i = 0; i < string_array.length; i++) {
     if ((string_array[i] + temp).length < max_length) {
-      if (temp == "") {
-        temp = temp + "" + string_array[i];
+      if (temp == '') {
+        temp = temp + '' + string_array[i];
       } else {
-        temp = temp + "," + string_array[i];
+        temp = temp + ',' + string_array[i];
       }
     } else {
-      if (temp.substr(0, 1) == " ") {
+      if (temp.substr(0, 1) == ' ') {
         temp = temp.substr(1);
       }
       orig_array.push(temp);
       temp = string_array[i];
     }
   }
-  if (temp != "") {
-    if (temp.substr(0, 1) == " ") {
+  if (temp != '') {
+    if (temp.substr(0, 1) == ' ') {
       temp = temp.substr(1);
     }
     orig_array.push(temp);
@@ -31,8 +299,8 @@ function separateAddress(orig_array, str, max_length = 30) {
 // Get addons list
 function getAddons(item) {
   const addons = item.addons && Array.isArray(item.addons) ? item.addons : [];
-  if (addons.length == 0 && item.addons_name && item.addons_name != "") {
-    const addons_list = item.addons_name.split(",").filter((e) => e.trim());
+  if (addons.length == 0 && item.addons_name && item.addons_name != '') {
+    const addons_list = item.addons_name.split(',').filter((e) => e.trim());
     addons_list.forEach((addon) => addons.push({ name: addon.trim() }));
   }
   return addons;
@@ -42,12 +310,12 @@ function getAddons(item) {
 function getOnlySuccessfulPayments(payments_list) {
   const payments = [];
   for (const item of payments_list) {
-    if (item["status"] === 1) {
-      if (item["payment_channel"]) {
-        item["payment_method"] = getPmtMethodName(item["payment_channel"]);
+    if (item['status'] === 1) {
+      if (item['payment_channel']) {
+        item['payment_method'] = getPmtMethodName(item['payment_channel']);
       } else {
-        item["payment_channel"] = getPmtMethodName(item["payment_method"]);
-        item["payment_method"] = item["payment_channel"];
+        item['payment_channel'] = getPmtMethodName(item['payment_method']);
+        item['payment_method'] = item['payment_channel'];
       }
       payments.push(item);
     }
@@ -58,57 +326,904 @@ function getOnlySuccessfulPayments(payments_list) {
 /* Get order_type text */
 const getOrderTypeText = (order_type) => {
   order_type = Number(order_type);
-  const txt = order_type === 0 ? "Dine In" : order_type === 1 ? "Delivery" : order_type === 2 ? "Pickup" : "NA";
+  const txt =
+    order_type === 0
+      ? 'Dine In'
+      : order_type === 1
+      ? 'Delivery'
+      : order_type === 2
+      ? 'Pickup'
+      : 'NA';
   return txt;
 };
 
+/* get printing language from restaurant settings */
+function getPrintLanguage(rest_details) {
+  const print_bahasa = rest_details
+    ? rest_details.settings
+      ? rest_details.settings.print
+        ? rest_details.settings.print.print_bahasa
+          ? 1
+          : 0
+        : 0
+      : 0
+    : 0;
+  return print_bahasa ? PrintLanguage.INDONESIA : PrintLanguage.DEFAULT;
+}
+
+/* add date time for receipts */
+function addDateTime(order_details, rest_details) {
+  const timezone = rest_details.time_zone;
+  const created_at_moment = moment.tz(moment.unix(order_details.created_at), timezone);
+  const date_time = {
+    datetime: created_at_moment.format('YYYY-MM-DD hh:mm A'),
+    date: created_at_moment.format('YYYY-MM-DD'),
+    time: created_at_moment.format('hh:mm A'),
+  };
+  // Show scheduled datetime if order is scheduled
+  if (order_details.scheduled === 1 && order_details.time_epoch) {
+    const time_epcoh_moment = moment.tz(moment.unix(order_details.time_epoch), timezone);
+    date_time.datetime = time_epcoh_moment.format('YYYY-MM-DD hh:mm A');
+    date_time.date = time_epcoh_moment.format('YYYY-MM-DD');
+    date_time.time = time_epcoh_moment.format('hh:mm A');
+  }
+  return date_time;
+}
+
 function unMappedItemMapping(items_list) {
   items_list.forEach((item) => {
-    if (!item["kitchen_counter_id"] || !(item["kitchen_counter_id"] && item["kitchen_counter_id"].trim())) {
-      item["kitchen_counter_id"] = "default";
+    if (
+      !item['kitchen_counter_id'] ||
+      !(item['kitchen_counter_id'] && item['kitchen_counter_id'].trim())
+    ) {
+      item['kitchen_counter_id'] = 'default';
     }
   });
   return items_list;
 }
 
 /* Code logic for combo items printing (counter objects)*/
-function comboPrinting(item_obj, item, kc_id) {
-  if (item["kitchen_counter_id"] && item["kitchen_counter_id"].includes(kc_id)) {
-    item_obj["name"] = item["item_name"];
-    item_obj["combo_name"] = "";
-    item_obj["qty"] = item["item_quantity"];
-    item_obj["addon"] = "";
-    item_obj["variant"] = item["variation_name"] ? item["variation_name"] : "";
-    item_obj["note"] = item["special_note"] ? item["special_note"] : "";
-    for (const combo_item of item["combo_items"]) {
-      if (!combo_item["kitchen_counter_id"] || (combo_item["kitchen_counter_id"] && combo_item["kitchen_counter_id"].includes(kc_id))) {
-        item_obj["combo_name"] += item_obj["combo_name"] === "" ? `(${combo_item["quantity"]}) ${combo_item["item_name"]}` : `, (${combo_item["quantity"]}) ${combo_item["item_name"]}`;
+function comboPrinting1(item_obj, item, kc_id) {
+  if (item['kitchen_counter_id'] && item['kitchen_counter_id'].includes(kc_id)) {
+    item_obj['name'] = item['item_name'];
+    item_obj['combo_name'] = '';
+    item_obj['qty'] = item['item_quantity'];
+    item_obj['addon'] = '';
+    item_obj['variant'] = item['variation_name'] ? item['variation_name'] : '';
+    item_obj['note'] = item['special_note'] ? item['special_note'] : '';
+    for (const combo_item of item['combo_items']) {
+      if (
+        !combo_item['kitchen_counter_id'] ||
+        (combo_item['kitchen_counter_id'] && combo_item['kitchen_counter_id'].includes(kc_id))
+      ) {
+        item_obj['combo_name'] +=
+          item_obj['combo_name'] === ''
+            ? `(${combo_item['quantity']}) ${combo_item['item_name']}`
+            : `, (${combo_item['quantity']}) ${combo_item['item_name']}`;
       }
     }
   } else {
-    item_obj["combo_name"] = "";
-    for (const combo_item of item["combo_items"]) {
-      if (!combo_item["kitchen_counter_id"] || (combo_item["kitchen_counter_id"] && combo_item["kitchen_counter_id"].includes(kc_id))) {
-        item_obj["combo_name"] += item_obj["combo_name"] === "" ? `(${combo_item["quantity"]}) ${combo_item["item_name"]}` : `, (${combo_item["quantity"]}) ${combo_item["item_name"]}`;
+    item_obj['combo_name'] = '';
+    for (const combo_item of item['combo_items']) {
+      if (
+        !combo_item['kitchen_counter_id'] ||
+        (combo_item['kitchen_counter_id'] && combo_item['kitchen_counter_id'].includes(kc_id))
+      ) {
+        item_obj['combo_name'] +=
+          item_obj['combo_name'] === ''
+            ? `(${combo_item['quantity']}) ${combo_item['item_name']}`
+            : `, (${combo_item['quantity']}) ${combo_item['item_name']}`;
       }
     }
-    if (item_obj["combo_name"].trim()) {
-      item_obj["name"] = "";
-      item_obj["qty"] = item["item_quantity"];
-      item_obj["addon"] = "";
-      item_obj["variant"] = item["variation_name"] ? item["variation_name"] : "";
-      item_obj["note"] = item["special_note"] ? item["special_note"] : "";
+    if (item_obj['combo_name'].trim()) {
+      item_obj['name'] = '';
+      item_obj['qty'] = item['item_quantity'];
+      item_obj['addon'] = '';
+      item_obj['variant'] = item['variation_name'] ? item['variation_name'] : '';
+      item_obj['note'] = item['special_note'] ? item['special_note'] : '';
     }
+  }
+}
+
+/* Code logic for combo items printing (counter objects)*/
+function comboPrinting(
+  temp_item_obj,
+  temp_item_data,
+  item_obj,
+  item,
+  printer_mapping,
+  order_details,
+  rest_details,
+  receipt_data,
+  is_copy,
+  strike = 0,
+) {
+  item_obj['name'] = item['item_name'];
+  item_obj['combo_name'] = '';
+  item_obj['qty'] = item['item_quantity'];
+  item_obj['unit'] = getUnit(item);
+  item_obj['addon'] = '';
+  item_obj['variant'] = item['variation_name']
+    ? getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
+    : '';
+  item_obj['note'] = item['special_note'] ? item['special_note'] : '';
+  item_obj['item_id'] = item['item_id'];
+  for (const combo_item of item['combo_items']) {
+    if (combo_item['kitchen_counter_id'] && combo_item['kitchen_counter_id'].trim()) {
+      const printer_list = combo_item['kitchen_counter_id'].trim().split(',');
+      for (const printer of printer_list) {
+        if (
+          !(printer === item['kitchen_counter_id']) &&
+          printer_mapping[printer]['is_sticker_printer'] !== 1 &&
+          !is_copy &&
+          !item['dummy_kitchen_counter_id'].includes(printer)
+        ) {
+          if (!(item['itr'] + '_' + printer in temp_item_obj)) {
+            temp_item_obj[item['itr'] + '_' + printer] = [];
+          }
+          if (!(item['itr'] + '_' + printer in temp_item_data)) {
+            temp_item_data[item['itr'] + '_' + printer] = [];
+          }
+          temp_item_obj[item['itr'] + '_' + printer].push({
+            name: `${combo_item['item_name']}`,
+            qty: item['item_quantity'] * combo_item['quantity'],
+            addon: '',
+            variant: '',
+            note: item['special_note'] ? item['special_note'] : '',
+            strike: strike,
+            item_id: item['item_id'],
+          });
+          if (temp_item_data[item['itr'] + '_' + printer].length === 0) {
+            try {
+              temp_item_data[item['itr'] + '_' + printer].push({
+                counterName: printer_mapping[printer]['counter_name'],
+                printerName: printer_mapping[printer]['printer_name'],
+                ptr_id: printer_mapping[printer]['ptr_id'],
+              });
+            } catch (e) {
+              temp_item_data[item['itr'] + '_' + printer].push({
+                counterName: 'Default Counter',
+                printerName: 'Default Printer',
+                ptr_id: 'master',
+              });
+            }
+          }
+        } else if (printer_mapping[printer]['is_sticker_printer'] && !is_copy) {
+          const sticker_printer_item_info = {
+            kitchen_counter_id: printer,
+            counter_name: printer_mapping[printer]['counter_name'],
+            printer_name: printer_mapping[printer]['printer_name'],
+            ptr_id: printer_mapping[printer]['ptr_id'],
+            itr: item['itr'],
+            item_name: combo_item['item_name'],
+            item_quantity: item['item_quantity'] * combo_item['quantity'],
+          };
+          const sticker_printer_objects = separateStickerPrinterObjects(
+            sticker_printer_item_info,
+            order_details,
+            rest_details,
+            temp_item_obj,
+            temp_item_data,
+          );
+          sticker_printer_objects.forEach((sticker_obj) => {
+            receipt_data.push(sticker_obj);
+          });
+        } else if (printer === item['kitchen_counter_id']) {
+          item_obj['combo_name'] +=
+            item_obj['combo_name'] === ''
+              ? `(${combo_item['quantity']}) ${combo_item['item_name']}`
+              : `, (${combo_item['quantity']}) ${combo_item['item_name']}`;
+        }
+      }
+    }
+  }
+}
+
+function separateVariantByCounter(
+  item,
+  temp_item_obj,
+  temp_item_data,
+  printer_mapping,
+  show_item_name_with_variant,
+) {
+  /* If variant_printer key is present then separate variant according to its kitchen counter*/
+  const item_printers = item['kitchen_counter_id'] ? item['kitchen_counter_id'].split(',') : [];
+  if (item['variant_printer']) {
+    const obj = {
+      name: show_item_name_with_variant ? item['item_name'] : '',
+      qty: item['item_quantity'],
+      addon: '',
+      variant: '',
+      note: item['special_note'] ? item['special_note'] : '',
+    };
+    const printer_variant_name_arr_map = {};
+    for (const variant of item['variant_printer']) {
+      for (const printer of variant['kc_id_list']) {
+        /*Separate only if variant counter is different from item counter*/
+        if (!item_printers.includes(printer)) {
+          if (!(item['itr'] + '_' + printer in temp_item_obj)) {
+            temp_item_obj[item['itr'] + '_' + printer] = [];
+          }
+          if (!(item['itr'] + '_' + printer in temp_item_data)) {
+            temp_item_data[item['itr'] + '_' + printer] = [];
+          }
+          if (printer_variant_name_arr_map[printer]) {
+            printer_variant_name_arr_map[printer].push(variant['name']);
+          } else {
+            printer_variant_name_arr_map[printer] = [variant['name']];
+          }
+          // temp_item_obj[item['itr'] + '_' + printer].push({
+          //   name: show_item_name_with_variant ? item['item_name'] : '',
+          //   qty: item['item_quantity'],
+          //   addon: '',
+          //   variant: `VARIANT: ${variant['name']}`,
+          //   note: item['special_note'] ? item['special_note'] : '',
+          // });
+          if (temp_item_data[item['itr'] + '_' + printer].length === 0) {
+            try {
+              temp_item_data[item['itr'] + '_' + printer].push({
+                counterName: printer_mapping[printer]['counter_name'],
+                printerName: printer_mapping[printer]['printer_name'],
+                ptr_id: printer_mapping[printer]['ptr_id'],
+              });
+            } catch (e) {
+              temp_item_data[item['itr'] + '_' + printer].push({
+                counterName: 'Default Counter',
+                printerName: 'Default Printer',
+                ptr_id: 'master',
+              });
+            }
+          }
+        }
+      }
+    }
+    for (const [printer, variant_arr] of Object.entries(printer_variant_name_arr_map)) {
+      const obj_clone = cloneDeep(obj);
+      obj_clone['variant'] = `${variant_arr.toString()}`;
+      temp_item_obj[item['itr'] + '_' + printer].push(obj_clone);
+    }
+  }
+}
+
+/* Get settings value by name */
+function getSettingVal(rest_details, name, order_details = {}) {
+  const settings = rest_details['settings'];
+  let setting_val = null;
+  const print_keys = [
+    'master_docket',
+    'on_accept_new_order',
+    'on_accept_new_itr',
+    'on_void_unaccepted',
+    'on_void_accepted',
+    'on_void_new_itr',
+    'font_size',
+    'slip_font',
+    'cash_mgt_format_override',
+    'master_docket_printer',
+    'on_table_change',
+    'counter_footer',
+    'format_code',
+    'response_format',
+    'pmt_mode_in_body',
+    'separate_docket',
+    'void_format_code',
+    'void_separate_docket',
+    'show_logo',
+    'on_decline',
+    'sname',
+    'uname',
+    'show_op_order_id',
+    'header',
+    'footer',
+    'counter_footer',
+    'split_addon_variant',
+    'configurable_settings',
+    'master_counter_itr_list',
+    'custom_counter_note',
+    'char_page_code',
+    'feed_point',
+    'language_code',
+    'show_item_name_with_variant',
+    'print_bahasa',
+  ];
+  const menu_keys = ['item_code', 'pax'];
+
+  // print settings
+  if (print_keys.includes(name)) {
+    // Check whether to show offline-platform order_id{
+    if (name == 'show_op_order_id') {
+      setting_val = 0;
+      if (
+        !['easyeat', '', null, undefined].includes(order_details.platform) &&
+        order_details &&
+        order_details.order_by === 'auto'
+      ) {
+        setting_val =
+          settings.print && settings.print.show_op_order_id ? settings.print.show_op_order_id : 0;
+      }
+    } else if (name === 'response_format') {
+      setting_val = settings.print && settings.print[name] >= 0 ? settings.print[name] : null;
+    } else if (name === 'slip_font') {
+      setting_val = settings.print && settings.print[name] ? settings.print[name] : {};
+    } else if (name === 'configurable_settings') {
+      setting_val =
+        settings.print && settings.print[name]
+          ? settings.print[name]
+          : DefaultConfigurablePrintSettings;
+    } else {
+      setting_val = settings.print && settings.print[name] ? settings.print[name] : 0;
+    }
+  }
+  // menu settings
+  else if (menu_keys.includes(name)) {
+    setting_val = settings.menu && settings.menu[name] ? settings.menu[name] : 0;
+  }
+  return setting_val;
+}
+
+function getUnit(item) {
+  let unit = '';
+  try {
+    const base_qty = item.base_qty ? item.base_qty : '';
+    unit = item.unit && item.unit !== 'number' ? item.unit : '';
+    if (base_qty != '' && base_qty.toString() != '1') {
+      unit = '(x ' + base_qty + unit + ')';
+    }
+  } catch (e) {
+    unit = '';
+  }
+  return unit;
+}
+
+function getAddons(item) {
+  const addons = item.addons && Array.isArray(item.addons) ? item.addons : [];
+  if (addons.length == 0 && item.addons_name && item.addons_name != '') {
+    const addons_list = item.addons_name.split(',').filter((e) => e.trim());
+    addons_list.forEach((addon) => addons.push({ name: addon }));
+  }
+  return addons;
+}
+
+/* Separate variant by Counter */
+function separateStickerPrinterObjects(
+  item,
+  order_details,
+  rest_details,
+  temp_item_obj,
+  temp_item_data,
+) {
+  const sticker_counter_array = [];
+  const item_info_object = {};
+  const printer_info_object = {};
+  const searchString = item['itr'] + '_' + item['kitchen_counter_id'];
+  if (!(item['itr'] + '_' + item['kitchen_counter_id'] in item_info_object)) {
+    item_info_object[item['itr'] + '_' + item['kitchen_counter_id']] = [];
+  }
+
+  if (!(item['itr'] + '_' + item['kitchen_counter_id'] in printer_info_object)) {
+    printer_info_object[item['itr'] + '_' + item['kitchen_counter_id']] = [];
+  }
+
+  const item_obj = {
+    name: item['item_name'],
+    qty: item['item_quantity'],
+    unit: getUnit(item),
+    addon: '',
+    variant: item['variation_name'] ? item['variation_name'] : '',
+    note: item['special_note'] ? item['special_note'] : '',
+  };
+
+  /* Create new counter obj for addons if it has printer name present */
+
+  item['addons'] = getAddons(item);
+
+  for (const addon of item['addons']) {
+    if (
+      !addon['printer'] ||
+      (addon['printer'] &&
+        addon['printer'].trim() &&
+        addon['printer'] === item['kitchen_counter_id'])
+    ) {
+      item_obj['addon'] += item_obj['addon'] === '' ? addon['name'] : ', ' + addon['name'];
+    } else if (addon['printer'] && addon['printer'].trim()) {
+      const printer = addon['printer'].trim();
+      if (!(item['itr'] + '_' + printer in temp_item_obj)) {
+        temp_item_obj[item['itr'] + '_' + printer] = [];
+      }
+      if (!(item['itr'] + '_' + printer in temp_item_data)) {
+        temp_item_data[item['itr'] + '_' + printer] = [];
+      }
+      temp_item_obj[item['itr'] + '_' + printer].push({
+        name: addon['name'],
+        qty: item['item_quantity'],
+        addon: '',
+        variant: '',
+        note: '',
+      });
+      if (temp_item_data[item['itr'] + '_' + printer].length === 0) {
+        temp_item_data[item['itr'] + '_' + printer].push({
+          counterName: printer,
+          printerName: printer,
+        });
+      }
+    }
+  }
+
+  item_info_object[item['itr'] + '_' + item['kitchen_counter_id']].push(item_obj);
+
+  if (printer_info_object[item['itr'] + '_' + item['kitchen_counter_id']].length === 0) {
+    printer_info_object[item['itr'] + '_' + item['kitchen_counter_id']].push({
+      kitchen_counter_id: item['kitchen_counter_id'],
+      counterName: item['counter_name'] != '' ? item['counter_name'] : 'Default Counter',
+      printerName: item['printer_name'] != '' ? item['printer_name'] : 'Default Printer',
+    });
+  }
+
+  const obj = {};
+  obj['type'] = ReceiptType.STICKER_PRINTER;
+  obj['counterName'] = printer_info_object[searchString][0]['counterName'];
+  obj['ptr_id'] = printer_info_object[searchString][0]['kitchen_counter_id'];
+  obj['printerName'] = printer_info_object[searchString][0]['printerName'];
+  obj['body'] = {};
+  // obj['body']['Type'] = order_details['order_type'];
+
+  // /*Exclude takeaway,pickup and null table_no or table_id from counter details*/
+  // if (
+  //   !['', null, undefined].includes(order_details['table_no']) &&
+  //   !['takeaway', 'pickup'].includes(order_details['table_id'])
+  // ) {
+  //   obj['body']['Table'] = order_details['table_no'].toString();
+  // }
+
+  obj['body'][KeyName.ORDER_SEQ] = order_details['order_seq'];
+  obj['body'][KeyName.CUSTOMER_NAME] = order_details['name'];
+  const get_date_time = addDateTime(order_details, rest_details);
+  obj['body'][KeyName.DATETIME] = get_date_time['datetime'];
+  obj['items'] = item_info_object[searchString];
+  sticker_counter_array.push(obj);
+
+  try {
+    for (let i = sticker_counter_array.length - 1; i >= 0; i--) {
+      const counter_obj = sticker_counter_array[i];
+      for (let item_obj_idx = counter_obj['items'].length - 1; item_obj_idx >= 0; item_obj_idx--) {
+        const item_obj = counter_obj['items'][item_obj_idx];
+        for (let sticker_slips = 0; sticker_slips < +item_obj['qty']; sticker_slips++) {
+          const deep_copy = cloneDeep(counter_obj);
+          deep_copy['items'] = [cloneDeep(item_obj)];
+          deep_copy['items'][0]['qty'] = '1';
+          deep_copy['body']['NUMBER OF ITEMS'] = `${sticker_slips + 1}/${item_obj['qty']}`;
+          sticker_counter_array.push(deep_copy);
+        }
+        counter_obj['items'].splice(item_obj_idx, 1);
+      }
+    }
+    for (let idx = sticker_counter_array.length - 1; idx >= 0; idx--) {
+      if (sticker_counter_array[idx]['items'].length === 0) {
+        sticker_counter_array.splice(idx, 1);
+      }
+    }
+  } catch (e) {
+    this.logger.error('separateStickerPrinterObjects error: ', e);
+  }
+  return sticker_counter_array;
+}
+
+function getModifiedVariantName(item, item_kc_id) {
+  const variant_name_array = item['variation_name'].split(',');
+  if (item['is_copy']) {
+    if (item['variant_printer_copy']) {
+      for (const variant of item['variant_printer_copy']) {
+        for (const name of variant_name_array) {
+          if (
+            name.toLowerCase().includes(variant['name'].toLowerCase()) &&
+            !variant['kc_id_list'].toString().includes(item_kc_id)
+          ) {
+            const idx = variant_name_array.indexOf(name);
+            variant_name_array.splice(idx, 1);
+          }
+        }
+      }
+    }
+  } else {
+    if (item['variant_printer']) {
+      for (const variant of item['variant_printer']) {
+        for (const name of variant_name_array) {
+          if (
+            name.toLowerCase().includes(variant['name'].toLowerCase()) &&
+            !variant['kc_id_list'].toString().includes(item_kc_id)
+          ) {
+            const idx = variant_name_array.indexOf(name);
+            variant_name_array.splice(idx, 1);
+          }
+        }
+      }
+    }
+  }
+  return variant_name_array.length > 0 ? variant_name_array.toString() : '';
+}
+
+function formatCounterObj(receipt_data_list, type, rest_details) {
+  let format_code = getSettingVal(rest_details, 'format_code');
+  let separate_docket = getSettingVal(rest_details, 'separate_docket');
+  const void_format_code = getSettingVal(rest_details, 'void_format_code');
+  const void_separate_docket = getSettingVal(rest_details, 'void_separate_docket');
+
+  if (type == 3 || type == 5) {
+    format_code = void_format_code;
+    separate_docket = void_separate_docket;
+  }
+
+  if (format_code && ['001', '002', '003'].indexOf(format_code) != -1) {
+    for (let i = 0; i < receipt_data_list.length; i++) {
+      if (receipt_data_list[i]['type'] === 'counter') {
+        if (type != 3 && type != 5) {
+          receipt_data_list[i]['code'] = format_code;
+        }
+
+        if (format_code === '001') {
+          receipt_data_list[i] = separateAddonsFromItem(receipt_data_list[i]);
+        } else if (format_code === '002') {
+          receipt_data_list[i] = separateItemsAndAddonsByQty(receipt_data_list[i]);
+        } else if (format_code === '003') {
+          receipt_data_list[i] = separateItemsOnlyByQty(receipt_data_list[i]);
+        }
+      }
+    }
+  }
+  if (separate_docket && separate_docket > 0) {
+    receipt_data_list = separateAllDockets(receipt_data_list);
+  }
+  return receipt_data_list;
+}
+
+function separateAddonsFromItem(counter_data) {
+  const counter_obj = { ...counter_data };
+  const separate_addon_list = [];
+  for (let j = 0; j < counter_obj['items'].length; j++) {
+    const item = counter_obj['items'][j];
+    if (item['addon'] && item['addon'].trim() !== '') {
+      const addon_list = item['addon'].trim().split(',');
+      for (const addon of addon_list) {
+        const temp_addon = {
+          name: addon ? addon.trim() : '',
+          qty: item['qty'],
+          addon: '',
+          variant: '',
+          note: '',
+        };
+        if (item['strike'] && item['strike'] == 1) {
+          temp_addon['strike'] = 1;
+        }
+        separate_addon_list.push(temp_addon);
+      }
+      counter_obj['items'][j]['addon'] = '';
+    }
+  }
+  counter_obj['items'] = counter_obj['items'].concat(separate_addon_list);
+  return counter_obj;
+}
+
+// For code=002 => separate both items & addons by qty (extract addons from item)
+function separateItemsAndAddonsByQty(counter_data) {
+  const counter_obj = { ...counter_data };
+  const separate_item_list = [];
+  for (let j = 0; j < counter_obj['items'].length; j++) {
+    const item = counter_obj['items'][j];
+    for (let k = 0; k < item['qty']; k++) {
+      const temp_item = {
+        name: item['name'],
+        qty: 1,
+        unit: getUnit(item),
+        addon: '',
+        variant: item['variant'] ? item['variant'] : '',
+        note: item['note'] ? item['note'] : '',
+      };
+      if (item['strike'] && item['strike'] == 1) {
+        temp_item['strike'] = 1;
+      }
+      separate_item_list.push(temp_item);
+
+      if (item['addon'] && item['addon'].trim() !== '') {
+        const addon_list = item['addon'].trim().split(',');
+        for (const addon of addon_list) {
+          const temp_addon = {
+            name: addon.trim(),
+            qty: 1,
+            addon: '',
+            variant: '',
+            note: '',
+          };
+          if (item['strike'] && item['strike'] == 1) {
+            temp_addon['strike'] = 1;
+          }
+          separate_item_list.push(temp_addon);
+        }
+      }
+    }
+  }
+  counter_obj['items'] = separate_item_list;
+  return counter_obj;
+}
+
+// For code=003 => separate only items by qty (keep addons inside item)
+function separateItemsOnlyByQty(counter_data) {
+  const counter_obj = { ...counter_data };
+  const separate_item_list = [];
+  for (let j = 0; j < counter_obj['items'].length; j++) {
+    const item = counter_obj['items'][j];
+    for (let k = 0; k < item['qty']; k++) {
+      const temp_item = {
+        name: item['name'],
+        qty: 1,
+        unit: getUnit(item),
+        addon: item['addon'] ? item['addon'] : '',
+        variant: item['variant'] ? item['variant'] : '',
+        note: item['note'] ? item['note'] : '',
+      };
+      if (item['strike'] && item['strike'] == 1) {
+        temp_item['strike'] = 1;
+      }
+      separate_item_list.push(temp_item);
+    }
+  }
+  counter_obj['items'] = separate_item_list;
+  return counter_obj;
+}
+
+function appendCounterFooter(notes, rest_details) {
+  const footers = getSettingVal(rest_details, 'counter_footer');
+  if (notes.length > 0 && footers && Array.isArray(footers)) {
+    for (const elem of footers) {
+      if (elem.trim()) {
+        notes.push(elem);
+      }
+    }
+  }
+  return notes;
+}
+
+function insertSpaceInReceipt(count) {
+  const arr = [];
+  for (let i = 0; i < count; i++) {
+    arr.push({ key: '_line_', value: ' ' });
+  }
+  return arr;
+}
+
+function getOrderTypeBinaryPlace(order_type) {
+  order_type = Number(order_type);
+  return order_type === 0 ? 1 : order_type === 1 ? 2 : order_type === 2 ? 4 : 'NA';
+}
+
+/* modify order items*/
+function getItemsList(
+  item_list,
+  rest_details,
+  kitchen_counters,
+  subcat_counters,
+  kitchen_counter_details,
+) {
+  const restaurant_id = rest_details.id;
+  const show_item_code = getSettingVal(rest_details, 'item_code');
+  const new_items_list = [];
+  const unmapped_item_list = [];
+  //($show_item_code & 16) == 16 && $item['item_code'] !== null && trim($item['item_code']) !== ''
+  for (const item of item_list) {
+    if ((show_item_code & 16) == 16 && item['item_code'] && item['item_code'].trim() !== '') {
+      item['item_name'] = `(${item['item_code']}) ${item['item_name']}`;
+    }
+    let count = 0;
+    item['dummy_kitchen_counter_id'] =
+      item['kitchen_counter_id'] && item['kitchen_counter_id'].trim()
+        ? item['kitchen_counter_id']
+        : '';
+    // let item_kc_details = menu_kitchen_counter[`${item['item_id']}`];
+    // const query_select = `SELECT kitchen_counter_id FROM menu WHERE id='${item['item_id']}'`;
+    // try {
+    //   item_kc_details = await this.menuRepository.getQueryResult(query_select);
+    // } catch (e) {}
+
+    // if (item_kc_details.length > 0 && item_kc_details[0]['kitchen_counter_id']) {
+    if (
+      kitchen_counter_details[item['item_id']] &&
+      kitchen_counter_details[item['item_id']].length > 0
+    ) {
+      // const kc_id_str = item_kc_details['kitchen_counter_id'];
+      let kc_id_list = [];
+      for (let kc_info of kitchen_counter_details[`${item['item_id']}`]) {
+        kc_id_list.push(kc_info['kc_id']);
+      }
+      // const kc_id_list = kc_id_str
+      //   .split(',')
+      //   .filter((e) => e.trim())
+      //   .map((e) => e.trim());
+
+      // const kc_ids = ['""'];
+      // kc_id_list.forEach((kc_id) => {
+      //   kc_ids.push('"' + kc_id + '"');
+      // });
+
+      let all_counters = kitchen_counter_details[item['item_id']];
+      // const query = `SELECT * FROM kitchen_counters
+      //                WHERE restaurant_id = "${restaurant_id}" AND kitchen_counter_id IN (${kc_ids})`;
+      // try {
+      //   all_counters = await this.kitchenCounterRepository.getQueryResult(query);
+      // } catch (e) {}
+
+      for (const kc_id of kc_id_list) {
+        const temp_item = { ...item };
+        temp_item['kitchen_counter_id'] = kc_id;
+
+        if (count > 0) {
+          /*I am deleting deleting variant_printer key from item copy because i do not want to create extra copies
+            of variant name in counter objects. I am also injecting 'variant_printer_copy' key with variant_printer
+            data as i will need it to modify variant names in counter objects for copied item object.*/
+          const variant_printer = temp_item['variant_printer'];
+          delete temp_item['variant_printer'];
+          /* Injecting new key in item copy object if find if it's the copied one. */
+          temp_item['is_copy'] = true;
+          temp_item['variant_printer_copy'] = variant_printer;
+        }
+
+        const counter_details = all_counters.filter((e) => e.kitchen_counter_id === kc_id)[0];
+        if (counter_details) {
+          temp_item['counter_name'] = counter_details['counter_name']
+            ? counter_details['counter_name']
+            : 'default';
+          temp_item['printer_name'] = counter_details['printer_name']
+            ? counter_details['printer_name']
+            : 'default';
+          temp_item['ptr_id'] = counter_details['kitchen_counter_id'];
+          if (counter_details['is_sticker_printer']) {
+            temp_item['sticker_print'] = 1;
+          }
+        } else {
+          temp_item['counter_name'] = 'default';
+          temp_item['printer_name'] = 'default';
+        }
+
+        if (temp_item['counter_name'] === 'default') {
+          if (unmapped_item_list.indexOf(temp_item['item_id']) == -1) {
+            temp_item['kitchen_counter_id'] = 'default_override';
+            temp_item['counter_name'] = 'Invalid Counters';
+            temp_item['printer_name'] = rest_details['printer']
+              ? rest_details['printer']
+              : 'Default Printer';
+            temp_item['ptr_id'] = 'master';
+            unmapped_item_list.push(temp_item['item_id']);
+            new_items_list.push(temp_item);
+          }
+        } else {
+          new_items_list.push(temp_item);
+        }
+
+        count = count + 1;
+      }
+    }
+
+    if (count === 0) {
+      let item_copy_count = 0;
+      // const query = `SELECT spm.kc_id, kc.counter_name, kc.printer_name, kc.is_sticker_printer,kc.kitchen_counter_id
+      // FROM subcat_printer_mapping spm INNER JOIN kitchen_counters kc
+      // ON spm.kc_id = kc.kitchen_counter_id
+      // WHERE spm.subcat_id = "${item['subcategory_id']}" AND kc.status=1;`;
+      let all_counters = subcat_counters[item['subcategory_id']];
+      // try {
+      //   all_counters = await this.kitchenCounterRepository.getQueryResult(query);
+      // } catch (e) {}
+
+      if (all_counters && all_counters.length > 0) {
+        for (const counter of all_counters) {
+          const temp_item = { ...item };
+
+          if (item_copy_count > 0) {
+            /*I am deleting deleting variant_printer key from item copy because i do not want to create extra copies
+            of variant name in counter objects. I am also injecting 'variant_printer_copy' key with variant_printer
+            data as i will need it to modify variant names in counter objects for copied item objects.*/
+            const variant_printer = temp_item['variant_printer'];
+            delete temp_item['variant_printer'];
+            /* Injecting new key in item copy object if find if it's the copied one. */
+            temp_item['is_copy'] = true;
+            temp_item['variant_printer_copy'] = variant_printer;
+          }
+          temp_item['kitchen_counter_id'] = counter['kc_id'];
+          temp_item['counter_name'] = counter['counter_name'];
+          temp_item['printer_name'] = counter['printer_name'];
+          temp_item['ptr_id'] = counter['kitchen_counter_id'];
+          if (counter['is_sticker_printer']) {
+            temp_item['sticker_print'] = 1;
+          }
+          new_items_list.push(temp_item);
+          item_copy_count += 1;
+        }
+      } else {
+        item['kitchen_counter_id'] = 'default';
+        item['counter_name'] = 'Unmapped Items';
+        item['printer_name'] = rest_details['printer']
+          ? rest_details['printer']
+          : 'Default Printer';
+        item['ptr_id'] = 'master';
+        new_items_list.push(item);
+      }
+    }
+  }
+  return new_items_list;
+}
+
+function localize(key, language = CountryMapping.MALAYSIA.language) {
+  return key;
+  if (!enKeys[key]) {
+    return key;
+  }
+  language = language || CountryMapping.MALAYSIA.language;
+  if (language === CountryMapping.INDONESIA.language) {
+    return idKeys[key] ? idKeys[key] : enKeys[key];
+  }
+  return enKeys[key];
+}
+
+function getOrderTypeTextv2(order_type, table_id, language = PrintLanguage.DEFAULT) {
+  return order_type === 0
+    ? localize(KeyName.DINEIN, language)
+    : order_type === 1
+    ? localize(KeyName.DELIVERY, language)
+    : order_type === 2 && table_id === 'takeaway'
+    ? localize(KeyName.TAKEAWAY, language)
+    : order_type === 2
+    ? localize(KeyName.PICKUP, language)
+    : 'NA';
+}
+
+function getOrderTypeString(order_details, rest_details, language = null) {
+  const result = order_details;
+  /*Check if indonesian language is enabled */
+  language = language || getPrintLanguage(rest_details);
+  try {
+    result['order_type'] = getOrderTypeTextv2(
+      order_details['order_type'],
+      order_details['table_id'],
+      language,
+    );
+    if (![null, undefined, '', 'easyeat'].includes(order_details.platform)) {
+      result['table_no'] = undefined;
+      let platform = order_details.platform;
+      platform = platform.charAt(0).toUpperCase() + platform.slice(1);
+      result['order_type'] = platform;
+    }
+  } catch (e) {}
+
+  return result;
+}
+
+function getModifiedOrderNo(order_details) {
+  if (order_details['platform'] === 'grab') {
+    return `${order_details['order_no']} ( ${order_details['op_no']} )`;
+  } else {
+    return `${order_details['order_no']} ( ${order_details['order_id']} )`;
   }
 }
 
 module.exports = {
   getOnlySuccessfulPayments,
   getAddons,
+  getPrintLanguage,
   separateAddress,
   getOrderTypeText,
   unMappedItemMapping,
   comboPrinting,
+  addDateTime,
+  getSettingVal,
+  separateStickerPrinterObjects,
+  getModifiedVariantName,
+  separateVariantByCounter,
+  formatCounterObj,
+  getUnit,
+  appendCounterFooter,
+  insertSpaceInReceipt,
+  getOrderTypeBinaryPlace,
+  getItemsList,
+  getOrderTypeString,
+  getModifiedOrderNo,
 };
 
 //console.log(formatv2("", [{ name: "saurabh" }]));

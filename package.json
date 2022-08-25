@@ -8,5 +8,9 @@
   },
   "author": "",
   "license": "ISC",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.35"
+  }
 }
