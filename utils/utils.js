@@ -1,3 +1,5 @@
+const { cloneDeep } = require('lodash/lang');
+
 const { getPmtMethodName } = require('../classes/payment');
 const ReceiptType = {
   STICKER_PRINTER: 'sticker_printer',
@@ -803,7 +805,7 @@ function separateStickerPrinterObjects(
       }
     }
   } catch (e) {
-    this.logger.error('separateStickerPrinterObjects error: ', e);
+    console.log('separateStickerPrinterObjects error: ', e);
   }
   return sticker_counter_array;
 }

@@ -2,6 +2,9 @@ const {
   generateBillReceipt,
   generateCounterReceipt,
   generateMasterOrderReceipt,
+  generateVoidAndCancelCounterReceipt,
+  generateVoidMasterReceipt,
+  generateDeclineMasterReceipt,
 } = require('./printing');
 const { getSettingVal } = require('./utils/utils');
 const { localize } = require('./utils/printing-utils');
@@ -20,6 +23,8 @@ function generatePrintData(
   subcat_counters = [],
   bill_details = [],
   counter_id = '',
+  qty = 0,
+  oid = '',
 ) {
   if (order_details) {
     if (order_details.length == 1) {
@@ -136,8 +141,103 @@ function generatePrintData(
       }
     }
   }
+  // ----------------------------------------------------------------------------------
 
-  // type=6 : show slips on table change
+  // ------------------------------- type=3 : for void dishes --------------------------
+  else if (type === 3 && qty > 0 && oid !== '') {
+    invalid = false;
+    let voided_item = {};
+    const void_index = order_details.void_items
+      ? order_details.void_items.findIndex((e) => e.order_item_id === oid)
+      : -1;
+    if (void_index > -1) {
+      voided_item = { ...order_details.void_items[void_index] };
+      voided_item.item_quantity = qty;
+    }
+    let print_code = 0;
+
+    const on_void_unaccepted = getSettingVal(rest_details, 'on_void_unaccepted');
+    const on_void_accepted = getSettingVal(rest_details, 'on_void_accepted');
+    const on_void_new_itr = getSettingVal(rest_details, 'on_void_new_itr');
+
+    if (!on_void_unaccepted && !on_void_accepted && !on_void_new_itr) {
+      receipt_data = receipt_data.concat(
+        generateVoidAndCancelCounterReceipt({ ...order_details }, 3, rest_details, '', oid, qty),
+      );
+    } else {
+      if (voided_item.item_status === 0 && voided_item.itr === 1) {
+        print_code = on_void_unaccepted;
+      } else if (voided_item.item_status === 0 && voided_item.itr > 1) {
+        print_code = on_void_new_itr;
+      } else if ([1, 2, 3].includes(voided_item.item_status)) {
+        print_code = on_void_accepted;
+      }
+    }
+
+    if (print_code > 0) {
+      if ((print_code & 2) === 2) {
+        receipt_data = receipt_data.concat(
+          generateVoidAndCancelCounterReceipt({ ...order_details }, 3, rest_details, '', oid, qty),
+        );
+      }
+
+      const master_enabled = getSettingVal(rest_details, 'master_docket');
+      if (master_enabled && master_enabled > 0) {
+        if ((print_code & 4) === 4) {
+          receipt_data.push(
+            generateMasterOrderReceipt({ ...order_details }, rest_details, true, null, '', '', ''),
+          );
+
+          if ((print_code & 8) === 8) {
+            // 8: print master docket
+            receipt_data.push(
+              generateVoidMasterReceipt({ ...order_details }, rest_details, voided_item),
+            );
+          }
+        }
+      }
+    }
+  }
+  // -----------------------------------------------------------------------------------------
+
+  // ------------------ type=5 : show canceled order items/declined items --------------------
+  else if (type === 5 && itr) {
+    invalid = false;
+
+    //const on_decline = rest_details['settings']['print']['on_decline'];
+
+    const on_decline = getSettingVal(rest_details, 'on_decline');
+    if ((on_decline & 2) === 2) {
+      receipt_data = receipt_data.concat(
+        generateVoidAndCancelCounterReceipt(
+          { ...order_details },
+          5,
+          rest_details,
+          itr,
+          oid,
+          qty,
+          subcat_counters,
+          kitchen_counter_details,
+        ),
+      );
+    }
+    const master_enabled = getSettingVal(rest_details, 'master_docket');
+    if (master_enabled && master_enabled > 0) {
+      if ((on_decline & 8) === 8) {
+        const decline_master_receipt = generateDeclineMasterReceipt(
+          { ...order_details },
+          rest_details,
+          itr,
+        );
+        if (Object.keys(decline_master_receipt).length > 0) {
+          receipt_data.push(decline_master_receipt);
+        }
+      }
+    }
+  }
+  // ----------------------------------------------------------------------------------
+
+  // ---------------------- type=6 : show slips on table change -----------------------
   else if (type === 6) {
     invalid = false;
     let print_code = 0;
@@ -182,6 +282,18 @@ function generatePrintData(
     }
   }
   // ---------------------------------------------------------------------------
+
+  // type=7 : show master order list for restaurants which have master_docket = 1 in settings
+  else if (type == 7) {
+    invalid = false;
+
+    const master_enabled = getSettingVal(rest_details, 'master_docket');
+    if (master_enabled && master_enabled > 0) {
+      receipt_data.push(
+        generateMasterOrderReceipt({ ...order_details }, rest_details, true, null, '', '', ''),
+      );
+    }
+  }
 
   return receipt_data;
 }

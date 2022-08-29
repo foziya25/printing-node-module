@@ -773,7 +773,7 @@ function convertTableTransferObj(obj, rest_details, options) {
       `${localize(KeyName.OLD, language)}: ${obj['body'][KeyName.OLD_TABLE]} ----> ${localize(
         KeyName.NEW,
         language,
-      )}: ${obj['body'][KeyName.TABLE].toString()} `,
+      )}: ${obj['body'][KeyName.TABLE]} `,
       undefined,
       undefined,
       FontAlign.CENTER,
@@ -785,9 +785,226 @@ function convertTableTransferObj(obj, rest_details, options) {
   return changeFontSize(data, options);
 }
 
+function convertVoidAndCancelCounterObj(obj, options, rest_details) {
+  const language = getPrintLanguage(rest_details);
+  const data = {};
+  insertFpAndThaiLanguageSupport(data, rest_details);
+  data['ptr_name'] = obj['printerName'];
+  data['p_width'] = '72';
+  data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
+  data['data'] = [];
+  data['data'].push(
+    formatv2(
+      '',
+      [
+        {
+          name: obj['counterName'].toUpperCase(),
+        },
+      ],
+      undefined,
+      FontType.BOLD,
+      FontAlign.CENTER,
+    ),
+  );
+
+  data['data'].push(line_break());
+  data['data'].push(
+    formatv2(
+      '',
+      [
+        {
+          name: obj['body'][KeyName.ORDERTYPE].toUpperCase(),
+        },
+      ],
+      undefined,
+      FontType.BOLD,
+      FontAlign.CENTER,
+    ),
+  );
+  data['data'].push(line_break());
+  if (obj['body'][KeyName.ORDER_SEQ]) {
+    data['data'].push(insertOrderSequence(obj['body'][KeyName.ORDER_SEQ], undefined, language));
+    data['data'].push(line_break());
+  }
+  const keys = [
+    KeyName.INVOICE,
+    KeyName.NO_OF_ITEMS_VOIDED,
+    KeyName.DATE,
+    KeyName.TIME,
+    KeyName.PAX,
+    KeyName.STAFF_NAME,
+    KeyName.CUSTOMER_NAME,
+    KeyName.TABLE,
+  ];
+  insertHeaders(obj, keys, language).forEach((value) => {
+    data['data'].push(value);
+  });
+
+  data['data'].push(line_break());
+
+  const item_arr = addItems(obj['items'], rest_details, null, language);
+  for (const item of item_arr) {
+    data['data'].push(item);
+  }
+
+  if (obj['note'].length > 2) {
+    data['data'].push(line_break());
+    data['data'].push(
+      formatv2(
+        '',
+        [
+          {
+            name: `${localize(KeyName.NOTES, language)}`,
+          },
+        ],
+        undefined,
+        FontType.BOLD,
+        FontAlign.CENTER,
+      ),
+    );
+    data['data'].push(line_break());
+    for (const item of obj['note'].slice(1)) {
+      data['data'].push(formatv2('', [{ name: item.toUpperCase() }]));
+    }
+  }
+  data['data'].push(line_break());
+  data['data'].push(powered_by(language));
+  return changeFontSize(data, options);
+}
+
+function convertVoidMasterObj(obj, options, rest_details) {
+  const language = getPrintLanguage(rest_details);
+  const data = {};
+  insertFpAndThaiLanguageSupport(data, rest_details);
+  data['type'] = obj['type'];
+  data['ptr_name'] = obj['printerName'];
+  data['p_width'] = '72';
+  data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
+  data['data'] = [];
+  data['data'].push(line_break());
+  data['data'].push(
+    formatv2(
+      '',
+      [
+        {
+          name: 'VOID',
+        },
+      ],
+      undefined,
+      FontType.BOLD,
+      FontAlign.CENTER,
+    ),
+  );
+
+  data['data'].push(line_break());
+  if (obj['body'][KeyName.ORDER_SEQ]) {
+    data['data'].push(insertOrderSequence(obj['body'][KeyName.ORDER_SEQ], undefined, language));
+    data['data'].push(line_break());
+  }
+  const keys = [
+    KeyName.INVOICE,
+    KeyName.DATE,
+    KeyName.TIME,
+    KeyName.PAX,
+    KeyName.STAFF_NAME,
+    KeyName.CUSTOMER_NAME,
+    KeyName.TABLE,
+  ];
+  insertHeaders(obj, keys).forEach((value) => {
+    data['data'].push(value);
+  });
+
+  data['data'].push(line_break());
+  const item_arr = addItems(obj['items'], rest_details, null, language);
+  for (const item of item_arr) {
+    data['data'].push(item);
+  }
+  data['data'].push(line_break());
+  data['data'].push(powered_by(language));
+  return changeFontSize(data, options);
+}
+
+function convertDeclineMasterObj(obj, options, rest_details) {
+  const data = {};
+  insertFpAndThaiLanguageSupport(data, rest_details);
+  if (Object.keys(obj).length === 0) {
+    return data;
+  }
+  const language = getPrintLanguage(rest_details);
+  data['type'] = obj['type'];
+  data['ptr_name'] = obj['printerName'];
+  data['p_width'] = '72';
+  data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
+  data['data'] = [];
+  data['data'].push(line_break());
+  data['data'].push(
+    formatv2(
+      '',
+      [
+        {
+          name: obj['counterName'].toUpperCase(),
+        },
+      ],
+      undefined,
+      FontType.BOLD,
+      FontAlign.CENTER,
+    ),
+  );
+  data['data'].push(line_break());
+  if (obj['body'][KeyName.ORDER_SEQ]) {
+    data['data'].push(insertOrderSequence(obj['body'][KeyName.ORDER_SEQ], undefined, language));
+    data['data'].push(line_break());
+  }
+  const keys = [
+    KeyName.INVOICE,
+    KeyName.DATE,
+    KeyName.TIME,
+    KeyName.PAX,
+    KeyName.STAFF_NAME,
+    KeyName.CUSTOMER_NAME,
+    KeyName.TABLE,
+  ];
+  insertHeaders(obj, keys).forEach((value) => {
+    data['data'].push(value);
+  });
+
+  data['data'].push(line_break());
+  const item_arr = addItems(obj['items'], rest_details, null, language);
+  for (const item of item_arr) {
+    data['data'].push(item);
+  }
+
+  if (obj['note'].length > 2) {
+    data['data'].push(line_break());
+    data['data'].push(
+      formatv2(
+        '',
+        [
+          {
+            name: `${localize(KeyName.NOTES, language)}`,
+          },
+        ],
+        undefined,
+        FontType.BOLD,
+        FontAlign.CENTER,
+      ),
+    );
+    data['data'].push(line_break());
+    for (const item of obj['note'].slice(1)) {
+      data['data'].push(formatv2('', [{ name: item.toUpperCase() }]));
+    }
+  }
+  data['data'].push(line_break());
+  data['data'].push(powered_by(language));
+  return changeFontSize(data, options);
+}
+
 module.exports = {
   convertReceiptObj,
   convertCounterObj,
   convertMasterObj,
   convertTableTransferObj,
+  convertVoidAndCancelCounterObj,
+  convertVoidMasterObj,
+  convertDeclineMasterObj,
 };
