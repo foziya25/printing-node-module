@@ -567,6 +567,7 @@ let rest_details = {
   ],
   settings: {
     print: {
+      label_format_v2: 1,
       enabled: 1,
       print_bahasa: 0,
       cash_drawer: 0,

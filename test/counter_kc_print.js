@@ -1,7 +1,9 @@
 const { generatePrintData } = require('../printData');
 
 let rest_details = {
-  _id: { $oid: '629f1445c204870048f0b9e7' },
+  _id: {
+    $oid: '629f1445c204870048f0b9e7',
+  },
   id: '54de918896774f82bc8a921a25b24d79',
   name: 'Deep Cafe',
   nameid: 'deepcafe',
@@ -13,7 +15,10 @@ let rest_details = {
   pin_code: '122001',
   country: 'Malaysia',
   address: 'KGF Tower, Sector-28',
-  location: { lat: 3.07588585009742, lon: 101.587342520213 },
+  location: {
+    lat: 3.07588585009742,
+    lon: 101.587342520213,
+  },
   is_dummy_outlet: false,
   printer: '192.168.29.201:9100',
   city: 'Gurgaon',
@@ -23,7 +28,10 @@ let rest_details = {
   tax_details: [],
   fee: [],
   preparation_time: [],
-  geo_location: { type: 'Point', coordinates: [101.587342520213, 3.07588585009742] },
+  geo_location: {
+    type: 'Point',
+    coordinates: [101.587342520213, 3.07588585009742],
+  },
   next_open_epoch: 0,
   base_roundoff: 0.05,
   on_whatsapp: 1,
@@ -32,35 +40,213 @@ let rest_details = {
   deliverylimit: 50,
   status: 1,
   mall: '',
-  emails: { cm: ['deepcafe@easyeat.ai'], pm: ['deepcafe@easyeat.ai'], am: ['deepcafe@easyeat.ai'] },
-  config_timings: [{ id: 'f', name: 'FullDay', timing: [480, 1320] }],
+  emails: {
+    cm: ['deepcafe@easyeat.ai'],
+    pm: ['deepcafe@easyeat.ai'],
+    am: ['deepcafe@easyeat.ai'],
+  },
+  config_timings: [
+    {
+      id: 'f',
+      name: 'FullDay',
+      timing: [480, 1320],
+    },
+  ],
   rest_timings: {
     DINING: [
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
     ],
     DELIVERY: [
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
     ],
     TAKEAWAY: [
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
-      { is_enabled: true, slot: [{ start: 480, end: 1320 }] },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 480,
+            end: 1320,
+          },
+        ],
+      },
     ],
   },
   restaurant_open_days: [['f'], ['f'], ['f'], ['f'], ['f'], ['f'], ['f']],
@@ -80,8 +266,16 @@ let rest_details = {
   ],
   addons: [],
   delivery_partner: [
-    { partner_id: '1', partner_name: 'mrspeedy', priority: 0 },
-    { partner_id: '2', partner_name: 'lalamove', priority: 2 },
+    {
+      partner_id: '1',
+      partner_name: 'mrspeedy',
+      priority: 0,
+    },
+    {
+      partner_id: '2',
+      partner_name: 'lalamove',
+      priority: 2,
+    },
   ],
   company_name: '',
   cuisine: [],
@@ -524,20 +718,105 @@ let rest_details = {
     },
   ],
   filters: [
-    { id: 'veg', name: 'Veg', 'filter-type': 'preference', status: 0 },
-    { id: 'non-veg', name: 'Non Veg', 'filter-type': 'preference', status: 0 },
-    { id: 'halal', name: 'Halal', 'filter-type': 'preference', status: 0 },
-    { id: 'kosher', name: 'Kosher', 'filter-type': 'preference', status: 0 },
-    { id: 'gluten-free', name: 'Gluten Free', 'filter-type': 'preference', status: 0 },
-    { id: 'vegan', name: 'Vegan', 'filter-type': 'preference', status: 0 },
-    { id: 'price-5', name: '5', currency: 'MYR', 'filter-type': 'price', status: 0, value: 5 },
-    { id: 'price-10', name: '10', currency: 'MYR', 'filter-type': 'price', status: 0, value: 10 },
-    { id: 'price-15', name: '15', currency: 'MYR', 'filter-type': 'price', status: 0, value: 15 },
-    { id: 'price-20', name: '20', currency: 'MYR', 'filter-type': 'price', status: 0, value: 20 },
-    { id: 'price-30', name: '30', currency: 'MYR', 'filter-type': 'price', status: 0, value: 30 },
-    { id: 'price-40', name: '40', currency: 'MYR', 'filter-type': 'price', status: 0, value: 40 },
-    { id: 'price-50', name: '15', currency: 'MYR', 'filter-type': 'price', status: 0, value: 15 },
-    { id: 'available', name: 'available', 'filter-type': 'preference', status: 1, selected: true },
+    {
+      id: 'veg',
+      name: 'Veg',
+      'filter-type': 'preference',
+      status: 0,
+    },
+    {
+      id: 'non-veg',
+      name: 'Non Veg',
+      'filter-type': 'preference',
+      status: 0,
+    },
+    {
+      id: 'halal',
+      name: 'Halal',
+      'filter-type': 'preference',
+      status: 0,
+    },
+    {
+      id: 'kosher',
+      name: 'Kosher',
+      'filter-type': 'preference',
+      status: 0,
+    },
+    {
+      id: 'gluten-free',
+      name: 'Gluten Free',
+      'filter-type': 'preference',
+      status: 0,
+    },
+    {
+      id: 'vegan',
+      name: 'Vegan',
+      'filter-type': 'preference',
+      status: 0,
+    },
+    {
+      id: 'price-5',
+      name: '5',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 0,
+      value: 5,
+    },
+    {
+      id: 'price-10',
+      name: '10',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 0,
+      value: 10,
+    },
+    {
+      id: 'price-15',
+      name: '15',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 0,
+      value: 15,
+    },
+    {
+      id: 'price-20',
+      name: '20',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 0,
+      value: 20,
+    },
+    {
+      id: 'price-30',
+      name: '30',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 0,
+      value: 30,
+    },
+    {
+      id: 'price-40',
+      name: '40',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 0,
+      value: 40,
+    },
+    {
+      id: 'price-50',
+      name: '15',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 0,
+      value: 15,
+    },
+    {
+      id: 'available',
+      name: 'available',
+      'filter-type': 'preference',
+      status: 1,
+      selected: true,
+    },
   ],
   offline_platforms: [
     {
@@ -570,15 +849,15 @@ let rest_details = {
       enabled: 1,
       print_bahasa: 0,
       cash_drawer: 0,
-      master_docket: 0,
-      on_decline: 0,
-      on_void_unaccepted: 2,
-      on_void_accepted: 2,
-      on_void_new_itr: 2,
-      on_accept_new_order: 2,
-      on_accept_new_itr: 2,
-      on_settle: 1,
-      on_table_change: 2,
+      master_docket: 1,
+      on_decline: 15,
+      on_void_unaccepted: 15,
+      on_void_accepted: 15,
+      on_void_new_itr: 15,
+      on_accept_new_order: 15,
+      on_accept_new_itr: 15,
+      on_settle: 15,
+      on_table_change: 15,
       format_code: null,
       separate_docket: 0,
       void_format_code: null,
@@ -590,13 +869,15 @@ let rest_details = {
       on_accept_enabled: 1,
       void_enabled: 0,
       footer: ['thank you', 'visit again.'],
-      header: { custom: ['Deep Cafe', 'KGF Tower, Sector-29'] },
+      header: {
+        custom: ['Deep Cafe', 'KGF Tower, Sector-29'],
+      },
       cash_mgt_format_override: 0,
       inst_font: 's',
       pmt_mode_in_body: 0,
-      post_settle: 2,
+      post_settle: 15,
       response_format: 1,
-      show_op_order_id: 2,
+      show_op_order_id: 15,
       slip_font: {
         bill: 'm',
         counter: 'm',
@@ -610,8 +891,13 @@ let rest_details = {
       table_no_position: 't',
       uname: 0,
     },
-    settlement: { enable: 1, visible: 1 },
-    login: { skip_verification: 0 },
+    settlement: {
+      enable: 1,
+      visible: 1,
+    },
+    login: {
+      skip_verification: 0,
+    },
     reports: {
       enable_eod: 1,
       eod_printer: 'default',
@@ -667,8 +953,18 @@ let rest_details = {
       auto_refresh: 0,
       pre_paid_order: 2,
     },
-    menu: { new_variation: 1, item_code: 5, item_code_max_len: 3, pax: 0, cmm_enable: 1 },
-    sounds: { repeat: 1, selected: 'sound1.wav', timeout: 15000 },
+    menu: {
+      new_variation: 1,
+      item_code: 5,
+      item_code_max_len: 3,
+      pax: 0,
+      cmm_enable: 1,
+    },
+    sounds: {
+      repeat: 1,
+      selected: 'sound1.wav',
+      timeout: 15000,
+    },
   },
   open_items: {
     def_cat: 'feaf966247764be4807e295b57c42d2b',
@@ -679,116 +975,244 @@ let rest_details = {
   pg_charges: [
     {
       online: {
-        charges: [{ charge_type: 'percent', charge: 0 }],
+        charges: [
+          {
+            charge_type: 'percent',
+            charge: 0,
+          },
+        ],
         'credit-card': {
           charges: [
-            { charge_type: 'flat', charge: 1500 },
-            { charge_type: 'percent', charge: 2.5 },
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 2.5,
+            },
           ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'direct-debit': {
           charges: [
-            { charge_type: 'flat', charge: 1500 },
-            { charge_type: 'percent', charge: 1.5 },
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 1.5,
+            },
           ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'cimb-direct-debit': {
           charges: [
-            { charge_type: 'flat', charge: 1500 },
-            { charge_type: 'percent', charge: 1.5 },
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 1.5,
+            },
           ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'bca-virtual-account': {
-          charges: [{ charge_type: 'flat', charge: 4500 }],
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 4500,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'bni-virtual-account': {
-          charges: [{ charge_type: 'flat', charge: 1800 }],
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'bri-virtual-account': {
-          charges: [{ charge_type: 'flat', charge: 1800 }],
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'bsm-virtual-account': {
-          charges: [{ charge_type: 'flat', charge: 1800 }],
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'cimb-virtual-account': {
-          charges: [{ charge_type: 'flat', charge: 1800 }],
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'doku-virtual-account': {
-          charges: [{ charge_type: 'flat', charge: 1800 }],
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'danamon-virtual-account': {
-          charges: [{ charge_type: 'flat', charge: 1800 }],
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'mandiri-virtual-account': {
-          charges: [{ charge_type: 'flat', charge: 1800 }],
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'permata-virtual-account': {
-          charges: [{ charge_type: 'flat', charge: 1800 }],
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'dokuwallet-emoney': {
-          charges: [{ charge_type: 'percent', charge: 1.65 }],
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.65,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'ovo-emoney': {
-          charges: [{ charge_type: 'percent', charge: 1.5 }],
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.5,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'ovo-open-api': {
-          charges: [{ charge_type: 'percent', charge: 1.5 }],
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.5,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         'shopeepay-emoney': {
-          charges: [{ charge_type: 'percent', charge: 1.65 }],
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.65,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
         qris: {
-          charges: [{ charge_type: 'percent', charge: 0.7 }],
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 0.7,
+            },
+          ],
           start_epoch: 1659100716,
           end_epoch: null,
         },
       },
-      offline: { charges: [{ charge_type: 'percent', charge: 0 }] },
+      offline: {
+        charges: [
+          {
+            charge_type: 'percent',
+            charge: 0,
+          },
+        ],
+      },
       start_epoch: 1659100716,
       end_epoch: null,
     },
   ],
   block_pmt: [],
   quick_notes: [
-    { id: '3919716167474954b63646a4d0d27306', note: 'Less Spicy', visible_to_user: 1 },
-    { id: '1cc5ca1cd1554fcb8a4100ce30f9fc07', note: 'alt', visible_to_user: 1 },
-    { id: '8008ad8b28e04eac8cad848ede193ec9', note: 'Alt', visible_to_user: 1 },
-    { id: '19d2320d25644c20bc48035cfa647704', note: 'heLL', visible_to_user: 1 },
-    { id: 'cb567f28651f4bd6b9f6997eabdf1018', note: 'heLLo1', visible_to_user: 1 },
-    { id: 'cd8f8e48c4b740d5ad1f93daa16f2196', note: 'Hello', visible_to_user: 1 },
-    { id: 'b7b6d182e61d4150a1bfb22b71ca9b44', note: 'HOT & SPICY', visible_to_user: 1 },
+    {
+      id: '3919716167474954b63646a4d0d27306',
+      note: 'Less Spicy',
+      visible_to_user: 1,
+    },
+    {
+      id: '1cc5ca1cd1554fcb8a4100ce30f9fc07',
+      note: 'alt',
+      visible_to_user: 1,
+    },
+    {
+      id: '8008ad8b28e04eac8cad848ede193ec9',
+      note: 'Alt',
+      visible_to_user: 1,
+    },
+    {
+      id: '19d2320d25644c20bc48035cfa647704',
+      note: 'heLL',
+      visible_to_user: 1,
+    },
+    {
+      id: 'cb567f28651f4bd6b9f6997eabdf1018',
+      note: 'heLLo1',
+      visible_to_user: 1,
+    },
+    {
+      id: 'cd8f8e48c4b740d5ad1f93daa16f2196',
+      note: 'Hello',
+      visible_to_user: 1,
+    },
+    {
+      id: 'b7b6d182e61d4150a1bfb22b71ca9b44',
+      note: 'HOT & SPICY',
+      visible_to_user: 1,
+    },
   ],
   country_code: 'MY',
   curr_code: 'MYR',
@@ -800,6 +1224,319 @@ let rest_details = {
   promo_charges: [],
   print_logo: '',
 };
+
+let voided_order_details = [
+  {
+    order_id: '9SBleP6HPY1661498643',
+    order_no: '15831LKA',
+    user_id: 'ac751c2235945bae3716a22c1a28ad287ae5b9d8eb78ef2d582f50e481787a65',
+    restaurant_id: '54de918896774f82bc8a921a25b24d79',
+    restaurant_name: 'Deep Cafe',
+    order_status: 3,
+    bill_id: '',
+    created_at: 1661498643,
+    created_mongodate: '2022-08-26T07:24:03.736Z',
+    date: '2022-08-26',
+    confirmed_at: 1661756005,
+    canceled_at: 0,
+    mark_prepared_at: 1661756005,
+    schedule_confirmed_at: 0,
+    estimated_time: 0,
+    completed_at: 0,
+    table_id: 'a4',
+    table_no: '4',
+    floor_id: 'a',
+    floor_name: 'Ground Section',
+    items: [
+      {
+        itr: 1,
+        item_id: '00c4d7b75f7044d095cc63d71d7e7ac2',
+        item_name: 'Kebab Parantha 1',
+        item_quantity: 1,
+        item_price: 46,
+        original_price: 46,
+        discount_per: 0,
+        reward_id: '',
+        created_at: '1661498643',
+        confirmed_at: 1661756005,
+        completed_at: '',
+        kitchen_counter_id: null,
+        kitchen_picked_at: '',
+        kitchen_picked_by: '',
+        kitchen_time_to_complete: 15,
+        item_status: 3,
+        order_item_id: 'v8FMu00c4d7b75f7044d095cc63d71d7e7ac2',
+        prepared_at: 1661756005,
+        canceled_at: 0,
+        void_at: 0,
+        declined_at: 0,
+        special_note: '',
+        decline_reason: [],
+        base_qty: 1,
+        unit: 'number',
+        gvariations: null,
+        variation_ids: '',
+        addons: [],
+        addon_ids: null,
+        gvariation_name: '',
+        variation_name: '',
+        addons_name: '',
+        category_id: '4bb9f8d71b5e705aabb714b765fb6fe673471356b4d23e11bf7fa3e42f6cc55f',
+        subcategory_id: '23d9405018ff3af0e2eb83c994db7c50ad5e2c560788e77826248feb03ef8f55',
+        is_combo_item: 0,
+        cmm_id: '2a1110f7afe74b00b6675313bce0c99c',
+        hq_id: '7cc8a0a1bd4c4d2c8993ad1e42ce33c4',
+        order_by: 'user',
+        new_variation_name: '',
+        new_addons_name: '',
+        combo_items: [],
+        open_item: 0,
+        item_code: null,
+        new_variation_ids: null,
+        variant_info: [],
+      },
+      {
+        itr: 2,
+        item_id: '4b608fcd5aa54e389b868f325ff5f3d4',
+        item_name: 'Bisc3',
+        item_quantity: 1,
+        item_price: 87,
+        original_price: 87,
+        discount_per: 0,
+        reward_id: '',
+        created_at: '1661756002',
+        confirmed_at: 1661756005,
+        completed_at: '',
+        kitchen_counter_id: 'sRQei2GMbk62cbd254cd418',
+        kitchen_picked_at: '',
+        kitchen_picked_by: '',
+        kitchen_time_to_complete: 15,
+        item_status: 3,
+        order_item_id: 'U7Fz54b608fcd5aa54e389b868f325ff5f3d4',
+        prepared_at: 1661756005,
+        canceled_at: 0,
+        void_at: 0,
+        declined_at: 0,
+        special_note: '',
+        decline_reason: [],
+        base_qty: 1,
+        unit: 'number',
+        gvariations: null,
+        variation_ids: '',
+        addons: [],
+        addon_ids: null,
+        gvariation_name: '',
+        variation_name: '',
+        addons_name: '',
+        category_id: '4bb9f8d71b5e705aabb714b765fb6fe673471356b4d23e11bf7fa3e42f6cc55f',
+        subcategory_id: '23d9405018ff3af0e2eb83c994db7c50ad5e2c560788e77826248feb03ef8f55',
+        is_combo_item: 0,
+        cmm_id: 'c414134cd6604ee69890459d571cf145',
+        hq_id: '7cc8a0a1bd4c4d2c8993ad1e42ce33c4',
+        order_by: 'MM',
+        new_variation_name: '',
+        new_addons_name: '',
+        combo_items: [],
+        open_item: 0,
+        item_code: null,
+        new_variation_ids: null,
+        variant_info: [],
+      },
+      {
+        itr: 2,
+        item_id: '718b03cf03f34f99bdadfc642f89a850',
+        item_name: 'Food combo',
+        item_quantity: 1,
+        item_price: 98,
+        original_price: 98,
+        discount_per: 0,
+        reward_id: '',
+        created_at: '1661756002',
+        confirmed_at: 1661756005,
+        completed_at: '',
+        kitchen_counter_id: '6V6xfgZYDK62b1889167da6',
+        kitchen_picked_at: '',
+        kitchen_picked_by: '',
+        kitchen_time_to_complete: 15,
+        item_status: 3,
+        order_item_id: '3Yvib718b03cf03f34f99bdadfc642f89a850',
+        prepared_at: 1661756005,
+        canceled_at: 0,
+        void_at: 0,
+        declined_at: 0,
+        special_note: '',
+        decline_reason: [],
+        base_qty: 1,
+        unit: 'number',
+        gvariations: null,
+        variation_ids: '',
+        addons: [],
+        addon_ids: null,
+        gvariation_name: '',
+        variation_name: '',
+        addons_name: '',
+        category_id: '4bb9f8d71b5e705aabb714b765fb6fe673471356b4d23e11bf7fa3e42f6cc55f',
+        subcategory_id: '012760c6bb3f4cfb1e7407a8b19cbb0de4bf428ccb881e7050666b71a49da73c',
+        is_combo_item: 1,
+        cmm_id: '1fa10769ea3e4f9588b561c5a7d0e031',
+        hq_id: '7cc8a0a1bd4c4d2c8993ad1e42ce33c4',
+        order_by: 'MM',
+        new_variation_name: '',
+        new_addons_name: '',
+        combo_items: [
+          {
+            mapped_item_id: '9d8fe96c4d5144fd9d3c1189239df4ad',
+            quantity: '1',
+            kitchen_counter_id: 'X6MPxmwbZj62b1883dbfbd3',
+            item_name: 'Butter Panner Masala',
+            original_price: 45,
+            item_price: 45,
+          },
+          {
+            mapped_item_id: 'aec8500894d5455080ea965c42ccef7d',
+            quantity: '1',
+            kitchen_counter_id: 'X6MPxmwbZj62b1883dbfbd3',
+            item_name: 'Dal Makhani',
+            original_price: 35,
+            item_price: 35,
+          },
+          {
+            mapped_item_id: '6f8b290bbdcb43eb9b3942280609f981',
+            quantity: '1',
+            kitchen_counter_id: 'X6MPxmwbZj62b1883dbfbd3',
+            item_name: 'Steamed Rice',
+            original_price: 18,
+            item_price: 18,
+          },
+        ],
+        open_item: 0,
+        item_code: null,
+        new_variation_ids: null,
+        variant_info: [],
+      },
+    ],
+    special_notes: [],
+    allergic_items: {
+      is_allergy: 1,
+      categories: [
+        {
+          cat_id: 'gluten',
+          cat_name: 'gluten',
+          subcat: [],
+        },
+      ],
+    },
+    address: '',
+    distance: 0,
+    order_type: 0,
+    delivery_partner: null,
+    delivery_assign_type: null,
+    address_obj: null,
+    platform: 'easyeat',
+    pax: null,
+    order_seq: '0-1',
+    op_no: null,
+    coupon_id: '',
+    coupon_name: '',
+    reason: null,
+    base_roundoff: 0.05,
+    auto_assign_car: null,
+    user_platform: '',
+    country_code: 'MY',
+    skip_service_charge_operation: 0,
+    skip_packaging_charge_operation: '0',
+    op_order_creation_time: '',
+    currency: {
+      curr_sym: 'RM',
+      curr_code: 'MYR',
+    },
+    discovery_page: 1,
+    order_by: 'user',
+    no_enter: 1,
+    name: 'Deepanshu Rawat',
+    phone: '9958704405',
+    dial_code: '+91',
+    time_epoch: 0,
+    scheduled: 0,
+    rest_reach_min_time: 2,
+    loyalty: {
+      amount: 0,
+      full_redeem: true,
+      given_by: {
+        user_id: '5d9f85f1623e4c678cfaeef3340bed4d',
+        user_name: 'Restaurant Manager',
+        user_role: 'rest_admin',
+      },
+    },
+    more_item_added: 1,
+    void_items: [
+      {
+        itr: 2,
+        item_id: '48655eecdaff4844b28d2e0be5fcbadb',
+        item_name: 'Bisc4',
+        item_quantity: 1,
+        item_price: 65,
+        original_price: 65,
+        discount_per: 0,
+        reward_id: '',
+        created_at: '1661756002',
+        confirmed_at: 1661756005,
+        completed_at: '',
+        kitchen_counter_id: null,
+        kitchen_picked_at: '',
+        kitchen_picked_by: '',
+        kitchen_time_to_complete: 15,
+        item_status: 3,
+        order_item_id: 'te5db48655eecdaff4844b28d2e0be5fcbadb',
+        prepared_at: 1661756005,
+        canceled_at: 0,
+        void_at: 1661756046,
+        declined_at: 0,
+        special_note: '',
+        decline_reason: {
+          decline_item_code: 5,
+          decline_reason: 'Dish Out Of Stock',
+        },
+        base_qty: 1,
+        unit: 'number',
+        gvariations: null,
+        variation_ids: '',
+        addons: [],
+        addon_ids: null,
+        gvariation_name: 'Roll Size',
+        variation_name: '(Small)',
+        addons_name: '',
+        category_id: '4bb9f8d71b5e705aabb714b765fb6fe673471356b4d23e11bf7fa3e42f6cc55f',
+        subcategory_id: '23d9405018ff3af0e2eb83c994db7c50ad5e2c560788e77826248feb03ef8f55',
+        is_combo_item: 0,
+        cmm_id: '37c1137715fc4580a327b77858d157c8',
+        hq_id: '7cc8a0a1bd4c4d2c8993ad1e42ce33c4',
+        order_by: 'MM',
+        new_variation_name: 'Small',
+        new_addons_name: '',
+        combo_items: [],
+        open_item: 0,
+        item_code: null,
+        new_variation_ids: '|OyQsqkVxsm',
+        variant_info: [
+          {
+            group_id: 'ca49f84b5cb9470d8900e248296f9f9b',
+            options: [
+              {
+                id: 'OyQsqkVxsm',
+                price: 0,
+              },
+            ],
+          },
+        ],
+        voided_by: {
+          user_id: '5d9f85f1623e4c678cfaeef3340bed4d',
+          user_name: 'Restaurant Manager',
+        },
+      },
+    ],
+  },
+];
 
 let order_details = [
   {
@@ -918,7 +1655,7 @@ let kitchen_counter_details = {
       kc_id: 'X6MPxmwbZj62b1883dbfbd3',
       counter_name: 'main_course',
       printer_name: '192.168.29.201:9100',
-      is_sticker_printer: 0,
+      is_sticker_printer: 1,
       kitchen_counter_id: 'X6MPxmwbZj62b1883dbfbd3',
     },
   ],
@@ -945,33 +1682,45 @@ let subcat_counters = {
   ],
 };
 
-let counter_id = 'X6MPxmwbZj62b1883dbfbd3';
+let bill_details = {
+  _id: '62f10949a2c9cb6d9207d9f7',
+  bill_id: 'qeqxFZK8h71659963721',
+  order_id: 'tmx2cWqYBb1659963721',
+  payments: [],
+  user_id: 'e937ed4723d5d874f2813b91603647235ea6c89addae4ff65fd76e55e67f9e0a',
+  restaurant_id: '54de918896774f82bc8a921a25b24d79',
+  curr_code: 'MYR',
+  fees: [
+    { id: 'item_total', fee_name: 'Item Total', fee: 35, tax: 0 },
+    { id: 'coupon_discount', fee_name: 'Discount', fee: 0, tax: 0 },
+    { id: 'round_off', fee_name: 'Round Off', fee: 0, tax: 0 },
+  ],
+  item_total: 35,
+  tax: 0,
+  bill_total: 35,
+  savings: 0,
+  earnings: 0,
+  balance: 35,
+  paid: 0,
+  date: '2022-08-08',
+  timestamp: 1659963721,
+};
 
-// console.log(
-//   JSON.stringify(
-//     generateCounterReceipt(
-//       order_details,
-//       rest_details,
-//       subcat_counters,
-//       1,
-//       0,
-//       kitchen_counter_details,
-//       counter_id,
-//     ),
-//   ),
-// );
+let counter_id = 'X6MPxmwbZj62b1883dbfbd3';
 
 console.log(
   JSON.stringify(
     generatePrintData(
-      order_details,
+      voided_order_details,
       rest_details,
-      0,
+      7,
       1,
       kitchen_counter_details,
       subcat_counters,
-      [],
+      bill_details,
       counter_id,
+      1,
+      'te5db48655eecdaff4844b28d2e0be5fcbadb',
     ),
   ),
 );

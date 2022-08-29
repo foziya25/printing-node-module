@@ -26,6 +26,9 @@ const {
   convertCounterObj,
   convertMasterObj,
   convertTableTransferObj,
+  convertVoidAndCancelCounterObj,
+  convertVoidMasterObj,
+  convertDeclineMasterObj,
 } = require('./printing-new-slip');
 // const { KeyName } = require('./utils/enums.js');
 
@@ -1008,7 +1011,481 @@ function generateMasterOrderReceipt(
   return convertMasterObj(obj, rest_details);
 }
 
-module.exports = { generateBillReceipt, generateCounterReceipt, generateMasterOrderReceipt };
+function generateVoidAndCancelCounterReceipt(
+  order_details,
+  type,
+  rest_details,
+  itr = null,
+  oid = '',
+  qty = 1,
+  subcat_counters = {},
+  kitchen_counter_details = {},
+) {
+  let receipt_data = [];
+  let decline_type = '';
+  let decline_reason = '';
+  let item_count = 0;
+  const temp_item_obj = {};
+  const temp_item_data = {};
+  let items_list = [];
+  const restaurant_id = order_details['restaurant_id'];
+  const show_sname = getSettingVal(rest_details, 'sname');
+  const show_uname = getSettingVal(rest_details, 'uname');
+  const pax_enabled = getSettingVal(rest_details, 'pax');
+  const show_op_order_id = getSettingVal(rest_details, 'show_op_order_id', order_details);
+  const language = getPrintLanguage(rest_details);
+
+  if (type == 3) {
+    decline_type = localize(KeyName.VOID_ITEM, language);
+    items_list = [...order_details['void_items']];
+  } else if (type == 5) {
+    decline_type = localize(KeyName.CANCEL_ITEM, language);
+    items_list = [...order_details['items']];
+  }
+
+  /* Creating mapping of kc_id with its printer_name and counter_name*/
+  const printer_mapping = {};
+  order_details['order_type'] = getOrderTypeText(order_details['order_type']);
+
+  // const printer_mapping = await this.getPrinterName([...items_list], restaurant_id);
+
+  /* As a single item can be mapped to multiple counters, below function create new copies of item and map it to
+  its respective counter. Ex-If one item has kc_id = KC104, KC105 then it creates two object of same item
+  and each such object has a single kc_id. */
+  // items_list = getItemsList(items_list, rest_details);
+  items_list = getItemsList(items_list, rest_details, {}, subcat_counters, kitchen_counter_details);
+
+  for (const item of items_list) {
+    if (
+      (type == 3 && item['order_item_id'] == oid) ||
+      (type == 5 && item['itr'] == itr && (item['item_status'] == 5 || item['item_status'] == 6))
+    ) {
+      if (!(item['itr'] + '_' + item['kitchen_counter_id'] in temp_item_obj)) {
+        temp_item_obj[item['itr'] + '_' + item['kitchen_counter_id']] = [];
+      }
+      if (!(item['itr'] + '_' + item['kitchen_counter_id'] in temp_item_data)) {
+        temp_item_data[item['itr'] + '_' + item['kitchen_counter_id']] = [];
+      }
+
+      let total_qty = 0;
+      if (type == 3) {
+        total_qty = qty <= item['item_quantity'] ? qty : item['item_quantity'];
+      } else {
+        total_qty = item['item_quantity'];
+      }
+
+      const item_obj = {};
+      if (!item['is_combo_item']) {
+        item_obj['name'] = item['item_name'];
+        item_obj['qty'] = item['item_quantity'];
+        item_obj['unit'] = getUnit(item);
+        item_obj['addon'] = '';
+        item_obj['variant'] = item['variation_name']
+          ? getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
+          : '';
+        item_obj['note'] = item['special_note'] ? item['special_note'] : '';
+        item_obj['strike'] = 1;
+      } else {
+        const is_copy = item['is_copy'] ? 1 : 0;
+        comboPrinting(
+          temp_item_obj,
+          temp_item_data,
+          item_obj,
+          item,
+          printer_mapping,
+          order_details,
+          rest_details,
+          receipt_data,
+          is_copy,
+          1,
+        );
+      }
+
+      /* Create new counter obj for addons if it has printer name present */
+      item['addons'] = getAddons(item);
+      /*If it is copied item object then do not go inside this loop as it will also create multiple copies
+       of addons */
+      if (!item['is_copy']) {
+        for (const addon of item['addons']) {
+          if (addon['printer'] && addon['printer'].trim() != '') {
+            const printer = addon['printer'].trim();
+
+            if (!(item['itr'] + '_' + printer in temp_item_obj)) {
+              temp_item_obj[item['itr'] + '_' + printer] = [];
+            }
+            if (!(item['itr'] + '_' + printer in temp_item_data)) {
+              temp_item_data[item['itr'] + '_' + printer] = [];
+            }
+            temp_item_obj[item['itr'] + '_' + printer].push({
+              name: addon['name'],
+              qty: total_qty * Number(addon['qty']),
+              addon: '',
+              variant: '',
+              note: '',
+            });
+            if (temp_item_data[item['itr'] + '_' + printer].length == 0) {
+              temp_item_data[item['itr'] + '_' + printer].push({
+                counterName: printer,
+                printerName: printer,
+              });
+            }
+          } else {
+            item_obj['addon'] +=
+              item_obj['addon'] === ''
+                ? `${addon['name']} x(${addon['qty']})`
+                : `, ${addon['name']} x(${addon['qty']})`;
+          }
+        }
+      }
+
+      /* I need to insert addon name which do not have a printer assigned or have same printer as item printer
+        for the case of copied item object */
+      if (item['is_copy']) {
+        for (const addon of item['addons']) {
+          if (
+            !(addon['printer'] && addon['printer'].trim()) ||
+            (addon['printer'] && addon['printer'].trim()) === item['printer_name']
+          ) {
+            item_obj['addon'] +=
+              item_obj['addon'] === ''
+                ? `${addon['name']} x(${addon['qty']})`
+                : `, ${addon['name']} x(${addon['qty']})`;
+          }
+        }
+      }
+
+      temp_item_obj[item['itr'] + '_' + item['kitchen_counter_id']].push(item_obj);
+
+      /* USING PASS BY REFERENCE,As a single item can be mapped to different counters and same goes to every
+         variant present in a single item. */
+      separateVariantByCounter(item, temp_item_obj, temp_item_data, printer_mapping);
+      const ptr_ip = item['printer_name'] != '' ? item['printer_name'] : 'Default Printer';
+      const ptr_id = item['ptr_id'] ? item['ptr_id'] : ptr_ip;
+
+      if (temp_item_data[item['itr'] + '_' + item['kitchen_counter_id']].length == 0) {
+        temp_item_data[item['itr'] + '_' + item['kitchen_counter_id']].push({
+          kitchen_counter_id: item['kitchen_counter_id'],
+          counterName: item['counter_name'] != '' ? item['counter_name'] : 'Default Counter',
+          printerName: item['printer_name'] != '' ? item['printer_name'] : 'Default Printer',
+          ptr_id: ptr_id,
+        });
+      }
+
+      if (
+        (type == 3 || type == 5) &&
+        item['decline_reason'] &&
+        Object.keys(item['decline_reason']).length > 0
+      ) {
+        decline_reason = item['decline_reason']['decline_reason'];
+      }
+      item_count = item_count + 1;
+    }
+  }
+
+  for (const key of Object.keys(temp_item_obj)) {
+    const obj = {};
+    obj['type'] = 'counter';
+    obj['counterName'] = temp_item_data[key][0]['counterName'];
+    obj['printerName'] = temp_item_data[key][0]['printerName'];
+    obj['ptr_id'] = temp_item_data[key][0]['ptr_id']
+      ? temp_item_data[key][0]['ptr_id']
+      : obj['printerName'];
+
+    obj['note'] = [decline_type];
+    if (decline_reason.trim() != '') {
+      const fixed_decline_texts = {
+        'dish out of stock': KeyName.DISH_OUT_OF_STOCK_TEXT,
+        'variant out of stock': KeyName.VARIANT_OUT_OF_STOCK_TEXT,
+        'add on out of stock': KeyName.ADDON_OUT_OF_STOCK_TEXT,
+      };
+      if (decline_reason && fixed_decline_texts[decline_reason.toLocaleLowerCase()]) {
+        obj['note'].push(
+          `${KeyName.REASON}: ${localize(
+            fixed_decline_texts[decline_reason.toLocaleLowerCase()],
+            language,
+          )}`,
+        );
+      } else {
+        obj['note'].push(`${KeyName.REASON}: ${decline_reason}`);
+      }
+    }
+    const str =
+      type == 3
+        ? localize(KeyName.COUNTER_CANCEL_TEXT, language)
+        : localize(KeyName.COUNTER_DECLINE_TEXT, language);
+    if (item_count == 1) {
+      obj['note'].push(str);
+    } else if (item_count > 1) {
+      obj['note'].push(str);
+    }
+    obj['note'] = appendCounterFooter(obj['note'], rest_details);
+    obj['allergic_items'] = order_details['allergic_items'];
+    obj['body'] = {};
+    obj['body'][KeyName.ORDERTYPE] = order_details['order_type'];
+    if (!['', null, undefined].includes(order_details['table_no'])) {
+      obj['body'][KeyName.TABLE] = order_details['table_no'].toString();
+    }
+    obj['body'][KeyName.INVOICE] = `#${order_details['order_no']}`;
+    obj['body'][KeyName.ORDER_SEQ] = order_details['order_seq'];
+
+    const get_date_time = addDateTime(order_details, rest_details);
+    obj['body'][KeyName.DATE] = get_date_time['date'];
+    obj['body'][KeyName.TIME] = get_date_time['time'];
+    if ((show_op_order_id & 2) == 2) {
+      obj['body'][KeyName.INVOICE] = getModifiedOrderNo(order_details);
+    }
+    if (pax_enabled == 1) {
+      obj['body'][KeyName.PAX] = order_details['pax'] ? order_details['pax'].toString() : '';
+    }
+    if (show_sname == 1) {
+      obj['body'][KeyName.STAFF_NAME] = order_details['sname'];
+    }
+    if (show_uname == 1) {
+      obj['body'][KeyName.CUSTOMER_NAME] = order_details['name'] ? order_details['name'] : '';
+    }
+    obj['items'] = temp_item_obj[key];
+    let noOfVoidedItems = 0;
+
+    for (const item of obj['items']) {
+      noOfVoidedItems += item['qty'];
+    }
+
+    obj['body'][KeyName.NO_OF_ITEMS_VOIDED] = noOfVoidedItems.toString();
+    receipt_data.push(obj);
+  }
+
+  receipt_data = formatCounterObj(receipt_data, type, rest_details);
+
+  let final_receipt_data = [];
+
+  for (let obj of receipt_data) {
+    final_receipt_data.push(convertVoidAndCancelCounterObj(obj, {}, rest_details));
+  }
+  return final_receipt_data;
+}
+
+function generateVoidMasterReceipt(order_details, rest_details, voided_item) {
+  const show_sname = getSettingVal(rest_details, 'sname');
+  const show_uname = getSettingVal(rest_details, 'uname');
+  const show_item_code = getSettingVal(rest_details, 'item_code');
+  const pax_enabled = getSettingVal(rest_details, 'pax');
+  const show_op_order_id = getSettingVal(rest_details, 'show_op_order_id', order_details);
+  const master_docket_printer = getSettingVal(rest_details, 'master_docket_printer');
+  const language = getPrintLanguage(rest_details);
+
+  const obj = { type: 'counter' };
+  obj['counterName'] = localize(KeyName.MASTER_DOCKET, language);
+  obj['printerName'] = master_docket_printer
+    ? master_docket_printer
+    : rest_details.printer
+    ? rest_details.printer
+    : 'Cashier';
+  obj['ptr_id'] = 'master';
+  obj['note'] = [localize(KeyName.ITEM_VOIDED, language)];
+  obj['body'] = {};
+  obj['body'][KeyName.ORDER_SEQ] = order_details['order_type'];
+  if (!['', null, undefined].includes(order_details['table_no'])) {
+    obj['body'][KeyName.TABLE] = order_details['table_no'].toString();
+  }
+  obj['body'][KeyName.INVOICE] = `#${order_details['order_no']}`;
+  obj['body'][KeyName.ORDER_SEQ] = order_details['order_seq'];
+
+  const get_date_time = addDateTime(order_details, rest_details);
+  obj['body']['Date'] = get_date_time['datetime'];
+  if ((show_op_order_id & 8) == 8) {
+    obj['body'][KeyName.INVOICE] = getModifiedOrderNo(order_details);
+  }
+  if (pax_enabled == 1) {
+    obj['body'][KeyName.PAX] = order_details['pax'] ? order_details['pax'].toString() : '';
+  }
+  if (show_sname == 1) {
+    //obj['body']['name'] = order_details['sname']; // for backward compatibility
+    obj['body'][KeyName.STAFF_NAME] = order_details['sname'];
+  }
+  if (show_uname == 1) {
+    obj['body'][KeyName.CUSTOMER_NAME] = order_details['name'] ? order_details['name'] : '';
+  }
+  obj['allergic_items'] = order_details['allergic_items'];
+
+  obj['items'] = [];
+  if (
+    (show_item_code & 16) == 16 &&
+    voided_item['item_code'] &&
+    voided_item['item_code'].trim() !== ''
+  ) {
+    voided_item['item_name'] = '(' + voided_item['item_code'] + ') ' + voided_item['item_name'];
+  }
+  const item_obj = {
+    name: voided_item['item_name'],
+    qty: voided_item['item_quantity'],
+    unit: getUnit(voided_item),
+    price: voided_item['item_price'],
+    addon: voided_item['addons_name'] ? voided_item['addons_name'] : '',
+    variant: voided_item['variation_name'] ? voided_item['variation_name'] : '',
+    note: voided_item['special_note'] ? voided_item['special_note'] : '',
+    strike: 1,
+  };
+  if (voided_item['is_combo_item']) {
+    item_obj['combo_name'] = '';
+    for (const combo_item of voided_item['combo_items']) {
+      item_obj['combo_name'] +=
+        item_obj['combo_name'] === ''
+          ? `(${combo_item['quantity']}) ${combo_item['item_name']}`
+          : `, (${combo_item['quantity']}) ${combo_item['item_name']}`;
+    }
+  }
+
+  obj['items'].push(item_obj);
+
+  const decline_reason = voided_item['decline_reason']['decline_reason'];
+  if (decline_reason && decline_reason != '') {
+    const fixed_decline_texts = {
+      'dish out of stock': KeyName.DISH_OUT_OF_STOCK_TEXT,
+      'variant out of stock': KeyName.VARIANT_OUT_OF_STOCK_TEXT,
+      'add on out of stock': KeyName.ADDON_OUT_OF_STOCK_TEXT,
+    };
+    if (decline_reason && fixed_decline_texts[decline_reason.toLocaleLowerCase()]) {
+      obj['note'].push(
+        `${KeyName.REASON}: ${localize(
+          fixed_decline_texts[decline_reason.toLocaleLowerCase()],
+          language,
+        )}`,
+      );
+    } else {
+      obj['note'].push(`${KeyName.REASON}: ${decline_reason}`);
+    }
+  }
+  obj['note'].push(localize(KeyName.CANCELED_ITEMS_TEXT, language));
+  obj['note'] = appendCounterFooter(obj['note'], rest_details);
+
+  return convertVoidMasterObj(obj, {}, rest_details);
+}
+
+function generateDeclineMasterReceipt(order_details, rest_details, itr) {
+  const show_sname = getSettingVal(rest_details, 'sname');
+  const show_uname = getSettingVal(rest_details, 'uname');
+  const show_item_code = getSettingVal(rest_details, 'item_code');
+  const pax_enabled = getSettingVal(rest_details, 'pax');
+  const show_op_order_id = getSettingVal(rest_details, 'show_op_order_id', order_details);
+  const master_docket_printer = getSettingVal(rest_details, 'master_docket_printer');
+  const language = getPrintLanguage(rest_details);
+
+  let obj = { type: 'counter' };
+  obj['counterName'] = localize(KeyName.MASTER_DOCKET, language);
+  obj['printerName'] = master_docket_printer
+    ? master_docket_printer
+    : rest_details.printer
+    ? rest_details.printer
+    : 'Cashier';
+  obj['ptr_id'] = 'master';
+  obj['note'] = [localize(KeyName.DECLINED_ORDER, language)];
+  obj['body'] = {};
+  obj['body'][KeyName.ORDERTYPE] = order_details['order_type'];
+  if (!['', null, undefined].includes(order_details['table_no'])) {
+    obj['body'][KeyName.TABLE] = order_details['table_no'].toString();
+  }
+  obj['body'][KeyName.INVOICE] = `#${order_details['order_no']}`;
+  obj['body'][KeyName.ORDER_SEQ] = order_details['order_seq'];
+
+  const get_date_time = addDateTime(order_details, rest_details);
+  obj['body'][KeyName.DATETIME] = get_date_time['datetime'];
+
+  if ((show_op_order_id & 8) == 8) {
+    obj['body'][KeyName.INVOICE] = getModifiedOrderNo(order_details);
+  }
+
+  if (pax_enabled == 1) {
+    obj['body'][KeyName.PAX] = order_details['pax'] ? order_details['pax'].toString() : '';
+  }
+
+  if (show_sname == 1) {
+    // obj['body']['name'] = order_details['sname']; // for backward compatibility
+    obj['body'][KeyName.STAFF_NAME] = order_details['sname'];
+  }
+
+  if (show_uname == 1) {
+    obj['body'][KeyName.CUSTOMER_NAME] = order_details['name'] ? order_details['name'] : '';
+  }
+
+  obj['allergic_items'] = order_details['allergic_items'];
+
+  obj['items'] = [];
+  let decline_reason = '';
+  let decline_count = 0;
+  let unavailable_item_count = 0;
+
+  for (const original_item of order_details['items']) {
+    const item = { ...original_item };
+    if (item['itr'] == itr && (item['item_status'] == 5 || item['item_status'] == 6)) {
+      if ((show_item_code & 16) == 16 && item['item_code'] && item['item_code'].trim() !== '') {
+        item['item_name'] = '(' + item['item_code'] + ') ' + item['item_name'];
+      }
+      const item_obj = {
+        name: item['item_name'],
+        qty: item['item_quantity'],
+        unit: getUnit(item),
+        price: item['item_price'],
+        addon: item['addons_name'] ? item['addons_name'] : '',
+        variant: item['variation_name'] ? item['variation_name'] : '',
+        note: item['special_note'] ? item['special_note'] : '',
+        strike: 1,
+      };
+
+      if (item['is_combo_item']) {
+        item_obj['combo_name'] = '';
+        for (const combo_item of item['combo_items']) {
+          item_obj['combo_name'] +=
+            item_obj['combo_name'] === ''
+              ? `(${combo_item['quantity']}) ${combo_item['item_name']}`
+              : `, (${combo_item['quantity']}) ${combo_item['item_name']}`;
+        }
+      }
+      obj['items'].push(item_obj);
+
+      if (item['decline_reason']['decline_item_code'] == 1) {
+        unavailable_item_count += 1;
+      } else {
+        decline_reason = item['decline_reason']['decline_reason'];
+      }
+      decline_count += 1;
+    }
+  }
+  if (unavailable_item_count > 0) {
+    if (unavailable_item_count == decline_count) {
+      if (decline_count == 1) {
+        decline_reason = localize(KeyName.ITEM_NOT_AVAILABLE_TEXT, language);
+      } else {
+        decline_reason = localize(KeyName.ITEMS_NOT_AVAILABLE_TEXT, language);
+      }
+    } else {
+      decline_reason = localize(KeyName.SOME_ITEMS_NOT_AVAILABLE_TEXT, language);
+    }
+  }
+  let note = '';
+  if (itr == 1) {
+    note = localize(KeyName.ORDER_DECLINED_TEXT, language);
+  } else {
+    note = localize(KeyName.ITEMS_DECLINED_TEXT, language);
+  }
+  obj['note'].push(`${localize(KeyName.REASON, language)}: ` + decline_reason);
+  obj['note'].push(note);
+  obj['note'] = appendCounterFooter(obj['note'], rest_details);
+
+  if (decline_count == 0) {
+    obj = {};
+  }
+
+  return convertDeclineMasterObj(obj, {}, rest_details);
+}
+
+module.exports = {
+  generateBillReceipt,
+  generateCounterReceipt,
+  generateMasterOrderReceipt,
+  generateVoidAndCancelCounterReceipt,
+  generateVoidMasterReceipt,
+  generateDeclineMasterReceipt,
+};
 
 // const kitchen_details = {
 //   kitchen_counter_id,
