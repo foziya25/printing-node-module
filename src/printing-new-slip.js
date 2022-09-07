@@ -27,6 +27,7 @@ const {
   FontAlign,
   FontType,
   SlipType,
+  AddonVariantNameEnum,
 } = require('../config/enums');
 
 /* function to convert the receipt obj to print format */
