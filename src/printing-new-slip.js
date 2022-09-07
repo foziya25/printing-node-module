@@ -27,6 +27,7 @@ const {
   FontAlign,
   FontType,
   SlipType,
+  AddonVariantReceiptEnum,
   AddonVariantNameEnum,
 } = require('../config/enums');
 

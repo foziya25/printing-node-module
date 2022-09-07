@@ -7,7 +7,9 @@ const {
   FontAlign,
   CountryMapping,
   KeyName,
+  AddonVariantReceiptEnum,
   AddonVariantNameEnum,
+  AddonVariantBitEnum,
 } = require('../config/enums');
 
 const { getLocalizedData } = require('./utils');

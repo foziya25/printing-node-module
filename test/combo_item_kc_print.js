@@ -1001,7 +1001,7 @@ console.log(
     generatePrintData(
       order_details,
       rest_details,
-      0,
+      1,
       1,
       kitchen_counter_details,
       subcat_counters,
