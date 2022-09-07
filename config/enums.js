@@ -1,6 +1,15 @@
 const ReceiptType = {
   STICKER_PRINTER: 'sticker_printer',
 };
+const SlipType = {
+  BILL: 'bill',
+  COUNTER: 'counter',
+  MASTER_ORDER_LIST: 'master_order_list',
+  MASTER_DOCKET: 'master_docket',
+  TABLE_CHANGE: 'table_change',
+  CASH_IN_OUT: 'cash_in_out',
+  CASH_MGT_REPORT: 'cash_mgt_report',
+};
 const FormatType = {
   RECEIPT: 'bill_receipt',
   COUNTER: 'counter_receipt',
@@ -175,6 +184,7 @@ const KeyName = {
 
 module.exports = {
   ReceiptType,
+  SlipType,
   FormatType,
   AddonVariantNameEnum,
   AddonVariantBitEnum,
