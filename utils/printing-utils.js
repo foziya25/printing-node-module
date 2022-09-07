@@ -1,139 +1,15 @@
-const SlipType = {
-  BILL: 'bill',
-  COUNTER: 'counter',
-  MASTER_ORDER_LIST: 'master_order_list',
-  MASTER_DOCKET: 'master_docket',
-  TABLE_CHANGE: 'table_change',
-  CASH_IN_OUT: 'cash_in_out',
-  CASH_MGT_REPORT: 'cash_mgt_report',
-};
+const { enKeys } = require('../config/en');
+const { idKeys } = require('../config/id');
+const {
+  SlipType,
+  FontSize,
+  FontType,
+  FontAlign,
+  CountryMapping,
+  KeyName,
+} = require('../config/enums');
 
-const FontSize = {
-  SMALL: 's',
-  MEDIUM: 'm',
-  LARGE: 'l',
-};
-
-const FontType = {
-  BOLD: 'b',
-  NORMAL: 'n',
-  ITALIC: 'i',
-};
-
-const FontAlign = {
-  LEFT: 'l',
-  RIGHT: 'r',
-  CENTER: 'c',
-};
-
-const CountryMapping = {
-  MALAYSIA: {
-    country: 'Malaysia',
-    country_code: 'MY',
-    currency_code: 'MYR',
-    currency_symbol: 'RM',
-    locale: 'ms-MY',
-    language: 'en-US',
-    // origin: env.app.partner_app_base_url,
-    base_roundoff: 0.05,
-  },
-  INDONESIA: {
-    country: 'Indonesia',
-    country_code: 'ID',
-    currency_code: 'IDR',
-    currency_symbol: 'Rp',
-    locale: 'id-ID',
-    language: 'id-ID',
-    // origin: env.app.partner_app_base_url_ind,
-    base_roundoff: 100,
-  },
-};
-
-const KeyName = {
-  INVOICE: 'invoice_no',
-  DATE: 'date',
-  TIME: 'time',
-  TABLE: 'table',
-  NO_OF_ITEMS: 'no_of_items',
-  ORDER_SEQ: 'order_seq',
-  ORDERTYPE: 'order_type',
-  CASHIER: 'cashier',
-  PAX: 'pax',
-  STAFF_NAME: 'staff_name',
-  CUSTOMER_NAME: 'customer_name',
-  CUSTOMER_PHONE: 'customer_phone',
-  PAYMENT_TYPE: 'payment_type',
-  PAYMENT_MODE: 'payment_mode',
-  TOTAL: 'total',
-  SUB_TOTAL: 'sub-total',
-  BALANCE: 'balance',
-  UNPAID: 'unpaid',
-  PAID: 'paid',
-  DINEIN: 'dine_in',
-  DELIVERY: 'delivery',
-  TAKEAWAY: 'takeaway',
-  PICKUP: 'pickup',
-  OLD_TABLE: 'old_table',
-  DATETIME: 'date_time',
-  NO_OF_ITEMS_VOIDED: 'noOfItemsVoid',
-  TABLE_TRANSFER: 'tableTransfer',
-  OPENING_CASH_FLOAT: 'opening_cash_float',
-  TOTAL_CASH_IN: 'total_cash_in',
-  CASH_IN_SALES: 'cash_in_sales',
-  CASH_IN_OTHERS: 'cash_in_others',
-  TOTAL_CASH_OUT: 'total_cash_out',
-  NET_CASH_BALANCE: 'net_cash_balance',
-  EXPECTED_CASH_IN_DRAWER: 'expected_cash_in_drawer',
-  ACTUAL_CASH_IN_DRAWER: 'actual_cash_in_drawer',
-  EXCESS_SHORT: 'excess_short_cash',
-  CLOSE_CASHIER: 'close_cashier',
-  AMOUNT: 'amount',
-  REASON: 'reason',
-  DRAWER_KICK: 'drawer_kick',
-  OPEN_CASHIER: 'open_cashier',
-  CASH_IN: 'cash_in',
-  CASH_OUT: 'cash_out',
-  POWERED_BY: 'powered_by',
-  OLD: 'old',
-  NEW: 'new',
-  NOTES: 'notes',
-  ALLERGIES: 'allergies',
-  ADDON: 'addon',
-  VARIANT: 'variant',
-  DISCOUNT: 'discount',
-  DELIVERY_FEE: 'delivery_fee',
-  ROUND_OFF: 'round_off',
-  TOTAL_AMOUNT: 'total_amount',
-  AMOUNT_PAID: 'amount_paid',
-  CASH_RECEIVED: 'cash_received',
-  CASH_RETURNED: 'cash_returned',
-  TRANSACTION_ID: 'txn_id',
-  ITEM_NAME: 'item_name',
-  BILl_DATE: 'bill_date',
-  COUNTER_NAME: 'counter_name',
-  UNMAPPED_ITEM_TEXT: 'unmapped_item_text',
-  INVALID_COUNTER_TEXT: 'invalid_counter_text',
-  MASTER_COUNTER_TEXT: 'master_counter_text',
-  CANCELED_ITEMS_TEXT: 'canceled_items_text',
-  ITEM_NOT_AVAILABLE_TEXT: 'item_not_available_text',
-  ITEMS_NOT_AVAILABLE_TEXT: 'items_not_available_text',
-  SOME_ITEMS_NOT_AVAILABLE_TEXT: 'some_items_not_available_text',
-  ORDER_DECLINED_TEXT: 'order_declined_text',
-  ITEMS_DECLINED_TEXT: 'items_declined_text',
-  SIGNED_BY: 'signed_by',
-  MASTER_DOCKET: 'master_docket',
-  MASTER_ORDER_LIST: 'master_order_list',
-  VOID_ITEM: 'void_item',
-  CANCEL_ITEM: 'cancel_item',
-  ITEM_VOIDED: 'item_voided',
-  DECLINED_ORDER: 'declined_order',
-  COUNTER_DECLINE_TEXT: 'counter_decline_text',
-  COUNTER_CANCEL_TEXT: 'counter_cancel_text',
-  TABLE_CHANGED: 'table_changed',
-  DISH_OUT_OF_STOCK_TEXT: 'dish_out_of_stock',
-  VARIANT_OUT_OF_STOCK_TEXT: 'variant_out_of_stock',
-  ADDON_OUT_OF_STOCK_TEXT: 'addon_out_of_stock',
-};
+const { getLocalizedData } = require('./utils');
 
 // To format old next in new format
 const formatv2 = (
@@ -270,7 +146,7 @@ function addItems(items) {
 
 /* localization function */
 function localize(key, language = CountryMapping.MALAYSIA.language) {
-  return key;
+  // return key;
   if (!enKeys[key]) {
     return key;
   }
@@ -298,7 +174,18 @@ function insertFpAndThaiLanguageSupport(data, rest_details) {
   }
 }
 
-const getInternationalizedNumber = (number, country) => {
+function getCountryDetails(sub_key, value) {
+  let country_details = {};
+  for (const key of Object.keys(CountryMapping)) {
+    if (CountryMapping[key][sub_key] === value) {
+      country_details = CountryMapping[key];
+      break;
+    }
+  }
+  return country_details;
+}
+
+function getInternationalizedNumber(number, country) {
   if (isNaN(number)) {
     return number;
   }
@@ -306,7 +193,7 @@ const getInternationalizedNumber = (number, country) => {
   const locale = getLocaleForCountry(country);
   const numberFormatter = getNumberFormatter(locale);
   return numberFormatter.format(number);
-};
+}
 
 const getLocaleForCountry = (countryKey) => {
   let locale = 'ms-MY';
@@ -608,6 +495,134 @@ function insertCustomHeaderAndFooter(
   return toInsert;
 }
 
+function localiseDrawerNames(key, language = 'en-US') {
+  const key_map = {
+    'drawer-kick': KeyName.DRAWER_KICK,
+    'open-cashier': KeyName.OPEN_CASHIER,
+    'close-cashier': KeyName.CLOSE_CASHIER,
+    'cash-in': KeyName.CASH_IN,
+    'cash-out': KeyName.CASH_OUT,
+  };
+  if (key_map[key]) {
+    return localize(key_map[key], language);
+  } else {
+    return key;
+  }
+}
+
+function getCashInfo(
+  rest_details,
+  cash_report_epoch,
+  cash_mgt_data,
+  cash_mgt_entries_data,
+  country_code,
+  language,
+) {
+  language = language || CountryMapping.MALAYSIA.language;
+  country_code = country_code || CountryMapping.MALAYSIA.country_code;
+  const country = getCountryDetails('country_code', country_code).country;
+  //Check restaurant exists or not.
+  if (!rest_details) {
+    throw new Error(localize('restaurantNotFoundError', language));
+  }
+
+  //check if cash management system exists or not.
+  const pipeline1 = [
+    { $match: { restaurant_id: restaurant_id } },
+    { $project: { _id: 0, cash_in_drawer: 1, active_epoch: 1 } },
+  ];
+  // const cash_info = await this.cashMgtRepository.cashMgtAggregation(pipeline1, false, true);
+  const cash_info = cash_mgt_data;
+  if (cash_info.length === 0) {
+    throw new BadRequestException(localize('cashManagementNotFoundError', language));
+  }
+  const response = {};
+  let active_epoch;
+  if (cash_report_epoch > 0) {
+    active_epoch = cash_report_epoch;
+  } else {
+    active_epoch = cash_info[0]['active_epoch'];
+  }
+  if (!active_epoch) {
+    response['cash-in-drawer'] = 0;
+    response['total-cash-in'] = 0;
+    response['total-cash-out'] = 0;
+    response['active-epoch'] = cash_info[0]['active_epoch'];
+    return response;
+  } else {
+    response['total-open-cashier'] = 0;
+    const pipeline = [
+      { $match: { restaurant_id: restaurant_id, created_at: { $gte: active_epoch } } },
+      { $group: { _id: '$type', total: { $sum: '$amount' } } },
+      { $group: { _id: 0, txn_entries: { $push: { type: '$_id', total: '$total' } } } },
+      { $project: { txn_entries: 1, _id: 0 } },
+    ];
+    // const result = await this.cashMgtRepository.aggregateTxnEntries(pipeline, false, true);
+    const result = cash_mgt_entries_data;
+    if (result.length === 0) {
+      response['cash-in-drawer'] = cash_info[0]['cash_in_drawer'].toFixed(2);
+      response['total-cash-in'] = 0;
+      response['total-cash-out'] = 0;
+      response['active-epoch'] = cash_info[0]['active_epoch'];
+    } else {
+      response['cash-in-drawer'] = cash_info[0]['cash_in_drawer'].toFixed(2);
+      response['active-epoch'] = cash_info[0]['active_epoch'];
+      const cash_in_contains = result[0]['txn_entries'].some((type) => type.type === 'cash-in');
+      const cash_out_contains = result[0]['txn_entries'].some((type) => type.type === 'cash-out');
+      if (cash_in_contains && cash_out_contains) {
+        result[0]['txn_entries'].forEach((type) => {
+          response[`total-${type.type}`] = Number(type.total.toFixed(2));
+        });
+      } else if (cash_in_contains && !cash_out_contains) {
+        result[0]['txn_entries'].forEach((type) => {
+          response[`total-${type.type}`] = Number(type.total.toFixed(2));
+          response[`total-cash-out`] = 0;
+        });
+      } else if (!cash_in_contains && cash_out_contains) {
+        result[0]['txn_entries'].forEach((type) => {
+          response[`total-cash-in`] = 0;
+          response[`total-${type.type}`] = Number(type.total.toFixed(2));
+        });
+      } else {
+        response['total-cash-in'] = 0;
+        response['total-cash-out'] = 0;
+        const open_cashier_obj = result[0].txn_entries.find((obj) => {
+          return obj.type === 'open-cashier';
+        });
+        response['total-open-cashier'] = Number(open_cashier_obj.total.toFixed(2));
+        // response['total-open-cashier'] = result[0].txn_entries[0].total.toFixed(2);
+      }
+    }
+    response['cash-in-drawer'] = Number(
+      (
+        Number(response['total-cash-in']) -
+        Number(response['total-cash-out']) +
+        Number(response['total-open-cashier'])
+      ).toFixed(2),
+    );
+
+    return getLocalizedData(
+      response,
+      '',
+      country,
+      ['cash-in-drawer', 'total-cash-in', 'total-cash-out', 'total-open-cashier'],
+      [],
+      [],
+      '',
+    );
+  }
+}
+
+// function getInternationalizedNumber(number, country) {
+//   if (isNaN(number)) {
+//     return number;
+//   }
+//   number = Number(number);
+//   const locale = getLocaleForCountry(country);
+//   const numberFormatter = getNumberFormatter(locale);
+//   return numberFormatter.format(number);
+// }
+
 module.exports = {
   SlipType,
   FontAlign,
@@ -626,4 +641,7 @@ module.exports = {
   splitAddonVariantByLine,
   localiseFeeNames,
   insertCustomHeaderAndFooter,
+  localiseDrawerNames,
+  getCountryDetails,
+  getCashInfo,
 };

@@ -913,15 +913,15 @@ let kitchen_details = {
 };
 
 let kitchen_counter_details = {
-  b757901190b1456cba96e9ae45bb86df: {
-    X6MPxmwbZj62b1883dbfbd3: {
+  b757901190b1456cba96e9ae45bb86df: [
+    {
       kc_id: 'X6MPxmwbZj62b1883dbfbd3',
       counter_name: 'main_course',
       printer_name: '192.168.29.201:9100',
       is_sticker_printer: 1,
       kitchen_counter_id: 'X6MPxmwbZj62b1883dbfbd3',
     },
-  },
+  ],
 };
 
 // let menu_kitchen_counters = {};
@@ -976,7 +976,7 @@ console.log(
     generatePrintData(
       order_details,
       rest_details,
-      0,
+      7,
       1,
       kitchen_counter_details,
       subcat_counters,

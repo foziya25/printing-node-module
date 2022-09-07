@@ -456,7 +456,9 @@ function comboPrinting(
       for (const printer of printer_list) {
         if (
           !(printer === item['kitchen_counter_id']) &&
-          printer_mapping[printer]['is_sticker_printer'] !== 1 &&
+          printer_mapping[item['item_id']] &&
+          printer_mapping[item['item_id']][printer] &&
+          printer_mapping[item['item_id']][printer]['is_sticker_printer'] !== 1 &&
           !is_copy &&
           !item['dummy_kitchen_counter_id'].includes(printer)
         ) {
@@ -490,7 +492,12 @@ function comboPrinting(
               });
             }
           }
-        } else if (printer_mapping[printer]['is_sticker_printer'] && !is_copy) {
+        } else if (
+          printer_mapping[item['item_id']] &&
+          printer_mapping[item['item_id']][printer] &&
+          printer_mapping[item['item_id']][printer]['is_sticker_printer'] &&
+          !is_copy
+        ) {
           const sticker_printer_item_info = {
             kitchen_counter_id: printer,
             counter_name: printer_mapping[printer]['counter_name'],
@@ -564,9 +571,9 @@ function separateVariantByCounter(
           if (temp_item_data[item['itr'] + '_' + printer].length === 0) {
             try {
               temp_item_data[item['itr'] + '_' + printer].push({
-                counterName: printer_mapping[printer]['counter_name'],
-                printerName: printer_mapping[printer]['printer_name'],
-                ptr_id: printer_mapping[printer]['ptr_id'],
+                counterName: printer_mapping[item['item_id']][printer]['counter_name'],
+                printerName: printer_mapping[item['item_id']][printer]['printer_name'],
+                ptr_id: printer_mapping[item['item_id']][printer]['ptr_id'],
               });
             } catch (e) {
               temp_item_data[item['itr'] + '_' + printer].push({
@@ -1028,12 +1035,13 @@ function getItemsList(
     // if (item_kc_details.length > 0 && item_kc_details[0]['kitchen_counter_id']) {
     if (
       kitchen_counter_details[item['item_id']] &&
-      kitchen_counter_details[item['item_id']].length > 0
+      Object.keys(kitchen_counter_details[item['item_id']]).length > 0
     ) {
       // const kc_id_str = item_kc_details['kitchen_counter_id'];
       let kc_id_list = [];
-      for (let kc_info of kitchen_counter_details[`${item['item_id']}`]) {
-        kc_id_list.push(kc_info['kc_id']);
+      for (let counter_id of Object.keys(kitchen_counter_details[`${item['item_id']}`])) {
+        // kc_id_list.push(kc_info['kc_id']);
+        kc_id_list.push(counter_id);
       }
       // const kc_id_list = kc_id_str
       //   .split(',')
@@ -1067,7 +1075,13 @@ function getItemsList(
           temp_item['variant_printer_copy'] = variant_printer;
         }
 
-        const counter_details = all_counters.filter((e) => e.kitchen_counter_id === kc_id)[0];
+        let counter_details = null;
+        for (let kitchen_counter_id of Object.keys(all_counters)) {
+          if (kitchen_counter_id === kc_id) {
+            counter_details = all_counters[kitchen_counter_id];
+          }
+        }
+        // const counter_details = all_counters.filter((e) => e.kitchen_counter_id === kc_id)[0];
         if (counter_details) {
           temp_item['counter_name'] = counter_details['counter_name']
             ? counter_details['counter_name']
@@ -1205,6 +1219,183 @@ function getModifiedOrderNo(order_details) {
   }
 }
 
+function getLocalizedData(
+  data,
+  locale = '',
+  country = '',
+  include_list = [],
+  quantity_keys_list = [],
+  exclude_list = [],
+  key_suffix = '',
+) {
+  let current_locale = 'en-US';
+  try {
+    current_locale = getCurrentLocale(locale, current_locale, country);
+    try {
+      data = JSON.parse(JSON.stringify(data));
+    } catch (e) {}
+    return localizeData(
+      data,
+      current_locale,
+      '',
+      include_list,
+      quantity_keys_list,
+      exclude_list,
+      key_suffix,
+    );
+  } catch (e) {
+    return data;
+  }
+}
+
+function localizeData(
+  data,
+  locale,
+  key_to_format = '',
+  include_list = [],
+  quantity_list = [],
+  exclude_list = [],
+  key_suffix = '',
+) {
+  // Stringify and Parse needed to make res a new object (remove reference from data)
+  let res = JSON.parse(JSON.stringify(data));
+  try {
+    // Localise all elements in array with only numbers
+    if (data && Array.isArray(data) && data.length > 0 && !data.some((element) => isNaN(element))) {
+      if (isLocalizable(key_to_format, include_list, quantity_list, exclude_list)) {
+        const arraySize = data.length;
+        for (let i = 0; i < arraySize; i++) {
+          res[i] = localizeData(
+            data[i],
+            locale,
+            key_to_format,
+            include_list,
+            quantity_list,
+            exclude_list,
+            key_suffix,
+          );
+        }
+      }
+    } else if (
+      data &&
+      (Array.isArray(data) || typeof data === 'object') &&
+      Object.keys(data).length > 0
+    ) {
+      for (const [key, value] of Object.entries(data)) {
+        let new_key = key;
+        if (Array.isArray(value) && isNumberOnlyArray(value)) {
+          if (isLocalizable(key, include_list, quantity_list, exclude_list)) {
+            new_key = key + (key_suffix ? key_suffix : '_text');
+          }
+        } else if (
+          typeof value === 'number' ||
+          (!['null', 'undefined', ''].includes(String(value)) && !isNaN(Number(value)))
+        ) {
+          if (isLocalizable(key, include_list, quantity_list, exclude_list)) {
+            new_key = key + (key_suffix ? key_suffix : '_text');
+            // Sanitizing the data : Converting the value to number if present as string.
+            res[key] = Number(value);
+          }
+        }
+        res[new_key] = localizeData(
+          value,
+          locale,
+          key,
+          include_list,
+          quantity_list,
+          exclude_list,
+          key_suffix,
+        );
+      }
+    } else if (
+      typeof data === 'number' ||
+      (!['null', 'undefined', ''].includes(String(data)) && !isNaN(Number(data)))
+    ) {
+      if (isLocalizable(key_to_format, include_list, quantity_list, exclude_list)) {
+        try {
+          if (quantity_list.includes(key_to_format)) {
+            res = getQuantityFormatter(locale).format(Number(data));
+          } else {
+            res = getNumberFormatter(locale).format(Number(data));
+          }
+        } catch (e) {}
+      }
+    }
+  } catch (e) {}
+  return res;
+}
+
+function getQuantityFormatter(locale) {
+  const malaysiaFormatter = new Intl.NumberFormat(CountryMapping.MALAYSIA.locale);
+  const indonesiaFormatter = new Intl.NumberFormat(CountryMapping.INDONESIA.locale);
+
+  if (typeof locale === 'string' && locale.trim() != '') {
+    if (locale === CountryMapping.INDONESIA.locale) {
+      return indonesiaFormatter;
+    }
+  }
+  return malaysiaFormatter;
+}
+
+function getNumberFormatter(locale) {
+  const malaysiaFormatter = new Intl.NumberFormat(CountryMapping.MALAYSIA.locale, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  const indonesiaFormatter = new Intl.NumberFormat(CountryMapping.INDONESIA.locale);
+
+  if (typeof locale === 'string' && locale.trim() != '') {
+    if (locale === CountryMapping.INDONESIA.locale) {
+      return indonesiaFormatter;
+    }
+  }
+  return malaysiaFormatter;
+}
+
+function isLocalizable(key, include_list, quantity_list, exclude_list) {
+  if (
+    (Array.isArray(include_list) && include_list.length > 0) ||
+    (Array.isArray(quantity_list) && quantity_list.length > 0)
+  ) {
+    if (include_list.includes(key)) {
+      return true;
+    }
+    if (quantity_list.includes(key)) {
+      return true;
+    }
+  }
+  if (Array.isArray(exclude_list) && exclude_list.length > 0) {
+    if (!exclude_list.includes(key)) {
+      return true;
+    }
+  }
+  if (
+    Array.isArray(include_list) &&
+    include_list.length === 0 &&
+    Array.isArray(quantity_list) &&
+    quantity_list.length === 0 &&
+    Array.isArray(exclude_list) &&
+    exclude_list.length === 0
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function getCurrentLocale(locale, current_locale, country) {
+  if (typeof locale === 'string' && locale.trim() != '') {
+    current_locale = locale.trim();
+  } else if (typeof country === 'string' && country.trim() != '') {
+    if (country.length === 2) {
+      const country_details = getCountryDetails('country_code', country.trim());
+      current_locale = country_details['locale'] ? country_details['locale'] : current_locale;
+    } else {
+      current_locale = getLocaleForCountry(country.trim());
+    }
+  }
+  return current_locale;
+}
+
 module.exports = {
   getOnlySuccessfulPayments,
   getAddons,
@@ -1226,6 +1417,8 @@ module.exports = {
   getItemsList,
   getOrderTypeString,
   getModifiedOrderNo,
+  getLocalizedData,
+  getCurrentLocale,
 };
 
 //console.log(formatv2("", [{ name: "saurabh" }]));

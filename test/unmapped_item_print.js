@@ -913,15 +913,7 @@ let kitchen_details = {
 };
 
 let kitchen_counter_details = {
-  b757901190b1456cba96e9ae45bb86df: {
-    X6MPxmwbZj62b1883dbfbd3: {
-      kc_id: 'X6MPxmwbZj62b1883dbfbd3',
-      counter_name: 'main_course',
-      printer_name: '192.168.29.201:9100',
-      is_sticker_printer: 1,
-      kitchen_counter_id: 'X6MPxmwbZj62b1883dbfbd3',
-    },
-  },
+  b757901190b1456cba96e9ae45bb86df: {},
 };
 
 // let menu_kitchen_counters = {};
@@ -934,15 +926,7 @@ let kitchen_counter_details = {
 // }
 
 let subcat_counters = {
-  '23d9405018ff3af0e2eb83c994db7c50ad5e2c560788e77826248feb03ef8f55': [
-    {
-      kc_id: '6MPxmwbZj62b1883dbfbd',
-      counter_name: 'sub category counter',
-      printer_name: '192.168.10.100:9100',
-      is_sticker_printer: 0,
-      kitchen_counter_id: '6MPxmwbZj62b1883dbfbd',
-    },
-  ],
+  '23d9405018ff3af0e2eb83c994db7c50ad5e2c560788e77826248feb03ef8f55': [],
 };
 
 let bill_details = {
@@ -969,7 +953,7 @@ let bill_details = {
   timestamp: 1659963721,
 };
 
-let counter_id = 'X6MPxmwbZj62b1883dbfbd3';
+let counter_id = '';
 
 console.log(
   JSON.stringify(

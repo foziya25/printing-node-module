@@ -1,4 +1,4 @@
-const { generatePrintData } = require('../src/printData');
+const { generateCashManagementData } = require('../src/printData');
 
 let rest_details = {
   _id: { $oid: '629f1445c204870048f0b9e7' },
@@ -913,15 +913,15 @@ let kitchen_details = {
 };
 
 let kitchen_counter_details = {
-  b757901190b1456cba96e9ae45bb86df: {
-    X6MPxmwbZj62b1883dbfbd3: {
+  b757901190b1456cba96e9ae45bb86df: [
+    {
       kc_id: 'X6MPxmwbZj62b1883dbfbd3',
       counter_name: 'main_course',
       printer_name: '192.168.29.201:9100',
       is_sticker_printer: 1,
       kitchen_counter_id: 'X6MPxmwbZj62b1883dbfbd3',
     },
-  },
+  ],
 };
 
 // let menu_kitchen_counters = {};
@@ -969,19 +969,73 @@ let bill_details = {
   timestamp: 1659963721,
 };
 
-let counter_id = 'X6MPxmwbZj62b1883dbfbd3';
+let cash_mgt_data = [{ cash_in_drawer: 0, active_epoch: null }];
+
+let cash_mgt_entries_data = [
+  {
+    _id: '630efd20cffbf2004808adb9',
+    restaurant_id: '54de918896774f82bc8a921a25b24d79',
+    txn_id: '918285c804cf4ab5854488983bd4529f',
+    type: 'open-cashier',
+    staff_name: 'alt',
+    amount: 56,
+    reason: 'opening cash float',
+    created_at: 1661926688,
+  },
+  {
+    _id: '630efbf2cffbf2004808adb8',
+    restaurant_id: '54de918896774f82bc8a921a25b24d79',
+    txn_id: '778d8fe7f35448baa6d1d1a4ed5586b5',
+    type: 'open-cashier',
+    staff_name: 'deepanshu',
+    amount: 10,
+    reason: 'opening cash float',
+    created_at: 1661926386,
+  },
+  {
+    _id: '62e772d8ba3c21004863be08',
+    restaurant_id: '54de918896774f82bc8a921a25b24d79',
+    txn_id: '4719a659526f4fd6b38e59ab32480d08',
+    type: 'open-cashier',
+    staff_name: 'Deepanshu',
+    amount: 10,
+    reason: 'opening cash float',
+    created_at: 1659335384,
+  },
+  {
+    _id: '62a9cd741fa5f1004880317b',
+    restaurant_id: '54de918896774f82bc8a921a25b24d79',
+    txn_id: 'ed2c4170790542a889c99f644a5bb4fa',
+    type: 'open-cashier',
+    staff_name: 'Deepanshu',
+    amount: 1,
+    reason: 'opening cash float',
+    created_at: 1655295348,
+  },
+  {
+    _id: '62a857d20b1d2f004886e2f5',
+    restaurant_id: '54de918896774f82bc8a921a25b24d79',
+    txn_id: 'cf2e32f4dfc54dd7b5104b0f6913e86f',
+    type: 'open-cashier',
+    staff_name: 'Deepanshu',
+    amount: 0,
+    reason: 'opening cash float',
+    created_at: 1655199698,
+  },
+];
 
 console.log(
   JSON.stringify(
-    generatePrintData(
-      order_details,
+    generateCashManagementData(
       rest_details,
-      0,
       1,
-      kitchen_counter_details,
-      subcat_counters,
-      bill_details,
-      counter_id,
+      cash_mgt_data,
+      cash_mgt_entries_data,
+      null,
+      'report',
+      [],
+      'MY',
+      'en-US',
     ),
   ),
 );
