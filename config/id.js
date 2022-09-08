@@ -893,3 +893,5 @@ const idKeys = {
   'Stock Update Over Time': 'Pembaruan Stok Seiring Waktu',
   'Payment deleted successfully': 'Pembayaran berhasil dihapus',
 };
+
+module.exports = { idKeys };

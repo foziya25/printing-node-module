@@ -1,4 +1,5 @@
-const { momemt } = require('moment');
+const { v4: uuidv4 } = require('uuid');
+const moment = require('moment-timezone');
 const {
   generateBillReceipt,
   generateCounterReceipt,
@@ -11,10 +12,17 @@ const {
   cashierReport,
 } = require('./printing');
 
-const { getSettingVal, getOrderTypeBinaryPlace, getOrderTypeString } = require('../utils/utils');
+const {
+  getSettingVal,
+  getOrderTypeBinaryPlace,
+  getOrderTypeString,
+  getPrintLanguage,
+} = require('../utils/utils');
 const { localize } = require('../utils/printing-utils');
 const { KeyName } = require('../config/enums');
+const lang = require('lodash/lang');
 
+/* cash management receipt print function */
 function generateCashManagementData(
   rest_details,
   new_format = 1,
@@ -106,7 +114,43 @@ function generateCashManagementData(
   return receipt;
 }
 
-/* main print handler for generating print data for given orders */
+/* cash drawer kick function */
+function cashDrawerKick(rest_details, cash_info, staff_name, reason = null, language = null) {
+  const response = {
+    status: 0,
+    message: '',
+    txn_id: '',
+    data: {},
+  };
+
+  // check restaurant exists or not
+  if (!rest_details) {
+    return response;
+  }
+
+  if (cash_info && cash_info.length === 0) {
+    return response;
+  }
+
+  language = language || getPrintLanguage(rest_details);
+
+  const drawer_obj = {};
+  drawer_obj['restaurant_id'] = rest_details['id'];
+  drawer_obj['txn_id'] = uuidv4().replace(/\-/g, '');
+  drawer_obj['type'] = 'drawer-kick';
+  drawer_obj['staff_name'] = staff_name;
+  drawer_obj['amount'] = null;
+  drawer_obj['reason'] = reason;
+  drawer_obj['created_at'] = moment().unix();
+
+  response['status'] = 1;
+  response['data'] = drawer_obj;
+  response['message'] = localize('drawer_opened_successfully', language);
+  return response;
+}
+
+/* print receipt generator function for kitchen counters,
+   bill receipt, table change, void, declined cases */
 function generatePrintData(
   order_details,
   rest_details,
@@ -451,4 +495,4 @@ function generatePrintData(
   }
 }
 
-module.exports = { generatePrintData, generateCashManagementData };
+module.exports = { generatePrintData, generateCashManagementData, cashDrawerKick };
