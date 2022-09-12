@@ -7,8 +7,6 @@ const {
   generateVoidAndCancelCounterReceipt,
   generateVoidMasterReceipt,
   generateDeclineMasterReceipt,
-  generateReportV2,
-  generateReceiptV2,
   cashierReport,
 } = require('./printing');
 
@@ -18,12 +16,11 @@ const {
   getOrderTypeString,
   getPrintLanguage,
 } = require('../utils/utils');
-const { localize } = require('../utils/printing-utils');
+const { localize, generateReportV2, generateReceiptV2 } = require('../utils/printing-utils');
 const { KeyName } = require('../config/enums');
-const lang = require('lodash/lang');
 
 /* cash management receipt print function */
-function generateCashManagementData(
+function generateCashierReportData(
   rest_details,
   new_format = 1,
   cash_mgt_data = [],
@@ -76,7 +73,7 @@ function generateCashManagementData(
     result = result[0];
 
     if (!result) {
-      throw new NotFoundException(`No entry found for txn_id ${txn_id}`);
+      return [];
     }
 
     const timezone = restaurant.time_zone;
@@ -495,4 +492,4 @@ function generatePrintData(
   }
 }
 
-module.exports = { generatePrintData, generateCashManagementData, cashDrawerKick };
+module.exports = { generatePrintData, generateCashierReportData, cashDrawerKick };

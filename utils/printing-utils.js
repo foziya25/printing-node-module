@@ -12,7 +12,7 @@ const {
   AddonVariantBitEnum,
 } = require('../config/enums');
 
-const { getLocalizedData } = require('./utils');
+const { getLocalizedData, getPrintLanguage, getSettingVal } = require('./utils');
 
 // To format old next in new format
 const formatv2 = (
@@ -560,8 +560,29 @@ function getCashInfo(
       { $group: { _id: 0, txn_entries: { $push: { type: '$_id', total: '$total' } } } },
       { $project: { txn_entries: 1, _id: 0 } },
     ];
+    let type_wise_result = {};
+    let result = [];
+    for (cash_mgt_entry of cash_mgt_entries_data) {
+      if (
+        cash_mgt_entry['restaurant_id'] === restaurant_id &&
+        cash_mgt_entry['created_at'] > active_epoch
+      ) {
+        if (!type_wise_result[cash_mgt_entry['type']]) {
+          type_wise_result[cash_mgt_entry['type']] = {
+            total: 0,
+          };
+        }
+        type_wise_result[cash_mgt_entry['type']]['type'] = cash_mgt_entry['type'];
+        if (cash_mgt_entry['amount']) {
+          type_wise_result[cash_mgt_entry['type']]['total'] += cash_mgt_entry['amount'];
+        }
+      }
+    }
+    if (type_wise_result) {
+      result.push({ txn_entries: Object.values(type_wise_result) });
+    }
     // const result = await this.cashMgtRepository.aggregateTxnEntries(pipeline, false, true);
-    const result = cash_mgt_entries_data;
+    // const result = cash_mgt_entries_data;
     if (result.length === 0) {
       response['cash-in-drawer'] = cash_info[0]['cash_in_drawer'].toFixed(2);
       response['total-cash-in'] = 0;
@@ -626,6 +647,167 @@ function getCashInfo(
 //   return numberFormatter.format(number);
 // }
 
+function generateReportV2(obj, rest_details, for_close_enable) {
+  const language = getPrintLanguage(rest_details);
+  const data = {};
+  data['type'] = obj['type'];
+  data['ptr_name'] = obj['printerName'];
+  data['pr_width'] = '72';
+  data['data'] = [];
+  data['data'].push(line_break());
+  data['data'].push(
+    formatv2(
+      '',
+      [
+        {
+          name: obj['counterName'].toUpperCase(),
+        },
+      ],
+      undefined,
+      FontType.BOLD,
+      FontAlign.CENTER,
+    ),
+  );
+  data['data'].push(line_break());
+  if (for_close_enable === 1) {
+    data['data'].push(formatv2('', [{ name: `OPENING SHIFT: ${obj['open_cashier_date_time']}` }]));
+    data['data'].push(formatv2('', [{ name: `CLOSING SHIFT: ${obj['close_cashier_date_time']}` }]));
+  } else {
+    data['data'].push(
+      formatv2('', [{ name: `${localize(KeyName.DATE, language)}: ${obj['date']}` }]),
+    );
+    data['data'].push(
+      formatv2('', [{ name: `${localize(KeyName.TIME, language)}: ${obj['time']}` }]),
+    );
+  }
+  if (obj['name']) {
+    data['data'].push(
+      formatv2('', [
+        {
+          name: `${localize(KeyName.STAFF_NAME, language)}: ${obj['name'].toUpperCase()}`,
+          ft: FontType.BOLD,
+        },
+      ]),
+    );
+  }
+  data['data'].push(line_break());
+
+  const local_key = [
+    KeyName.OPENING_CASH_FLOAT,
+    KeyName.TOTAL_CASH_IN,
+    KeyName.CASH_IN_SALES,
+    KeyName.CASH_IN_OTHERS,
+    KeyName.TOTAL_CASH_OUT,
+    KeyName.NET_CASH_BALANCE,
+    KeyName.EXPECTED_CASH_IN_DRAWER,
+    KeyName.ACTUAL_CASH_IN_DRAWER,
+    KeyName.EXCESS_SHORT,
+    KeyName.CLOSE_CASHIER,
+  ];
+  const curr_sym = rest_details['curr_sym'];
+
+  for (const key of local_key) {
+    if (Object.keys(obj).includes(key)) {
+      data['data'].push(
+        formatv2('', [
+          {
+            name: `${localize(key, language)}: ${
+              key === KeyName.CLOSE_CASHIER ? obj[key].toString() : `${curr_sym} ${obj[key]}`
+            }`,
+          },
+        ]),
+      );
+    }
+  }
+  data['data'].push(line_break());
+  data['data'].push(powered_by());
+
+  const slip_font = getSettingVal(rest_details, 'slip_font') || {};
+  const options = { slip_font: slip_font[SlipType.CASH_MGT_REPORT] };
+
+  return changeFontSize(data, options);
+}
+
+function generateReceiptV2(obj, rest_details) {
+  const language = getPrintLanguage(rest_details);
+  const country = rest_details['country'];
+  const data = {};
+  data['type'] = obj['type'];
+  data['ptr_name'] = obj['printerName'];
+  data['pr_width'] = '72';
+  data['data'] = [];
+  data['data'].push(line_break());
+  data['data'].push(
+    formatv2(
+      '',
+      [
+        {
+          name: localiseDrawerNames(obj['counterName'], language).toUpperCase(),
+        },
+      ],
+      undefined,
+      FontType.BOLD,
+      FontAlign.CENTER,
+    ),
+  );
+  data['data'].push(line_break());
+  data['data'].push(
+    formatv2('', [{ name: `${localize(KeyName.DATE, language)}: ${obj['date']}` }]),
+  );
+  data['data'].push(
+    formatv2('', [{ name: `${localize(KeyName.TIME, language)}: ${obj['time']}` }]),
+  );
+  if (obj['name']) {
+    data['data'].push(
+      formatv2('', [
+        { name: `${localize(KeyName.STAFF_NAME, language)}: ${obj['name'].toUpperCase()}` },
+      ]),
+    );
+  }
+  if (obj['counterName'].toUpperCase() != 'DRAWER-KICK') {
+    data['data'].push(
+      formatv2('', [
+        {
+          name: `${localize(KeyName.AMOUNT, language)}: ${
+            rest_details['curr_sym'] + ' ' + getInternationalizedNumber(obj['amount'], country)
+          }`,
+          ft: FontType.BOLD,
+        },
+      ]),
+    );
+  }
+  data['data'].push(
+    formatv2('', [
+      { name: `${localize(KeyName.REASON, language)}: ${obj['reason'].toUpperCase()}` },
+    ]),
+  );
+  data['data'].push(line_break());
+  data['data'].push(
+    formatv2(
+      '',
+      [
+        {
+          name: `${localize(KeyName.SIGNED_BY, language)}`,
+        },
+      ],
+      undefined,
+      FontType.NORMAL,
+      FontAlign.CENTER,
+    ),
+  );
+  data['data'].push(line_break());
+  data['data'].push(line_break(' '));
+  data['data'].push(line_break(' '));
+  data['data'].push(line_break(' '));
+  data['data'].push(line_break());
+  data['data'].push(powered_by(language));
+
+  const slip_font = getSettingVal(rest_details, 'slip_font') || {};
+  const options = { slip_font: slip_font[SlipType.CASH_IN_OUT] };
+
+  return changeFontSize(data, options);
+}
+
 module.exports = {
   SlipType,
   FontAlign,
@@ -647,4 +829,6 @@ module.exports = {
   localiseDrawerNames,
   getCountryDetails,
   getCashInfo,
+  generateReportV2,
+  generateReceiptV2,
 };
