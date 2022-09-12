@@ -23,11 +23,13 @@ const { KeyName } = require('../config/enums');
 function generateCashierReportData(
   rest_details,
   new_format = 1,
+  order_details = [],
+  order_billings = [],
+  open_cashier_data = [],
+  close_cashier_data = [],
   cash_mgt_data = [],
   cash_mgt_entries_data = [],
-  txn_id = null,
   receipt_type = null,
-  aggregate_txn_entries = [],
   country_code = 'MY',
   language = 'en-US',
 ) {
@@ -49,8 +51,10 @@ function generateCashierReportData(
   if (receipt_type === 'report') {
     receipt = cashierReport(
       rest_details,
-      [],
-      [],
+      open_cashier_data,
+      close_cashier_data,
+      order_details,
+      order_billings,
       cash_mgt_data,
       cash_mgt_entries_data,
       {},
@@ -69,8 +73,7 @@ function generateCashierReportData(
   // For other receipt types
   else {
     // const pipeline = [{ $match: { restaurant_id: restaurant_id, txn_id: txn_id } }];
-    let result = aggregate_txn_entries;
-    result = result[0];
+    let result = cash_mgt_entries_data[0];
 
     if (!result) {
       return [];

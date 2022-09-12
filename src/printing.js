@@ -1396,6 +1396,8 @@ function generateDeclineMasterReceipt(order_details, rest_details, itr) {
 
 function cashierReport(
   rest_details,
+  open_cashier_data = [],
+  close_cashier_data = [],
   order_details_aggregate = [],
   order_billings = [],
   cash_mgt_data = [],
@@ -1429,7 +1431,7 @@ function cashierReport(
 
   //check if cash management system exists or not.
   const pipeline1 = [
-    { $match: { restaurant_id: restaurant_id } },
+    { $match: { restaurant_id: rest_details['id'] } },
     { $project: { _id: 0, cash_in_drawer: 1, active_epoch: 1 } },
   ];
   // const cash_mgt_system = cashMgtAggregation(pipeline1, false, true);
@@ -1448,12 +1450,18 @@ function cashierReport(
   //   { $match: { restaurant_id: restaurant_id, type: 'open-cashier' } },
   //   { $sort: { created_at: -1 } },
   // ];
-  let result = [];
-  for (let open_cash_entry of cash_mgt_entries_data) {
-    if (open_cash_entry && open_cash_entry['type'] == 'open-cashier') {
-      result.push(open_cash_entry);
-    }
-  }
+  let result = open_cashier_data;
+  // for (let open_cash_entry of cash_mgt_entries_data) {
+  //   if (open_cash_entry && open_cash_entry['type'] == 'open-cashier') {
+  //     if (
+  //       open_cashier_created_date === 0 ||
+  //       open_cashier_created_date > open_cash_entry['created_at']
+  //     ) {
+  //       result = [open_cash_entry];
+  //       open_cashier_created_date = open_cash_entry['created_at'];
+  //     }
+  //   }
+  // }
   // const result = await this.cashMgtRepository.aggregateTxnEntries(pipeline, false, true);
   // result = cash_mgt_entries_data;
   if (result.length === 0) {
@@ -1461,7 +1469,7 @@ function cashierReport(
   }
   const cashier_open_epoch = result[0].created_at;
   const cash_info = getCashInfo(
-    restaurant_id,
+    rest_details['id'],
     cashier_open_epoch,
     cash_mgt_data,
     cash_mgt_entries_data,
@@ -1474,12 +1482,24 @@ function cashierReport(
   //   false,
   //   true,
   // );
-  const close_cashier_result = [];
-  for (let close_cash_entry of cash_mgt_entries_data) {
-    if (close_cash_entry && close_cash_entry['type'] == 'open-cashier') {
-      close_cashier_result.push(close_cash_entry);
-    }
-  }
+  const close_cashier_result = close_cashier_data;
+  // let close_cashier_created_date = 0;
+  // for (let close_cash_entry of cash_mgt_entries_data) {
+  //   if (close_cash_entry && close_cash_entry['type'] == 'close-cashier') {
+  //     if (
+  //       close_cashier_created_date === 0 ||
+  //       close_cashier_created_date > close_cash_entry['created_at']
+  //     ) {
+  //       close_cashier_result = [close_cash_entry];
+  //       close_cashier_created_date = close_cash_entry['created_at'];
+  //     }
+  //   }
+  // }
+  // for (let close_cash_entry of cash_mgt_entries_data) {
+  //   if (close_cash_entry && close_cash_entry['type'] == 'close-cashier') {
+  //     close_cashier_result.push(close_cash_entry);
+  //   }
+  // }
   if (close_cashier_result.length === 0) {
     throw new Error(localize('no_entries_found', language));
   }
@@ -1515,7 +1535,7 @@ function cashierReport(
     //   true,
     // );
     // const order_billings =
-    orders_billing.forEach((order_bill) => {
+    order_billings.forEach((order_bill) => {
       const payments = order_bill.payments;
       payments.forEach((payment) => {
         if (

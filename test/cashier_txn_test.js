@@ -996,10 +996,11 @@ console.log(
   JSON.stringify(
     generateCashierReportData(
       rest_details,
+      [],
+      [],
       1,
       cash_mgt_data,
       cash_mgt_entries_data,
-      'ceadb48bee7942af98e650b5d7ed990a',
       '',
       cash_mgt_entries_data,
       'MY',

@@ -530,10 +530,10 @@ function getCashInfo(
   }
 
   //check if cash management system exists or not.
-  const pipeline1 = [
-    { $match: { restaurant_id: restaurant_id } },
-    { $project: { _id: 0, cash_in_drawer: 1, active_epoch: 1 } },
-  ];
+  // const pipeline1 = [
+  //   { $match: { restaurant_id: restaurant_id } },
+  //   { $project: { _id: 0, cash_in_drawer: 1, active_epoch: 1 } },
+  // ];
   // const cash_info = await this.cashMgtRepository.cashMgtAggregation(pipeline1, false, true);
   const cash_info = cash_mgt_data;
   if (cash_info.length === 0) {
@@ -554,18 +554,12 @@ function getCashInfo(
     return response;
   } else {
     response['total-open-cashier'] = 0;
-    const pipeline = [
-      { $match: { restaurant_id: restaurant_id, created_at: { $gte: active_epoch } } },
-      { $group: { _id: '$type', total: { $sum: '$amount' } } },
-      { $group: { _id: 0, txn_entries: { $push: { type: '$_id', total: '$total' } } } },
-      { $project: { txn_entries: 1, _id: 0 } },
-    ];
     let type_wise_result = {};
     let result = [];
     for (cash_mgt_entry of cash_mgt_entries_data) {
       if (
-        cash_mgt_entry['restaurant_id'] === restaurant_id &&
-        cash_mgt_entry['created_at'] > active_epoch
+        cash_mgt_entry['restaurant_id'] === rest_details['id'] &&
+        cash_mgt_entry['created_at'] >= active_epoch
       ) {
         if (!type_wise_result[cash_mgt_entry['type']]) {
           type_wise_result[cash_mgt_entry['type']] = {
@@ -578,7 +572,7 @@ function getCashInfo(
         }
       }
     }
-    if (type_wise_result) {
+    if (Object.keys(type_wise_result).length > 0) {
       result.push({ txn_entries: Object.values(type_wise_result) });
     }
     // const result = await this.cashMgtRepository.aggregateTxnEntries(pipeline, false, true);
