@@ -31,7 +31,7 @@ function generateCashierReportData(
   country_code = 'MY',
   language = 'en-US',
 ) {
-  restaurant_id = rest_details['id'];
+  const restaurant_id = rest_details['id'];
   const restaurant = rest_details;
   if (!restaurant) {
     throw new Error(`Restaurant with id ${restaurant_id} not found`);
