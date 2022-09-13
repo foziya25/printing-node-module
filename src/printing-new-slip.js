@@ -18,6 +18,7 @@ const {
   getPrintLanguage,
   insertSpaceInReceipt,
   getOrderTypeBinaryPlace,
+  getSettingVal,
 } = require('../utils/utils');
 
 const {
@@ -33,6 +34,11 @@ const {
 
 /* function to convert the receipt obj to print format */
 function convertReceiptObj(obj, rest_details) {
+  // in case of old receipt design
+  if (getSettingVal(rest_details, 'response_format') === 0) {
+    return obj;
+  }
+
   language = getPrintLanguage(rest_details);
   const country = rest_details.country;
   const is_unpaid = obj['order']['bill'].some(
@@ -356,8 +362,11 @@ function convertCounterObj(
   configurable_settings = {},
   options = {},
 ) {
+  // for old receispt design
+  if (getSettingVal(rest_details, 'response_format') === 0) {
+    return obj;
+  }
   const data = {};
-
   if (obj['type'] === ReceiptType.STICKER_PRINTER) {
     return convertStickerObj(obj, rest_details, options);
   }
@@ -536,6 +545,11 @@ function convertCounterObj(
 
 /* convert master object  */
 function convertMasterObj(obj, rest_details, options = {}) {
+  // for old receipt design
+  if (getSettingVal(rest_details, 'response_format') === 0) {
+    return obj;
+  }
+
   const language = getPrintLanguage(rest_details);
   const data = {};
   insertFpAndThaiLanguageSupport(data, rest_details);
@@ -697,6 +711,11 @@ function convertTableTransferObj(obj, rest_details, options) {
 }
 
 function convertVoidAndCancelCounterObj(obj, options, rest_details) {
+  // for old design receipt
+  if (getSettingVal(rest_details, 'response_format') === 0) {
+    return obj;
+  }
+
   const language = getPrintLanguage(rest_details);
   const data = {};
   insertFpAndThaiLanguageSupport(data, rest_details);
@@ -784,6 +803,11 @@ function convertVoidAndCancelCounterObj(obj, options, rest_details) {
 }
 
 function convertVoidMasterObj(obj, options, rest_details) {
+  // for olde receipt design
+  if (getSettingVal(rest_details, 'response_format') === 0) {
+    return obj;
+  }
+
   const language = getPrintLanguage(rest_details);
   const data = {};
   insertFpAndThaiLanguageSupport(data, rest_details);
@@ -836,6 +860,11 @@ function convertVoidMasterObj(obj, options, rest_details) {
 }
 
 function convertDeclineMasterObj(obj, options, rest_details) {
+  // for olde receipt design
+  if (getSettingVal(rest_details, 'response_format') === 0) {
+    return obj;
+  }
+
   const data = {};
   insertFpAndThaiLanguageSupport(data, rest_details);
   if (Object.keys(obj).length === 0) {
