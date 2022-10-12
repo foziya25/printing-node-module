@@ -398,6 +398,7 @@ function generateCounterReceipt(
   itr = 1,
   type = 0,
   kitchen_counter_details = {},
+  printer_mapping = {},
   counter_id = '',
 ) {
   let receipt_data = [];
@@ -437,9 +438,6 @@ function generateCounterReceipt(
   );
 
   const custom_prints = rest_details['custom_print'];
-
-  let kitchen_details = {};
-  const printer_mapping = kitchen_details;
 
   const order_type_bit = getOrderTypeBinaryPlace(order_details.order_type);
 

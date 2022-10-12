@@ -156,6 +156,7 @@ function generatePrintData(
   rest_details,
   type,
   itr,
+  printer_mapping = {},
   kitchen_counter_details = {},
   subcat_counters = [],
   bill_details = [],
@@ -179,6 +180,7 @@ function generatePrintData(
         itr,
         0,
         kitchen_counter_details,
+        printer_mapping,
         counter_id,
       );
       receipt_data = derived_data ? receipt_data.concat(derived_data) : [];
@@ -189,7 +191,7 @@ function generatePrintData(
     else if (type === 1) {
       invalid = false;
       // generating receipt data
-      receipt_data.push(generateBillReceipt(order_details, rest_details, bill_details));
+      receipt_data.push(generateBillReceipt(order_details, rest_details, bill_details[0] || {}));
     }
     // ---------------------------------------------------------------------------
 
@@ -198,7 +200,7 @@ function generatePrintData(
       invalid = false;
 
       // generating receipt data
-      receipt_data.push(generateBillReceipt(order_details, rest_details, bill_details));
+      receipt_data.push(generateBillReceipt(order_details, rest_details, bill_details[0] || {}));
 
       // generating counter data
       receipt_data = receipt_data.concat(
@@ -209,6 +211,7 @@ function generatePrintData(
           itr,
           2,
           kitchen_counter_details,
+          printer_mapping,
         ),
       );
     }
@@ -231,6 +234,7 @@ function generatePrintData(
             itr,
             4,
             kitchen_counter_details,
+            printer_mapping,
           ),
         );
       } else {
@@ -249,6 +253,7 @@ function generatePrintData(
               itr,
               4,
               kitchen_counter_details,
+              printer_mapping,
             ),
           );
         }
@@ -266,7 +271,9 @@ function generatePrintData(
         if ((print_code & 1) === 1) {
           // 1: receipt obj
           // generating receipt data
-          receipt_data.push(generateBillReceipt(order_details, rest_details, bill_details));
+          receipt_data.push(
+            generateBillReceipt(order_details, rest_details, bill_details[0] || {}),
+          );
         }
       }
     }
@@ -409,6 +416,7 @@ function generatePrintData(
               itr,
               6,
               kitchen_counter_details,
+              printer_mapping,
             ),
           );
         }
@@ -421,7 +429,9 @@ function generatePrintData(
           }
         }
         if ((print_code & 1) === 1) {
-          receipt_data.push(generateBillReceipt(order_details, rest_details, bill_details));
+          receipt_data.push(
+            generateBillReceipt(order_details, rest_details, bill_details[0] || {}),
+          );
         }
       }
     }

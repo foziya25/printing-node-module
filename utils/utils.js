@@ -456,9 +456,8 @@ function comboPrinting(
       for (const printer of printer_list) {
         if (
           !(printer === item['kitchen_counter_id']) &&
-          printer_mapping[item['item_id']] &&
-          printer_mapping[item['item_id']][printer] &&
-          printer_mapping[item['item_id']][printer]['is_sticker_printer'] !== 1 &&
+          printer_mapping[printer] &&
+          printer_mapping[printer]['is_sticker_printer'] !== 1 &&
           !is_copy &&
           !item['dummy_kitchen_counter_id'].includes(printer)
         ) {
@@ -493,9 +492,8 @@ function comboPrinting(
             }
           }
         } else if (
-          printer_mapping[item['item_id']] &&
-          printer_mapping[item['item_id']][printer] &&
-          printer_mapping[item['item_id']][printer]['is_sticker_printer'] &&
+          printer_mapping[printer] &&
+          printer_mapping[printer]['is_sticker_printer'] &&
           !is_copy
         ) {
           const sticker_printer_item_info = {
