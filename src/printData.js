@@ -505,4 +505,78 @@ function generatePrintData(
   }
 }
 
-module.exports = { generatePrintData, generateCashierReportData, cashDrawerKick };
+/* create generatePrintData function payload */
+function createPrinterMappings(kitchenCounterDetails, itemDetails, subcategoryDetails) {
+  let itemKitchenCounterMapping = {};
+  let subcatKitchenCounterMapping = {};
+  let kitchenCounterMapping = {};
+
+  /* create all kitchen counters mapping */
+  for (const kitchenCounterDetail of kitchenCounterDetails) {
+    kitchenCounterMapping[kitchenCounterDetail['id']] = kitchenCounterDetail;
+  }
+
+  /* create item's kitchen counters mapping */
+  for (const itemDetail of itemDetails) {
+    const kitchenCounterList = itemDetail['kitchen_counter_id']
+      .split(',')
+      .filter((e) => e.trim())
+      .map((e) => e.trim());
+    if (kitchenCounterList && kitchenCounterList.length > 0) {
+      itemKitchenCounterMapping[itemDetail['id']] = {};
+      for (const kitchenCounter of kitchenCounterList) {
+        if (!itemKitchenCounterMapping[itemDetail['id']][kitchenCounter]) {
+          itemKitchenCounterMapping[itemDetail['id']][kitchenCounter] =
+            kitchenCounterMapping[kitchenCounter];
+        }
+      }
+    }
+  }
+
+  /* creating subcategory printer mapping */
+  for (const subcategoryDetail of subcategoryDetails) {
+    if (subcategoryDetails && subcategoryDetails.length > 0) {
+      for (let kitchenCounterDetail of subcategoryDetail['kitchen_counters']) {
+        if (!subcatKitchenCounterMapping[subcategoryDetail['id']]) {
+          subcatKitchenCounterMapping[subcategoryDetail['id']] = [];
+        }
+        if (kitchenCounterDetail['status'] === 1) {
+          subcatKitchenCounterMapping[subcategoryDetail['id']].push({
+            kc_id: kitchenCounterDetail['kitchen_counter_id'],
+            counter_name: kitchenCounterDetail['counter_name'],
+            printer_name: kitchenCounterDetail['printer_name'],
+            kitchen_counter_id: kitchenCounterDetail['kitchen_counter_id'],
+          });
+        }
+      }
+    }
+    // else {
+    //   subcatKitchenCounterMapping[subcategoryDetail['id']].push({
+    //     counter_name: 'Unmapped Items',
+    //     printer_name: restaurantDetails['printer']
+    //       ? restaurantDetails['printer']
+    //       : 'Default Printer',
+    //     is_sticker_printer: 0,
+    //     kc_id: 'default',
+    //     kitchen_counter_id: 'default',
+    //     ptr_id: 'master',
+    //   });
+    // }
+  }
+
+  /* create subcategories kitchen counter mapping */
+  // console.log(kitchenCounterMapping, subcatKitchenCounterMapping);
+
+  return {
+    itemPrinterMap: itemKitchenCounterMapping,
+    subcategoryPrinterMap: subcatKitchenCounterMapping,
+    kitchenCounterMap: kitchenCounterMapping,
+  };
+}
+
+module.exports = {
+  generatePrintData,
+  generateCashierReportData,
+  cashDrawerKick,
+  createPrinterMappings,
+};
