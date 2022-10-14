@@ -506,7 +506,7 @@ function generatePrintData(
 }
 
 /* create generatePrintData function payload */
-function createPrinterMappings(kitchenCounterDetails, itemDetails, subcategoryDetails) {
+function createPrinterMappingsHelper(kitchenCounterDetails, itemDetails, subcategoryDetails) {
   let itemKitchenCounterMapping = {};
   let subcatKitchenCounterMapping = {};
   let kitchenCounterMapping = {};
@@ -550,33 +550,118 @@ function createPrinterMappings(kitchenCounterDetails, itemDetails, subcategoryDe
         }
       }
     }
-    // else {
-    //   subcatKitchenCounterMapping[subcategoryDetail['id']].push({
-    //     counter_name: 'Unmapped Items',
-    //     printer_name: restaurantDetails['printer']
-    //       ? restaurantDetails['printer']
-    //       : 'Default Printer',
-    //     is_sticker_printer: 0,
-    //     kc_id: 'default',
-    //     kitchen_counter_id: 'default',
-    //     ptr_id: 'master',
-    //   });
-    // }
   }
 
-  /* create subcategories kitchen counter mapping */
-  // console.log(kitchenCounterMapping, subcatKitchenCounterMapping);
-
   return {
+    kitchenCounterMap: kitchenCounterMapping,
     itemPrinterMap: itemKitchenCounterMapping,
     subcategoryPrinterMap: subcatKitchenCounterMapping,
-    kitchenCounterMap: kitchenCounterMapping,
   };
+}
+
+/*
+  function to generate data for kitchen counter mapping
+  for printing popup on print click button
+*/
+function generateOrderPrintPopUpResponse(allKitchenCounters, itemMenuDetails, subcategoryDetails) {
+  let kitchenCounterMapping = {};
+
+  /* process all kitchen counter(s) data */
+  for (const kitchenCounter of allKitchenCounters) {
+    kitchenCounterMapping[kitchenCounter['id']] = kitchenCounter;
+  }
+
+  /* process menu item counter(s) data */
+  for (const itemMenuDetail of itemMenuDetails) {
+    if (itemMenuDetail['kitchen_counter_id']) {
+      const kcIdList = itemMenuDetail['kitchen_counter_id'].split(',').filter((e) => e.trim());
+      for (const kitchen_counter of kcIdList) {
+        /* initialise the items array */
+        if (
+          kitchenCounterMapping[kitchen_counter] &&
+          !kitchenCounterMapping[kitchen_counter]['itemIds']
+        ) {
+          kitchenCounterMapping[kitchen_counter]['itemIds'] = [];
+        }
+        kitchenCounterMapping[kitchen_counter]['itemIds'].push(itemMenuDetail['id']);
+      }
+    }
+  }
+
+  /* process subcategory counter(s) data */
+  for (const subcategroyDetail of subcategoryDetails) {
+    if (subcategroyDetail['kitchen_counters']) {
+      for (const kitchen_counter of subcategroyDetail['kitchen_counters']) {
+        let kcId = kitchen_counter['kitchen_counter_id'];
+        if (kcId) {
+          /* initialise the subcategory array */
+          if (kitchenCounterMapping[kcId] && !kitchenCounterMapping[kcId]['subcategoryIds']) {
+            kitchenCounterMapping[kcId]['subcategoryIds'] = [];
+          }
+          kitchenCounterMapping[kcId]['subcategoryIds'].push(subcategroyDetail['id']);
+        }
+      }
+    }
+  }
+
+  /* creating final response */
+  let response = {};
+  for (const item of items) {
+    if (!response[item['itr']]) {
+      response[item['itr']] = {
+        itr: item['itr'],
+        data: [],
+      };
+    }
+    let kcFoundFlag = false;
+
+    /* 1st priority to check for item printer mapping */
+    for (const [kitchenCounterId, KitchenCounterDetail] of Object.entries(kitchenCounterMapping)) {
+      let kcObj = KitchenCounterDetail;
+      if (kcObj['itemIds'] && kcObj['itemIds'].includes(item['item_id'])) {
+        response[item['itr']]['data'].push({
+          counter_name: kcObj['counter_name'],
+          counter_id: kcObj['id'],
+        });
+        kcFoundFlag = true;
+      }
+    }
+
+    /* 2nd priority to check for subcategory printer mapping */
+    if (!kcFoundFlag) {
+      for (const [kitchenCounterId, KitchenCounterDetail] of Object.entries(
+        kitchenCounterMapping,
+      )) {
+        let kcObj = KitchenCounterDetail;
+        if (kcObj['subcategoryIds'] && kcObj['subcategoryIds'].includes(item['subcategory_id'])) {
+          response[item['itr']]['data'].push({
+            counter_name: kcObj['counter_name'],
+            counter_id: kcObj['id'],
+          });
+          kcFoundFlag = true;
+        }
+      }
+    }
+
+    /* if item and subcat printer mapping not found then mark it as unmapped */
+    if (!kcFoundFlag) {
+      response[item['itr']]['data'].push({
+        counter_name: 'Unmapped Items',
+        counter_id: 'default',
+      });
+    }
+    response[item['itr']]['data'] = Array.from(new Set(response[item['itr']]['data']));
+  }
+  if (response) {
+    return Object.values(response);
+  }
+  return [];
 }
 
 module.exports = {
   generatePrintData,
   generateCashierReportData,
   cashDrawerKick,
-  createPrinterMappings,
+  createPrinterMappingsHelper,
+  generateOrderPrintPopUpResponse,
 };
