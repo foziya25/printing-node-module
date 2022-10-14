@@ -563,7 +563,12 @@ function createPrinterMappingsHelper(kitchenCounterDetails, itemDetails, subcate
   function to generate data for kitchen counter mapping
   for printing popup on print click button
 */
-function generateOrderPrintPopUpResponse(allKitchenCounters, itemMenuDetails, subcategoryDetails) {
+function generateOrderPrintPopUpResponse(
+  items,
+  allKitchenCounters,
+  itemMenuDetails,
+  subcategoryDetails,
+) {
   let kitchenCounterMapping = {};
 
   /* process all kitchen counter(s) data */
