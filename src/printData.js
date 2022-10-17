@@ -32,6 +32,7 @@ function generateCashierReportData(
   receipt_type = null,
   country_code = 'MY',
   language = 'en-US',
+  print_data = true,
 ) {
   const restaurant_id = rest_details['id'];
   const restaurant = rest_details;
@@ -61,13 +62,15 @@ function generateCashierReportData(
       country_code,
       language,
     );
-    receipt['counterName'] = 'Cashier Report';
-    receipt['name'] = receipt['staff_name'];
-    // Added type 'cash-in' for backward-compatibility
-    receipt['type'] = 'cash-in';
-    delete receipt['staff_name'];
-    if (new_format === 1 && cash_mgt_format_override !== 1) {
-      receipt = [generateReportV2(receipt, restaurant, for_close_enable)];
+    if (print_data) {
+      receipt['counterName'] = 'Cashier Report';
+      receipt['name'] = receipt['staff_name'];
+      // Added type 'cash-in' for backward-compatibility
+      receipt['type'] = 'cash-in';
+      delete receipt['staff_name'];
+      if (new_format === 1 && cash_mgt_format_override !== 1) {
+        receipt = [generateReportV2(receipt, restaurant, for_close_enable)];
+      }
     }
   }
   // For other receipt types
