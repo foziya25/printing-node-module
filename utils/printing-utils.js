@@ -81,7 +81,7 @@ function changeFontSize(obj, options) {
 }
 
 /* Common function to insert headers on all receipts */
-function insertHeaders(obj, keys = []) {
+function insertHeaders(obj, keys = [], language = CountryMapping.MALAYSIA.language) {
   const toInsert = [];
   keys.forEach((key) => {
     if (
@@ -91,7 +91,11 @@ function insertHeaders(obj, keys = []) {
     ) {
       toInsert.push(
         formatv2('', [
-          { name: `${key.toUpperCase()}: ${obj['body'][key].toString().toUpperCase()}` },
+          {
+            name: `${localize(key, language).toUpperCase()}: ${obj['body'][key]
+              .toString()
+              .toUpperCase()}`,
+          },
         ]),
       );
     }
