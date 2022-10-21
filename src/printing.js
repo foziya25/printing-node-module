@@ -415,20 +415,22 @@ function mergeReceiptData(temp_obj, obj, rest_details) {
     temp_obj['body'][KeyName.CUSTOMER_NAME] += ', ' + obj['body'][KeyName.CUSTOMER_NAME];
   }
 
-  let temp = [...temp_obj['order']['allergic_items']];
-  for (const allergic_item of obj['order']['allergic_items']) {
-    let matched = false;
-    for (const temp_obj_allergic_item of temp_obj['order']['allergic_items']) {
-      if (temp_obj_allergic_item == allergic_item) {
-        matched = true;
-        break;
+  if (temp_obj['order']['allergic_items']) {
+    let temp = [...temp_obj['order']['allergic_items']];
+    for (const allergic_item of obj['order']['allergic_items']) {
+      let matched = false;
+      for (const temp_obj_allergic_item of temp_obj['order']['allergic_items']) {
+        if (temp_obj_allergic_item == allergic_item) {
+          matched = true;
+          break;
+        }
+      }
+      if (matched == false) {
+        temp.push(allergic_item);
       }
     }
-    if (matched == false) {
-      temp.push(allergic_item);
-    }
+    temp_obj['order']['allergic_items'] = [...temp];
   }
-  temp_obj['order']['allergic_items'] = [...temp];
 
   temp = [...temp_obj['order']['items']];
   for (const item of obj['order']['items']) {

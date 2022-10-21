@@ -477,7 +477,7 @@ function convertCounterObj(
     }
   }
 
-  if (obj['allergic_items'].length > 0) {
+  if (obj['allergic_items'] && obj['allergic_items'].length > 0) {
     data['data'].push(line_break());
     data['data'].push(
       formatv2(
@@ -632,7 +632,7 @@ function convertMasterObj(obj, rest_details, options = {}) {
       data['data'].push(formatv2('', [{ name: item.toUpperCase() }]));
     }
   }
-  if (obj['allergic_items'].length > 0) {
+  if (obj['allergic_items'] && obj['allergic_items'].length > 0) {
     data['data'].push(line_break());
     data['data'].push(
       formatv2(
