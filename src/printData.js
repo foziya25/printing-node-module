@@ -8,6 +8,7 @@ const {
   generateVoidMasterReceipt,
   generateDeclineMasterReceipt,
   cashierReport,
+  mergeReceiptData,
 } = require('./printing');
 
 const {
@@ -18,6 +19,8 @@ const {
 } = require('../utils/utils');
 const { localize, generateReportV2, generateReceiptV2 } = require('../utils/printing-utils');
 const { KeyName } = require('../config/enums');
+
+const { convertReceiptObj } = require('./printing-new-slip');
 
 /* cash management receipt print function */
 function generateCashierReportData(
@@ -456,30 +459,30 @@ function generatePrintData(
   }
 
   // ------------------------------ Case of merge bill --------------------------
-  else if (type === 1 && order_details_list.length > 0) {
-    const restaurant_id = order_details_list[0]['restaurant_id'];
-    const rest_details = rest_details;
+  else if (type === 1 && order_details.length > 0) {
     const response_format = getSettingVal(rest_details, 'response_format');
     let order_type_bit = 7;
     const receipt_data = [];
     let temp_obj = {};
-    for (const [key, order_details] of Object.entries(order_details_list)) {
-      const bill_details = bill_details;
-      if (!bill_details) {
-        throw new Exception('Bill Not Found');
+    for (const [key, order_detail] of Object.entries(order_details)) {
+      const bill_detail = bill_details.filter((e) => {
+        return order_detail['order_id'] === e['order_id'];
+      });
+      if (!bill_detail) {
+        return [];
       }
 
       /* Attach order type bit map in order_details */
-      order_type_bit = getOrderTypeBinaryPlace(order_details.order_type);
+      order_type_bit = getOrderTypeBinaryPlace(order_detail.order_type);
       try {
-        const result = getOrderTypeString(order_details, rest_details);
-        order_details.order_type = result.order_type;
-        order_details.table_no = result.table_no;
+        const result = getOrderTypeString(order_detail, rest_details);
+        order_detail.order_type = result.order_type;
+        order_detail.table_no = result.table_no;
       } catch (e) {
         this.logger.error(e);
       }
 
-      const obj = generateBillReceipt({ ...order_details }, bill_details, rest_details);
+      const obj = generateBillReceipt({ ...order_detail }, rest_details, bill_detail[0], true);
 
       if (parseInt(key) === 0) {
         temp_obj = { ...obj };
@@ -488,14 +491,7 @@ function generatePrintData(
       }
     }
 
-    const merge_v2 = convertFormat(
-      temp_obj,
-      response_format,
-      FormatType.RECEIPT,
-      rest_details,
-      order_type_bit,
-      getLanguageEnumKeyByValue(headerLanguage),
-    );
+    const merge_v2 = convertReceiptObj(temp_obj, rest_details);
     receipt_data.push(merge_v2);
 
     if (receipt_data.length > 0) {

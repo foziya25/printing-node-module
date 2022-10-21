@@ -17,6 +17,7 @@ const {
   getItemsList,
   getOrderTypeString,
   getModifiedOrderNo,
+  getRoundOffValue,
 } = require('../utils/utils');
 
 const {
@@ -45,7 +46,7 @@ const { cloneDeep } = require('lodash/lang');
 const { KeyName, FormatType, CountryMapping } = require('../config/enums');
 
 /* generate printing payload for bill receipt */
-function generateBillReceipt(order_details, rest_details, bill_details) {
+function generateBillReceipt(order_details, rest_details, bill_details, merge_bill = false) {
   if (order_details) {
     if (order_details.length == 1) {
       order_details = order_details[0];
@@ -387,7 +388,108 @@ function generateBillReceipt(order_details, rest_details, bill_details) {
       obj['footer'] = footer_list;
     }
   } catch (e) {}
+
+  if (merge_bill) {
+    return obj;
+  }
   return convertReceiptObj(obj, rest_details);
+}
+
+function mergeReceiptData(temp_obj, obj, rest_details) {
+  const show_uname = getSettingVal(rest_details, 'uname');
+  const pax_enabled = getSettingVal(rest_details, 'pax');
+
+  if (!['', null, undefined].includes(obj['body'][KeyName.TABLE])) {
+    temp_obj['body'][KeyName.TABLE] =
+      temp_obj['body'][KeyName.TABLE].toString() + ', ' + obj['body'][KeyName.TABLE].toString();
+  }
+  temp_obj['body'][KeyName.INVOICE] += ', ' + obj['body'][KeyName.INVOICE];
+  temp_obj['body'][KeyName.NO_OF_ITEMS] += ', ' + obj['body'][KeyName.NO_OF_ITEMS];
+  temp_obj['body'][KeyName.ORDER_SEQ] += ', ' + obj['body'][KeyName.ORDER_SEQ];
+
+  if (pax_enabled === 1) {
+    temp_obj['body'][KeyName.PAX] += ', ' + obj['body'][KeyName.PAX];
+  }
+
+  if (show_uname === 1) {
+    temp_obj['body'][KeyName.CUSTOMER_NAME] += ', ' + obj['body'][KeyName.CUSTOMER_NAME];
+  }
+
+  let temp = [...temp_obj['order']['allergic_items']];
+  for (const allergic_item of obj['order']['allergic_items']) {
+    let matched = false;
+    for (const temp_obj_allergic_item of temp_obj['order']['allergic_items']) {
+      if (temp_obj_allergic_item == allergic_item) {
+        matched = true;
+        break;
+      }
+    }
+    if (matched == false) {
+      temp.push(allergic_item);
+    }
+  }
+  temp_obj['order']['allergic_items'] = [...temp];
+
+  temp = [...temp_obj['order']['items']];
+  for (const item of obj['order']['items']) {
+    let matched = false;
+    for (const [key, temp_obj_item] of Object.entries(temp_obj['order']['items'])) {
+      if (
+        temp_obj_item['name'] == item['name'] &&
+        temp_obj_item['price'] == item['price'] &&
+        temp_obj_item['variant'] == item['variant']
+      ) {
+        temp[key]['qty'] += item['qty'];
+        temp[key]['unit'] = getUnit(item);
+        temp[key]['amount'] += item['amount'];
+        temp[key]['amount'] = getRoundOffValue(temp[key]['amount'], 0.05);
+        matched = true;
+        break;
+      }
+    }
+    if (matched == false) {
+      temp.push(item);
+    }
+  }
+  temp_obj['order']['items'] = [...temp];
+
+  temp = [...temp_obj['order']['bill']];
+  for (const bill of obj['order']['bill']) {
+    let matched = false;
+    for (const [key, temp_obj_bill] of Object.entries(temp_obj['order']['bill'])) {
+      matched = false;
+      if (
+        temp_obj_bill['name'].search('discount') !== -1 &&
+        bill['name'].search('discount') !== -1
+      ) {
+        temp[key]['name'] = 'Discount';
+        temp[key]['value'] += bill['value'];
+        temp[key]['value'] = getRoundOffValue(temp[key]['value'], 0.05);
+        matched = true;
+        break;
+      } else if (
+        (temp_obj_bill['name'].search(KeyName.PAYMENT_MODE) !== -1 &&
+          bill['name'].search(KeyName.PAYMENT_MODE) !== -1) ||
+        (temp_obj_bill['name'].search('transaction id') !== -1 &&
+          bill['name'].search('transaction id') !== -1)
+      ) {
+        temp[key]['value'] += temp[key]['value'] != '' ? ', ' + bill['value'] : bill['value'];
+        matched = true;
+        break;
+      } else if (temp_obj_bill['name'] == bill['name']) {
+        temp[key]['value'] += bill['value'];
+        temp[key]['value'] = getRoundOffValue(temp[key]['value'], 0.05);
+        matched = true;
+        break;
+      }
+    }
+    if (matched == false) {
+      temp.push(bill);
+    }
+  }
+  temp_obj['order']['bill'] = [...temp];
+
+  return temp_obj;
 }
 
 /* generate counter receipt object */
@@ -1607,6 +1709,7 @@ module.exports = {
   // generateReportV2,
   // generateReceiptV2,
   cashierReport,
+  mergeReceiptData,
 };
 
 // const kitchen_details = {
