@@ -508,10 +508,10 @@ function generatePrintData(
     if (receipt_data.length > 0) {
       return receipt_data;
     } else {
-      throw new NotFoundException('No Order Found');
+      return [];
     }
   } else {
-    throw new NotFoundException('No Order Found');
+    return [];
   }
 }
 
