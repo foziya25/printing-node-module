@@ -1,3 +1,8 @@
+/*
+  Last Modified : 27th October
+  Changes - added 'getAllergicItemsList' function
+*/
+
 const { cloneDeep } = require('lodash/lang');
 
 const { getPmtMethodName } = require('../classes/payment');
@@ -680,6 +685,17 @@ function getUnit(item) {
     unit = '';
   }
   return unit;
+}
+
+/* Get round off value around a base value */
+function getRoundOffValue(value, base) {
+  base = base > 0 ? base : 1;
+  // Smaller multiple
+  const a = parseInt((Number(value) / base).toString()) * base;
+  // Larger multiple
+  const b = a + base;
+  // Return of closest of two
+  return value - a >= b - value ? b : a;
 }
 
 function getAddons(item) {
@@ -1394,6 +1410,35 @@ function getCurrentLocale(locale, current_locale, country) {
   return current_locale;
 }
 
+// Get allergic items
+function getAllergicItemsList(allergic_items) {
+  if (!allergic_items) {
+    return [];
+  }
+  const allergic_items_list = [];
+  try {
+    if (allergic_items['is_allergy'] === 1) {
+      for (const category of allergic_items['categories']) {
+        let string = '';
+        string += category['cat_name'];
+
+        let subcat_str = '';
+        if (category['subcat']) {
+          for (const subcat of category['subcat']) {
+            subcat_str += subcat_str ? subcat['subcat_name'] : subcat['subcat_name'];
+          }
+        }
+        if (subcat_str.length > 0) {
+          string += `-(${subcat_str})`;
+        }
+        allergic_items_list.push(string);
+      }
+    }
+  } catch (e) {}
+
+  return allergic_items_list;
+}
+
 module.exports = {
   getOnlySuccessfulPayments,
   getAddons,
@@ -1417,6 +1462,8 @@ module.exports = {
   getModifiedOrderNo,
   getLocalizedData,
   getCurrentLocale,
+  getRoundOffValue,
+  getAllergicItemsList,
 };
 
 //console.log(formatv2("", [{ name: "saurabh" }]));

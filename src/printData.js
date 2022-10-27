@@ -1,3 +1,9 @@
+/*
+  Last Modified : 27th October
+  Changes - fix for allergic items pre conversion to array from object
+            (line 185 & 487)
+*/
+
 const { v4: uuidv4 } = require('uuid');
 const moment = require('moment-timezone');
 const {
@@ -16,6 +22,7 @@ const {
   getOrderTypeBinaryPlace,
   getOrderTypeString,
   getPrintLanguage,
+  getAllergicItemsList,
 } = require('../utils/utils');
 const { localize, generateReportV2, generateReceiptV2 } = require('../utils/printing-utils');
 const { KeyName } = require('../config/enums');
@@ -173,6 +180,10 @@ function generatePrintData(
   if (order_details && order_details.length == 1) {
     order_details = order_details[0];
     let receipt_data = [];
+
+    order_details['allergic_items'] = this.getReceiptDataUtils.getAllergicItemsList(
+      order_details['allergic_items'],
+    );
 
     // --------------------------- type=0 : for counter ---------------------------
     if (type === 0 && counter_id && itr) {
@@ -471,6 +482,8 @@ function generatePrintData(
       if (!bill_detail) {
         return [];
       }
+
+      order_detail['allergic_items'] = getAllergicItemsList(order_detail['allergic_items']);
 
       /* Attach order type bit map in order_details */
       order_type_bit = getOrderTypeBinaryPlace(order_detail.order_type);
