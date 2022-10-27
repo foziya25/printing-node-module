@@ -181,9 +181,7 @@ function generatePrintData(
     order_details = order_details[0];
     let receipt_data = [];
 
-    order_details['allergic_items'] = this.getReceiptDataUtils.getAllergicItemsList(
-      order_details['allergic_items'],
-    );
+    order_details['allergic_items'] = getAllergicItemsList(order_details['allergic_items']);
 
     // --------------------------- type=0 : for counter ---------------------------
     if (type === 0 && counter_id && itr) {
