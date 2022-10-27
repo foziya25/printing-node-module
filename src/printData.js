@@ -432,6 +432,9 @@ function generatePrintData(
               6,
               kitchen_counter_details,
               printer_mapping,
+              '',
+              note_type,
+              old_tno,
             ),
           );
         }

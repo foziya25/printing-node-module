@@ -504,11 +504,11 @@ function generateCounterReceipt(
   kitchen_counter_details = {},
   printer_mapping = {},
   counter_id = '',
+  note_type = '',
+  old_tno = '',
 ) {
   let receipt_data = [];
-  let note_type = '';
   let note_reason = '';
-  let old_tno = '';
   const temp_item_obj = {};
   const temp_kitchen_data = {};
   const show_sname = getSettingVal(rest_details, 'sname');
