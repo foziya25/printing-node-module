@@ -899,6 +899,19 @@ function formatCounterObj(receipt_data_list, type, rest_details) {
   return receipt_data_list;
 }
 
+function separateAllDockets(counter_obj_list) {
+  const separated_list = [];
+  for (const counter_obj of counter_obj_list) {
+    const items = counter_obj['items'];
+    for (let i = 0; i < items.length; i++) {
+      const temp_counter_obj = { ...counter_obj };
+      temp_counter_obj['items'] = [items[i]];
+      separated_list.push(temp_counter_obj);
+    }
+  }
+  return separated_list;
+}
+
 function separateAddonsFromItem(counter_data) {
   const counter_obj = { ...counter_data };
   const separate_addon_list = [];
