@@ -624,7 +624,11 @@ function generateOrderPrintPopUpResponse(
 
   /* creating final response */
   let response = {};
+  let added_counters = {};
   for (const item of items) {
+    if (added_counters && !added_counters[item['itr']]) {
+      added_counters[item['itr']] = [];
+    }
     if (!response[item['itr']]) {
       response[item['itr']] = {
         itr: item['itr'],
@@ -637,10 +641,13 @@ function generateOrderPrintPopUpResponse(
     for (const [kitchenCounterId, KitchenCounterDetail] of Object.entries(kitchenCounterMapping)) {
       let kcObj = KitchenCounterDetail;
       if (kcObj['itemIds'] && kcObj['itemIds'].includes(item['item_id'])) {
-        response[item['itr']]['data'].push({
-          counter_name: kcObj['counter_name'],
-          counter_id: kcObj['id'],
-        });
+        if (!added_counters[item['itr']].includes(kcObj['counter_name'])) {
+          response[item['itr']]['data'].push({
+            counter_name: kcObj['counter_name'],
+            counter_id: kcObj['id'],
+          });
+          added_counters[item['itr']].push(kcObj['counter_name']);
+        }
         kcFoundFlag = true;
       }
     }
@@ -652,10 +659,13 @@ function generateOrderPrintPopUpResponse(
       )) {
         let kcObj = KitchenCounterDetail;
         if (kcObj['subcategoryIds'] && kcObj['subcategoryIds'].includes(item['subcategory_id'])) {
-          response[item['itr']]['data'].push({
-            counter_name: kcObj['counter_name'],
-            counter_id: kcObj['id'],
-          });
+          if (!added_counters[item['itr']].includes(kcObj['counter_name'])) {
+            response[item['itr']]['data'].push({
+              counter_name: kcObj['counter_name'],
+              counter_id: kcObj['id'],
+            });
+            added_counters[item['itr']].push(kcObj['counter_name']);
+          }
           kcFoundFlag = true;
         }
       }
@@ -663,10 +673,13 @@ function generateOrderPrintPopUpResponse(
 
     /* if item and subcat printer mapping not found then mark it as unmapped */
     if (!kcFoundFlag) {
-      response[item['itr']]['data'].push({
-        counter_name: 'Unmapped Items',
-        counter_id: 'default',
-      });
+      if (!added_counters[item['itr']].includes(kcObj['counter_name'])) {
+        response[item['itr']]['data'].push({
+          counter_name: 'Unmapped Items',
+          counter_id: 'default',
+        });
+        added_counters[item['itr']].push('Unmapped Items');
+      }
     }
     response[item['itr']]['data'] = Array.from(new Set(response[item['itr']]['data']));
   }
