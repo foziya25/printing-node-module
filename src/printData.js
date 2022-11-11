@@ -673,7 +673,7 @@ function generateOrderPrintPopUpResponse(
 
     /* if item and subcat printer mapping not found then mark it as unmapped */
     if (!kcFoundFlag) {
-      if (!added_counters[item['itr']].includes(kcObj['counter_name'])) {
+      if (!added_counters[item['itr']].includes('Unmapped Items')) {
         response[item['itr']]['data'].push({
           counter_name: 'Unmapped Items',
           counter_id: 'default',
