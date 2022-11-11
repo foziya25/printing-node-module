@@ -36,10 +36,19 @@ function line_break(value = '-') {
 }
 
 /* Function to insert order sequence in all receipts  */
-const insertOrderSequence = (order_seq) => {
+const insertOrderSequence = (order_seq, settings, language) => {
+  if (settings) {
+    return formatv2(
+      '',
+      [{ name: `${localize(KeyName.ORDER_SEQ, language).toUpperCase()}: #${order_seq}` }],
+      settings['fs'],
+      settings['ft'],
+      FontAlign.CENTER,
+    );
+  }
   return formatv2(
     '',
-    [{ name: `ORDER: #${order_seq}` }],
+    [{ name: `${localize(KeyName.ORDER_SEQ, language).toUpperCase()}: #${order_seq}` }],
     undefined,
     FontType.BOLD,
     FontAlign.CENTER,
