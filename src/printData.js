@@ -176,12 +176,21 @@ function generatePrintData(
   counter_id = '',
   qty = 0,
   oid = '',
+  staff_name = '',
+  logo_base_url = '',
 ) {
+  // generate print logo url for restaurant
+  if (rest_details['print_logo'] && logo_base_url) {
+    rest_details['print_logo'] = `${base_path}/${rest_details['print_logo']}`;
+  }
+
+  // case for single order receipt, countet, master, void and table change printing
   if (order_details && order_details.length == 1) {
     order_details = order_details[0];
     let receipt_data = [];
 
     order_details['allergic_items'] = getAllergicItemsList(order_details['allergic_items']);
+    order_details['staff_name'] = staff_name ? staff_name : '';
 
     // --------------------------- type=0 : for counter ---------------------------
     if (type === 0 && counter_id && itr) {

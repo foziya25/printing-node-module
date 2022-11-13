@@ -146,10 +146,15 @@ function generateBillReceipt(order_details, rest_details, bill_details, merge_bi
       const item_obj = {
         name: item['item_name'],
         qty: item['item_quantity'],
+        unit: getUnit(item),
         price: item['item_price'],
         amount: item['item_price'] * item['item_quantity'],
-        addon: item['addons_name'] ? item['addons_name'] : '',
-        variant: item['variation_name'] ? item['variation_name'] : '',
+        addon: item['addons_name'] ? swapQtyWithaddonName(item['addons_name']) : '',
+        variant: item['new_variation_name']
+          ? item['new_variation_name']
+          : item['variation_name']
+          ? item['variation_name']
+          : '',
       };
       if (item['item_discount']) {
         item_obj['item_discount'] = item['item_discount']['amount'];
@@ -1699,6 +1704,23 @@ function cashierReport(
     close_cashier: `${localize('APPROVED BY', language)} ${close_cashier_user.toUpperCase()}`,
     printerName: printer_name,
   };
+}
+
+function swapQtyWithaddonName(addon_name) {
+  const addons_list = addon_name.split(',');
+  let swapped_str = '';
+  addons_list.forEach((addon) => {
+    const [name, qty] = addon.split('x');
+    swapped_str +=
+      swapped_str == ''
+        ? qty
+          ? `${qty}x ${name.trim()}`
+          : `${name.trim()}`
+        : qty
+        ? `, ${qty}x ${name.trim()}`
+        : `, ${name.trim()}`;
+  });
+  return swapped_str;
 }
 
 module.exports = {
