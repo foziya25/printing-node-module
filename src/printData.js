@@ -181,7 +181,7 @@ function generatePrintData(
 ) {
   // generate print logo url for restaurant
   if (rest_details['print_logo'] && logo_base_url) {
-    rest_details['print_logo'] = `${base_path}/${rest_details['print_logo']}`;
+    rest_details['print_logo'] = `${logo_base_url}/${rest_details['print_logo']}`;
   }
 
   // case for single order receipt, countet, master, void and table change printing
