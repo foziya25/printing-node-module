@@ -569,7 +569,7 @@ function createPrinterMappingsHelper(kitchenCounterDetails, itemDetails, subcate
   try {
     /* create all kitchen counters mapping */
     for (const kitchenCounterDetail of kitchenCounterDetails) {
-      kitchenCounterMapping[kitchenCounterDetail['id']] = kitchenCounterDetail;
+      kitchenCounterMapping[kitchenCounterDetail['kitchen_counter_id']] = kitchenCounterDetail;
     }
 
     /* create item's kitchen counters mapping */
