@@ -176,12 +176,12 @@ function generatePrintData(
   counter_id = '',
   qty = 0,
   oid = '',
-  staff_name = '',
+  staff_name = 'Restaurant Manager',
   logo_base_url = '',
 ) {
   // generate print logo url for restaurant
   if (rest_details['print_logo'] && logo_base_url) {
-    rest_details['print_logo'] = `${logo_base_url}/${rest_details['print_logo']}`;
+    rest_details['print_logo'] = `${logo_base_url}${rest_details['print_logo']}`;
   }
 
   // case for single order receipt, countet, master, void and table change printing
@@ -190,7 +190,7 @@ function generatePrintData(
     let receipt_data = [];
 
     order_details['allergic_items'] = getAllergicItemsList(order_details['allergic_items']);
-    order_details['staff_name'] = staff_name ? staff_name : '';
+    order_details['sname'] = staff_name ? staff_name : '';
 
     // --------------------------- type=0 : for counter ---------------------------
     if (type === 0 && counter_id && itr) {
@@ -198,7 +198,7 @@ function generatePrintData(
 
       // generate data for counter receipt
       let derived_data = generateCounterReceipt(
-        order_details,
+        { ...order_details },
         rest_details,
         subcat_counters,
         itr,
@@ -215,7 +215,9 @@ function generatePrintData(
     else if (type === 1) {
       invalid = false;
       // generating receipt data
-      receipt_data.push(generateBillReceipt(order_details, rest_details, bill_details[0] || {}));
+      receipt_data.push(
+        generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
+      );
     }
     // ---------------------------------------------------------------------------
 
@@ -224,12 +226,14 @@ function generatePrintData(
       invalid = false;
 
       // generating receipt data
-      receipt_data.push(generateBillReceipt(order_details, rest_details, bill_details[0] || {}));
+      receipt_data.push(
+        generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
+      );
 
       // generating counter data
       receipt_data = receipt_data.concat(
         generateCounterReceipt(
-          order_details,
+          { ...order_details },
           rest_details,
           subcat_counters,
           itr,
@@ -252,7 +256,7 @@ function generatePrintData(
       if (!on_accept_new_order && !on_accept_new_itr) {
         receipt_data = receipt_data.concat(
           generateCounterReceipt(
-            order_details,
+            { ...order_details },
             rest_details,
             subcat_counters,
             itr,
@@ -271,7 +275,7 @@ function generatePrintData(
           // generate counter data
           receipt_data = receipt_data.concat(
             generateCounterReceipt(
-              order_details,
+              { ...order_details },
               rest_details,
               subcat_counters,
               itr,
@@ -288,7 +292,15 @@ function generatePrintData(
             const note_type = itr > 1 ? 'Order Updated' : '';
             // generate master list data
             receipt_data.push(
-              generateMasterOrderReceipt(order_details, rest_details, itr, note_type, true, '', ''),
+              generateMasterOrderReceipt(
+                { ...order_details },
+                rest_details,
+                itr,
+                note_type,
+                true,
+                '',
+                '',
+              ),
             );
           }
         }
@@ -296,7 +308,7 @@ function generatePrintData(
           // 1: receipt obj
           // generating receipt data
           receipt_data.push(
-            generateBillReceipt(order_details, rest_details, bill_details[0] || {}),
+            generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
           );
         }
       }
@@ -434,7 +446,7 @@ function generatePrintData(
         if ((print_code & 2) === 2) {
           receipt_data = receipt_data.concat(
             generateCounterReceipt(
-              order_details,
+              { ...order_details },
               rest_details,
               subcat_counters,
               itr,
@@ -451,13 +463,21 @@ function generatePrintData(
         if (master_enabled && master_enabled > 0) {
           if ((print_code & 4) === 4) {
             receipt_data.push(
-              generateMasterOrderReceipt(order_details, rest_details, itr, note_type, true, '', ''),
+              generateMasterOrderReceipt(
+                { ...order_details },
+                rest_details,
+                itr,
+                note_type,
+                true,
+                '',
+                '',
+              ),
             );
           }
         }
         if ((print_code & 1) === 1) {
           receipt_data.push(
-            generateBillReceipt(order_details, rest_details, bill_details[0] || {}),
+            generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
           );
         }
       }
