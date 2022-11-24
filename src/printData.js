@@ -1,9 +1,3 @@
-/*
-  Last Modified : 27th October
-  Changes - fix for allergic items pre conversion to array from object
-            (line 185 & 487)
-*/
-
 const { v4: uuidv4 } = require('uuid');
 const moment = require('moment-timezone');
 const {
@@ -637,7 +631,7 @@ function generateOrderPrintPopUpResponse(
 
     /* process all kitchen counter(s) data */
     for (const kitchenCounter of allKitchenCounters) {
-      kitchenCounterMapping[kitchenCounter['id']] = kitchenCounter;
+      kitchenCounterMapping[kitchenCounter['kitchen_counter_id']] = kitchenCounter;
     }
 
     /* process menu item counter(s) data */
@@ -697,7 +691,7 @@ function generateOrderPrintPopUpResponse(
           if (!added_counters[item['itr']].includes(kcObj['counter_name'])) {
             response[item['itr']]['data'].push({
               counter_name: kcObj['counter_name'],
-              counter_id: kcObj['id'],
+              counter_id: kcObj['kitchen_counter_id'],
             });
             added_counters[item['itr']].push(kcObj['counter_name']);
           }
@@ -715,7 +709,7 @@ function generateOrderPrintPopUpResponse(
             if (!added_counters[item['itr']].includes(kcObj['counter_name'])) {
               response[item['itr']]['data'].push({
                 counter_name: kcObj['counter_name'],
-                counter_id: kcObj['id'],
+                counter_id: kcObj['kitchen_counter_id'],
               });
               added_counters[item['itr']].push(kcObj['counter_name']);
             }
