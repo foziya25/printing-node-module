@@ -378,6 +378,10 @@ function convertCounterObj(
   data['ptr_name'] = obj['printerName'];
   data['p_width'] = '72';
   data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
+  data['p_width'] = obj['sticker_width'];
+  data['p_height'] = obj['sticker_height'];
+  data['auto_cut_enabled'] = obj['auto_cut_enabled'];
+  data['is_single_roll'] = obj['is_single_roll'];
   data['data'] = [];
 
   if (configurable_settings && configurable_settings.header_space) {

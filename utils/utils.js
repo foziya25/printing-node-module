@@ -671,6 +671,10 @@ function separateStickerPrinterObjects(
   obj['counterName'] = printer_info_object[searchString][0]['counterName'];
   obj['ptr_id'] = printer_info_object[searchString][0]['kitchen_counter_id'];
   obj['printerName'] = printer_info_object[searchString][0]['printerName'];
+  obj['sticker_height'] = printer_info_object[searchString][0]['sticker_height'];
+  obj['sticker_width'] = printer_info_object[searchString][0]['sticker_width'];
+  obj['auto_cut_enabled'] = printer_info_object[searchString][0]['auto_cut_enabled'];
+  obj['is_single_roll'] = printer_info_object[searchString][0]['is_single_roll'];
   obj['body'] = {};
   // obj['body']['Type'] = order_details['order_type'];
 
@@ -1003,6 +1007,19 @@ function getItemsList(
           temp_item['ptr_id'] = counter_details['kitchen_counter_id'];
           if (counter_details['is_sticker_printer']) {
             temp_item['sticker_print'] = 1;
+            /* configurable sticker printing */
+            temp_item['is_single_roll'] = counter_details['is_single_roll']
+              ? counter_details['is_single_roll']
+              : 0;
+            temp_item['auto_cut_enabled'] = counter_details['auto_cut_enabled']
+              ? counter_details['auto_cut_enabled']
+              : 0;
+            temp_item['sticker_height'] = counter_details['sticker_height']
+              ? counter_details['sticker_height']
+              : '40';
+            temp_item['sticker_width'] = counter_details['sticker_width']
+              ? counter_details['sticker_width']
+              : '48';
           }
         } else {
           temp_item['counter_name'] = 'default';
@@ -1059,6 +1076,19 @@ function getItemsList(
           temp_item['ptr_id'] = counter['kitchen_counter_id'];
           if (counter['is_sticker_printer']) {
             temp_item['sticker_print'] = 1;
+            /* configurable sticker printing */
+            temp_item['is_single_roll'] = counter_details['is_single_roll']
+              ? counter_details['is_single_roll']
+              : 0;
+            temp_item['auto_cut_enabled'] = counter_details['auto_cut_enabled']
+              ? counter_details['auto_cut_enabled']
+              : 0;
+            temp_item['sticker_height'] = counter_details['sticker_height']
+              ? counter_details['sticker_height']
+              : '40';
+            temp_item['sticker_width'] = counter_details['sticker_width']
+              ? counter_details['sticker_width']
+              : '48';
           }
           new_items_list.push(temp_item);
           item_copy_count += 1;
