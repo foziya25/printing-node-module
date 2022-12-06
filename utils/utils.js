@@ -663,6 +663,10 @@ function separateStickerPrinterObjects(
       kitchen_counter_id: item['kitchen_counter_id'],
       counterName: item['counter_name'] != '' ? item['counter_name'] : 'Default Counter',
       printerName: item['printer_name'] != '' ? item['printer_name'] : 'Default Printer',
+      sticker_height: item['sticker_height'] ? item['sticker_height'] : '40',
+      sticker_width: item['sticker_width'] ? item['sticker_width'] : '48',
+      auto_cut_enabled: item['auto_cut_enabled'] ? item['auto_cut_enabled'] : 0,
+      is_single_roll: item['is_single_roll'] ? item['is_single_roll'] : 0,
     });
   }
 
