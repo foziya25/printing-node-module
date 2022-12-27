@@ -574,33 +574,35 @@ function createPrinterMappingsHelper(kitchenCounterDetails, itemDetails, subcate
 
     /* create item's kitchen counters mapping */
     for (const itemDetail of itemDetails) {
-      const kitchenCounterList = itemDetail['kitchen_counter_id']
-        .split(',')
-        .filter((e) => e.trim())
-        .map((e) => e.trim());
-      if (kitchenCounterList && kitchenCounterList.length > 0) {
-        itemKitchenCounterMapping[itemDetail['id']] = {};
-        for (const kitchenCounter of kitchenCounterList) {
-          if (!itemKitchenCounterMapping[itemDetail['id']][kitchenCounter]) {
-            itemKitchenCounterMapping[itemDetail['id']][kitchenCounter] =
-              kitchenCounterMapping[kitchenCounter];
-            /* initialising sticker printer configurations */
-            itemKitchenCounterMapping[itemDetail['id']][kitchenCounter]['is_single_roll'] =
-              kitchenCounterMapping[kitchenCounter]['is_single_roll']
-                ? kitchenCounterMapping[kitchenCounter]['is_single_roll']
-                : 0;
-            itemKitchenCounterMapping[itemDetail['id']][kitchenCounter]['auto_cut_enabled'] =
-              kitchenCounterMapping[kitchenCounter]['auto_cut_enabled']
-                ? kitchenCounterMapping[kitchenCounter]['auto_cut_enabled']
-                : 0;
-            itemKitchenCounterMapping[itemDetail['id']][kitchenCounter]['sticker_height'] =
-              kitchenCounterMapping[kitchenCounter]['sticker_height']
-                ? kitchenCounterMapping[kitchenCounter]['sticker_height']
-                : '40';
-            itemKitchenCounterMapping[itemDetail['id']][kitchenCounter]['sticker_width'] =
-              kitchenCounterMapping[kitchenCounter]['sticker_width']
-                ? kitchenCounterMapping[kitchenCounter]['sticker_width']
-                : '48';
+      if (itemDetail['kitchen_counter_id']) {
+        const kitchenCounterList = itemDetail['kitchen_counter_id']
+          .split(',')
+          .filter((e) => e.trim())
+          .map((e) => e.trim());
+        if (kitchenCounterList && kitchenCounterList.length > 0) {
+          itemKitchenCounterMapping[itemDetail['id']] = {};
+          for (const kitchenCounter of kitchenCounterList) {
+            if (!itemKitchenCounterMapping[itemDetail['id']][kitchenCounter]) {
+              itemKitchenCounterMapping[itemDetail['id']][kitchenCounter] =
+                kitchenCounterMapping[kitchenCounter];
+              /* initialising sticker printer configurations */
+              itemKitchenCounterMapping[itemDetail['id']][kitchenCounter]['is_single_roll'] =
+                kitchenCounterMapping[kitchenCounter]['is_single_roll']
+                  ? kitchenCounterMapping[kitchenCounter]['is_single_roll']
+                  : 0;
+              itemKitchenCounterMapping[itemDetail['id']][kitchenCounter]['auto_cut_enabled'] =
+                kitchenCounterMapping[kitchenCounter]['auto_cut_enabled']
+                  ? kitchenCounterMapping[kitchenCounter]['auto_cut_enabled']
+                  : 0;
+              itemKitchenCounterMapping[itemDetail['id']][kitchenCounter]['sticker_height'] =
+                kitchenCounterMapping[kitchenCounter]['sticker_height']
+                  ? kitchenCounterMapping[kitchenCounter]['sticker_height']
+                  : '40';
+              itemKitchenCounterMapping[itemDetail['id']][kitchenCounter]['sticker_width'] =
+                kitchenCounterMapping[kitchenCounter]['sticker_width']
+                  ? kitchenCounterMapping[kitchenCounter]['sticker_width']
+                  : '48';
+            }
           }
         }
       }
@@ -608,32 +610,30 @@ function createPrinterMappingsHelper(kitchenCounterDetails, itemDetails, subcate
 
     /* creating subcategory printer mapping */
     for (const subcategoryDetail of subcategoryDetails) {
-      if (subcategoryDetails && subcategoryDetails.length > 0) {
-        for (let kitchenCounterDetail of subcategoryDetail['kitchen_counters']) {
-          if (!subcatKitchenCounterMapping[subcategoryDetail['id']]) {
-            subcatKitchenCounterMapping[subcategoryDetail['id']] = [];
-          }
-          if (kitchenCounterDetail['status'] === 1) {
-            subcatKitchenCounterMapping[subcategoryDetail['id']].push({
-              kc_id: kitchenCounterDetail['kitchen_counter_id'],
-              counter_name: kitchenCounterDetail['counter_name'],
-              printer_name: kitchenCounterDetail['printer_name'],
-              kitchen_counter_id: kitchenCounterDetail['kitchen_counter_id'],
-              /* initialising sticker printer configurations */
-              is_single_roll: kitchenCounterDetail['is_single_roll']
-                ? kitchenCounterDetail['is_single_roll']
-                : 0,
-              auto_cut_enabled: kitchenCounterDetail['auto_cut_enabled']
-                ? kitchenCounterDetail['auto_cut_enabled']
-                : 0,
-              sticker_height: kitchenCounterDetail['sticker_height']
-                ? kitchenCounterDetail['sticker_height']
-                : '40',
-              sticker_width: kitchenCounterDetail['sticker_width']
-                ? kitchenCounterDetail['sticker_width']
-                : '48',
-            });
-          }
+      for (let kitchenCounterDetail of subcategoryDetail['kitchen_counters']) {
+        if (!subcatKitchenCounterMapping[subcategoryDetail['id']]) {
+          subcatKitchenCounterMapping[subcategoryDetail['id']] = [];
+        }
+        if (kitchenCounterDetail['status'] === 1) {
+          subcatKitchenCounterMapping[subcategoryDetail['id']].push({
+            kc_id: kitchenCounterDetail['kitchen_counter_id'],
+            counter_name: kitchenCounterDetail['counter_name'],
+            printer_name: kitchenCounterDetail['printer_name'],
+            kitchen_counter_id: kitchenCounterDetail['kitchen_counter_id'],
+            /* initialising sticker printer configurations */
+            is_single_roll: kitchenCounterDetail['is_single_roll']
+              ? kitchenCounterDetail['is_single_roll']
+              : 0,
+            auto_cut_enabled: kitchenCounterDetail['auto_cut_enabled']
+              ? kitchenCounterDetail['auto_cut_enabled']
+              : 0,
+            sticker_height: kitchenCounterDetail['sticker_height']
+              ? kitchenCounterDetail['sticker_height']
+              : '40',
+            sticker_width: kitchenCounterDetail['sticker_width']
+              ? kitchenCounterDetail['sticker_width']
+              : '48',
+          });
         }
       }
     }
