@@ -341,6 +341,8 @@ function generatePrintData(
               '',
               oid,
               qty,
+              subcat_counters,
+              kitchen_counter_details,
             ),
           );
         } else {
@@ -363,6 +365,8 @@ function generatePrintData(
                 '',
                 oid,
                 qty,
+                subcat_counters,
+                kitchen_counter_details,
               ),
             );
           }
