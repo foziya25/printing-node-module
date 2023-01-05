@@ -125,10 +125,7 @@ function convertReceiptObj(obj, rest_details) {
         { name: item['qty'].toString(), fw: 6, fa: FontAlign.LEFT },
         { name: item['name'].toUpperCase(), fa: FontAlign.LEFT },
         {
-          name:
-            rest_details['curr_sym'] +
-            ' ' +
-            getInternationalizedNumber(Number(item['amount']).toFixed(2), country),
+          name: getInternationalizedNumber(Number(item['amount']).toFixed(2), country),
           fw: 10,
           fa: FontAlign.RIGHT,
         },
