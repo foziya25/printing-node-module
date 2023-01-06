@@ -957,7 +957,75 @@ function convertToOldReceiptObj(data) {
       }
     }
   }
+
+  if (data.body) {
+    if (data.body.time && data.body.date) {
+      data.body.date = data.body.date + ' ' + data.body.time;
+    }
+    data.body = keyCorrection(
+      {
+        order_type: 'Type',
+        table: 'Table',
+        invoice_no: 'Invoice_no',
+        order_seq: 'Order_seq',
+        date: 'Date',
+        cashier: 'Cashier',
+        staff_name: 'Staff',
+      },
+      data.body,
+    );
+  }
+
+  if (data.order && data.order.bill && data.order.bill.length > 0) {
+    for (let bill of data.order.bill) {
+      if (bill.name == 'payment_mode' && bill.name == 'unpaid') {
+        bill['value'] = 'Unpaid';
+      }
+      bill = valueCorrectionBill(bill);
+    }
+  }
   return data;
+}
+
+/**
+ * Correct the keys and values of an object.
+ *
+ * @param {Object} obj - The object to modify.
+ * @returns {Object} - The modified object.
+ */
+function valueCorrectionBill(obj) {
+  const keysMapping = {
+    'Sub-Total': 'Subtotal',
+    total: 'Total Payable',
+    payment_mode: 'Payment Mode',
+  };
+  for (const originalKey of Object.keys(keysMapping)) {
+    try {
+      if (obj && obj['name'] == originalKey) {
+        obj.name = keysMapping[originalKey];
+      }
+    } catch (e) {}
+  }
+  return obj;
+}
+
+/* Insert a key and delete another key from an object.
+ *
+ * @param {string} insert_key - The key to be inserted.
+ * @param {string} delete_key - The key to be deleted.
+ * @param {Object} obj - The object to modify.
+ * @returns {Object} - The modified object.
+ */
+function keyCorrection(keys_mapping, obj) {
+  for (const original_key of Object.keys(keys_mapping)) {
+    try {
+      if (obj[original_key]) {
+        obj[keys_mapping[original_key]] = obj[original_key];
+        delete obj[original_key];
+      }
+    } catch (e) {}
+  }
+  return obj;
 }
 
 module.exports = {
