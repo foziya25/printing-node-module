@@ -36,7 +36,7 @@ const {
 function convertReceiptObj(obj, rest_details) {
   // in case of old receipt design
   if (getSettingVal(rest_details, 'response_format') === 0) {
-    return obj;
+    return convertToOldReceiptObj(obj);
   }
 
   language = getPrintLanguage(rest_details);
@@ -938,6 +938,26 @@ function convertDeclineMasterObj(obj, options, rest_details) {
   data['data'].push(line_break());
   data['data'].push(powered_by(language));
   return changeFontSize(data, options);
+}
+
+/**
+ * Convert the response format for old receipt data.
+ *
+ * @param {Object} data - An object containing old receipt data.
+ * @returns {Object} - An object containing old receipt data with converted response format.
+ */
+function convertToOldReceiptObj(data) {
+  if (data.order && data.order.items && data.order.items.length > 0) {
+    for (let item of data.order.items) {
+      if (typeof item.price === 'number') {
+        item.price = item.price.toString();
+      }
+      if (typeof item.amount === 'number') {
+        item.amount = item.amount.toString();
+      }
+    }
+  }
+  return data;
 }
 
 module.exports = {
