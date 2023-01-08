@@ -963,6 +963,10 @@ function convertToOldCounterObj(data) {
       data.body['Order_seq'] = data.order_seq;
       data.body['Type'] = data.order_type;
     }
+    if (data.hasOwnProperty('counter_name')) {
+      data.counterName = data.counter_name;
+      delete data.counter_name;
+    }
   } catch (e) {}
 
   return data;
