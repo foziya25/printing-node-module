@@ -1040,9 +1040,9 @@ function valueCorrectionBill(obj) {
       if (obj && obj['name'] == originalKey) {
         obj.name = keysMapping[originalKey];
       }
-      if (obj && obj['value'] && Number(obj['value']) != NaN) {
-        obj.value = obj.value.toFixed(2).toString();
-      }
+      // if (obj && obj['value'] && Number(obj['value']) != NaN) {
+      //   obj.value = obj.value.toFixed(2);
+      // }
     } catch (e) {}
   }
   return obj;
