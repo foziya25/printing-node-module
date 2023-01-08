@@ -366,7 +366,7 @@ function convertCounterObj(
 ) {
   // for old receispt design
   if (getSettingVal(rest_details, 'response_format') === 0) {
-    return obj;
+    return convertToOldCounterObj(obj);
   }
   const data = {};
   if (obj['type'] === ReceiptType.STICKER_PRINTER) {
@@ -549,7 +549,7 @@ function convertCounterObj(
 function convertMasterObj(obj, rest_details, options = {}) {
   // for old receipt design
   if (getSettingVal(rest_details, 'response_format') === 0) {
-    return obj;
+    return convertToOldCounterObj(obj);
   }
 
   const language = getPrintLanguage(rest_details);
@@ -941,6 +941,37 @@ function convertDeclineMasterObj(obj, options, rest_details) {
   return changeFontSize(data, options);
 }
 
+function convertToOldCounterObj(data) {
+  try {
+    if (data.body) {
+      data.body = keyCorrection(
+        {
+          order_type: 'Type',
+          table: 'Table',
+          invoice_no: 'Invoice_No',
+          order_seq: 'Order_seq',
+          date: 'Date',
+          time: 'Time',
+          cashier: 'Cashier',
+          staff_name: 'sname',
+          customer_name: 'uname',
+          customer_phone: 'mob',
+          pax: 'PAX',
+        },
+        data.body,
+      );
+      data.body['Order_seq'] = data.order_seq;
+      data.body['Type'] = data.order_type;
+    }
+    if (data.hasOwnProperty('counter_name')) {
+      data.counterName = data.counter_name;
+      delete data.counter_name;
+    }
+  } catch (e) {}
+
+  return data;
+}
+
 /**
  * Convert the response format for old receipt data.
  *
@@ -948,43 +979,47 @@ function convertDeclineMasterObj(obj, options, rest_details) {
  * @returns {Object} - An object containing old receipt data with converted response format.
  */
 function convertToOldReceiptObj(data) {
-  if (data.order && data.order.items && data.order.items.length > 0) {
-    for (let item of data.order.items) {
-      if (typeof item.price === 'number') {
-        item.price = item.price.toFixed(2).toString();
-      }
-      if (typeof item.amount === 'number') {
-        item.amount = item.amount.toFixed(2).toString();
+  try {
+    if (data.order && data.order.items && data.order.items.length > 0) {
+      for (let item of data.order.items) {
+        if (typeof item.price === 'number') {
+          item.price = item.price.toFixed(2).toString();
+        }
+        if (typeof item.amount === 'number') {
+          item.amount = item.amount.toFixed(2).toString();
+        }
       }
     }
-  }
 
-  if (data.body) {
-    if (data.body.time && data.body.date) {
-      data.body.date = data.body.date + ' ' + data.body.time;
-    }
-    data.body = keyCorrection(
-      {
-        order_type: 'Type',
-        table: 'Table',
-        invoice_no: 'Invoice_No',
-        order_seq: 'Order_seq',
-        date: 'Date',
-        cashier: 'Cashier',
-        staff_name: 'Staff',
-      },
-      data.body,
-    );
-  }
-
-  if (data.order && data.order.bill && data.order.bill.length > 0) {
-    for (let bill of data.order.bill) {
-      if (bill.name == 'payment_mode' && bill.name == 'unpaid') {
-        bill['value'] = 'Unpaid';
+    if (data.body) {
+      if (data.body.time && data.body.date) {
+        data.body.date = data.body.date + ' ' + data.body.time;
       }
-      bill = valueCorrectionBill(bill);
+      data.body = keyCorrection(
+        {
+          order_type: 'Type',
+          table: 'Table',
+          invoice_no: 'Invoice_No',
+          order_seq: 'Order_seq',
+          date: 'Date',
+          time: 'Time',
+          cashier: 'Cashier',
+          staff_name: 'sname',
+          pax: 'PAX',
+        },
+        data.body,
+      );
     }
-  }
+
+    if (data.order && data.order.bill && data.order.bill.length > 0) {
+      for (let bill of data.order.bill) {
+        if (bill.name == 'payment_mode' && bill.name == 'unpaid') {
+          bill['value'] = 'Unpaid';
+        }
+        bill = valueCorrectionBill(bill);
+      }
+    }
+  } catch (e) {}
   return data;
 }
 
