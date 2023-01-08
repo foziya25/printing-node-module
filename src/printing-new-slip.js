@@ -81,6 +81,7 @@ function convertReceiptObj(obj, rest_details) {
     KeyName.TIME,
     KeyName.TABLE,
     KeyName.PAYMENT_TYPE,
+    KeyName.STAFF_NAME,
   ];
   insertHeaders(obj, keys).forEach((value) => {
     data['data'].push(value);
@@ -950,10 +951,10 @@ function convertToOldReceiptObj(data) {
   if (data.order && data.order.items && data.order.items.length > 0) {
     for (let item of data.order.items) {
       if (typeof item.price === 'number') {
-        item.price = item.price.toString();
+        item.price = item.price.toFixed(2).toString();
       }
       if (typeof item.amount === 'number') {
-        item.amount = item.amount.toString();
+        item.amount = item.amount.toFixed(2).toString();
       }
     }
   }
@@ -966,7 +967,7 @@ function convertToOldReceiptObj(data) {
       {
         order_type: 'Type',
         table: 'Table',
-        invoice_no: 'Invoice_no',
+        invoice_no: 'Invoice_No',
         order_seq: 'Order_seq',
         date: 'Date',
         cashier: 'Cashier',
@@ -1004,6 +1005,9 @@ function valueCorrectionBill(obj) {
       if (obj && obj['name'] == originalKey) {
         obj.name = keysMapping[originalKey];
       }
+      if (obj && obj['value'] && Number(obj['value']) != NaN) {
+        obj.value = obj.value.toFixed(2).toString();
+      }
     } catch (e) {}
   }
   return obj;
@@ -1019,7 +1023,7 @@ function valueCorrectionBill(obj) {
 function keyCorrection(keys_mapping, obj) {
   for (const original_key of Object.keys(keys_mapping)) {
     try {
-      if (obj[original_key]) {
+      if (obj.hasOwnProperty(original_key)) {
         obj[keys_mapping[original_key]] = obj[original_key];
         delete obj[original_key];
       }
