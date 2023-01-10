@@ -36,7 +36,7 @@ const {
 function convertReceiptObj(obj, rest_details) {
   // in case of old receipt design
   if (getSettingVal(rest_details, 'response_format') === 0) {
-    return convertToOldReceiptObj(obj);
+    return convertToOldReceiptObj(obj, rest_details.country);
   }
 
   language = getPrintLanguage(rest_details);
@@ -978,15 +978,15 @@ function convertToOldCounterObj(data) {
  * @param {Object} data - An object containing old receipt data.
  * @returns {Object} - An object containing old receipt data with converted response format.
  */
-function convertToOldReceiptObj(data) {
+function convertToOldReceiptObj(data, country) {
   try {
     if (data.order && data.order.items && data.order.items.length > 0) {
       for (let item of data.order.items) {
         if (typeof item.price === 'number') {
-          item.price = item.price.toFixed(2).toString();
+          item.price = getInternationalizedNumber(item.price, country);
         }
         if (typeof item.amount === 'number') {
-          item.amount = item.amount.toFixed(2).toString();
+          item.amount = getInternationalizedNumber(item.amount, country);
         }
       }
     }
@@ -1016,7 +1016,7 @@ function convertToOldReceiptObj(data) {
         if (bill.name == 'payment_mode' && bill.name == 'unpaid') {
           bill['value'] = 'Unpaid';
         }
-        bill = valueCorrectionBill(bill);
+        bill = valueCorrectionBill(bill, country);
       }
     }
   } catch (e) {}
@@ -1029,20 +1029,22 @@ function convertToOldReceiptObj(data) {
  * @param {Object} obj - The object to modify.
  * @returns {Object} - The modified object.
  */
-function valueCorrectionBill(obj) {
+function valueCorrectionBill(obj, country) {
   const keysMapping = {
     'Sub-Total': 'Subtotal',
     total: 'Total Payable',
     payment_mode: 'Payment Mode',
+    Discount: 'Discount',
+    'Round Off': 'Round Off',
   };
   for (const originalKey of Object.keys(keysMapping)) {
     try {
       if (obj && obj['name'] == originalKey) {
         obj.name = keysMapping[originalKey];
       }
-      // if (obj && obj['value'] && Number(obj['value']) != NaN) {
-      //   obj.value = obj.value.toFixed(2);
-      // }
+      if (obj && obj.hasOwnProperty('value') && Number(obj['value']) != NaN) {
+        obj.value = getInternationalizedNumber(obj.value, country);
+      }
     } catch (e) {}
   }
   return obj;
