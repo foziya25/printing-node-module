@@ -799,7 +799,6 @@ function generateCounterReceipt(
     obj['allergic_items'] = order_details['allergic_items'];
     obj['note'] = appendCounterFooter(obj['note'], rest_details);
     obj['items'] = temp_item_obj[key];
-    kjbkjh
 
     let noOfItems = 0;
     for (const item of obj['items']) {
