@@ -604,7 +604,6 @@ function generateCounterReceipt(
       if (!(item['itr'] + '_' + item['kitchen_counter_id'] in temp_item_data)) {
         temp_item_data[item['itr'] + '_' + item['kitchen_counter_id']] = [];
       }
-
       const item_obj = {};
       /* For case of notmal item, notheing specical is to be done */
       if (!item['is_combo_item']) {
@@ -612,9 +611,14 @@ function generateCounterReceipt(
         item_obj['qty'] = item['item_quantity'];
         item_obj['unit'] = getUnit(item);
         item_obj['addon'] = '';
-        item['variation_name']
-          ? getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
-          : '';
+        // item['variation_name']
+        //   ? getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
+        //   : '';
+        item_obj['variant'] = item['new_variation_name']
+            ? item['new_variation_name']
+            : item['variation_name']
+            ? this.getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
+            : '';
         item_obj['note'] = item['special_note'] ? item['special_note'] : '';
         item_obj['item_id'] = item['item_id'];
       } else {
@@ -795,6 +799,7 @@ function generateCounterReceipt(
     obj['allergic_items'] = order_details['allergic_items'];
     obj['note'] = appendCounterFooter(obj['note'], rest_details);
     obj['items'] = temp_item_obj[key];
+
     let noOfItems = 0;
     for (const item of obj['items']) {
       noOfItems += item['qty'];
