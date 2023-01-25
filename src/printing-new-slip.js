@@ -945,7 +945,6 @@ function convertToOldCounterObj(data) {
   try {
     if (data.items && data.items.length > 0) {
       for (let item of data.items) {
-        item.qty = item.qty.toString();
         if (typeof item.qty === 'string') {
           item.qty = parseInt(item.qty);
         }
