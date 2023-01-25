@@ -113,47 +113,93 @@ function insertHeaders(obj, keys = [], language = CountryMapping.MALAYSIA.langua
 }
 
 // Function to add items in printing config v2
-function addItems(items) {
+function addItems(items, rest_details, configurable_settings, language) {
+  const split_addon_variant = getSettingVal(rest_details, 'split_addon_variant');
+  language = language || getPrintLanguage(rest_details);
+
   const temp_arr = [];
-  temp_arr.push(formatv2('', [{ name: 'ITEM NAME' }, { name: 'QTY', fw: 6, fa: FontAlign.RIGHT }]));
+  temp_arr.push(
+    formatv2(
+      '',
+      [
+        { name: `${localize(KeyName.ITEM_NAME, language).toUpperCase()}` },
+        { name: 'QTY', fw: 6, fa: FontAlign.RIGHT },
+      ],
+      configurable_settings ? configurable_settings['item_name']['fs'] : undefined,
+      configurable_settings ? configurable_settings['item_name']['ft'] : undefined,
+    ),
+  );
   temp_arr.push(line_break());
   for (const item of items) {
     const strike = item['strike'] && item['strike'] === 1 ? 1 : 0;
     if (item['name'] && item['name'].trim()) {
       temp_arr.push(
-        formatv2('', [
-          { name: item['name'].toUpperCase(), strike: strike },
-          { name: item['qty'].toString(), fw: 6, fa: FontAlign.RIGHT, strike: strike },
-        ]),
+        formatv2(
+          '',
+          [
+            { name: item['name'].toUpperCase(), strike: strike },
+            { name: item['qty'].toString(), fw: 6, fa: FontAlign.RIGHT, strike: strike },
+          ],
+          configurable_settings ? configurable_settings['item_name']['fs'] : undefined,
+          configurable_settings ? configurable_settings['item_name']['ft'] : undefined,
+        ),
       );
     }
     if (item['combo_name'] && item['combo_name'].trim()) {
       temp_arr.push(
-        formatv2('', [
-          { name: `${item['combo_name'].toUpperCase()}`, strike: strike },
-          { name: '', fw: 6 },
-        ]),
+        formatv2(
+          '',
+          [
+            { name: `${item['combo_name'].toUpperCase()}`, strike: strike },
+            { name: '', fw: 6 },
+          ],
+          configurable_settings ? configurable_settings['item_name']['fs'] : undefined,
+          configurable_settings ? configurable_settings['item_name']['ft'] : undefined,
+        ),
       );
     }
     if (item['addon'] && item['addon'].trim()) {
-      temp_arr.push(
-        formatv2('', [
-          { name: `${item['addon'].toUpperCase()}`, strike: strike },
-          { name: '', fw: 6 },
-        ]),
-      );
+      splitAddonVariantByLine(
+        item['addon'],
+        AddonVariantNameEnum.ADDON,
+        strike,
+        AddonVariantReceiptEnum.OTHER,
+        split_addon_variant,
+        configurable_settings,
+        language,
+      ).forEach((elem) => {
+        temp_arr.push(elem);
+      });
     }
     if (item['variant'] && item['variant'].trim()) {
-      temp_arr.push(
-        formatv2('', [
-          { name: `${item['variant'].toUpperCase()}`, strike: strike },
-          { name: '', fw: 6 },
-        ]),
-      );
+      const show_variant_qty_obj = {
+        show: false,
+      };
+      if (!item['name'] || !item['name'].trim()) {
+        show_variant_qty_obj.show = true;
+        show_variant_qty_obj['qty'] = item['qty'].toString();
+      }
+      splitAddonVariantByLine(
+        item['variant'],
+        AddonVariantNameEnum.VARIANT,
+        strike,
+        AddonVariantReceiptEnum.OTHER,
+        split_addon_variant,
+        configurable_settings,
+        language,
+        show_variant_qty_obj,
+      ).forEach((elem) => {
+        temp_arr.push(elem);
+      });
     }
     if (item['note'] && item['note'].trim()) {
       temp_arr.push(
-        formatv2('', [{ name: `NOTE: ${item['note'].toUpperCase()}` }, { name: '', fw: 6 }]),
+        formatv2(
+          '',
+          [{ name: `NOTE: ${item['note'].toUpperCase()}` }, { name: '', fw: 6 }],
+          configurable_settings ? configurable_settings['notes']['fs'] : undefined,
+          configurable_settings ? configurable_settings['notes']['ft'] : undefined,
+        ),
       );
     }
   }

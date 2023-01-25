@@ -615,10 +615,10 @@ function generateCounterReceipt(
         //   ? getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
         //   : '';
         item_obj['variant'] = item['new_variation_name']
-            ? item['new_variation_name']
-            : item['variation_name']
-            ? this.getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
-            : '';
+          ? item['new_variation_name']
+          : item['variation_name']
+          ? getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
+          : '';
         item_obj['note'] = item['special_note'] ? item['special_note'] : '';
         item_obj['item_id'] = item['item_id'];
       } else {
