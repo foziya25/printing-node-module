@@ -943,6 +943,14 @@ function convertDeclineMasterObj(obj, options, rest_details) {
 
 function convertToOldCounterObj(data) {
   try {
+    if (data.items && data.items.length > 0) {
+      for (let item of data.items) {
+        if (typeof item.qty === 'string') {
+          item.qty = parseInt(item.qty);
+        }
+      }
+    }
+
     if (data.body) {
       data.body = keyCorrection(
         {

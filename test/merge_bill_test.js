@@ -2772,7 +2772,7 @@ const rest_details = {
       print_bahasa: null,
       print_delay: 300,
       receipt_keyname: 'receiptprint',
-      response_format: 1,
+      response_format: 0,
       separate_docket: 0,
       show_logo: 1,
       show_op_order_id: 11,

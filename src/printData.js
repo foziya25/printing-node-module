@@ -532,8 +532,7 @@ function generatePrintData(
         /* Attach order type bit map in order_details */
         order_type_bit = getOrderTypeBinaryPlace(order_detail.order_type);
         try {
-          const result = getOrderTypeString(order_detail, rest_details);
-          order_detail.order_type = result.order_type;
+          const result = getOrderTypeString({ ...order_detail }, rest_details);
           order_detail.table_no = result.table_no;
         } catch (e) {
           this.logger.error(e);
