@@ -27,6 +27,7 @@ const {
   getInternationalizedNumber,
   getCountryDetails,
   getCashInfo,
+  getIsPaid,
 } = require('../utils/printing-utils');
 
 const { getPmtMethodName, getPmtMethods } = require('../classes/payment');
@@ -362,6 +363,8 @@ function generateBillReceipt(order_details, rest_details, bill_details, merge_bi
         }
       }
     }
+  } else if (getIsPaid(bill_details) > 2) {
+    obj['order']['bill'].push({ name: KeyName.PAYMENT_MODE, value: KeyName.PAID });
   } else {
     obj['order']['bill'].push({ name: KeyName.PAYMENT_MODE, value: KeyName.UNPAID });
   }
@@ -1735,22 +1738,6 @@ module.exports = {
   generateVoidAndCancelCounterReceipt,
   generateVoidMasterReceipt,
   generateDeclineMasterReceipt,
-  // generateReportV2,
-  // generateReceiptV2,
   cashierReport,
   mergeReceiptData,
 };
-
-// const kitchen_details = {
-//   kitchen_counter_id,
-//   counter_name,
-//   printer_name,
-// };
-
-/**
- *  item['kitchen_counter_id'] = 'default';
-          item['counter_name'] = 'Unmapped Items';
-          item['printer_name'] = rest_details['printer']
-            ? rest_details['printer']
-            : 'Default Printer';
- */
