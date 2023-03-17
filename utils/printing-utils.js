@@ -861,6 +861,27 @@ function generateReceiptV2(obj, rest_details) {
   return changeFontSize(data, options);
 }
 
+/**
+ * Determine the payment status of a bill based on the balance and paid amounts.
+ * @param {Object} bill - Object containing the details of a bill
+ * @returns {number} - An integer representing the payment status, where:
+ *   1 - Unpaid
+ *   2 - Partially paid
+ *   3 - Fully paid
+ *   4 - Refund due
+ */
+function getIsPaid(bill) {
+  let is_paid = 0;
+  try {
+    const balance = Number(bill['balance']);
+    const paid = Number(bill['paid']);
+    is_paid = balance < 0 ? 4 : balance === 0 ? 3 : balance > 0 && paid > 0 ? 2 : 1;
+  } catch (e) {
+    // Do nothing if there is an error
+  }
+  return is_paid;
+}
+
 module.exports = {
   SlipType,
   FontAlign,
@@ -884,4 +905,5 @@ module.exports = {
   getCashInfo,
   generateReportV2,
   generateReceiptV2,
+  getIsPaid,
 };
