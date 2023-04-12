@@ -177,6 +177,7 @@ function generatePrintData(
   oid = '',
   staff_name = 'Restaurant Manager',
   logo_base_url = '',
+  guest_id='',
 ) {
   try {
     // generate print logo url for restaurant
@@ -191,6 +192,73 @@ function generatePrintData(
 
       order_details['allergic_items'] = getAllergicItemsList(order_details['allergic_items']);
       order_details['sname'] = staff_name ? staff_name : '';
+     let order_bill_details = bill_details[0];
+
+      /* Modify order_details and bill_details for split bill */
+      if (guest_id && guest_id !== '') {
+        const guest_items = [];
+        const order_guests = [...order_details.guests];
+        const bill_guests = [...order_bill_details.guests];
+        if (
+          !order_guests ||
+          order_guests.length === 0 ||
+          !bill_guests ||
+          bill_guests.length === 0
+        ) {
+          return [];
+        }
+
+        const guest_id_list = [];
+        for (const guest of order_guests) {
+          guest_id_list.push(guest.guest_id);
+        }
+
+        const guest_index = order_guests.findIndex((e) => e.guest_id === guest_id);
+        if (guest_index > -1) {
+          order_details.guest_name = order_guests[guest_index].guest_name;
+
+          for (const guest_item of order_guests[guest_index].items) {
+            const item_index = order_details.items.findIndex(
+              (e) => e.order_item_id === guest_item.order_item_id,
+            );
+            if (item_index > -1) {
+              const temp_item = { ...order_details.items[item_index] };
+              temp_item.item_quantity = guest_item.item_quantity;
+              guest_items.push(temp_item);
+            }
+          }
+        }
+
+        const bill_guest_index = bill_guests.findIndex((e) => e.guest_id === guest_id);
+        const guest_bill = { ...bill_guests[bill_guest_index] };
+        guest_bill.order_id = order_bill_details.order_id;
+        guest_bill.bill_id = order_bill_details.bill_id;
+        guest_bill.user_id = order_bill_details.user_id;
+        guest_bill.restaurant_id = order_bill_details.restaurant_id;
+        guest_bill.payments = [];
+        const pmt_ids = guest_bill.payment_ids ? [...guest_bill.payment_ids] : [];
+
+        if (pmt_ids && pmt_ids.length > 0) {
+          for (const pmt_id of pmt_ids) {
+            const pmt_index = order_bill_details.payments.findIndex((e) => e.payment_id === pmt_id);
+            if (pmt_index > -1) {
+              const payment = { ...order_bill_details.payments[pmt_index] };
+              if (payment && payment.guest_amounts && payment.guest_amounts.length > 0) {
+                const g_amt_index = payment.guest_amounts.findIndex((e) => e.guest_id === guest_id);
+                if (g_amt_index > -1) {
+                  payment.amount = payment.guest_amounts[g_amt_index].amount;
+                }
+              }
+              guest_bill.payments.push(payment);
+            }
+          }
+        }
+
+        order_details.items = [...guest_items];
+        order_bill_details = { ...guest_bill };
+        bill_details[0]=order_bill_details
+      }
+
 
       // --------------------------- type=0 : for counter ---------------------------
       if (type === 0 && counter_id && itr) {
