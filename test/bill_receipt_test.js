@@ -1,2706 +1,2676 @@
 const { generatePrintData } = require('../src/printData');
 
 let rest_details = {
-	"id": "084b76910b2946fb9acf00cc6d47f3f8",
-	"name": "Jibril-Id",
-	"nameid": "jibril-id",
-	"logo": "https://d1xkxcid7icwfl.cloudfront.net/restaurant_image/084b76910b2946fb9acf00cc6d47f3f8_1668232133.png",
-	"state": "Daerah Khusus Ibukota Jakarta",
-	"phone": "1234567809",
-	"dial_code": "+62",
-	"email": "suhaib.shamshad@easyeat.ai",
-	"pin_code": "12970",
-	"country": "Indonesia",
-	"address": "11, Jakarta, Indonesia",
-	"location":
-	{
-		"lat": -6.2087634,
-		"lon": 106.845599
-	},
-	"printer": "192.168.1.190:9100",
-	"city": "Jakarta12",
-	"discount": [0, 0, 0],
-	"tax_after_discount": true,
-	"restaurant_certificates": [],
-	"account_details": [],
-	"tax_details": [],
-	"fee": [],
-	"preparation_time": [],
-	"geo_location":
-	{
-		"type": "Point",
-		"coordinates": [106.845599, -6.2087634]
-	},
-	"next_open_epoch": 1657111130,
-	"base_roundoff": 0,
-	"roundup": false,
-	"on_whatsapp": 1,
-	"delivery_time": 20,
-	"type": 3,
-	"deliverylimit": 50,
-	"status": 1,
-	"mall": "empress-id",
-	"emails":
-	{
-		"cm": ["suhaib.shamshad@easyeat.ai"],
-		"pm": ["suhaib.shamshad@easyeat.ai"],
-		"am": ["suhaib.shamshad@easyeat.ai"]
-	},
-	"config_timings": [
-	{
-		"timing": [0, 1439],
-		"name": "Meal",
-		"id": "1653565400780Meal"
-	}],
-	"rest_timings":
-	{
-		"DINING": [
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": [
-			{
-				"full": "MONDAY",
-				"short": "MO",
-				"selected": true
-			},
-			{
-				"full": "TUESDAY",
-				"short": "TU",
-				"selected": false
-			},
-			{
-				"full": "WEDNESDAY",
-				"short": "WE",
-				"selected": false
-			},
-			{
-				"full": "THURSDAY",
-				"short": "TH",
-				"selected": false
-			},
-			{
-				"full": "FRIDAY",
-				"short": "FR",
-				"selected": false
-			},
-			{
-				"full": "SATURDAY",
-				"short": "SA",
-				"selected": false
-			},
-			{
-				"full": "SUNDAY",
-				"short": "SU",
-				"selected": false
-			}],
-			"tab": "DINING"
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		}],
-		"TAKEAWAY": [
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		},
-		{
-			"is_enabled": true,
-			"slot": [
-			{
-				"start": 0,
-				"end": 1439
-			}],
-			"days": []
-		}],
-		"DELIVERY": []
-	},
-	"restaurant_open_days": [
-		["1653565400780Meal"],
-		["1653565400780Meal"],
-		["1653565400780Meal"],
-		["1653565400780Meal"],
-		["1653565400780Meal"],
-		["1653565400780Meal"],
-		["1653565400780Meal"]
-	],
-	"time_zone": "Asia/Jakarta",
-	"fees": [
-	{
-		"id": "delivery",
-		"status": 1,
-		"name": "Delivery Fee",
-		"tax": 0,
-		"charges": [5, 5, 5, 5.4, 6, 6.6, 7.2, 7.9, 8.6, 9.3, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80]
-	},
-	{
-		"status": 1,
-		"type": "percentage",
-		"order_type": [0],
-		"data":
-		{
-			"percentage_amount": 10
-		},
-		"tax": 0,
-		"applicable_on": ["order"],
-		"applicable_cat": [],
-		"applicable_subcat": [],
-		"class": "sst_tax",
-		"id": "sst_tax",
-		"name": "Restaurant Tax (PB1)",
-		"sub_name": "Pajak Restoran (PB1)"
-	},
-	{
-		"status": 1,
-		"type": "percentage",
-		"order_type": [0, 2],
-		"data":
-		{
-			"percentage_amount": 5
-		},
-		"tax": 0,
-		"applicable_on": ["order"],
-		"applicable_cat": [],
-		"applicable_subcat": [],
-		"class": "service_tax",
-		"id": "service_tax",
-		"name": "Service Charge",
-		"sub_name": "Service Charge"
-	},
-	{
-		"order_type": [0],
-		"charges": [],
-		"applicable_subcat": [],
-		"applicable_on": ["order"],
-		"applicable_cat": [],
-		"status": 1,
-		"type": "percentage",
-		"data":
-		{
-			"percentage_amount": 10
-		},
-		"tax": 0,
-		"class": "packaging_charge",
-		"id": "packaging_charge_V055",
-		"name": "Packaging Charges",
-		"sub_name": "Biaya Kemasan"
-	}],
-	"addons": [
-	{
-		"name": "Paneer",
-		"price": 10,
-		"id": "ba02bb70cf764c50b3fca18e83a34baa",
-		"status": 0,
-		"itemids": ["e59ce9ebf0cd466a932ac3e15052d916", "92c311af79ce46c8bbb6a4da7e147647"],
-		"max_qty": 3
-	},
-	{
-		"name": "Onion ",
-		"price": 100,
-		"id": "17f5d02a49e14f6c8c0f7eebc1c004c2",
-		"status": 0,
-		"itemids": ["e453178bc9634438945b2905a32142f6", "92c311af79ce46c8bbb6a4da7e147647"],
-		"max_qty": 1
-	},
-	{
-		"name": "Corn",
-		"price": 1200,
-		"id": "f636df50ebd049d18a49aee1711846e5",
-		"status": 0,
-		"itemids": ["4f22f4d9729047279437dd081f5fe388", "e453178bc9634438945b2905a32142f6"],
-		"max_qty": 8
-	},
-	{
-		"name": "Apple",
-		"price": 1200,
-		"id": "f5eca154ab484309bf57075e622b225b",
-		"status": 0,
-		"itemids": ["e453178bc9634438945b2905a32142f6", "92c311af79ce46c8bbb6a4da7e147647"],
-		"max_qty": 5
-	},
-	{
-		"name": "tesst",
-		"price": 2218.21,
-		"id": "743c0d6e0bd44d0d8b8e109b90cb6ca8",
-		"status": 0,
-		"itemids": ["8d9e1c4f7e80403388736def5768e966", "92c311af79ce46c8bbb6a4da7e147647"],
-		"max_qty": 1
-	},
-	{
-		"name": "esd",
-		"price": 31.21,
-		"id": "46eb47acaee141fca152bd376c8bb9a0",
-		"status": 0,
-		"itemids": ["8d9e1c4f7e80403388736def5768e966", "1999319e86c44bc98f4a3803a64c839e"],
-		"max_qty": 1
-	},
-	{
-		"name": "GHG",
-		"price": 76,
-		"id": "133329773cc6419c9927925af9952be8",
-		"status": 0,
-		"itemids": [],
-		"max_qty": 4
-	},
-	{
-		"name": "Faluda",
-		"price": 20,
-		"id": "84b95eeec3bf448989195dafc628aebf",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "Adit24",
-		"price": 32423523,
-		"id": "7edcc3ab19ac4822a4a4d7c586ac4e7c",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "Aditya98",
-		"price": 423423,
-		"id": "7affd12b3c6c4c3fbb0afb9278b4994f",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["c2db354bbb5d48a78a311be19fbc64fb"]
-	},
-	{
-		"name": "Adi32",
-		"price": 214213,
-		"id": "b944ce67a64d4d49be0367e9f8a1e188",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["c2db354bbb5d48a78a311be19fbc64fb"]
-	},
-	{
-		"name": "AdityaUpadhyayTest1",
-		"price": 1234324234242343,
-		"id": "f31ded578a6246f5b9852f2356a400fa",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["e64f5db5d9d74302948407ad608d5168"]
-	},
-	{
-		"name": "Aditest1",
-		"price": 23424,
-		"id": "9782ba32c15f4915bdcdddef91583c6a",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "Aditest1",
-		"price": 24332,
-		"id": "4f9d78412be54559aebc34d2e1fe7bb8",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "AdityaNewTest1",
-		"price": 9898,
-		"id": "a529984b363248e8b364af6ae0f6315e",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "AdityaNewTest2",
-		"price": 43324234,
-		"id": "68947451693349c28574e6cbe1c52288",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["c2db354bbb5d48a78a311be19fbc64fb"]
-	},
-	{
-		"name": "Adinewtest2",
-		"price": 242342234,
-		"id": "090016eb47cd4719993d234e71a5cc91",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "Adinewtest3",
-		"price": 4324,
-		"id": "27d9ea178b1f4be4933f949d0842b5fc",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "Adinewtest4",
-		"price": 343232423,
-		"id": "efbdc7ac100e49819b1ecd16ec75bb3c",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["c2db354bbb5d48a78a311be19fbc64fb"]
-	},
-	{
-		"name": "Adinew12",
-		"price": 23123,
-		"id": "bcf50b78e69d448f87223155390a9ce6",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["c2db354bbb5d48a78a311be19fbc64fb"]
-	},
-	{
-		"name": "amit3",
-		"price": 23322,
-		"id": "abb9830d447f45e996be98fab8519038",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "Dileep",
-		"price": 23123312,
-		"id": "bce79a08390a42f2b99462d32f768b66",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "dileep1",
-		"price": 21321321,
-		"id": "cb9f55de34394e68a7bedfa301aadb4a",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "ramu1",
-		"price": 12242342,
-		"id": "7211132d18064e3fa89e1a603e41dae1",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["e64f5db5d9d74302948407ad608d5168"]
-	},
-	{
-		"name": "add1",
-		"price": 232423,
-		"id": "456fadbade554f178c1fb0d00255cd71",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "add2",
-		"price": 4234324,
-		"id": "c8df92e1751b4973a5626fd9b05de373",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "Adi51",
-		"price": 667575765,
-		"id": "4e4245ada2724b4e93ee92b4df48e3be",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["e59ce9ebf0cd466a932ac3e15052d916"]
-	},
-	{
-		"name": "AdiFinal1",
-		"price": 123213123,
-		"id": "de5ac552e81c4428a79f312dad3eb69a",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "Guru1",
-		"price": 23432432432,
-		"id": "059baca11f144c408e58db360b2376f5",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": []
-	},
-	{
-		"name": "ADI12",
-		"price": 3123213123,
-		"id": "f4b882cb6b9543b6b0359957ae879fcc",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["894de0a4cea14dd69868678b272c4dc7", "e64f5db5d9d74302948407ad608d5168"]
-	},
-	{
-		"name": "As12",
-		"price": 2312321.2321,
-		"id": "2a6876eb5e75421fa7d1488efbfc3c8d",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["894de0a4cea14dd69868678b272c4dc7"]
-	},
-	{
-		"name": "IS4",
-		"price": 12312311111,
-		"id": "d308320950af4f1595ac0f415ac1c446",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["c2db354bbb5d48a78a311be19fbc64fb"]
-	},
-	{
-		"name": "IS2",
-		"price": 123123123,
-		"id": "13046efe88bc41fd81ebc06cda7d64ac",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["c2db354bbb5d48a78a311be19fbc64fb"]
-	},
-	{
-		"name": "IS3",
-		"price": 123123123,
-		"id": "6c4583d532d94c02817fc7e2ba69ec8b",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["c2db354bbb5d48a78a311be19fbc64fb"]
-	},
-	{
-		"name": "pan",
-		"price": 10,
-		"id": "2faa4eb1596b4344b6eb6501861bcd69",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["b274e23889a64991906aa60729f93214"]
-	},
-	{
-		"name": "Kiwi",
-		"price": 60,
-		"id": "7851d54c13044456a38991b82713c12e",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["b274e23889a64991906aa60729f93214"]
-	},
-	{
-		"name": "Test",
-		"price": 7,
-		"id": "13725fa0c6b1497eac46774bfdd481dd",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["b274e23889a64991906aa60729f93214"]
-	},
-	{
-		"name": "Deep",
-		"price": 7,
-		"id": "f01e6cf1ff8749b6b51d6fb880db16f3",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["b274e23889a64991906aa60729f93214"]
-	},
-	{
-		"name": "Ted",
-		"price": 6,
-		"id": "a7ea03416051460ba297e8cd94c5d599",
-		"status": 0,
-		"max_qty": 1,
-		"itemids": ["e59ce9ebf0cd466a932ac3e15052d916"]
-	}],
-	"delivery_partner": [
-	{
-		"partner_id": "1",
-		"partner_name": "mrspeedy",
-		"priority": 0
-	},
-	{
-		"partner_id": "2",
-		"partner_name": "lalamove",
-		"priority": 2
-	}],
-	"company_name": "",
-	"cuisine": ["Automate", " the cuisine", " type change", "Ops Request", " on Retool "],
-	"pref_filter": [],
-	"bnk_nm": "",
-	"bnk_accn": "",
-	"acc_holder_nm": "",
-	"services": [
-	{
-		"category_id": "cutlery",
-		"category_name": "Cutlery",
-		"icon": "cutlery-1.png",
-		"subcategories": [
-		{
-			"subcategory_id": "cutlery-plate",
-			"subcategory_name": "Plate",
-			"icon": "dish_plate.png",
-			"price_flag": 0,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "cutlery-bowl",
-			"subcategory_name": "Bowl",
-			"icon": "bowl-1.png",
-			"price_flag": 0,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "cutlery-glass",
-			"subcategory_name": "Glass",
-			"icon": "glass.png",
-			"price_flag": 0,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "cutlery-spoon",
-			"subcategory_name": "Spoon",
-			"icon": "spoon.png",
-			"price_flag": 0,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "cutlery-fork",
-			"subcategory_name": "Fork",
-			"icon": "fork.png",
-			"price_flag": 0,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "cutlery-chopstick",
-			"subcategory_name": "Chopstick",
-			"icon": "chopsticks.svg",
-			"price_flag": 0,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "cutlery-knife",
-			"subcategory_name": "Knife",
-			"icon": "knife.png",
-			"price_flag": 0,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "cutlery-straw",
-			"subcategory_name": "Straw",
-			"icon": "drinking-straw.svg",
-			"price_flag": 0,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		}],
-		"status": 0
-	},
-	{
-		"category_id": "water",
-		"category_name": "Water",
-		"icon": "glass.png",
-		"subcategories": [
-		{
-			"subcategory_id": "water-regular",
-			"subcategory_name": "Regular Water",
-			"icon": "glass.png",
-			"price_flag": 1,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "water-mineral",
-			"subcategory_name": "Mineral Water",
-			"icon": "water.png",
-			"price_flag": 1,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "water-hot",
-			"subcategory_name": "Hot Water",
-			"icon": "water-1.png",
-			"price_flag": 1,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "water-lemon",
-			"subcategory_name": "Lemon Water",
-			"icon": "glass.png",
-			"price_flag": 1,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "water-filtered",
-			"subcategory_name": "Filtered Water",
-			"icon": "glass.png",
-			"price_flag": 1,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "water-ice",
-			"subcategory_name": "Ice Water",
-			"icon": "glass.png",
-			"price_flag": 1,
-			"quantity_flag": 1,
-			"price": 0,
-			"status": 0
-		}],
-		"status": 0
-	},
-	{
-		"category_id": "sauces",
-		"category_name": "Sauces",
-		"icon": "sauces.png",
-		"subcategories": [
-		{
-			"subcategory_id": "sauces-tomato",
-			"subcategory_name": "Tomato Sauce",
-			"icon": "tomato-ketchup.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-alfredo",
-			"subcategory_name": "Alfredo",
-			"icon": "",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-pesto",
-			"subcategory_name": "Pesto Sauce",
-			"icon": "pesto-sauce.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-marinara",
-			"subcategory_name": "Marinara",
-			"icon": "",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-bbq",
-			"subcategory_name": "Barbeque Sauce",
-			"icon": "bbq-sauce.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-chilli",
-			"subcategory_name": "Chilli Sauce",
-			"icon": "chilli-sauce.svg",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-salsa",
-			"subcategory_name": "Salsa",
-			"icon": "",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-garlic",
-			"subcategory_name": "Garlic Sauce",
-			"icon": "garlic-sauce.svg",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-mustard",
-			"subcategory_name": "Mustard Sauce",
-			"icon": "mustard-1.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-mayo",
-			"subcategory_name": "Mayonnaise",
-			"icon": "mayonnaise-sauce.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-tamarind",
-			"subcategory_name": "Tamarind",
-			"icon": "imli-chatni.svg",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-mint",
-			"subcategory_name": "Mint Sauce",
-			"icon": "mint-chatni.svg",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-tobasco",
-			"subcategory_name": "Tobasco",
-			"icon": "tobasco.svg",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-coconut-chutney",
-			"subcategory_name": "Coconut chutney",
-			"icon": "coconut-chatni.svg",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-coriander-chutney",
-			"subcategory_name": "Coriander chutney",
-			"icon": "coriander-chatni.svg",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-samber",
-			"subcategory_name": "Samber",
-			"icon": "Samber.svg",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-sriranha-mayo",
-			"subcategory_name": "Sriracha Mayo",
-			"icon": "sriracha-mayo.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-duck",
-			"subcategory_name": "Duck Sauce",
-			"icon": "duck-sauce.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "sauces-teriyaki",
-			"subcategory_name": "Teriyaki Sauce",
-			"icon": "teriyaki-sauce.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		}],
-		"status": 0
-	},
-	{
-		"category_id": "condiments",
-		"category_name": "Condiments",
-		"icon": "",
-		"subcategories": [
-		{
-			"subcategory_id": "condiments-salt",
-			"subcategory_name": "Salt",
-			"icon": "salt.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "condiments-pepper",
-			"subcategory_name": "Pepper",
-			"icon": "pepper-1.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "condiments-oregano",
-			"subcategory_name": "Oregano",
-			"icon": "",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "condiments-chilli-flakes",
-			"subcategory_name": "Chilli Flakes",
-			"icon": "salt.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "condiments-parmesan-cheese",
-			"subcategory_name": "Parmesan Cheese",
-			"icon": "parmesan-cheese.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "condiments-parmesan-cheese",
-			"subcategory_name": "Parmesan Cheese",
-			"icon": "parmesan-cheese.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		}],
-		"status": 0
-	},
-	{
-		"category_id": "napkin",
-		"category_name": "Napkin",
-		"icon": "napkin.png",
-		"subcategories": [],
-		"status": 0
-	},
-	{
-		"category_id": "call-server",
-		"category_name": "Call the Server",
-		"icon": "waiter.png",
-		"subcategories": [],
-		"status": 0
-	},
-	{
-		"category_id": "wifi-password",
-		"category_name": "Wifi Password",
-		"icon": "wifi-signal.png",
-		"ssid": "",
-		"password": "",
-		"subcategories": [],
-		"status": 0
-	},
-	{
-		"category_id": "smoking-accessories",
-		"category_name": "Smoking",
-		"icon": "smoking-cat.png",
-		"subcategories": [
-		{
-			"subcategory_id": "smoking-ashtray",
-			"subcategory_name": "Ashtray",
-			"icon": "ashtray.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		},
-		{
-			"subcategory_id": "smoking-lighter",
-			"subcategory_name": "Lighter",
-			"icon": "lighter.png",
-			"price_flag": 0,
-			"quantity_flag": 0,
-			"price": 0,
-			"status": 0
-		}],
-		"status": 0
-	}],
-	"filters": [
-	{
-		"id": "veg",
-		"name": "Veg",
-		"filter-type": "preference",
-		"status": 1
-	},
-	{
-		"id": "non-veg",
-		"name": "Non Veg",
-		"filter-type": "preference",
-		"status": 1
-	},
-	{
-		"id": "halal",
-		"name": "Halal",
-		"filter-type": "preference",
-		"status": 0
-	},
-	{
-		"id": "kosher",
-		"name": "Kosher",
-		"filter-type": "preference",
-		"status": 0
-	},
-	{
-		"id": "gluten-free",
-		"name": "Gluten Free",
-		"filter-type": "preference",
-		"status": 0
-	},
-	{
-		"id": "vegan",
-		"name": "Vegan",
-		"filter-type": "preference",
-		"status": 0
-	},
-	{
-		"id": "price-5",
-		"name": "5",
-		"currency": "MYR",
-		"filter-type": "price",
-		"status": 1,
-		"value": 5
-	},
-	{
-		"id": "price-10",
-		"name": "10",
-		"currency": "MYR",
-		"filter-type": "price",
-		"status": 1,
-		"value": 10
-	},
-	{
-		"id": "price-15",
-		"name": "15",
-		"currency": "MYR",
-		"filter-type": "price",
-		"status": 1,
-		"value": 15
-	},
-	{
-		"id": "price-20",
-		"name": "20",
-		"currency": "MYR",
-		"filter-type": "price",
-		"status": 0,
-		"value": 20
-	},
-	{
-		"id": "price-30",
-		"name": "30",
-		"currency": "MYR",
-		"filter-type": "price",
-		"status": 0,
-		"value": 30
-	},
-	{
-		"id": "price-40",
-		"name": "40",
-		"currency": "MYR",
-		"filter-type": "price",
-		"status": 0,
-		"value": 40
-	},
-	{
-		"id": "price-50",
-		"name": "15",
-		"currency": "MYR",
-		"filter-type": "price",
-		"status": 0,
-		"value": 15
-	},
-	{
-		"id": "available",
-		"name": "available",
-		"filter-type": "preference",
-		"status": 1,
-		"selected": true
-	}],
-	"offline_platforms": [
-	{
-		"country_codes": [],
-		"id": "others",
-		"name": "Others",
-		"img": "others_platform.svg",
-		"order_type": 1,
-		"comm_amt": 0,
-		"comm_typ": "percentage"
-	},
-	{
-		"country_codes": [],
-		"id": "deliver_eat",
-		"order_type": 2,
-		"name": "DeliverEat",
-		"img": "delivereat.png",
-		"status": 1,
-		"code": "",
-		"comm_amt": 12,
-		"comm_typ": "fixed",
-		"pkg_applicable": 0
-	},
-	{
-		"country_codes": [],
-		"id": "foodpanda",
-		"name": "Foodpanda",
-		"img": "panda.png",
-		"order_type": 1,
-		"status": 1,
-		"code": "",
-		"comm_amt": 23,
-		"comm_typ": "fixed",
-		"pkg_applicable": 1
-	},
-	{
-		"country_codes": [],
-		"id": "go_eat",
-		"order_type": 3,
-		"name": "Go Eat",
-		"img": "go_eat.png",
-		"status": 1,
-		"code": "",
-		"comm_amt": 213,
-		"comm_typ": "fixed",
-		"pkg_applicable": 1
-	},
-	{
-		"country_codes": [],
-		"id": "whatsapp",
-		"order_type": 3,
-		"name": "Whatsapp",
-		"img": "whatsapp.png",
-		"status": 1,
-		"code": "",
-		"comm_amt": 0,
-		"comm_typ": "percentage",
-		"pkg_applicable": 1
-	},
-	{
-		"country_codes": ["MY"],
-		"id": "cash_bank",
-		"order_type": 1,
-		"name": "Cash Bank",
-		"img": "cash_bank.png",
-		"code": "",
-		"status": 1,
-		"created_at": 1653530151,
-		"payment_channel": "cash",
-		"comm_amt": 10.5,
-		"comm_typ": "fixed",
-		"pkg_applicable": 1
-	},
-	{
-		"country_codes": ["MY", "ID"],
-		"id": "grab",
-		"name": "Grab",
-		"img": "grab.png",
-		"order_type": 1,
-		"status": 1,
-		"code": "",
-		"comm_amt": 0,
-		"comm_typ": "percentage",
-		"pkg_applicable": 0
-	}],
-	"settings":
-	{
-		"print":
-		{
-			"master_counter_list": 1,
-			"socket_printing": 1,
-			"print_bahasa": 1,
-			"cash_drawer": 31,
-			"master_docket": 1,
-			"on_decline": 11,
-			"on_void_unaccepted": 11,
-			"on_void_accepted": 11,
-			"on_void_new_itr": 11,
-			"on_accept_new_order": 3,
-			"on_accept_new_itr": 2,
-			"on_settle": 1,
-			"on_table_change": 3,
-			"format_code": null,
-			"separate_docket": 0,
-			"void_format_code": null,
-			"void_separate_docket": 0,
-			"show_logo": 0,
-			"print_delay": 3000,
-			"item_align": "l",
-			"font_size": "l",
-			"on_accept_enabled": 1,
-			"void_enabled": 1,
-			"cash_mgt_format_override": 0,
-			"enabled": 1,
-			"header":
-			{
-				"prepend": [],
-				"custom": [],
-				"append": []
-			},
-			"inst_font": "s",
-			"pmt_mode_in_body": 0,
-			"post_settle": 0,
-			"response_format": 1,
-			"show_op_order_id": 0,
-			"slip_font":
-			{
-				"bill": "s",
-				"counter": "m",
-				"master_order_list": "m",
-				"master_docket": "m",
-				"table_change": "m",
-				"cash_in_out": "m",
-				"cash_mgt_report": "m"
-			},
-			"sname": 0,
-			"table_no_position": "t",
-			"uname": 0
-		},
-		"settlement":
-		{
-			"enable": 1,
-			"visible": 1
-		},
-		"login":
-		{
-			"skip_verification": 1
-		},
-		"reports":
-		{
-			"enable_eod": 1,
-			"eod_printer": "192.168.1.190:9100",
-			"eod_font_size": "6px",
-			"eod_page_width": "170px",
-			"full_eod": 0
-		},
-		"global":
-		{
-			"is_realm_enabled": 1,
-			"print_v2_enabled": 1,
-			"is_recipe_enabled": 1,
-			"print_bahasa": 1,
-			"socket_printing": 1,
-			"visible_on_app": 1,
-			"table_layout": 1,
-			"fp_integration": 1,
-			"gf_integration": 1,
-			"auto_accept": 3,
-			"auto_refresh": 1,
-			"auto_accept_sch": 3,
-			"cust_info_popup": 1,
-			"skip_service_chrg": 1,
-			"custom_order_dashboard": 1,
-			"use_es_service": 0,
-			"whatsapp_notifier_order_status": 1,
-			"cash_registry": 1,
-			"delete_order": 1,
-			"edit_commision": 1,
-			"enable_pre_paid_order": 1,
-			"hide_action_button": 1,
-			"lock_screen": 1,
-			"lock_screen_idle": 3000000,
-			"lock_screen_timeout": 2000000,
-			"loyalty": 0,
-			"mark_prepared_sms": 0,
-			"multiple_addon": 1,
-			"pos": 1,
-			"posItemPriceTKasDinein": 1,
-			"pos_view": "l",
-			"service_bell_enable": 1,
-			"skip_pkg_chrg": 2,
-			"skip_pkg_chrg_order_type": 7,
-			"special_menu": 1,
-			"split_bill": 1,
-			"takeaway_cash_enable": 1,
-			"tossed_specific": 1,
-			"void": 1,
-			"void_item_after_completed": 0,
-			"loyalty_v2": true,
-			"no_login_workflow": 1,
-			"item_level_discount": 7,
-			"loyalty_v2_visible_on_pos": 1,
-			"tp_voucher": 1,
-			"disable_add_more_items": 1,
-			"enable_rest_food_logo": 1,
-			"hide_download_popup": 1,
-			"hide_order_image": 0,
-			"pre_paid_order": 7,
-			"disable_allergy_label": 0,
-			"enable_server_flow": 0,
-			"force_close_cash_mgt": 0,
-			"loyalty_auto_apply": 0,
-			"is_fp_new_calculation": 0,
-			"is_gf_new_calculation": 0,
-			"show_recommendations": 0,
-			"cust_data_report": 1,
-			"send_loyalty_sms": 0
-		},
-		"menu":
-		{
-			"new_variation": 1,
-			"item_code": 31,
-			"item_code_max_len": 3,
-			"pax": 1
-		},
-		"sounds":
-		{
-			"repeat": 1,
-			"selected": "sound3.wav",
-			"timeout": 80000
-		},
-		"discount":
-		{
-			"preset": 1
-		},
-		"referral":
-		{
-			"enabled": 1
-		}
-	},
-	"open_items":
-	{
-		"def_cat": "04f4fe91b4ed423aa67af8d5c3786253",
-		"def_subcat": "e86920a5f01343dbb1b493c06ec8b305"
-	},
-	"dkick_code": [27, 112, 48, 55, 121],
-	"tech_charges": [
-	{
-		"user":
-		{
-			"dine_in":
-			{
-				"charge_type": "percent",
-				"charge": 2
-			},
-			"delivery":
-			{
-				"charge_type": "percent",
-				"charge": 2
-			},
-			"pickup":
-			{
-				"charge_type": "percent",
-				"charge": 2
-			}
-		},
-		"pos":
-		{
-			"dine_in":
-			{
-				"charge_type": "percent",
-				"charge": 2
-			},
-			"delivery":
-			{
-				"charge_type": "percent",
-				"charge": 2
-			},
-			"pickup":
-			{
-				"charge_type": "percent",
-				"charge": 2
-			}
-		},
-		"start_epoch": 1654880400,
-		"end_epoch": 1659114000,
-		"orig_end_epoch": null
-	},
-	{
-		"user":
-		{
-			"dine_in":
-			{
-				"charge_type": "percent",
-				"charge": 0
-			},
-			"delivery":
-			{
-				"charge_type": "percent",
-				"charge": 0
-			},
-			"pickup":
-			{
-				"charge_type": "percent",
-				"charge": 0
-			}
-		},
-		"pos":
-		{
-			"dine_in":
-			{
-				"charge_type": "percent",
-				"charge": 0
-			},
-			"delivery":
-			{
-				"charge_type": "percent",
-				"charge": 0
-			},
-			"pickup":
-			{
-				"charge_type": "percent",
-				"charge": 0
-			}
-		},
-		"start_epoch": 1659114000,
-		"end_epoch": 1660150800,
-		"orig_end_epoch": null,
-		"modified_at": 1660138374
-	},
-	{
-		"user":
-		{
-			"dine_in":
-			{
-				"charge_type": "percent",
-				"charge": 1
-			},
-			"delivery":
-			{
-				"charge_type": "percent",
-				"charge": 1
-			},
-			"pickup":
-			{
-				"charge_type": "percent",
-				"charge": 1
-			}
-		},
-		"pos":
-		{
-			"dine_in":
-			{
-				"charge_type": "percent",
-				"charge": 1
-			},
-			"delivery":
-			{
-				"charge_type": "percent",
-				"charge": 1
-			},
-			"pickup":
-			{
-				"charge_type": "percent",
-				"charge": 1
-			}
-		},
-		"start_epoch": 1660150800,
-		"end_epoch": null,
-		"id": "FXo9crChpdenLTWPF1SV",
-		"created_at": 1660138374,
-		"modified_at": 1660138374
-	}],
-	"pg_charges": [
-	{
-		"online":
-		{
-			"charges": [
-			{
-				"charge_type": "percent",
-				"charge": 0
-			}],
-			"credit-card":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1500
-				},
-				{
-					"charge_type": "percent",
-					"charge": 2.7
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"direct-debit":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1500
-				},
-				{
-					"charge_type": "percent",
-					"charge": 2.7
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"cimb-direct-debit":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1500
-				},
-				{
-					"charge_type": "percent",
-					"charge": 2.7
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"bca-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 3500
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"bni-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"bri-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"bsm-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"cimb-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"doku-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"danamon-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"mandiri-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"permata-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"dokuwallet-emoney":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 1.67
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"ovo-emoney":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 1.67
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"ovo-open-api":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 1.67
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"shopeepay-emoney":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 2
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			},
-			"qris":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 0.7
-				}],
-				"start_epoch": 1647251708,
-				"end_epoch": null,
-				"valid_from": "14 Mar 2022",
-				"valid_to": "Infinity"
-			}
-		},
-		"offline":
-		{
-			"charges": [
-			{
-				"charge_type": "percent",
-				"charge": 0
-			}]
-		},
-		"id": "QDvL2yXDbRkd7oECgnww",
-		"start_epoch": 1647251708,
-		"end_epoch": 1676307600,
-		"created_at": 1647251708,
-		"modified_at": 1676277158,
-		"orig_end_epoch": null
-	},
-	{
-		"offline":
-		{
-			"charges": [
-			{
-				"charge_type": "percent",
-				"charge": 0
-			}]
-		},
-		"online":
-		{
-			"charges": [
-			{
-				"charge_type": "percent",
-				"charge": 0
-			}],
-			"credit-card":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1500
-				},
-				{
-					"charge_type": "percent",
-					"charge": 2.7
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"direct-debit":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1500
-				},
-				{
-					"charge_type": "percent",
-					"charge": 2.7
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"cimb-direct-debit":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1500
-				},
-				{
-					"charge_type": "percent",
-					"charge": 2.7
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"bca-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 3500
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"bni-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"bri-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"bsm-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"cimb-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"doku-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"danamon-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"mandiri-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"permata-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"dokuwallet-emoney":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 1.67
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"ovo-emoney":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 1.67
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"ovo-open-api":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 1.67
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"shopeepay-emoney":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 2
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"qris":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 0.7
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			},
-			"gopay":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 2
-				},
-				{
-					"charge_type": "percent",
-					"charge": 2
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null,
-				"valid_from": "14 Feb 2023",
-				"valid_to": "Infinity"
-			}
-		},
-		"start_epoch": 1676307600,
-		"end_epoch": 1676307600,
-		"id": "BUDh4GoSKhjvYicy94IV",
-		"created_at": 1676277158,
-		"modified_at": 1676277272,
-		"orig_end_epoch": null
-	},
-	{
-		"offline":
-		{
-			"charges": [
-			{
-				"charge_type": "percent",
-				"charge": 0
-			}]
-		},
-		"online":
-		{
-			"charges": [
-			{
-				"charge_type": "percent",
-				"charge": 0
-			}],
-			"credit-card":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1500
-				},
-				{
-					"charge_type": "percent",
-					"charge": 2.7
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"direct-debit":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1500
-				},
-				{
-					"charge_type": "percent",
-					"charge": 2.7
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"cimb-direct-debit":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1500
-				},
-				{
-					"charge_type": "percent",
-					"charge": 2.7
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"bca-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 3500
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"bni-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"bri-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"bsm-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"cimb-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"doku-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"danamon-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"mandiri-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"permata-virtual-account":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 1800
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"dokuwallet-emoney":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 1.67
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"ovo-emoney":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 1.67
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"ovo-open-api":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 1.67
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"shopeepay-emoney":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 2
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"qris":
-			{
-				"charges": [
-				{
-					"charge_type": "percent",
-					"charge": 0.7
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			},
-			"gopay":
-			{
-				"charges": [
-				{
-					"charge_type": "flat",
-					"charge": 0
-				},
-				{
-					"charge_type": "percent",
-					"charge": 0
-				}],
-				"start_epoch": 1676307600,
-				"end_epoch": null
-			}
-		},
-		"start_epoch": 1676307600,
-		"end_epoch": null,
-		"id": "GvL7xiIhEZmoRLpgG62H",
-		"created_at": 1676277272,
-		"modified_at": 1676277272
-	}],
-	"block_pmt": [],
-	"quick_notes": [
-	{
-		"id": "04c5cdee91cd4fc1bb1e69715a0b81b1",
-		"note": "Spicy123",
-		"visible_to_user": 1
-	},
-	{
-		"id": "N8rsl",
-		"note": "Extra cheese",
-		"visible_to_user": 1
-	},
-	{
-		"id": "L5Bz9",
-		"note": "test varsha",
-		"visible_to_user": 1
-	},
-	{
-		"id": "aItlN",
-		"note": "test varsha",
-		"visible_to_user": 0
-	},
-	{
-		"id": "cQ27u",
-		"note": "23sdf",
-		"visible_to_user": 0
-	},
-	{
-		"id": "56F1L",
-		"note": "rytu",
-		"visible_to_user": 0
-	},
-	{
-		"id": "7HFhL",
-		"note": "3",
-		"visible_to_user": 0
-	},
-	{
-		"id": "fbb6ae093c124d8a909f328a7fababff",
-		"note": "CAtapun barnm ",
-		"visible_to_user": 1
-	},
-	{
-		"id": "YWIHf",
-		"note": "1234",
-		"visible_to_user": 0
-	},
-	{
-		"id": "50O22",
-		"note": "1234",
-		"visible_to_user": 0
-	},
-	{
-		"id": "wSuul",
-		"note": "12345",
-		"visible_to_user": 0
-	},
-	{
-		"id": "zsARC",
-		"note": "xzcxz",
-		"visible_to_user": 0
-	}],
-	"country_code": "ID",
-	"curr_code": "IDR",
-	"curr_sym": "Rp",
-	"created_at": 1647251708,
-	"hq_id": "b0c593d908bc427d8f25929481fd9937",
-	"loyalty_settings_v2":
-	{
-		"cashback": 10,
-		"banner_path": "{\"id\":\"id-template-1\",\"type\":1,\"is_custom\":0,\"img\":\"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/bg-1653299877363.jpg\",\"img_with_text\":\"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/bg-1653299877363.jpg\",\"bg_color\":\"#FAFAFA\",\"properties\":{\"text1\":{\"color\":\"#000000\",\"font-size\":\"16px\",\"font-weight\":\"bold\",\"align\":\"center\"},\"text2\":{\"color\":\"#000000\",\"font-size\":\"36px\",\"font-weight\":\"bold\",\"align\":\"center\"},\"text3\":{\"color\":\"#000000\",\"font-size\":\"16px\",\"font-weight\":\"bold\",\"align\":\"center\"},\"text4\":{\"color\":\"#000000\",\"font-size\":\"14px\",\"font-weight\":\"normal\",\"align\":\"center\"}},\"bottom\":{\"img1\":\"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/menu-1.svg\",\"img2\":\"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/order-1.svg\",\"img3\":\"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/payment-1.svg\"},\"button\":{\"color\":\"#6cc433\",\"font-size\":\"13px\",\"font-weight\":\"bold\"},\"status\":1,\"country_code\":\"ID\",\"created_at\":1653299877,\"modified_at\":1653299877}",
-		"order_types": ["DINEIN", "TAKEAYPICKUP", "DLEV"],
-		"visibility": false,
-		"is_loyalty_active": true,
-		"min_item_value": 2000,
-		"min_item_value_earning": 2000,
-		"order_type_names":
-		{
-			"DINEIN": "Makan Di Tempat",
-			"TAKEAYPICKUP": "Menjemput",
-			"DLEV": null
-		}
-	},
-	"address_1": "Jakarta, Indonesia",
-	"address_2": "11",
-	"language": "en_US",
-	"is_dummy_outlet": false,
-	"default_cuisine_image": "restaurant_food_image/cuisine/no_cuisine/image.png",
-	"promo_charges": [
-	{
-		"limit": null,
-		"tech_charges":
-		{
-			"user":
-			{
-				"dine_in":
-				{
-					"charge_type": "percent",
-					"charge": 1
-				},
-				"delivery":
-				{
-					"charge_type": "percent",
-					"charge": 1
-				},
-				"pickup":
-				{
-					"charge_type": "percent",
-					"charge": 1
-				}
-			},
-			"pos":
-			{
-				"dine_in":
-				{
-					"charge_type": "percent",
-					"charge": 1
-				},
-				"delivery":
-				{
-					"charge_type": "percent",
-					"charge": 1
-				},
-				"pickup":
-				{
-					"charge_type": "percent",
-					"charge": 1
-				}
-			}
-		},
-		"pg_charges":
-		{
-			"online":
-			{
-				"charges": [
-				{
-					"charge": 0,
-					"charge_type": "percent"
-				}],
-				"credit-card":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 2500
-					},
-					{
-						"charge_type": "percent",
-						"charge": 1.5
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"direct-debit":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 0
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"cimb-direct-debit":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 0
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"bca-virtual-account":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 1000
-					},
-					{
-						"charge_type": "percent",
-						"charge": 1
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"mandiri-virtual-account":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 0
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"bsm-virtual-account":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 0
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"doku-virtual-account":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 1
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"bri-virtual-account":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 0
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"cimb-virtual-account":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 0
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"permata-virtual-account":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 0
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"bni-virtual-account":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 0
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"danamon-virtual-account":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 0
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"shopeepay-emoney":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 2500
-					},
-					{
-						"charge_type": "percent",
-						"charge": 2
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"ovo-emoney":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 1000
-					},
-					{
-						"charge_type": "percent",
-						"charge": 1.5
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"dokuwallet-emoney":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 0
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				},
-				"qris":
-				{
-					"charges": [
-					{
-						"charge_type": "flat",
-						"charge": 0
-					},
-					{
-						"charge_type": "percent",
-						"charge": 0
-					}],
-					"start_epoch": 1660150800,
-					"end_epoch": null
-				}
-			},
-			"offline":
-			{
-				"charges": [
-				{
-					"charge": 1,
-					"charge_type": "percent"
-				}]
-			}
-		},
-		"start_epoch": 1660150800,
-		"end_epoch": 1660323599,
-		"promo_id": "QdyXUe26BpPOpOBscPpN",
-		"created_at": 1660138455,
-		"updated_at": 1660138464
-	},
-	{
-		"limit": null,
-		"tech_charges":
-		{
-			"user":
-			{
-				"dine_in":
-				{
-					"charge_type": "percent",
-					"charge": 2
-				},
-				"delivery":
-				{
-					"charge_type": "percent",
-					"charge": 2
-				},
-				"pickup":
-				{
-					"charge_type": "percent",
-					"charge": 2
-				}
-			},
-			"pos":
-			{
-				"dine_in":
-				{
-					"charge_type": "percent",
-					"charge": 2
-				},
-				"delivery":
-				{
-					"charge_type": "percent",
-					"charge": 2
-				},
-				"pickup":
-				{
-					"charge_type": "percent",
-					"charge": 2
-				}
-			}
-		},
-		"pg_charges":
-		{
-			"online":
-			{
-				"charges": [
-				{
-					"charge": 1,
-					"charge_type": "percent"
-				}]
-			},
-			"offline":
-			{
-				"charges": [
-				{
-					"charge": 0,
-					"charge_type": "percent"
-				}]
-			}
-		},
-		"start_epoch": 1660323600,
-		"end_epoch": 1660582799,
-		"promo_id": "btbWIgm0hvPE21yVTPJ8",
-		"created_at": 1660138490,
-		"updated_at": 1660138490
-	}],
-	"order_status": 4,
-	"ruid": "08C",
-	"print_logo": "https://d1xkxcid7icwfl.cloudfront.net/restaurant_image/084b76910b2946fb9acf00cc6d47f3f8_bw_1668232133.png",
-	"report_email": "gurasees@easyeat.ai",
-	"report_period": 2,
-	"third_party_platforms":
-	{
-		"fmhv2":
-		{
-			"phone_code": null,
-			"phone_number": null
-		}
-	},
-	"void_item_after_completed": 1,
-	"round_off_close": 0,
-	"reasons":
-	{
-		"recommendation_off_reason": "Reason Not Available"
-	},
-	"last_active_time": 1680892388
+  id: '084b76910b2946fb9acf00cc6d47f3f8',
+  name: 'Jibril-Id',
+  nameid: 'jibril-id',
+  logo: 'https://d1xkxcid7icwfl.cloudfront.net/restaurant_image/084b76910b2946fb9acf00cc6d47f3f8_1668232133.png',
+  state: 'Daerah Khusus Ibukota Jakarta',
+  phone: '1234567809',
+  dial_code: '+62',
+  email: 'suhaib.shamshad@easyeat.ai',
+  pin_code: '12970',
+  country: 'Indonesia',
+  address: '11, Jakarta, Indonesia',
+  location: {
+    lat: -6.2087634,
+    lon: 106.845599,
+  },
+  printer: '192.168.1.190:9100',
+  city: 'Jakarta12',
+  discount: [0, 0, 0],
+  tax_after_discount: true,
+  restaurant_certificates: [],
+  account_details: [],
+  tax_details: [],
+  fee: [],
+  preparation_time: [],
+  geo_location: {
+    type: 'Point',
+    coordinates: [106.845599, -6.2087634],
+  },
+  next_open_epoch: 1657111130,
+  base_roundoff: 0,
+  roundup: false,
+  on_whatsapp: 1,
+  delivery_time: 20,
+  type: 3,
+  deliverylimit: 50,
+  status: 1,
+  mall: 'empress-id',
+  emails: {
+    cm: ['suhaib.shamshad@easyeat.ai'],
+    pm: ['suhaib.shamshad@easyeat.ai'],
+    am: ['suhaib.shamshad@easyeat.ai'],
+  },
+  config_timings: [
+    {
+      timing: [0, 1439],
+      name: 'Meal',
+      id: '1653565400780Meal',
+    },
+  ],
+  rest_timings: {
+    DINING: [
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [
+          {
+            full: 'MONDAY',
+            short: 'MO',
+            selected: true,
+          },
+          {
+            full: 'TUESDAY',
+            short: 'TU',
+            selected: false,
+          },
+          {
+            full: 'WEDNESDAY',
+            short: 'WE',
+            selected: false,
+          },
+          {
+            full: 'THURSDAY',
+            short: 'TH',
+            selected: false,
+          },
+          {
+            full: 'FRIDAY',
+            short: 'FR',
+            selected: false,
+          },
+          {
+            full: 'SATURDAY',
+            short: 'SA',
+            selected: false,
+          },
+          {
+            full: 'SUNDAY',
+            short: 'SU',
+            selected: false,
+          },
+        ],
+        tab: 'DINING',
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+    ],
+    TAKEAWAY: [
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+      {
+        is_enabled: true,
+        slot: [
+          {
+            start: 0,
+            end: 1439,
+          },
+        ],
+        days: [],
+      },
+    ],
+    DELIVERY: [],
+  },
+  restaurant_open_days: [
+    ['1653565400780Meal'],
+    ['1653565400780Meal'],
+    ['1653565400780Meal'],
+    ['1653565400780Meal'],
+    ['1653565400780Meal'],
+    ['1653565400780Meal'],
+    ['1653565400780Meal'],
+  ],
+  time_zone: 'Asia/Jakarta',
+  fees: [
+    {
+      id: 'delivery',
+      status: 1,
+      name: 'Delivery Fee',
+      tax: 0,
+      charges: [
+        5, 5, 5, 5.4, 6, 6.6, 7.2, 7.9, 8.6, 9.3, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22,
+        24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68,
+        70, 72, 74, 76, 78, 80,
+      ],
+    },
+    {
+      status: 1,
+      type: 'percentage',
+      order_type: [0],
+      data: {
+        percentage_amount: 10,
+      },
+      tax: 0,
+      applicable_on: ['order'],
+      applicable_cat: [],
+      applicable_subcat: [],
+      class: 'sst_tax',
+      id: 'sst_tax',
+      name: 'Restaurant Tax (PB1)',
+      sub_name: 'Pajak Restoran (PB1)',
+    },
+    {
+      status: 1,
+      type: 'percentage',
+      order_type: [0, 2],
+      data: {
+        percentage_amount: 5,
+      },
+      tax: 0,
+      applicable_on: ['order'],
+      applicable_cat: [],
+      applicable_subcat: [],
+      class: 'service_tax',
+      id: 'service_tax',
+      name: 'Service Charge',
+      sub_name: 'Service Charge',
+    },
+    {
+      order_type: [0],
+      charges: [],
+      applicable_subcat: [],
+      applicable_on: ['order'],
+      applicable_cat: [],
+      status: 1,
+      type: 'percentage',
+      data: {
+        percentage_amount: 10,
+      },
+      tax: 0,
+      class: 'packaging_charge',
+      id: 'packaging_charge_V055',
+      name: 'Packaging Charges',
+      sub_name: 'Biaya Kemasan',
+    },
+  ],
+  addons: [
+    {
+      name: 'Paneer',
+      price: 10,
+      id: 'ba02bb70cf764c50b3fca18e83a34baa',
+      status: 0,
+      itemids: ['e59ce9ebf0cd466a932ac3e15052d916', '92c311af79ce46c8bbb6a4da7e147647'],
+      max_qty: 3,
+    },
+    {
+      name: 'Onion ',
+      price: 100,
+      id: '17f5d02a49e14f6c8c0f7eebc1c004c2',
+      status: 0,
+      itemids: ['e453178bc9634438945b2905a32142f6', '92c311af79ce46c8bbb6a4da7e147647'],
+      max_qty: 1,
+    },
+    {
+      name: 'Corn',
+      price: 1200,
+      id: 'f636df50ebd049d18a49aee1711846e5',
+      status: 0,
+      itemids: ['4f22f4d9729047279437dd081f5fe388', 'e453178bc9634438945b2905a32142f6'],
+      max_qty: 8,
+    },
+    {
+      name: 'Apple',
+      price: 1200,
+      id: 'f5eca154ab484309bf57075e622b225b',
+      status: 0,
+      itemids: ['e453178bc9634438945b2905a32142f6', '92c311af79ce46c8bbb6a4da7e147647'],
+      max_qty: 5,
+    },
+    {
+      name: 'tesst',
+      price: 2218.21,
+      id: '743c0d6e0bd44d0d8b8e109b90cb6ca8',
+      status: 0,
+      itemids: ['8d9e1c4f7e80403388736def5768e966', '92c311af79ce46c8bbb6a4da7e147647'],
+      max_qty: 1,
+    },
+    {
+      name: 'esd',
+      price: 31.21,
+      id: '46eb47acaee141fca152bd376c8bb9a0',
+      status: 0,
+      itemids: ['8d9e1c4f7e80403388736def5768e966', '1999319e86c44bc98f4a3803a64c839e'],
+      max_qty: 1,
+    },
+    {
+      name: 'GHG',
+      price: 76,
+      id: '133329773cc6419c9927925af9952be8',
+      status: 0,
+      itemids: [],
+      max_qty: 4,
+    },
+    {
+      name: 'Faluda',
+      price: 20,
+      id: '84b95eeec3bf448989195dafc628aebf',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'Adit24',
+      price: 32423523,
+      id: '7edcc3ab19ac4822a4a4d7c586ac4e7c',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'Aditya98',
+      price: 423423,
+      id: '7affd12b3c6c4c3fbb0afb9278b4994f',
+      status: 0,
+      max_qty: 1,
+      itemids: ['c2db354bbb5d48a78a311be19fbc64fb'],
+    },
+    {
+      name: 'Adi32',
+      price: 214213,
+      id: 'b944ce67a64d4d49be0367e9f8a1e188',
+      status: 0,
+      max_qty: 1,
+      itemids: ['c2db354bbb5d48a78a311be19fbc64fb'],
+    },
+    {
+      name: 'AdityaUpadhyayTest1',
+      price: 1234324234242343,
+      id: 'f31ded578a6246f5b9852f2356a400fa',
+      status: 0,
+      max_qty: 1,
+      itemids: ['e64f5db5d9d74302948407ad608d5168'],
+    },
+    {
+      name: 'Aditest1',
+      price: 23424,
+      id: '9782ba32c15f4915bdcdddef91583c6a',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'Aditest1',
+      price: 24332,
+      id: '4f9d78412be54559aebc34d2e1fe7bb8',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'AdityaNewTest1',
+      price: 9898,
+      id: 'a529984b363248e8b364af6ae0f6315e',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'AdityaNewTest2',
+      price: 43324234,
+      id: '68947451693349c28574e6cbe1c52288',
+      status: 0,
+      max_qty: 1,
+      itemids: ['c2db354bbb5d48a78a311be19fbc64fb'],
+    },
+    {
+      name: 'Adinewtest2',
+      price: 242342234,
+      id: '090016eb47cd4719993d234e71a5cc91',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'Adinewtest3',
+      price: 4324,
+      id: '27d9ea178b1f4be4933f949d0842b5fc',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'Adinewtest4',
+      price: 343232423,
+      id: 'efbdc7ac100e49819b1ecd16ec75bb3c',
+      status: 0,
+      max_qty: 1,
+      itemids: ['c2db354bbb5d48a78a311be19fbc64fb'],
+    },
+    {
+      name: 'Adinew12',
+      price: 23123,
+      id: 'bcf50b78e69d448f87223155390a9ce6',
+      status: 0,
+      max_qty: 1,
+      itemids: ['c2db354bbb5d48a78a311be19fbc64fb'],
+    },
+    {
+      name: 'amit3',
+      price: 23322,
+      id: 'abb9830d447f45e996be98fab8519038',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'Dileep',
+      price: 23123312,
+      id: 'bce79a08390a42f2b99462d32f768b66',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'dileep1',
+      price: 21321321,
+      id: 'cb9f55de34394e68a7bedfa301aadb4a',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'ramu1',
+      price: 12242342,
+      id: '7211132d18064e3fa89e1a603e41dae1',
+      status: 0,
+      max_qty: 1,
+      itemids: ['e64f5db5d9d74302948407ad608d5168'],
+    },
+    {
+      name: 'add1',
+      price: 232423,
+      id: '456fadbade554f178c1fb0d00255cd71',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'add2',
+      price: 4234324,
+      id: 'c8df92e1751b4973a5626fd9b05de373',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'Adi51',
+      price: 667575765,
+      id: '4e4245ada2724b4e93ee92b4df48e3be',
+      status: 0,
+      max_qty: 1,
+      itemids: ['e59ce9ebf0cd466a932ac3e15052d916'],
+    },
+    {
+      name: 'AdiFinal1',
+      price: 123213123,
+      id: 'de5ac552e81c4428a79f312dad3eb69a',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'Guru1',
+      price: 23432432432,
+      id: '059baca11f144c408e58db360b2376f5',
+      status: 0,
+      max_qty: 1,
+      itemids: [],
+    },
+    {
+      name: 'ADI12',
+      price: 3123213123,
+      id: 'f4b882cb6b9543b6b0359957ae879fcc',
+      status: 0,
+      max_qty: 1,
+      itemids: ['894de0a4cea14dd69868678b272c4dc7', 'e64f5db5d9d74302948407ad608d5168'],
+    },
+    {
+      name: 'As12',
+      price: 2312321.2321,
+      id: '2a6876eb5e75421fa7d1488efbfc3c8d',
+      status: 0,
+      max_qty: 1,
+      itemids: ['894de0a4cea14dd69868678b272c4dc7'],
+    },
+    {
+      name: 'IS4',
+      price: 12312311111,
+      id: 'd308320950af4f1595ac0f415ac1c446',
+      status: 0,
+      max_qty: 1,
+      itemids: ['c2db354bbb5d48a78a311be19fbc64fb'],
+    },
+    {
+      name: 'IS2',
+      price: 123123123,
+      id: '13046efe88bc41fd81ebc06cda7d64ac',
+      status: 0,
+      max_qty: 1,
+      itemids: ['c2db354bbb5d48a78a311be19fbc64fb'],
+    },
+    {
+      name: 'IS3',
+      price: 123123123,
+      id: '6c4583d532d94c02817fc7e2ba69ec8b',
+      status: 0,
+      max_qty: 1,
+      itemids: ['c2db354bbb5d48a78a311be19fbc64fb'],
+    },
+    {
+      name: 'pan',
+      price: 10,
+      id: '2faa4eb1596b4344b6eb6501861bcd69',
+      status: 0,
+      max_qty: 1,
+      itemids: ['b274e23889a64991906aa60729f93214'],
+    },
+    {
+      name: 'Kiwi',
+      price: 60,
+      id: '7851d54c13044456a38991b82713c12e',
+      status: 0,
+      max_qty: 1,
+      itemids: ['b274e23889a64991906aa60729f93214'],
+    },
+    {
+      name: 'Test',
+      price: 7,
+      id: '13725fa0c6b1497eac46774bfdd481dd',
+      status: 0,
+      max_qty: 1,
+      itemids: ['b274e23889a64991906aa60729f93214'],
+    },
+    {
+      name: 'Deep',
+      price: 7,
+      id: 'f01e6cf1ff8749b6b51d6fb880db16f3',
+      status: 0,
+      max_qty: 1,
+      itemids: ['b274e23889a64991906aa60729f93214'],
+    },
+    {
+      name: 'Ted',
+      price: 6,
+      id: 'a7ea03416051460ba297e8cd94c5d599',
+      status: 0,
+      max_qty: 1,
+      itemids: ['e59ce9ebf0cd466a932ac3e15052d916'],
+    },
+  ],
+  delivery_partner: [
+    {
+      partner_id: '1',
+      partner_name: 'mrspeedy',
+      priority: 0,
+    },
+    {
+      partner_id: '2',
+      partner_name: 'lalamove',
+      priority: 2,
+    },
+  ],
+  company_name: '',
+  cuisine: ['Automate', ' the cuisine', ' type change', 'Ops Request', ' on Retool '],
+  pref_filter: [],
+  bnk_nm: '',
+  bnk_accn: '',
+  acc_holder_nm: '',
+  services: [
+    {
+      category_id: 'cutlery',
+      category_name: 'Cutlery',
+      icon: 'cutlery-1.png',
+      subcategories: [
+        {
+          subcategory_id: 'cutlery-plate',
+          subcategory_name: 'Plate',
+          icon: 'dish_plate.png',
+          price_flag: 0,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'cutlery-bowl',
+          subcategory_name: 'Bowl',
+          icon: 'bowl-1.png',
+          price_flag: 0,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'cutlery-glass',
+          subcategory_name: 'Glass',
+          icon: 'glass.png',
+          price_flag: 0,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'cutlery-spoon',
+          subcategory_name: 'Spoon',
+          icon: 'spoon.png',
+          price_flag: 0,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'cutlery-fork',
+          subcategory_name: 'Fork',
+          icon: 'fork.png',
+          price_flag: 0,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'cutlery-chopstick',
+          subcategory_name: 'Chopstick',
+          icon: 'chopsticks.svg',
+          price_flag: 0,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'cutlery-knife',
+          subcategory_name: 'Knife',
+          icon: 'knife.png',
+          price_flag: 0,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'cutlery-straw',
+          subcategory_name: 'Straw',
+          icon: 'drinking-straw.svg',
+          price_flag: 0,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+      ],
+      status: 0,
+    },
+    {
+      category_id: 'water',
+      category_name: 'Water',
+      icon: 'glass.png',
+      subcategories: [
+        {
+          subcategory_id: 'water-regular',
+          subcategory_name: 'Regular Water',
+          icon: 'glass.png',
+          price_flag: 1,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'water-mineral',
+          subcategory_name: 'Mineral Water',
+          icon: 'water.png',
+          price_flag: 1,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'water-hot',
+          subcategory_name: 'Hot Water',
+          icon: 'water-1.png',
+          price_flag: 1,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'water-lemon',
+          subcategory_name: 'Lemon Water',
+          icon: 'glass.png',
+          price_flag: 1,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'water-filtered',
+          subcategory_name: 'Filtered Water',
+          icon: 'glass.png',
+          price_flag: 1,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'water-ice',
+          subcategory_name: 'Ice Water',
+          icon: 'glass.png',
+          price_flag: 1,
+          quantity_flag: 1,
+          price: 0,
+          status: 0,
+        },
+      ],
+      status: 0,
+    },
+    {
+      category_id: 'sauces',
+      category_name: 'Sauces',
+      icon: 'sauces.png',
+      subcategories: [
+        {
+          subcategory_id: 'sauces-tomato',
+          subcategory_name: 'Tomato Sauce',
+          icon: 'tomato-ketchup.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-alfredo',
+          subcategory_name: 'Alfredo',
+          icon: '',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-pesto',
+          subcategory_name: 'Pesto Sauce',
+          icon: 'pesto-sauce.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-marinara',
+          subcategory_name: 'Marinara',
+          icon: '',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-bbq',
+          subcategory_name: 'Barbeque Sauce',
+          icon: 'bbq-sauce.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-chilli',
+          subcategory_name: 'Chilli Sauce',
+          icon: 'chilli-sauce.svg',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-salsa',
+          subcategory_name: 'Salsa',
+          icon: '',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-garlic',
+          subcategory_name: 'Garlic Sauce',
+          icon: 'garlic-sauce.svg',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-mustard',
+          subcategory_name: 'Mustard Sauce',
+          icon: 'mustard-1.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-mayo',
+          subcategory_name: 'Mayonnaise',
+          icon: 'mayonnaise-sauce.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-tamarind',
+          subcategory_name: 'Tamarind',
+          icon: 'imli-chatni.svg',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-mint',
+          subcategory_name: 'Mint Sauce',
+          icon: 'mint-chatni.svg',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-tobasco',
+          subcategory_name: 'Tobasco',
+          icon: 'tobasco.svg',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-coconut-chutney',
+          subcategory_name: 'Coconut chutney',
+          icon: 'coconut-chatni.svg',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-coriander-chutney',
+          subcategory_name: 'Coriander chutney',
+          icon: 'coriander-chatni.svg',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-samber',
+          subcategory_name: 'Samber',
+          icon: 'Samber.svg',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-sriranha-mayo',
+          subcategory_name: 'Sriracha Mayo',
+          icon: 'sriracha-mayo.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-duck',
+          subcategory_name: 'Duck Sauce',
+          icon: 'duck-sauce.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'sauces-teriyaki',
+          subcategory_name: 'Teriyaki Sauce',
+          icon: 'teriyaki-sauce.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+      ],
+      status: 0,
+    },
+    {
+      category_id: 'condiments',
+      category_name: 'Condiments',
+      icon: '',
+      subcategories: [
+        {
+          subcategory_id: 'condiments-salt',
+          subcategory_name: 'Salt',
+          icon: 'salt.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'condiments-pepper',
+          subcategory_name: 'Pepper',
+          icon: 'pepper-1.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'condiments-oregano',
+          subcategory_name: 'Oregano',
+          icon: '',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'condiments-chilli-flakes',
+          subcategory_name: 'Chilli Flakes',
+          icon: 'salt.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'condiments-parmesan-cheese',
+          subcategory_name: 'Parmesan Cheese',
+          icon: 'parmesan-cheese.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'condiments-parmesan-cheese',
+          subcategory_name: 'Parmesan Cheese',
+          icon: 'parmesan-cheese.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+      ],
+      status: 0,
+    },
+    {
+      category_id: 'napkin',
+      category_name: 'Napkin',
+      icon: 'napkin.png',
+      subcategories: [],
+      status: 0,
+    },
+    {
+      category_id: 'call-server',
+      category_name: 'Call the Server',
+      icon: 'waiter.png',
+      subcategories: [],
+      status: 0,
+    },
+    {
+      category_id: 'wifi-password',
+      category_name: 'Wifi Password',
+      icon: 'wifi-signal.png',
+      ssid: '',
+      password: '',
+      subcategories: [],
+      status: 0,
+    },
+    {
+      category_id: 'smoking-accessories',
+      category_name: 'Smoking',
+      icon: 'smoking-cat.png',
+      subcategories: [
+        {
+          subcategory_id: 'smoking-ashtray',
+          subcategory_name: 'Ashtray',
+          icon: 'ashtray.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+        {
+          subcategory_id: 'smoking-lighter',
+          subcategory_name: 'Lighter',
+          icon: 'lighter.png',
+          price_flag: 0,
+          quantity_flag: 0,
+          price: 0,
+          status: 0,
+        },
+      ],
+      status: 0,
+    },
+  ],
+  filters: [
+    {
+      id: 'veg',
+      name: 'Veg',
+      'filter-type': 'preference',
+      status: 1,
+    },
+    {
+      id: 'non-veg',
+      name: 'Non Veg',
+      'filter-type': 'preference',
+      status: 1,
+    },
+    {
+      id: 'halal',
+      name: 'Halal',
+      'filter-type': 'preference',
+      status: 0,
+    },
+    {
+      id: 'kosher',
+      name: 'Kosher',
+      'filter-type': 'preference',
+      status: 0,
+    },
+    {
+      id: 'gluten-free',
+      name: 'Gluten Free',
+      'filter-type': 'preference',
+      status: 0,
+    },
+    {
+      id: 'vegan',
+      name: 'Vegan',
+      'filter-type': 'preference',
+      status: 0,
+    },
+    {
+      id: 'price-5',
+      name: '5',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 1,
+      value: 5,
+    },
+    {
+      id: 'price-10',
+      name: '10',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 1,
+      value: 10,
+    },
+    {
+      id: 'price-15',
+      name: '15',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 1,
+      value: 15,
+    },
+    {
+      id: 'price-20',
+      name: '20',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 0,
+      value: 20,
+    },
+    {
+      id: 'price-30',
+      name: '30',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 0,
+      value: 30,
+    },
+    {
+      id: 'price-40',
+      name: '40',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 0,
+      value: 40,
+    },
+    {
+      id: 'price-50',
+      name: '15',
+      currency: 'MYR',
+      'filter-type': 'price',
+      status: 0,
+      value: 15,
+    },
+    {
+      id: 'available',
+      name: 'available',
+      'filter-type': 'preference',
+      status: 1,
+      selected: true,
+    },
+  ],
+  offline_platforms: [
+    {
+      country_codes: [],
+      id: 'others',
+      name: 'Others',
+      img: 'others_platform.svg',
+      order_type: 1,
+      comm_amt: 0,
+      comm_typ: 'percentage',
+    },
+    {
+      country_codes: [],
+      id: 'deliver_eat',
+      order_type: 2,
+      name: 'DeliverEat',
+      img: 'delivereat.png',
+      status: 1,
+      code: '',
+      comm_amt: 12,
+      comm_typ: 'fixed',
+      pkg_applicable: 0,
+    },
+    {
+      country_codes: [],
+      id: 'foodpanda',
+      name: 'Foodpanda',
+      img: 'panda.png',
+      order_type: 1,
+      status: 1,
+      code: '',
+      comm_amt: 23,
+      comm_typ: 'fixed',
+      pkg_applicable: 1,
+    },
+    {
+      country_codes: [],
+      id: 'go_eat',
+      order_type: 3,
+      name: 'Go Eat',
+      img: 'go_eat.png',
+      status: 1,
+      code: '',
+      comm_amt: 213,
+      comm_typ: 'fixed',
+      pkg_applicable: 1,
+    },
+    {
+      country_codes: [],
+      id: 'whatsapp',
+      order_type: 3,
+      name: 'Whatsapp',
+      img: 'whatsapp.png',
+      status: 1,
+      code: '',
+      comm_amt: 0,
+      comm_typ: 'percentage',
+      pkg_applicable: 1,
+    },
+    {
+      country_codes: ['MY'],
+      id: 'cash_bank',
+      order_type: 1,
+      name: 'Cash Bank',
+      img: 'cash_bank.png',
+      code: '',
+      status: 1,
+      created_at: 1653530151,
+      payment_channel: 'cash',
+      comm_amt: 10.5,
+      comm_typ: 'fixed',
+      pkg_applicable: 1,
+    },
+    {
+      country_codes: ['MY', 'ID'],
+      id: 'grab',
+      name: 'Grab',
+      img: 'grab.png',
+      order_type: 1,
+      status: 1,
+      code: '',
+      comm_amt: 0,
+      comm_typ: 'percentage',
+      pkg_applicable: 0,
+    },
+  ],
+  settings: {
+    print: {
+      master_counter_list: 1,
+      socket_printing: 1,
+      print_bahasa: 1,
+      cash_drawer: 31,
+      master_docket: 1,
+      on_decline: 11,
+      on_void_unaccepted: 11,
+      on_void_accepted: 11,
+      on_void_new_itr: 11,
+      on_accept_new_order: 3,
+      on_accept_new_itr: 2,
+      on_settle: 1,
+      on_table_change: 3,
+      format_code: null,
+      separate_docket: 0,
+      void_format_code: null,
+      void_separate_docket: 0,
+      show_logo: 0,
+      print_delay: 3000,
+      item_align: 'l',
+      font_size: 'l',
+      on_accept_enabled: 1,
+      void_enabled: 1,
+      cash_mgt_format_override: 0,
+      enabled: 1,
+      header: {
+        prepend: [],
+        custom: [],
+        append: [],
+      },
+      inst_font: 's',
+      pmt_mode_in_body: 0,
+      post_settle: 0,
+      response_format: 1,
+      show_op_order_id: 0,
+      slip_font: {
+        bill: 's',
+        counter: 'm',
+        master_order_list: 'm',
+        master_docket: 'm',
+        table_change: 'm',
+        cash_in_out: 'm',
+        cash_mgt_report: 'm',
+      },
+      sname: 0,
+      table_no_position: 't',
+      uname: 0,
+    },
+    settlement: {
+      enable: 1,
+      visible: 1,
+    },
+    login: {
+      skip_verification: 1,
+    },
+    reports: {
+      enable_eod: 1,
+      eod_printer: '192.168.1.190:9100',
+      eod_font_size: '6px',
+      eod_page_width: '170px',
+      full_eod: 0,
+    },
+    global: {
+      is_realm_enabled: 1,
+      print_v2_enabled: 1,
+      is_recipe_enabled: 1,
+      print_bahasa: 1,
+      socket_printing: 1,
+      visible_on_app: 1,
+      table_layout: 1,
+      fp_integration: 1,
+      gf_integration: 1,
+      auto_accept: 3,
+      auto_refresh: 1,
+      auto_accept_sch: 3,
+      cust_info_popup: 1,
+      skip_service_chrg: 1,
+      custom_order_dashboard: 1,
+      use_es_service: 0,
+      whatsapp_notifier_order_status: 1,
+      cash_registry: 1,
+      delete_order: 1,
+      edit_commision: 1,
+      enable_pre_paid_order: 1,
+      hide_action_button: 1,
+      lock_screen: 1,
+      lock_screen_idle: 3000000,
+      lock_screen_timeout: 2000000,
+      loyalty: 0,
+      mark_prepared_sms: 0,
+      multiple_addon: 1,
+      pos: 1,
+      posItemPriceTKasDinein: 1,
+      pos_view: 'l',
+      service_bell_enable: 1,
+      skip_pkg_chrg: 2,
+      skip_pkg_chrg_order_type: 7,
+      special_menu: 1,
+      split_bill: 1,
+      takeaway_cash_enable: 1,
+      tossed_specific: 1,
+      void: 1,
+      void_item_after_completed: 0,
+      loyalty_v2: true,
+      no_login_workflow: 1,
+      item_level_discount: 7,
+      loyalty_v2_visible_on_pos: 1,
+      tp_voucher: 1,
+      disable_add_more_items: 1,
+      enable_rest_food_logo: 1,
+      hide_download_popup: 1,
+      hide_order_image: 0,
+      pre_paid_order: 7,
+      disable_allergy_label: 0,
+      enable_server_flow: 0,
+      force_close_cash_mgt: 0,
+      loyalty_auto_apply: 0,
+      is_fp_new_calculation: 0,
+      is_gf_new_calculation: 0,
+      show_recommendations: 0,
+      cust_data_report: 1,
+      send_loyalty_sms: 0,
+    },
+    menu: {
+      new_variation: 1,
+      item_code: 31,
+      item_code_max_len: 3,
+      pax: 1,
+    },
+    sounds: {
+      repeat: 1,
+      selected: 'sound3.wav',
+      timeout: 80000,
+    },
+    discount: {
+      preset: 1,
+    },
+    referral: {
+      enabled: 1,
+    },
+  },
+  open_items: {
+    def_cat: '04f4fe91b4ed423aa67af8d5c3786253',
+    def_subcat: 'e86920a5f01343dbb1b493c06ec8b305',
+  },
+  dkick_code: [27, 112, 48, 55, 121],
+  tech_charges: [
+    {
+      user: {
+        dine_in: {
+          charge_type: 'percent',
+          charge: 2,
+        },
+        delivery: {
+          charge_type: 'percent',
+          charge: 2,
+        },
+        pickup: {
+          charge_type: 'percent',
+          charge: 2,
+        },
+      },
+      pos: {
+        dine_in: {
+          charge_type: 'percent',
+          charge: 2,
+        },
+        delivery: {
+          charge_type: 'percent',
+          charge: 2,
+        },
+        pickup: {
+          charge_type: 'percent',
+          charge: 2,
+        },
+      },
+      start_epoch: 1654880400,
+      end_epoch: 1659114000,
+      orig_end_epoch: null,
+    },
+    {
+      user: {
+        dine_in: {
+          charge_type: 'percent',
+          charge: 0,
+        },
+        delivery: {
+          charge_type: 'percent',
+          charge: 0,
+        },
+        pickup: {
+          charge_type: 'percent',
+          charge: 0,
+        },
+      },
+      pos: {
+        dine_in: {
+          charge_type: 'percent',
+          charge: 0,
+        },
+        delivery: {
+          charge_type: 'percent',
+          charge: 0,
+        },
+        pickup: {
+          charge_type: 'percent',
+          charge: 0,
+        },
+      },
+      start_epoch: 1659114000,
+      end_epoch: 1660150800,
+      orig_end_epoch: null,
+      modified_at: 1660138374,
+    },
+    {
+      user: {
+        dine_in: {
+          charge_type: 'percent',
+          charge: 1,
+        },
+        delivery: {
+          charge_type: 'percent',
+          charge: 1,
+        },
+        pickup: {
+          charge_type: 'percent',
+          charge: 1,
+        },
+      },
+      pos: {
+        dine_in: {
+          charge_type: 'percent',
+          charge: 1,
+        },
+        delivery: {
+          charge_type: 'percent',
+          charge: 1,
+        },
+        pickup: {
+          charge_type: 'percent',
+          charge: 1,
+        },
+      },
+      start_epoch: 1660150800,
+      end_epoch: null,
+      id: 'FXo9crChpdenLTWPF1SV',
+      created_at: 1660138374,
+      modified_at: 1660138374,
+    },
+  ],
+  pg_charges: [
+    {
+      online: {
+        charges: [
+          {
+            charge_type: 'percent',
+            charge: 0,
+          },
+        ],
+        'credit-card': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 2.7,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'direct-debit': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 2.7,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'cimb-direct-debit': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 2.7,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'bca-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 3500,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'bni-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'bri-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'bsm-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'cimb-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'doku-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'danamon-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'mandiri-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'permata-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'dokuwallet-emoney': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.67,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'ovo-emoney': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.67,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'ovo-open-api': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.67,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        'shopeepay-emoney': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 2,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+        qris: {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 0.7,
+            },
+          ],
+          start_epoch: 1647251708,
+          end_epoch: null,
+          valid_from: '14 Mar 2022',
+          valid_to: 'Infinity',
+        },
+      },
+      offline: {
+        charges: [
+          {
+            charge_type: 'percent',
+            charge: 0,
+          },
+        ],
+      },
+      id: 'QDvL2yXDbRkd7oECgnww',
+      start_epoch: 1647251708,
+      end_epoch: 1676307600,
+      created_at: 1647251708,
+      modified_at: 1676277158,
+      orig_end_epoch: null,
+    },
+    {
+      offline: {
+        charges: [
+          {
+            charge_type: 'percent',
+            charge: 0,
+          },
+        ],
+      },
+      online: {
+        charges: [
+          {
+            charge_type: 'percent',
+            charge: 0,
+          },
+        ],
+        'credit-card': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 2.7,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'direct-debit': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 2.7,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'cimb-direct-debit': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 2.7,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'bca-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 3500,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'bni-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'bri-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'bsm-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'cimb-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'doku-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'danamon-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'mandiri-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'permata-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'dokuwallet-emoney': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.67,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'ovo-emoney': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.67,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'ovo-open-api': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.67,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        'shopeepay-emoney': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 2,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        qris: {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 0.7,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+        gopay: {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 2,
+            },
+            {
+              charge_type: 'percent',
+              charge: 2,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+          valid_from: '14 Feb 2023',
+          valid_to: 'Infinity',
+        },
+      },
+      start_epoch: 1676307600,
+      end_epoch: 1676307600,
+      id: 'BUDh4GoSKhjvYicy94IV',
+      created_at: 1676277158,
+      modified_at: 1676277272,
+      orig_end_epoch: null,
+    },
+    {
+      offline: {
+        charges: [
+          {
+            charge_type: 'percent',
+            charge: 0,
+          },
+        ],
+      },
+      online: {
+        charges: [
+          {
+            charge_type: 'percent',
+            charge: 0,
+          },
+        ],
+        'credit-card': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 2.7,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'direct-debit': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 2.7,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'cimb-direct-debit': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1500,
+            },
+            {
+              charge_type: 'percent',
+              charge: 2.7,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'bca-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 3500,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'bni-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'bri-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'bsm-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'cimb-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'doku-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'danamon-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'mandiri-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'permata-virtual-account': {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 1800,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'dokuwallet-emoney': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.67,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'ovo-emoney': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.67,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'ovo-open-api': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 1.67,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        'shopeepay-emoney': {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 2,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        qris: {
+          charges: [
+            {
+              charge_type: 'percent',
+              charge: 0.7,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+        gopay: {
+          charges: [
+            {
+              charge_type: 'flat',
+              charge: 0,
+            },
+            {
+              charge_type: 'percent',
+              charge: 0,
+            },
+          ],
+          start_epoch: 1676307600,
+          end_epoch: null,
+        },
+      },
+      start_epoch: 1676307600,
+      end_epoch: null,
+      id: 'GvL7xiIhEZmoRLpgG62H',
+      created_at: 1676277272,
+      modified_at: 1676277272,
+    },
+  ],
+  block_pmt: [],
+  quick_notes: [
+    {
+      id: '04c5cdee91cd4fc1bb1e69715a0b81b1',
+      note: 'Spicy123',
+      visible_to_user: 1,
+    },
+    {
+      id: 'N8rsl',
+      note: 'Extra cheese',
+      visible_to_user: 1,
+    },
+    {
+      id: 'L5Bz9',
+      note: 'test varsha',
+      visible_to_user: 1,
+    },
+    {
+      id: 'aItlN',
+      note: 'test varsha',
+      visible_to_user: 0,
+    },
+    {
+      id: 'cQ27u',
+      note: '23sdf',
+      visible_to_user: 0,
+    },
+    {
+      id: '56F1L',
+      note: 'rytu',
+      visible_to_user: 0,
+    },
+    {
+      id: '7HFhL',
+      note: '3',
+      visible_to_user: 0,
+    },
+    {
+      id: 'fbb6ae093c124d8a909f328a7fababff',
+      note: 'CAtapun barnm ',
+      visible_to_user: 1,
+    },
+    {
+      id: 'YWIHf',
+      note: '1234',
+      visible_to_user: 0,
+    },
+    {
+      id: '50O22',
+      note: '1234',
+      visible_to_user: 0,
+    },
+    {
+      id: 'wSuul',
+      note: '12345',
+      visible_to_user: 0,
+    },
+    {
+      id: 'zsARC',
+      note: 'xzcxz',
+      visible_to_user: 0,
+    },
+  ],
+  country_code: 'ID',
+  curr_code: 'IDR',
+  curr_sym: 'Rp',
+  created_at: 1647251708,
+  hq_id: 'b0c593d908bc427d8f25929481fd9937',
+  loyalty_settings_v2: {
+    cashback: 10,
+    banner_path:
+      '{"id":"id-template-1","type":1,"is_custom":0,"img":"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/bg-1653299877363.jpg","img_with_text":"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/bg-1653299877363.jpg","bg_color":"#FAFAFA","properties":{"text1":{"color":"#000000","font-size":"16px","font-weight":"bold","align":"center"},"text2":{"color":"#000000","font-size":"36px","font-weight":"bold","align":"center"},"text3":{"color":"#000000","font-size":"16px","font-weight":"bold","align":"center"},"text4":{"color":"#000000","font-size":"14px","font-weight":"normal","align":"center"}},"bottom":{"img1":"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/menu-1.svg","img2":"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/order-1.svg","img3":"https://d1xkxcid7icwfl.cloudfront.net/promotion-templates/payment-1.svg"},"button":{"color":"#6cc433","font-size":"13px","font-weight":"bold"},"status":1,"country_code":"ID","created_at":1653299877,"modified_at":1653299877}',
+    order_types: ['DINEIN', 'TAKEAYPICKUP', 'DLEV'],
+    visibility: false,
+    is_loyalty_active: true,
+    min_item_value: 2000,
+    min_item_value_earning: 2000,
+    order_type_names: {
+      DINEIN: 'Makan Di Tempat',
+      TAKEAYPICKUP: 'Menjemput',
+      DLEV: null,
+    },
+  },
+  address_1: 'Jakarta, Indonesia',
+  address_2: '11',
+  language: 'en_US',
+  is_dummy_outlet: false,
+  default_cuisine_image: 'restaurant_food_image/cuisine/no_cuisine/image.png',
+  promo_charges: [
+    {
+      limit: null,
+      tech_charges: {
+        user: {
+          dine_in: {
+            charge_type: 'percent',
+            charge: 1,
+          },
+          delivery: {
+            charge_type: 'percent',
+            charge: 1,
+          },
+          pickup: {
+            charge_type: 'percent',
+            charge: 1,
+          },
+        },
+        pos: {
+          dine_in: {
+            charge_type: 'percent',
+            charge: 1,
+          },
+          delivery: {
+            charge_type: 'percent',
+            charge: 1,
+          },
+          pickup: {
+            charge_type: 'percent',
+            charge: 1,
+          },
+        },
+      },
+      pg_charges: {
+        online: {
+          charges: [
+            {
+              charge: 0,
+              charge_type: 'percent',
+            },
+          ],
+          'credit-card': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 2500,
+              },
+              {
+                charge_type: 'percent',
+                charge: 1.5,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'direct-debit': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 0,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'cimb-direct-debit': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 0,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'bca-virtual-account': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 1000,
+              },
+              {
+                charge_type: 'percent',
+                charge: 1,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'mandiri-virtual-account': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 0,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'bsm-virtual-account': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 0,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'doku-virtual-account': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 1,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'bri-virtual-account': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 0,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'cimb-virtual-account': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 0,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'permata-virtual-account': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 0,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'bni-virtual-account': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 0,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'danamon-virtual-account': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 0,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'shopeepay-emoney': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 2500,
+              },
+              {
+                charge_type: 'percent',
+                charge: 2,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'ovo-emoney': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 1000,
+              },
+              {
+                charge_type: 'percent',
+                charge: 1.5,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          'dokuwallet-emoney': {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 0,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+          qris: {
+            charges: [
+              {
+                charge_type: 'flat',
+                charge: 0,
+              },
+              {
+                charge_type: 'percent',
+                charge: 0,
+              },
+            ],
+            start_epoch: 1660150800,
+            end_epoch: null,
+          },
+        },
+        offline: {
+          charges: [
+            {
+              charge: 1,
+              charge_type: 'percent',
+            },
+          ],
+        },
+      },
+      start_epoch: 1660150800,
+      end_epoch: 1660323599,
+      promo_id: 'QdyXUe26BpPOpOBscPpN',
+      created_at: 1660138455,
+      updated_at: 1660138464,
+    },
+    {
+      limit: null,
+      tech_charges: {
+        user: {
+          dine_in: {
+            charge_type: 'percent',
+            charge: 2,
+          },
+          delivery: {
+            charge_type: 'percent',
+            charge: 2,
+          },
+          pickup: {
+            charge_type: 'percent',
+            charge: 2,
+          },
+        },
+        pos: {
+          dine_in: {
+            charge_type: 'percent',
+            charge: 2,
+          },
+          delivery: {
+            charge_type: 'percent',
+            charge: 2,
+          },
+          pickup: {
+            charge_type: 'percent',
+            charge: 2,
+          },
+        },
+      },
+      pg_charges: {
+        online: {
+          charges: [
+            {
+              charge: 1,
+              charge_type: 'percent',
+            },
+          ],
+        },
+        offline: {
+          charges: [
+            {
+              charge: 0,
+              charge_type: 'percent',
+            },
+          ],
+        },
+      },
+      start_epoch: 1660323600,
+      end_epoch: 1660582799,
+      promo_id: 'btbWIgm0hvPE21yVTPJ8',
+      created_at: 1660138490,
+      updated_at: 1660138490,
+    },
+  ],
+  order_status: 4,
+  ruid: '08C',
+  print_logo:
+    'https://d1xkxcid7icwfl.cloudfront.net/restaurant_image/084b76910b2946fb9acf00cc6d47f3f8_bw_1668232133.png',
+  report_email: 'gurasees@easyeat.ai',
+  report_period: 2,
+  third_party_platforms: {
+    fmhv2: {
+      phone_code: null,
+      phone_number: null,
+    },
+  },
+  void_item_after_completed: 1,
+  round_off_close: 0,
+  reasons: {
+    recommendation_off_reason: 'Reason Not Available',
+  },
+  last_active_time: 1680892388,
 };
 
 let order_details = [
@@ -2809,192 +2779,193 @@ let order_details = [
   //   sname: '',
   // },
   {
-    "order_id": "wfZ6FgJ2Vi1680866770",
-    "order_no": "1EI3N8EE",
-    "user_id": "e8cb920d9d2e57dbe7203807a1c08c1dfd3eb56e429720dac3d59090e64c1eae",
-    "restaurant_id": "084b76910b2946fb9acf00cc6d47f3f8",
-    "restaurant_name": "Jibril-Id",
-    "order_status": 2,
-    "bill_id": "",
-    "created_at": 1680866770,
-    "created_mongodate": "2023-04-07T11:26:10.504Z",
-    "date": "2023-04-07",
-    "confirmed_at": 1680866771,
-    "canceled_at": 0,
-    "mark_prepared_at": 0,
-    "schedule_confirmed_at": 0,
-    "estimated_time": 0,
-    "completed_at": 0,
-    "table_id": "a11",
-    "table_no": "11",
-    "floor_id": "a",
-    "floor_name": "Ground Section",
-    "items": [
-    {
-      "itr": 1,
-      "item_id": "041be96beb1e4ee0a4461231a7d5d676",
-      "item_name": "item 3",
-      "item_quantity": 1,
-      "item_price": 30,
-      "original_price": 30,
-      "discount_per": 0,
-      "reward_id": "",
-      "created_at": 1680866770,
-      "confirmed_at": 1680866771,
-      "completed_at": 0,
-      "kitchen_counter_id": "",
-      "kitchen_picked_at": "",
-      "kitchen_picked_by": "",
-      "kitchen_time_to_complete": 10,
-      "item_status": 1,
-      "order_item_id": "YhFLp041be96beb1e4ee0a4461231a7d5d676",
-      "prepared_at": 0,
-      "canceled_at": 0,
-      "void_at": 0,
-      "declined_at": 0,
-      "special_note": "",
-      "decline_reason":
-      {},
-      "grabItemID": "",
-      "base_qty": 1,
-      "unit": "number",
-      "gvariations": [],
-      "variation_ids": "",
-      "addons": [],
-      "addon_ids": "",
-      "gvariation_name": "",
-      "variation_name": "",
-      "addons_name": "",
-      "category_id": "9826f610bc33668a034e48ef9372bc82bf3e5cc7217d38324ba43118654a337d",
-      "subcategory_id": "653e4d6944f00f08064e8ab56fca2b3352fe9b7ed6619f285f482bdc904d8904",
-      "is_combo_item": 0,
-      "cmm_id": "",
-      "hq_id": null,
-      "order_by": "MM",
-      "new_variation_name": "",
-      "new_addons_name": "",
-      "page_rec": "",
-      "is_rec": "",
-      "type_rec": "",
-      "combo_items": [],
-      "open_item": 0,
-      "item_code": "",
-      "new_variation_ids": "",
-      "variant_info": []
-    },
-    {
-      "itr": 1,
-      "item_id": "f8d9bac035bd402f862769723dd483b5",
-      "item_name": "item1",
-      "item_quantity": 1,
-      "item_price": 26,
-      "original_price": 26,
-      "discount_per": 0,
-      "reward_id": "",
-      "created_at": 1680866770,
-      "confirmed_at": 1680866771,
-      "completed_at": 0,
-      "kitchen_counter_id": "8BS4GxYq0U6260ded2ef60f",
-      "kitchen_picked_at": "",
-      "kitchen_picked_by": "",
-      "kitchen_time_to_complete": 10,
-      "item_status": 1,
-      "order_item_id": "P9424f8d9bac035bd402f862769723dd483b5",
-      "prepared_at": 0,
-      "canceled_at": 0,
-      "void_at": 0,
-      "declined_at": 0,
-      "special_note": "",
-      "decline_reason":
-      {},
-      "grabItemID": "",
-      "base_qty": 1,
-      "unit": "number",
-      "gvariations": [],
-      "variation_ids": "",
-      "addons": [],
-      "addon_ids": "",
-      "gvariation_name": "",
-      "variation_name": "",
-      "addons_name": "",
-      "category_id": "18161be706425959186d66f1a9e65863382eb651d92be8ecddec08812918a331",
-      "subcategory_id": "c56bac6e92999210ff45579c8f3df41f50074acf9baac231b7760688471b40a8",
-      "is_combo_item": 0,
-      "cmm_id": "",
-      "hq_id": null,
-      "order_by": "MM",
-      "new_variation_name": "",
-      "new_addons_name": "",
-      "page_rec": "",
-      "is_rec": "",
-      "type_rec": "",
-      "combo_items": [],
-      "open_item": 0,
-      "item_code": "",
-      "new_variation_ids": "",
-      "variant_info": []
-    }],
-    "special_notes": [],
-    "allergic_items": [],
-    "address": "",
-    "distance": 0,
-    "order_type": 0,
-    "delivery_partner": "",
-    "delivery_assign_type": null,
-    "address_obj": null,
-    "platform": "easyeat",
-    "pax": 5,
-    "order_seq": "1-5",
-    "op_no": "",
-    "user_gender": "",
-    "user_dob": "",
-    "coupon_id": "",
-    "coupon_name": "",
-    "reason": "",
-    "base_roundoff": 0.05,
-    "auto_assign_car": null,
-    "user_platform": "",
-    "country_code": "ID",
-    "skip_service_charge_operation": 0,
-    "skip_packaging_charge_operation": 0,
-    "op_order_creation_time": "",
-    "currency":
-    {
-      "curr_sym": "Rp",
-      "curr_code": "IDR"
-    },
-    "discovery_page": 2,
-    "order_by": "MM",
-    "no_enter": 0,
-    "name": "",
-    "phone": "548659813864473",
-    "dial_code": "+62",
-    "time_epoch": 0,
-    "scheduled": 0,
-    "rest_reach_min_time": 2,
-    "urvc": 1,
-    "guests": [
-    {
-      "guest_id": "PFyf2",
-      "guest_name": "Guest 1",
-      "items": [
+    order_id: 'wfZ6FgJ2Vi1680866770',
+    order_no: '1EI3N8EE',
+    user_id: 'e8cb920d9d2e57dbe7203807a1c08c1dfd3eb56e429720dac3d59090e64c1eae',
+    restaurant_id: '084b76910b2946fb9acf00cc6d47f3f8',
+    restaurant_name: 'Jibril-Id',
+    order_status: 2,
+    bill_id: '',
+    created_at: 1680866770,
+    created_mongodate: '2023-04-07T11:26:10.504Z',
+    date: '2023-04-07',
+    confirmed_at: 1680866771,
+    canceled_at: 0,
+    mark_prepared_at: 0,
+    schedule_confirmed_at: 0,
+    estimated_time: 0,
+    completed_at: 0,
+    table_id: 'a11',
+    table_no: '11',
+    floor_id: 'a',
+    floor_name: 'Ground Section',
+    items: [
       {
-        "order_item_id": "P9424f8d9bac035bd402f862769723dd483b5",
-        "item_quantity": 1
-      }]
-    },
-    {
-      "guest_id": "p9p5U",
-      "guest_name": "Guest 2",
-      "items": [
+        itr: 1,
+        item_id: '041be96beb1e4ee0a4461231a7d5d676',
+        item_name: 'item 3',
+        item_quantity: 1,
+        item_price: 30,
+        original_price: 30,
+        discount_per: 0,
+        reward_id: '',
+        created_at: 1680866770,
+        confirmed_at: 1680866771,
+        completed_at: 0,
+        kitchen_counter_id: '',
+        kitchen_picked_at: '',
+        kitchen_picked_by: '',
+        kitchen_time_to_complete: 10,
+        item_status: 1,
+        order_item_id: 'YhFLp041be96beb1e4ee0a4461231a7d5d676',
+        prepared_at: 0,
+        canceled_at: 0,
+        void_at: 0,
+        declined_at: 0,
+        special_note: '',
+        decline_reason: {},
+        grabItemID: '',
+        base_qty: 1,
+        unit: 'number',
+        gvariations: [],
+        variation_ids: '',
+        addons: [],
+        addon_ids: '',
+        gvariation_name: '',
+        variation_name: '',
+        addons_name: '',
+        category_id: '9826f610bc33668a034e48ef9372bc82bf3e5cc7217d38324ba43118654a337d',
+        subcategory_id: '653e4d6944f00f08064e8ab56fca2b3352fe9b7ed6619f285f482bdc904d8904',
+        is_combo_item: 0,
+        cmm_id: '',
+        hq_id: null,
+        order_by: 'MM',
+        new_variation_name: '',
+        new_addons_name: '',
+        page_rec: '',
+        is_rec: '',
+        type_rec: '',
+        combo_items: [],
+        open_item: 0,
+        item_code: '',
+        new_variation_ids: '',
+        variant_info: [],
+      },
       {
-        "order_item_id": "YhFLp041be96beb1e4ee0a4461231a7d5d676",
-        "item_quantity": 1
-      }]
-    }]
-  }
+        itr: 1,
+        item_id: 'f8d9bac035bd402f862769723dd483b5',
+        item_name: 'item1',
+        item_quantity: 1,
+        item_price: 26,
+        original_price: 26,
+        discount_per: 0,
+        reward_id: '',
+        created_at: 1680866770,
+        confirmed_at: 1680866771,
+        completed_at: 0,
+        kitchen_counter_id: '8BS4GxYq0U6260ded2ef60f',
+        kitchen_picked_at: '',
+        kitchen_picked_by: '',
+        kitchen_time_to_complete: 10,
+        item_status: 1,
+        order_item_id: 'P9424f8d9bac035bd402f862769723dd483b5',
+        prepared_at: 0,
+        canceled_at: 0,
+        void_at: 0,
+        declined_at: 0,
+        special_note: '',
+        decline_reason: {},
+        grabItemID: '',
+        base_qty: 1,
+        unit: 'number',
+        gvariations: [],
+        variation_ids: '',
+        addons: [],
+        addon_ids: '',
+        gvariation_name: '',
+        variation_name: '',
+        addons_name: '',
+        category_id: '18161be706425959186d66f1a9e65863382eb651d92be8ecddec08812918a331',
+        subcategory_id: 'c56bac6e92999210ff45579c8f3df41f50074acf9baac231b7760688471b40a8',
+        is_combo_item: 0,
+        cmm_id: '',
+        hq_id: null,
+        order_by: 'MM',
+        new_variation_name: '',
+        new_addons_name: '',
+        page_rec: '',
+        is_rec: '',
+        type_rec: '',
+        combo_items: [],
+        open_item: 0,
+        item_code: '',
+        new_variation_ids: '',
+        variant_info: [],
+      },
+    ],
+    special_notes: [],
+    allergic_items: [],
+    address: '',
+    distance: 0,
+    order_type: 0,
+    delivery_partner: '',
+    delivery_assign_type: null,
+    address_obj: null,
+    platform: 'easyeat',
+    pax: 5,
+    order_seq: '1-5',
+    op_no: '',
+    user_gender: '',
+    user_dob: '',
+    coupon_id: '',
+    coupon_name: '',
+    reason: '',
+    base_roundoff: 0.05,
+    auto_assign_car: null,
+    user_platform: '',
+    country_code: 'ID',
+    skip_service_charge_operation: 0,
+    skip_packaging_charge_operation: 0,
+    op_order_creation_time: '',
+    currency: {
+      curr_sym: 'Rp',
+      curr_code: 'IDR',
+    },
+    discovery_page: 2,
+    order_by: 'MM',
+    no_enter: 0,
+    name: '',
+    phone: '548659813864473',
+    dial_code: '+62',
+    time_epoch: 0,
+    scheduled: 0,
+    rest_reach_min_time: 2,
+    urvc: 1,
+    guests: [
+      {
+        guest_id: 'PFyf2',
+        guest_name: 'Guest 1',
+        items: [
+          {
+            order_item_id: 'P9424f8d9bac035bd402f862769723dd483b5',
+            item_quantity: 1,
+          },
+        ],
+      },
+      {
+        guest_id: 'p9p5U',
+        guest_name: 'Guest 2',
+        items: [
+          {
+            order_item_id: 'YhFLp041be96beb1e4ee0a4461231a7d5d676',
+            item_quantity: 1,
+          },
+        ],
+      },
+    ],
+  },
 ];
-  // let bill_details = {
+// let bill_details = {
 //   _id: '62f10949a2c9cb6d9207d9f7',
 //   bill_id: 'qeqxFZK8h71659963721',
 //   order_id: 'tmx2cWqYBb1659963721',
@@ -3017,203 +2988,225 @@ let order_details = [
 //   date: '2022-08-08',
 //   timestamp: 1659963721,
 // };
- let bill_details=
- // bill details
+let bill_details =
+  // bill details
 
- [
-  {
-    "_id": "642ffdd22cc40c9cfb0c9d99",
-    "bill_id": "tKHlSkyRnv1680866770",
-    "order_id": "wfZ6FgJ2Vi1680866770",
-    "payments": [
+  [
     {
-      "payment_id": "zZA5O6DugG16811225292yViRzA2dm",
-      "amount": 32.64,
-      "status": 1,
-      "payment_method": "Offline GoPay",
-      "config_id": "1",
-      "epoch": 1681122529,
-      "payment_channel": "offline_gopay",
-      "transaction_id": "",
-      "collected_amt": 32.64,
-      "returned_amt": 0,
-      "guest_amounts": [
-      {
-        "guest_id": "PFyf2",
-        "amount": 32.64
-      }]
+      _id: '642ffdd22cc40c9cfb0c9d99',
+      bill_id: 'tKHlSkyRnv1680866770',
+      order_id: 'wfZ6FgJ2Vi1680866770',
+      payments: [
+        {
+          payment_id: 'zZA5O6DugG16811225292yViRzA2dm',
+          amount: 32.64,
+          status: 1,
+          payment_method: 'Offline GoPay',
+          config_id: '1',
+          epoch: 1681122529,
+          payment_channel: 'offline_gopay',
+          transaction_id: '',
+          collected_amt: 32.64,
+          returned_amt: 0,
+          guest_amounts: [
+            {
+              guest_id: 'PFyf2',
+              amount: 32.64,
+            },
+          ],
+        },
+        {
+          payment_id: 'kdqWp4QBSm1681122614f4F7w0GOO7',
+          amount: 37.66,
+          status: 1,
+          payment_method: 'Offline Shopee Pay',
+          config_id: '1',
+          epoch: 1681122614,
+          payment_channel: 'offline_shopee_pay',
+          transaction_id: '',
+          collected_amt: 37.66,
+          returned_amt: 0,
+          guest_amounts: [
+            {
+              guest_id: 'p9p5U',
+              amount: 37.66,
+            },
+          ],
+        },
+      ],
+      user_id: 'e8cb920d9d2e57dbe7203807a1c08c1dfd3eb56e429720dac3d59090e64c1eae',
+      restaurant_id: '084b76910b2946fb9acf00cc6d47f3f8',
+      curr_code: 'IDR',
+      fees: [
+        {
+          id: 'item_total',
+          fee_name: 'Item Total',
+          fee: 56,
+          tax: 0,
+        },
+        {
+          id: 'coupon_discount',
+          fee_name: 'Discount',
+          fee: 0,
+          tax: 0,
+          reason: '',
+        },
+        {
+          id: 'sst_tax',
+          fee_name: 'Pajak Restoran (PB1) @10%',
+          fee: 5.88,
+          tax: 0,
+        },
+        {
+          id: 'service_tax',
+          fee_name: 'Service Charge @5%',
+          fee: 2.8,
+          tax: 0,
+        },
+        {
+          id: 'packaging_charge_V055',
+          fee_name: 'Biaya Kemasan @10%',
+          fee: 5.6,
+          tax: 0,
+        },
+        {
+          id: 'round_off',
+          fee_name: 'Round Off',
+          fee: 0.02,
+          tax: 0,
+        },
+      ],
+      item_total: 56,
+      tax: 0,
+      bill_total: 70.3,
+      savings: 0,
+      earnings: 0,
+      balance: 0,
+      paid: 70.3,
+      date: '2023-04-07',
+      timestamp: 1680866770,
+      guests: [
+        {
+          guest_id: 'PFyf2',
+          item_total: 26,
+          bill_total: 32.64,
+          tax: 0,
+          savings: 0,
+          earnings: 0,
+          balance: 0,
+          paid: 32.64,
+          fees: [
+            {
+              id: 'item_total',
+              fee_name: 'Item Total',
+              fee: 26,
+              tax: 0,
+            },
+            {
+              id: 'coupon_discount',
+              fee_name: 'Discount',
+              fee: 0,
+              tax: 0,
+              reason: '',
+            },
+            {
+              id: 'sst_tax',
+              fee_name: 'Pajak Restoran (PB1) @10%',
+              fee: 2.73,
+              tax: 0,
+            },
+            {
+              id: 'service_tax',
+              fee_name: 'Service Charge @5%',
+              fee: 1.3,
+              tax: 0,
+            },
+            {
+              id: 'packaging_charge_V055',
+              fee_name: 'Biaya Kemasan @10%',
+              fee: 2.6,
+              tax: 0,
+            },
+            {
+              id: 'round_off',
+              fee_name: 'Round Off',
+              fee: 0.01,
+              tax: 0,
+            },
+          ],
+          payment_ids: ['zZA5O6DugG16811225292yViRzA2dm'],
+        },
+        {
+          guest_id: 'p9p5U',
+          item_total: 30,
+          bill_total: 37.66,
+          tax: 0,
+          savings: 0,
+          earnings: 0,
+          balance: 0,
+          paid: 37.66,
+          fees: [
+            {
+              id: 'item_total',
+              fee_name: 'Item Total',
+              fee: 30,
+              tax: 0,
+            },
+            {
+              id: 'coupon_discount',
+              fee_name: 'Discount',
+              fee: 0,
+              tax: 0,
+              reason: '',
+            },
+            {
+              id: 'sst_tax',
+              fee_name: 'Pajak Restoran (PB1) @10%',
+              fee: 3.15,
+              tax: 0,
+            },
+            {
+              id: 'service_tax',
+              fee_name: 'Service Charge @5%',
+              fee: 1.5,
+              tax: 0,
+            },
+            {
+              id: 'packaging_charge_V055',
+              fee_name: 'Biaya Kemasan @10%',
+              fee: 3,
+              tax: 0,
+            },
+            {
+              id: 'round_off',
+              fee_name: 'Round Off',
+              fee: 0.01,
+              tax: 0,
+            },
+          ],
+          payment_ids: ['kdqWp4QBSm1681122614f4F7w0GOO7'],
+        },
+      ],
     },
-    {
-      "payment_id": "kdqWp4QBSm1681122614f4F7w0GOO7",
-      "amount": 37.66,
-      "status": 1,
-      "payment_method": "Offline Shopee Pay",
-      "config_id": "1",
-      "epoch": 1681122614,
-      "payment_channel": "offline_shopee_pay",
-      "transaction_id": "",
-      "collected_amt": 37.66,
-      "returned_amt": 0,
-      "guest_amounts": [
-      {
-        "guest_id": "p9p5U",
-        "amount": 37.66
-      }]
-    }],
-    "user_id": "e8cb920d9d2e57dbe7203807a1c08c1dfd3eb56e429720dac3d59090e64c1eae",
-    "restaurant_id": "084b76910b2946fb9acf00cc6d47f3f8",
-    "curr_code": "IDR",
-    "fees": [
-    {
-      "id": "item_total",
-      "fee_name": "Item Total",
-      "fee": 56,
-      "tax": 0
-    },
-    {
-      "id": "coupon_discount",
-      "fee_name": "Discount",
-      "fee": 0,
-      "tax": 0,
-      "reason": ""
-    },
-    {
-      "id": "sst_tax",
-      "fee_name": "Pajak Restoran (PB1) @10%",
-      "fee": 5.88,
-      "tax": 0
-    },
-    {
-      "id": "service_tax",
-      "fee_name": "Service Charge @5%",
-      "fee": 2.8,
-      "tax": 0
-    },
-    {
-      "id": "packaging_charge_V055",
-      "fee_name": "Biaya Kemasan @10%",
-      "fee": 5.6,
-      "tax": 0
-    },
-    {
-      "id": "round_off",
-      "fee_name": "Round Off",
-      "fee": 0.02,
-      "tax": 0
-    }],
-    "item_total": 56,
-    "tax": 0,
-    "bill_total": 70.3,
-    "savings": 0,
-    "earnings": 0,
-    "balance": 0,
-    "paid": 70.3,
-    "date": "2023-04-07",
-    "timestamp": 1680866770,
-    "guests": [
-    {
-      "guest_id": "PFyf2",
-      "item_total": 26,
-      "bill_total": 32.64,
-      "tax": 0,
-      "savings": 0,
-      "earnings": 0,
-      "balance": 0,
-      "paid": 32.64,
-      "fees": [
-      {
-        "id": "item_total",
-        "fee_name": "Item Total",
-        "fee": 26,
-        "tax": 0
-      },
-      {
-        "id": "coupon_discount",
-        "fee_name": "Discount",
-        "fee": 0,
-        "tax": 0,
-        "reason": ""
-      },
-      {
-        "id": "sst_tax",
-        "fee_name": "Pajak Restoran (PB1) @10%",
-        "fee": 2.73,
-        "tax": 0
-      },
-      {
-        "id": "service_tax",
-        "fee_name": "Service Charge @5%",
-        "fee": 1.3,
-        "tax": 0
-      },
-      {
-        "id": "packaging_charge_V055",
-        "fee_name": "Biaya Kemasan @10%",
-        "fee": 2.6,
-        "tax": 0
-      },
-      {
-        "id": "round_off",
-        "fee_name": "Round Off",
-        "fee": 0.01,
-        "tax": 0
-      }],
-      "payment_ids": ["zZA5O6DugG16811225292yViRzA2dm"]
-    },
-    {
-      "guest_id": "p9p5U",
-      "item_total": 30,
-      "bill_total": 37.66,
-      "tax": 0,
-      "savings": 0,
-      "earnings": 0,
-      "balance": 0,
-      "paid": 37.66,
-      "fees": [
-      {
-        "id": "item_total",
-        "fee_name": "Item Total",
-        "fee": 30,
-        "tax": 0
-      },
-      {
-        "id": "coupon_discount",
-        "fee_name": "Discount",
-        "fee": 0,
-        "tax": 0,
-        "reason": ""
-      },
-      {
-        "id": "sst_tax",
-        "fee_name": "Pajak Restoran (PB1) @10%",
-        "fee": 3.15,
-        "tax": 0
-      },
-      {
-        "id": "service_tax",
-        "fee_name": "Service Charge @5%",
-        "fee": 1.5,
-        "tax": 0
-      },
-      {
-        "id": "packaging_charge_V055",
-        "fee_name": "Biaya Kemasan @10%",
-        "fee": 3,
-        "tax": 0
-      },
-      {
-        "id": "round_off",
-        "fee_name": "Round Off",
-        "fee": 0.01,
-        "tax": 0
-      }],
-      "payment_ids": ["kdqWp4QBSm1681122614f4F7w0GOO7"]
-    }]
-  }
- ];
+  ];
 // console.log(JSON.stringify(generatePrintData(order_details, rest_details, bill_details)));
 console.log(
   JSON.stringify(
-    generatePrintData(order_details, rest_details, 1, 1, {}, {}, {}, bill_details, '',null,'','','','PFyf2'),
+    generatePrintData(
+      order_details,
+      rest_details,
+      1,
+      1,
+      {},
+      {},
+      {},
+      bill_details,
+      '',
+      null,
+      '',
+      '',
+      '',
+      'PFyf2',
+    ),
   ),
 );
