@@ -773,6 +773,32 @@ function generateReportV2(obj, rest_details, for_close_enable) {
     }
   }
   data['data'].push(line_break());
+
+  //If cash-counting enabled, only then show denominations-count
+  if (obj['cash_count_enabled'] === 1) {
+    data['data'].push(
+      formatv2(
+        '',
+        [
+          {
+            name: obj['cashCounting'].toUpperCase(),
+          },
+        ],
+        undefined,
+        FontType.BOLD,
+        FontAlign.CENTER,
+      ),
+    );
+    data['data'].push(line_break());
+
+    for (const denom of obj['denominations_arr']) {
+      data['data'].push(
+        formatv2('', [{ name: curr_sym + ' ' + denom['value'] + ': ' + denom['count'] }]),
+      );
+    }
+    data['data'].push(line_break());
+  }
+
   data['data'].push(powered_by());
 
   const slip_font = getSettingVal(rest_details, 'slip_font') || {};
