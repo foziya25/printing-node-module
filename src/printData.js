@@ -9,6 +9,7 @@ const {
   generateDeclineMasterReceipt,
   cashierReport,
   mergeReceiptData,
+  viewCashierReport,
 } = require('./printing');
 
 const {
@@ -37,6 +38,7 @@ function generateCashierReportData(
   country_code = 'MY',
   language = 'en-US',
   print_data = true,
+  cashier_report_data = [],
 ) {
   let receipt = {};
   try {
@@ -56,20 +58,26 @@ function generateCashierReportData(
     const cash_mgt_format_override = getSettingVal(restaurant, 'cash_mgt_format_override');
 
     if (receipt_type === 'report') {
-      receipt = cashierReport(
-        rest_details,
-        open_cashier_data,
-        close_cashier_data,
-        order_details,
-        order_billings,
-        cash_mgt_data,
-        cash_mgt_entries_data,
-        {},
-        country_code,
-        language,
-      );
+      // If start-epoch and end-epoch is present, then we have to print cashier-report by date-range
+      if (cashier_report_data && cashier_report_data.length > 0) {
+        receipt = viewCashierReport(rest_details, cashier_report_data, country_code, language);
+      } else {
+        receipt = cashierReport(
+          rest_details,
+          open_cashier_data,
+          close_cashier_data,
+          order_details,
+          order_billings,
+          cash_mgt_data,
+          cash_mgt_entries_data,
+          {},
+          country_code,
+          language,
+        );
+      }
       if (print_data) {
         receipt['counterName'] = 'Cashier Report';
+        receipt['cashCounting'] = 'Cash Counting';
         receipt['name'] = receipt['staff_name'];
         // Added type 'cash-in' for backward-compatibility
         receipt['type'] = 'cash-in';
@@ -177,7 +185,7 @@ function generatePrintData(
   oid = '',
   staff_name = 'Restaurant Manager',
   logo_base_url = '',
-  guest_id='',
+  guest_id = '',
 ) {
   try {
     // generate print logo url for restaurant
@@ -192,7 +200,7 @@ function generatePrintData(
 
       order_details['allergic_items'] = getAllergicItemsList(order_details['allergic_items']);
       order_details['sname'] = staff_name ? staff_name : '';
-     let order_bill_details = bill_details[0];
+      let order_bill_details = bill_details[0];
 
       /* Modify order_details and bill_details for split bill */
       if (guest_id && guest_id !== '') {
@@ -256,9 +264,8 @@ function generatePrintData(
 
         order_details.items = [...guest_items];
         order_bill_details = { ...guest_bill };
-        bill_details[0]=order_bill_details
+        bill_details[0] = order_bill_details;
       }
-
 
       // --------------------------- type=0 : for counter ---------------------------
       if (type === 0 && counter_id && itr) {

@@ -1509,6 +1509,82 @@ function generateDeclineMasterReceipt(order_details, rest_details, itr) {
   return convertDeclineMasterObj(obj, {}, rest_details);
 }
 
+/* View Cashier Report by Date*/
+function viewCashierReport(rest_details, cashier_report_data, country_code, language) {
+  language = language || CountryMapping.MALAYSIA.language;
+  country_code = country_code || CountryMapping.MALAYSIA.country_code;
+  const country = getCountryDetails('country_code', country_code).country;
+
+  //Check restaurant exists or not.
+  const restaurant = rest_details;
+  if (!restaurant) {
+    throw new Error(localize('restaurantNotFoundError', language));
+  }
+
+  const timezone = restaurant['time_zone'] ? restaurant['time_zone'] : 'Asia/Kuala_Lumpur';
+  const printer_name =
+    restaurant.cash_mgt_printer !== undefined &&
+    restaurant.cash_mgt_printer !== null &&
+    restaurant.cash_mgt_printer.trim() !== ''
+      ? restaurant.cash_mgt_printer
+      : restaurant.printer;
+
+  // const resp = await this.cashMgtRepository.findCashReport({
+  //   restaurant_id: restaurant_id,
+  //   open_cashier_epoch: start_epoch,
+  //   close_cashier_epoch: end_epoch,
+  // });
+
+  const resp = cashier_report_data;
+
+  const {
+    date,
+    open_cashier_date_time,
+    close_cashier_date_time,
+    close_cashier_epoch,
+    opening_cash_float,
+    total_cash_in,
+    cash_in_sales,
+    cash_in_others,
+    total_cash_out,
+    net_cash_balance,
+    expected_cash_in_drawer,
+    actual_cash_in_drawer,
+    excess_short_cash,
+    cash_count_enabled,
+    denominations,
+    staff_name,
+    close_cashier,
+  } = resp[0];
+
+  return {
+    date: date,
+    time: moment.unix(close_cashier_epoch).tz(timezone).format('hh:mm A'),
+    open_cashier_date_time: open_cashier_date_time,
+    close_cashier_date_time: close_cashier_date_time,
+    opening_cash_float: getInternationalizedNumber(Number(opening_cash_float).toFixed(2), country),
+    total_cash_in: getInternationalizedNumber(Number(total_cash_in).toFixed(2), country),
+    cash_in_sales: getInternationalizedNumber(Number(cash_in_sales).toFixed(2), country),
+    cash_in_others: getInternationalizedNumber(Number(cash_in_others).toFixed(2), country),
+    total_cash_out: getInternationalizedNumber(Number(total_cash_out).toFixed(2), country),
+    net_cash_balance: getInternationalizedNumber(Number(net_cash_balance).toFixed(2), country),
+    expected_cash_in_drawer: getInternationalizedNumber(
+      Number(expected_cash_in_drawer).toFixed(2),
+      country,
+    ),
+    actual_cash_in_drawer: getInternationalizedNumber(
+      Number(actual_cash_in_drawer).toFixed(2),
+      country,
+    ),
+    excess_short_cash: getInternationalizedNumber(Number(excess_short_cash).toFixed(2), country),
+    cash_count_enabled: cash_count_enabled || 0,
+    denominations_arr: denominations || [],
+    staff_name: staff_name,
+    close_cashier: close_cashier,
+    printerName: printer_name,
+  };
+}
+
 function cashierReport(
   rest_details,
   open_cashier_data = [],
@@ -1740,4 +1816,5 @@ module.exports = {
   generateDeclineMasterReceipt,
   cashierReport,
   mergeReceiptData,
+  viewCashierReport,
 };
