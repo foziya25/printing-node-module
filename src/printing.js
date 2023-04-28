@@ -344,7 +344,7 @@ function generateBillReceipt(order_details, rest_details, bill_details, merge_bi
           temp[payment_channel]['Payment Mode'] = method_name.replace('Offline', '');
           temp[payment_channel]['Amount Paid'] = 0;
           pmt_header += pmt_header ? ', ' : '';
-          pmt_header += temp[payment_channel]['Payment Mode'];
+          pmt_header += temp[payment_channel]['Payment Mode'].trim();
         }
         temp[payment_channel]['Amount Paid'] += payment['amount'];
         temp[payment_channel]['Amount Paid'] = temp[payment_channel]['Amount Paid'];

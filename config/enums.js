@@ -111,6 +111,7 @@ const KeyName = {
   CUSTOMER_PHONE: 'customer_phone',
   PAYMENT_TYPE: 'payment_type',
   PAYMENT_MODE: 'payment_mode',
+  FINAL_BILL_PAYMENT_MODE: 'Payment Mode',
   TOTAL: 'total',
   SUB_TOTAL: 'sub-total',
   BALANCE: 'balance',
