@@ -30,16 +30,17 @@ const {
   SlipType,
   AddonVariantReceiptEnum,
   AddonVariantNameEnum,
+  FontSize,
 } = require('../config/enums');
 
 /* function to convert the receipt obj to print format */
-function convertReceiptObj(obj, rest_details) {
+function convertReceiptObj(obj, rest_details, reprinted_data = false) {
   // in case of old receipt design
   if (getSettingVal(rest_details, 'response_format') === 0) {
     return convertToOldReceiptObj(obj, rest_details.country);
   }
 
-  language = getPrintLanguage(rest_details);
+  let language = getPrintLanguage(rest_details);
   const country = rest_details.country;
   const is_unpaid = obj['order']['bill'].some(
     (e) => e['name'] === KeyName.PAYMENT_MODE && e['value'] === KeyName.UNPAID,
@@ -64,6 +65,14 @@ function convertReceiptObj(obj, rest_details) {
         formatv2('', [{ name: item.toUpperCase() }], undefined, FontType.BOLD, FontAlign.CENTER),
       );
     }
+  }
+  // Insert 'REPRINTED' bcz it is required if attempt_print>1
+  if (reprinted_data && reprinted_data === true) {
+    data['data'].push(line_break());
+    data['data'].push(
+      formatv2('', [{ name: 'REPRINTED' }], FontSize.MEDIUM, FontType.BOLD, FontAlign.CENTER),
+    );
+    data['data'].push(line_break());
   }
   data['data'].push(line_break());
   data['data'].push(
@@ -239,10 +248,13 @@ function convertReceiptObj(obj, rest_details) {
           },
         ]),
       );
-    } else if (bill['name'] === KeyName.PAYMENT_MODE) {
+    } else if (bill['name'] === KeyName.FINAL_BILL_PAYMENT_MODE) {
       data['data'].push(
         formatv2('', [
-          { name: `${localiseFeeNames(bill['name'], language).toUpperCase()}: `, fw: 15 },
+          {
+            name: `${localiseFeeNames(bill['name'], language).toUpperCase()}: `,
+            fw: `${localiseFeeNames(bill['name'], language).toUpperCase()}: `.length + 1,
+          },
           {
             name:
               bill['name'] != 'Transaction ID' &&
@@ -250,7 +262,7 @@ function convertReceiptObj(obj, rest_details) {
                 ? obj['order']['currency'] +
                   ' ' +
                   getInternationalizedNumber(Number(bill['value']).toFixed(2), country)
-                : bill['value'],
+                : bill['value'].trim(),
             fa: FontAlign.RIGHT,
           },
         ]),
