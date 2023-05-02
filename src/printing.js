@@ -667,8 +667,8 @@ function generateCounterReceipt(
           } else {
             item_obj['addon'] +=
               item_obj['addon'] === ''
-                ? `${addon['name']} x(${addon['qty']})`
-                : `, ${addon['name']} x(${addon['qty']})`;
+                ? `${addon['qty']}x ${addon['name']}`
+                : `, ${addon['qty']}x ${addon['name']}`;
           }
         }
       }
@@ -681,8 +681,8 @@ function generateCounterReceipt(
           ) {
             item_obj['addon'] +=
               item_obj['addon'] === ''
-                ? `${addon['name']} x(${addon['qty']})`
-                : `, ${addon['name']} x(${addon['qty']})`;
+                ? `${addon['qty']}x ${addon['name']}`
+                : `, ${addon['qty']}x ${addon['name']}`;
           }
         }
       }
@@ -746,7 +746,9 @@ function generateCounterReceipt(
     obj['type'] = 'counter';
     obj[KeyName.COUNTER_NAME] = temp_item_data[key][0]['counterName'];
     obj['printerName'] = temp_item_data[key][0]['printerName'];
-    obj[KeyName.ORDER_SEQ] = order_details['order_seq'];
+    obj[KeyName.ORDER_SEQ] = order_details['kiosk_order_seq']
+      ? order_details['kiosk_order_seq']
+      : order_details['order_seq'];
     obj['ptr_id'] = temp_item_data[key][0]['ptr_id']
       ? temp_item_data[key][0]['ptr_id']
       : obj['printerName'];
@@ -879,6 +881,10 @@ function generateCounterReceipt(
       receipt_data.push(item);
     });
   }
+
+  receipt_data = receipt_data.filter(
+    (elem, index, self) => index === self.findIndex((t) => t.ptr_id === elem.ptr_id),
+  );
 
   let final_receipt_data = [];
   const configurable_settings = getSettingVal(rest_details, 'configurable_settings');
