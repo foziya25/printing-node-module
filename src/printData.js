@@ -39,6 +39,7 @@ function generateCashierReportData(
   language = 'en-US',
   print_data = true,
   cashier_report_data = [],
+  staff_details = {},
 ) {
   let receipt = {};
   try {
@@ -70,7 +71,7 @@ function generateCashierReportData(
           order_billings,
           cash_mgt_data,
           cash_mgt_entries_data,
-          {},
+          staff_details,
           country_code,
           language,
         );
@@ -186,6 +187,7 @@ function generatePrintData(
   staff_name = 'Restaurant Manager',
   logo_base_url = '',
   guest_id = '',
+  staff_details = {},
 ) {
   try {
     // generate print logo url for restaurant
@@ -199,7 +201,7 @@ function generatePrintData(
       let receipt_data = [];
 
       order_details['allergic_items'] = getAllergicItemsList(order_details['allergic_items']);
-      order_details['sname'] = staff_name ? staff_name : '';
+      order_details['sname'] = staff_details ? staff_details.user_name : staff_name;
       let order_bill_details = bill_details[0];
 
       /* Modify order_details and bill_details for split bill */
