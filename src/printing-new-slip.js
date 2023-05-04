@@ -709,11 +709,10 @@ function convertTableTransferObj(obj, rest_details, options) {
   data['data'].push(
     formatv2(
       '',
-      `${localize(KeyName.OLD, language)}: ${obj['body'][
-        KeyName.OLD_TABLE
-      ].toString()} ----> ${localize(KeyName.NEW, language)}: ${obj['body'][
-        KeyName.TABLE
-      ].toString()} `,
+      `${localize(KeyName.OLD, language)}: ${obj['body'][KeyName.OLD_TABLE]} ----> ${localize(
+        KeyName.NEW,
+        language,
+      )}: ${obj['body'][KeyName.TABLE]} `,
       undefined,
       undefined,
       FontAlign.CENTER,

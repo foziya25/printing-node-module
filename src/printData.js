@@ -771,7 +771,9 @@ function generateOrderPrintPopUpResponse(
             if (kitchenCounterMapping[kcId] && !kitchenCounterMapping[kcId]['subcategoryIds']) {
               kitchenCounterMapping[kcId]['subcategoryIds'] = [];
             }
-            kitchenCounterMapping[kcId]['subcategoryIds'].push(subcategroyDetail['id']);
+            if (kitchenCounterMapping[kcId]) {
+              kitchenCounterMapping[kcId]['subcategoryIds'].push(subcategroyDetail['id']);
+            }
           }
         }
       }
