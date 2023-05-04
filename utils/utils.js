@@ -616,7 +616,11 @@ function separateStickerPrinterObjects(
     qty: item['item_quantity'],
     unit: getUnit(item),
     addon: '',
-    variant: item['variation_name'] ? item['variation_name'] : '',
+    variant: item['new_variation_name']
+      ? item['new_variation_name']
+      : item['variation_name']
+      ? item['variation_name']
+      : '',
     note: item['special_note'] ? item['special_note'] : '',
   };
 

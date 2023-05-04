@@ -558,8 +558,6 @@ function generateCounterReceipt(
   order_details['order_type'] = result.order_type;
   order_details['table_no'] = result.table_no;
 
-  // order_details.sname = staff_name ? staff_name : '';
-
   // order_details['items'] = unMappedItemMapping(order_details['items']);
   order_details['items'] = getItemsList(
     order_details['items'],
@@ -577,11 +575,6 @@ function generateCounterReceipt(
       (type === 4 && item['itr'] === itr) ||
       type === 6
     ) {
-      // if (
-      //   item['itr'] === itr &&
-      //   item['kitchen_counter_id'] &&
-      //   item['kitchen_counter_id'].includes(kitchen_details['kitchen_counter_id'])
-      // ) {
       /* sticker printer handling */
       if (item['sticker_print']) {
         const sticker_printer_objects = separateStickerPrinterObjects(
@@ -600,10 +593,6 @@ function generateCounterReceipt(
         temp_item_obj[item['itr'] + '_' + item['kitchen_counter_id']] = [];
       }
 
-      // if (!(item['itr'] + '_' + item['kitchen_counter_id'] in temp_kitchen_data)) {
-      //   temp_kitchen_data[item['itr'] + '_' + item['kitchen_counter_id']] = [];
-      // }
-
       if (!(item['itr'] + '_' + item['kitchen_counter_id'] in temp_item_data)) {
         temp_item_data[item['itr'] + '_' + item['kitchen_counter_id']] = [];
       }
@@ -614,9 +603,6 @@ function generateCounterReceipt(
         item_obj['qty'] = item['item_quantity'];
         item_obj['unit'] = getUnit(item);
         item_obj['addon'] = '';
-        // item['variation_name']
-        //   ? getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
-        //   : '';
         item_obj['variant'] = item['new_variation_name']
           ? item['new_variation_name']
           : item['variation_name']
@@ -626,7 +612,6 @@ function generateCounterReceipt(
         item_obj['item_id'] = item['item_id'];
       } else {
         const is_copy = item['is_copy'] ? 1 : 0;
-        // comboPrinting1(item_obj, item, kitchen_details['kitchen_counter_id']);
         comboPrinting(
           temp_item_obj,
           temp_item_data,
@@ -692,20 +677,6 @@ function generateCounterReceipt(
       /* I need to insert addon name which do not have a printer assigned or have same printer as item printer
           for the case of copied item object */
 
-      // for (const addon of item['addons']) {
-      //   if (
-      //     !(addon['printer'] && addon['printer'].trim()) ||
-      //     (addon['printer'] && addon['printer'].trim()) === kitchen_details['printer_name']
-      //   ) {
-      //     item_obj['addon'] +=
-      //       item_obj['addon'] === ''
-      //         ? `${addon['name']} x(${addon['qty']})`
-      //         : `, ${addon['name']} x(${addon['qty']})`;
-      //   }
-      // }
-
-      // temp_item_obj[item['itr'] + '_' + item['kitchen_counter_id']].push(item_obj);
-
       separateVariantByCounter(
         item,
         temp_item_obj,
@@ -726,20 +697,9 @@ function generateCounterReceipt(
           ptr_id: ptr_id,
         });
       }
-
-      // if (temp_kitchen_data[item['itr'] + '_' + item['kitchen_counter_id']].length === 0) {
-      //   temp_kitchen_data[item['itr'] + '_' + item['kitchen_counter_id']].push({
-      //     kitchen_counter_id: item['kitchen_counter_id'],
-      //     counterName: kitchen_details['counter_name']
-      //       ? kitchen_details['counter_name']
-      //       : 'Default Counter',
-      //     printerName: kitchen_details['printer_name']
-      //       ? kitchen_details['printer_name']
-      //       : 'Default Printer',
-      //   });
-      // }
     }
   }
+
   let obj = {};
   for (const key of Object.keys(temp_item_obj)) {
     const obj = {};
@@ -882,9 +842,11 @@ function generateCounterReceipt(
     });
   }
 
-  receipt_data = receipt_data.filter(
-    (elem, index, self) => index === self.findIndex((t) => t.ptr_id === elem.ptr_id),
-  );
+  if (type == 6) {
+    receipt_data = receipt_data.filter(
+      (elem, index, self) => index === self.findIndex((t) => t.ptr_id === elem.ptr_id),
+    );
+  }
 
   let final_receipt_data = [];
   const configurable_settings = getSettingVal(rest_details, 'configurable_settings');

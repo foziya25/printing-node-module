@@ -269,6 +269,18 @@ function generatePrintData(
         bill_details[0] = order_bill_details;
       }
 
+      const language = getPrintLanguage(rest_details);
+
+      /* Attach order type bit map in order_details */
+      const order_type_bit = getOrderTypeBinaryPlace(order_details.order_type);
+
+      /* Modify table_no to table number or platform name */
+      const result = getOrderTypeString(order_details, rest_details, language);
+      order_details.order_type = result.order_type;
+      order_details.table_no = result.table_no;
+      let invalid = true;
+      const response_format = getSettingVal(rest_details, 'response_format');
+
       // --------------------------- type=0 : for counter ---------------------------
       if (type === 0 && counter_id && itr) {
         invalid = false;
@@ -771,7 +783,10 @@ function generateOrderPrintPopUpResponse(
             if (kitchenCounterMapping[kcId] && !kitchenCounterMapping[kcId]['subcategoryIds']) {
               kitchenCounterMapping[kcId]['subcategoryIds'] = [];
             }
-            kitchenCounterMapping[kcId]['subcategoryIds'].push(subcategroyDetail['id']);
+
+            if (kitchenCounterMapping[kcId]) {
+              kitchenCounterMapping[kcId]['subcategoryIds'].push(subcategroyDetail['id']);
+            }
           }
         }
       }
@@ -843,7 +858,9 @@ function generateOrderPrintPopUpResponse(
     if (response) {
       return Object.values(response);
     }
-  } catch (e) {}
+  } catch (e) {
+    return [];
+  }
   return [];
 }
 
