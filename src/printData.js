@@ -876,7 +876,6 @@ function generateOrderPrintPopUpResponse(
             if (kitchenCounterMapping[kcId] && !kitchenCounterMapping[kcId]['subcategoryIds']) {
               kitchenCounterMapping[kcId]['subcategoryIds'] = [];
             }
-
             if (kitchenCounterMapping[kcId]) {
               kitchenCounterMapping[kcId]['subcategoryIds'].push(subcategroyDetail['id']);
             }
