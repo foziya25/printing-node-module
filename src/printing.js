@@ -47,12 +47,17 @@ const { cloneDeep } = require('lodash/lang');
 const { KeyName, FormatType, CountryMapping } = require('../config/enums');
 
 /* generate printing payload for bill receipt */
-function generateBillReceipt(order_details, rest_details, bill_details, merge_bill = false) {
+function generateBillReceipt(
+  order_details,
+  rest_details,
+  bill_details,
+  merge_bill = false,
+  fc_restaurant_details = {},
+) {
   if (order_details) {
     if (order_details.length == 1) {
       order_details = order_details[0];
     }
-    // else if (order_details.length > 1) {}
   } else {
     return [];
   }
@@ -63,13 +68,19 @@ function generateBillReceipt(order_details, rest_details, bill_details, merge_bi
   const pax_enabled = rest_details['settings']['print']['pax'];
   const show_logo = getSettingVal(rest_details, 'show_logo');
   const show_op_order_id = getSettingVal(rest_details, 'show_op_order_id', order_details);
+  //const fc_restaurant_details = getFcRestaurant(order_details['kiosk_id']);
 
   // object to store the same items for final bill aggregating purpose
   let print_data_item_mapping = {};
 
   const obj = {};
   obj['type'] = 'receipt';
-  obj['printerName'] = rest_details['printer'] ? rest_details['printer'] : 'Cashier';
+  obj['printerName'] =
+    order_details['kiosk_order_seq'] && fc_restaurant_details && fc_restaurant_details['printer']
+      ? fc_restaurant_details['printer']
+      : rest_details['printer']
+      ? rest_details['printer']
+      : 'Cashier';
   obj['ptr_id'] = 'master';
 
   if (show_logo && show_logo > 0) {
@@ -103,7 +114,12 @@ function generateBillReceipt(order_details, rest_details, bill_details, merge_bi
     obj['body'][KeyName.TABLE] = order_details['table_no'].toString();
   }
   obj['body'][KeyName.INVOICE] = `#${order_details['order_no']}`;
-  obj['body'][KeyName.ORDER_SEQ] = order_details['order_seq'];
+  obj['body'][KeyName.ORDER_SEQ] = order_details['kiosk_order_seq']
+    ? order_details['kiosk_order_seq']
+    : order_details['order_seq'];
+  if ((show_op_order_id & 1) == 1) {
+    obj['body'][KeyName.INVOICE] = getModifiedOrderNo(order_details);
+  }
 
   const guest_name = order_details.guest_name;
   if (guest_name && guest_name.trim()) {
@@ -408,8 +424,11 @@ function mergeReceiptData(temp_obj, obj, rest_details) {
   const pax_enabled = getSettingVal(rest_details, 'pax');
 
   if (!['', null, undefined].includes(obj['body'][KeyName.TABLE])) {
+    const temp_obj_table_no = temp_obj['body'][KeyName.TABLE]
+      ? temp_obj['body'][KeyName.TABLE].toString()
+      : '';
     temp_obj['body'][KeyName.TABLE] =
-      temp_obj['body'][KeyName.TABLE].toString() + ', ' + obj['body'][KeyName.TABLE].toString();
+      temp_obj_table_no + ', ' + obj['body'][KeyName.TABLE].toString();
   }
   temp_obj['body'][KeyName.INVOICE] += ', ' + obj['body'][KeyName.INVOICE];
   temp_obj['body'][KeyName.NO_OF_ITEMS] += ', ' + obj['body'][KeyName.NO_OF_ITEMS];
@@ -423,8 +442,8 @@ function mergeReceiptData(temp_obj, obj, rest_details) {
     temp_obj['body'][KeyName.CUSTOMER_NAME] += ', ' + obj['body'][KeyName.CUSTOMER_NAME];
   }
 
+  let temp = [...temp_obj['order']['allergic_items']];
   if (temp_obj['order']['allergic_items']) {
-    let temp = [...temp_obj['order']['allergic_items']];
     for (const allergic_item of obj['order']['allergic_items']) {
       let matched = false;
       for (const temp_obj_allergic_item of temp_obj['order']['allergic_items']) {
@@ -478,8 +497,8 @@ function mergeReceiptData(temp_obj, obj, rest_details) {
         matched = true;
         break;
       } else if (
-        (temp_obj_bill['name'].search(KeyName.PAYMENT_MODE) !== -1 &&
-          bill['name'].search(KeyName.PAYMENT_MODE) !== -1) ||
+        (temp_obj_bill['name'].search(KeyName.FINAL_BILL_PAYMENT_MODE) !== -1 &&
+          bill['name'].search(KeyName.FINAL_BILL_PAYMENT_MODE) !== -1) ||
         (temp_obj_bill['name'].search('transaction id') !== -1 &&
           bill['name'].search('transaction id') !== -1)
       ) {
@@ -842,24 +861,14 @@ function generateCounterReceipt(
     });
   }
 
-  if (type == 6) {
-    receipt_data = receipt_data.filter(
-      (elem, index, self) => index === self.findIndex((t) => t.ptr_id === elem.ptr_id),
-    );
-  }
+  receipt_data = receipt_data.filter(
+    (elem, index, self) => index === self.findIndex((t) => t.ptr_id === elem.ptr_id),
+  );
 
   let final_receipt_data = [];
   const configurable_settings = getSettingVal(rest_details, 'configurable_settings');
   if (Object.keys(receipt_data).length > 0) {
     for (const obj of receipt_data) {
-      // this.convertReceiptFormatService.convertFormat(
-      //   obj,
-      //   response_format,
-      //   FormatType.COUNTER,
-      //   rest_details,
-      //   order_type_bit,
-      //   language,
-      // );
       switch (type) {
         case 6:
           final_receipt_data.push(convertTableTransferObj(obj, rest_details));
@@ -1051,7 +1060,6 @@ function generateVoidAndCancelCounterReceipt(
   /* As a single item can be mapped to multiple counters, below function create new copies of item and map it to
   its respective counter. Ex-If one item has kc_id = KC104, KC105 then it creates two object of same item
   and each such object has a single kc_id. */
-  // items_list = getItemsList(items_list, rest_details);
   items_list = getItemsList(items_list, rest_details, {}, subcat_counters, kitchen_counter_details);
 
   for (const item of items_list) {
@@ -1079,7 +1087,9 @@ function generateVoidAndCancelCounterReceipt(
         item_obj['qty'] = item['item_quantity'];
         item_obj['unit'] = getUnit(item);
         item_obj['addon'] = '';
-        item_obj['variant'] = item['variation_name']
+        item_obj['variant'] = item['new_variation_name']
+          ? item['new_variation_name']
+          : item['variation_name']
           ? getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
           : '';
         item_obj['note'] = item['special_note'] ? item['special_note'] : '';
@@ -1131,8 +1141,8 @@ function generateVoidAndCancelCounterReceipt(
           } else {
             item_obj['addon'] +=
               item_obj['addon'] === ''
-                ? `${addon['name']} x(${addon['qty']})`
-                : `, ${addon['name']} x(${addon['qty']})`;
+                ? `${addon['qty']}x ${addon['name']}`
+                : `, ${addon['qty']}x ${addon['name']}`;
           }
         }
       }
@@ -1147,8 +1157,8 @@ function generateVoidAndCancelCounterReceipt(
           ) {
             item_obj['addon'] +=
               item_obj['addon'] === ''
-                ? `${addon['name']} x(${addon['qty']})`
-                : `, ${addon['name']} x(${addon['qty']})`;
+                ? `${addon['qty']}x ${addon['name']}`
+                : `, ${addon['qty']}x ${addon['name']}`;
           }
         }
       }
@@ -1319,8 +1329,12 @@ function generateVoidMasterReceipt(order_details, rest_details, voided_item) {
     qty: voided_item['item_quantity'],
     unit: getUnit(voided_item),
     price: voided_item['item_price'],
-    addon: voided_item['addons_name'] ? voided_item['addons_name'] : '',
-    variant: voided_item['variation_name'] ? voided_item['variation_name'] : '',
+    addon: voided_item['addons_name'] ? swapQtyWithaddonName(voided_item['addons_name']) : '',
+    variant: voided_item['new_variation_name']
+      ? voided_item['new_variation_name']
+      : voided_item['variation_name']
+      ? voided_item['variation_name']
+      : '',
     note: voided_item['special_note'] ? voided_item['special_note'] : '',
     strike: 1,
   };
@@ -1424,8 +1438,12 @@ function generateDeclineMasterReceipt(order_details, rest_details, itr) {
         qty: item['item_quantity'],
         unit: getUnit(item),
         price: item['item_price'],
-        addon: item['addons_name'] ? item['addons_name'] : '',
-        variant: item['variation_name'] ? item['variation_name'] : '',
+        addon: item['addons_name'] ? this.swapQtyWithaddonName(item['addons_name']) : '',
+        variant: item['new_variation_name']
+          ? item['new_variation_name']
+          : item['variation_name']
+          ? item['variation_name']
+          : '',
         note: item['special_note'] ? item['special_note'] : '',
         strike: 1,
       };
@@ -1496,12 +1514,6 @@ function viewCashierReport(rest_details, cashier_report_data, country_code, lang
     restaurant.cash_mgt_printer.trim() !== ''
       ? restaurant.cash_mgt_printer
       : restaurant.printer;
-
-  // const resp = await this.cashMgtRepository.findCashReport({
-  //   restaurant_id: restaurant_id,
-  //   open_cashier_epoch: start_epoch,
-  //   close_cashier_epoch: end_epoch,
-  // });
 
   const resp = cashier_report_data;
 
@@ -1575,7 +1587,6 @@ function cashierReport(
   }
 
   //Check restaurant exists or not.
-  const project = { _id: 0, id: 1, time_zone: 1, printer: 1, cash_mgt_printer: 1, country: 1 };
   const restaurant = rest_details;
   if (!restaurant) {
     throw new Error(localize('restaurantNotFoundError', language));
@@ -1589,11 +1600,6 @@ function cashierReport(
       : restaurant['printer'];
 
   //check if cash management system exists or not.
-  const pipeline1 = [
-    { $match: { restaurant_id: rest_details['id'] } },
-    { $project: { _id: 0, cash_in_drawer: 1, active_epoch: 1 } },
-  ];
-  // const cash_mgt_system = cashMgtAggregation(pipeline1, false, true);
   const cash_mgt_system = cash_mgt_data;
   if (cash_mgt_system.length === 0) {
     throw new Error(localize('cash_management_system_not_found', language));
@@ -1605,24 +1611,8 @@ function cashierReport(
     throw new Error(localize('close_cashier_for_cashier_report', language));
   }
 
-  // const pipeline = [
-  //   { $match: { restaurant_id: restaurant_id, type: 'open-cashier' } },
-  //   { $sort: { created_at: -1 } },
-  // ];
   let result = open_cashier_data;
-  // for (let open_cash_entry of cash_mgt_entries_data) {
-  //   if (open_cash_entry && open_cash_entry['type'] == 'open-cashier') {
-  //     if (
-  //       open_cashier_created_date === 0 ||
-  //       open_cashier_created_date > open_cash_entry['created_at']
-  //     ) {
-  //       result = [open_cash_entry];
-  //       open_cashier_created_date = open_cash_entry['created_at'];
-  //     }
-  //   }
-  // }
-  // const result = await this.cashMgtRepository.aggregateTxnEntries(pipeline, false, true);
-  // result = cash_mgt_entries_data;
+
   if (result.length === 0) {
     throw new Error(localize('no_entries_found', language));
   }
@@ -1634,78 +1624,39 @@ function cashierReport(
     cash_mgt_entries_data,
   );
   const cash_float = cash_info['total-open-cashier'] ? Number(cash_info['total-open-cashier']) : 0;
-  /* staff name who did the cashier closed */
-  // pipeline[0]['$match']['type'] = 'close-cashier';
-  // const close_cashier_result = await this.cashMgtRepository.aggregateTxnEntries(
-  //   pipeline,
-  //   false,
-  //   true,
-  // );
+
   const close_cashier_result = close_cashier_data;
-  // let close_cashier_created_date = 0;
-  // for (let close_cash_entry of cash_mgt_entries_data) {
-  //   if (close_cash_entry && close_cash_entry['type'] == 'close-cashier') {
-  //     if (
-  //       close_cashier_created_date === 0 ||
-  //       close_cashier_created_date > close_cash_entry['created_at']
-  //     ) {
-  //       close_cashier_result = [close_cash_entry];
-  //       close_cashier_created_date = close_cash_entry['created_at'];
-  //     }
-  //   }
-  // }
-  // for (let close_cash_entry of cash_mgt_entries_data) {
-  //   if (close_cash_entry && close_cash_entry['type'] == 'close-cashier') {
-  //     close_cashier_result.push(close_cash_entry);
-  //   }
-  // }
+
   if (close_cashier_result.length === 0) {
     throw new Error(localize('no_entries_found', language));
   }
   const staff_name = close_cashier_result[0].staff_name;
   const close_cashier_amount = Number(close_cashier_result[0].amount);
   const cashier_closed_epoch = close_cashier_result[0].created_at;
-  /* Find cash sales by orders */
-  // const order_pipeline = [
-  //   {
-  //     $match: {
-  //       restaurant_id: restaurant_id,
-  //       completed_at: { $gte: cashier_open_epoch, $lte: cashier_closed_epoch },
-  //       order_status: 4,
-  //     },
-  //   },
-  // ];
-  // const found_orders = await this.orderDetailsRepository.getOrderDetailsAggregate(
-  //   order_pipeline,
-  //   true,
-  //   true,
-  // );
+
   const found_orders = order_details_aggregate;
   let cash_sales_by_orders = 0;
   if (found_orders.length === 0) {
+    this.logger.warn('No orders found');
   } else {
     const order_ids_list = [];
     for (const order of found_orders) {
       order_ids_list.push(order.order_id);
     }
-    // const orders_billing = await this.orderBillingRepository.getOrdersBills(
-    //   order_ids_list,
-    //   {},
-    //   true,
-    // );
-    // const order_billings =
-    order_billings.forEach((order_bill) => {
-      const payments = order_bill.payments;
-      payments.forEach((payment) => {
-        if (
-          payment.status === 1 &&
-          payment.payment_method &&
-          payment.payment_method.toLowerCase() === 'cash'
-        ) {
-          cash_sales_by_orders += payment.amount;
-        }
+    if (order_billings && order_billings.length > 0) {
+      order_billings.forEach((order_bill) => {
+        const payments = order_bill.payments;
+        payments.forEach((payment) => {
+          if (
+            payment.status === 1 &&
+            payment.payment_method &&
+            payment.payment_method.toLowerCase() === 'cash'
+          ) {
+            cash_sales_by_orders += payment.amount;
+          }
+        });
       });
-    });
+    }
   }
 
   return {

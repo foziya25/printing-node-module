@@ -192,7 +192,7 @@ function getAddons(item) {
   const addons = item.addons && Array.isArray(item.addons) ? item.addons : [];
   if (addons.length == 0 && item.addons_name && item.addons_name != '') {
     const addons_list = item.addons_name.split(',').filter((e) => e.trim());
-    addons_list.forEach((addon) => addons.push({ name: addon.trim() }));
+    addons_list.forEach((addon) => addons.push({ name: addon.trim(), qty: 1 }));
   }
   return addons;
 }
@@ -200,15 +200,17 @@ function getAddons(item) {
 /* Return an array of only successful payments with payment channel name */
 function getOnlySuccessfulPayments(payments_list) {
   const payments = [];
-  for (const item of payments_list) {
-    if (item['status'] === 1) {
-      if (item['payment_channel']) {
-        item['payment_method'] = getPmtMethodName(item['payment_channel']);
-      } else {
-        item['payment_channel'] = getPmtMethodName(item['payment_method']);
-        item['payment_method'] = item['payment_channel'];
+  if (payments_list && payments_list.length > 0) {
+    for (const item of payments_list) {
+      if (item['status'] === 1) {
+        if (item['payment_channel']) {
+          item['payment_method'] = getPmtMethodName(item['payment_channel']);
+        } else {
+          item['payment_channel'] = getPmtMethodName(item['payment_method']);
+          item['payment_method'] = item['payment_channel'];
+        }
+        payments.push(item);
       }
-      payments.push(item);
     }
   }
   return payments;
@@ -245,8 +247,8 @@ function getPrintLanguage(rest_details) {
 /* add date time for receipts */
 function addDateTime(order_details, rest_details) {
   const timezone = rest_details.time_zone;
-  const created_at_moment = moment.tz(moment.unix(order_details.created_at), timezone);
-  const date_time = {
+  let created_at_moment = moment.tz(moment.unix(order_details.created_at), timezone);
+  let date_time = {
     datetime: created_at_moment.format('YYYY-MM-DD hh:mm A'),
     date: created_at_moment.format('YYYY-MM-DD'),
     time: created_at_moment.format('hh:mm A'),
@@ -257,6 +259,20 @@ function addDateTime(order_details, rest_details) {
     date_time.datetime = time_epcoh_moment.format('YYYY-MM-DD hh:mm A');
     date_time.date = time_epcoh_moment.format('YYYY-MM-DD');
     date_time.time = time_epcoh_moment.format('hh:mm A');
+  }
+  if (order_details && order_details.items && order_details.items.length > 0) {
+    let maxItr = 0;
+    order_details.items.forEach(function (item) {
+      if (item.itr > maxItr) {
+        maxItr = item.itr;
+        created_at_moment = moment.tz(moment.unix(item.created_at), timezone);
+        date_time = {
+          datetime: created_at_moment.format('YYYY-MM-DD hh:mm A'),
+          date: created_at_moment.format('YYYY-MM-DD'),
+          time: created_at_moment.format('hh:mm A'),
+        };
+      }
+    });
   }
   return date_time;
 }
@@ -334,8 +350,10 @@ function comboPrinting(
   item_obj['qty'] = item['item_quantity'];
   item_obj['unit'] = getUnit(item);
   item_obj['addon'] = '';
-  item_obj['variant'] = item['variation_name']
-    ? getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
+  item_obj['variant'] = item['new_variation_name']
+    ? item['new_variation_name']
+    : item['variation_name']
+    ? this.getModifiedVariantName({ ...item }, item['kitchen_counter_id'])
     : '';
   item_obj['note'] = item['special_note'] ? item['special_note'] : '';
   item_obj['item_id'] = item['item_id'];
@@ -448,13 +466,6 @@ function separateVariantByCounter(
           } else {
             printer_variant_name_arr_map[printer] = [variant['name']];
           }
-          // temp_item_obj[item['itr'] + '_' + printer].push({
-          //   name: show_item_name_with_variant ? item['item_name'] : '',
-          //   qty: item['item_quantity'],
-          //   addon: '',
-          //   variant: `VARIANT: ${variant['name']}`,
-          //   note: item['special_note'] ? item['special_note'] : '',
-          // });
           if (temp_item_data[item['itr'] + '_' + printer].length === 0) {
             try {
               temp_item_data[item['itr'] + '_' + printer].push({
@@ -521,6 +532,7 @@ function getSettingVal(rest_details, name, order_details = {}) {
     'language_code',
     'show_item_name_with_variant',
     'print_bahasa',
+    'qty_align',
   ];
   const menu_keys = ['item_code', 'pax'];
 
@@ -572,14 +584,14 @@ function getUnit(item) {
 }
 
 /* Get round off value around a base value */
-function getRoundOffValue(value, base) {
+function getRoundOffValue(value, base, roundup = false) {
   base = base > 0 ? base : 1;
   // Smaller multiple
   const a = parseInt((Number(value) / base).toString()) * base;
   // Larger multiple
   const b = a + base;
   // Return of closest of two
-  return value - a >= b - value ? b : a;
+  return value - a >= b - value || (roundup === true && value - a > 0) ? b : a;
 }
 
 function getAddons(item) {
@@ -728,7 +740,13 @@ function separateStickerPrinterObjects(
 }
 
 function getModifiedVariantName(item, item_kc_id) {
-  const variant_name_array = item['variation_name'].split(',');
+  const variant_name_array = (
+    item['new_variation_name']
+      ? item['new_variation_name']
+      : item['variation_name']
+      ? item['variation_name']
+      : ''
+  ).split(',');
   if (item['is_copy']) {
     if (item['variant_printer_copy']) {
       for (const variant of item['variant_printer_copy']) {
@@ -949,39 +967,17 @@ function getItemsList(
       item['kitchen_counter_id'] && item['kitchen_counter_id'].trim()
         ? item['kitchen_counter_id']
         : '';
-    // let item_kc_details = menu_kitchen_counter[`${item['item_id']}`];
-    // const query_select = `SELECT kitchen_counter_id FROM menu WHERE id='${item['item_id']}'`;
-    // try {
-    //   item_kc_details = await this.menuRepository.getQueryResult(query_select);
-    // } catch (e) {}
 
-    // if (item_kc_details.length > 0 && item_kc_details[0]['kitchen_counter_id']) {
     if (
       kitchen_counter_details[item['item_id']] &&
       Object.keys(kitchen_counter_details[item['item_id']]).length > 0
     ) {
-      // const kc_id_str = item_kc_details['kitchen_counter_id'];
       let kc_id_list = [];
       for (let counter_id of Object.keys(kitchen_counter_details[`${item['item_id']}`])) {
-        // kc_id_list.push(kc_info['kc_id']);
         kc_id_list.push(counter_id);
       }
-      // const kc_id_list = kc_id_str
-      //   .split(',')
-      //   .filter((e) => e.trim())
-      //   .map((e) => e.trim());
-
-      // const kc_ids = ['""'];
-      // kc_id_list.forEach((kc_id) => {
-      //   kc_ids.push('"' + kc_id + '"');
-      // });
 
       let all_counters = kitchen_counter_details[item['item_id']];
-      // const query = `SELECT * FROM kitchen_counters
-      //                WHERE restaurant_id = "${restaurant_id}" AND kitchen_counter_id IN (${kc_ids})`;
-      // try {
-      //   all_counters = await this.kitchenCounterRepository.getQueryResult(query);
-      // } catch (e) {}
 
       for (const kc_id of kc_id_list) {
         const temp_item = { ...item };
@@ -1055,14 +1051,7 @@ function getItemsList(
 
     if (count === 0) {
       let item_copy_count = 0;
-      // const query = `SELECT spm.kc_id, kc.counter_name, kc.printer_name, kc.is_sticker_printer,kc.kitchen_counter_id
-      // FROM subcat_printer_mapping spm INNER JOIN kitchen_counters kc
-      // ON spm.kc_id = kc.kitchen_counter_id
-      // WHERE spm.subcat_id = "${item['subcategory_id']}" AND kc.status=1;`;
       let all_counters = subcat_counters[item['subcategory_id']];
-      // try {
-      //   all_counters = await this.kitchenCounterRepository.getQueryResult(query);
-      // } catch (e) {}
 
       if (all_counters && all_counters.length > 0) {
         for (const counter of all_counters) {
@@ -1085,18 +1074,14 @@ function getItemsList(
           if (counter['is_sticker_printer']) {
             temp_item['sticker_print'] = 1;
             /* configurable sticker printing */
-            temp_item['is_single_roll'] = counter_details['is_single_roll']
-              ? counter_details['is_single_roll']
+            temp_item['is_single_roll'] = counter['is_single_roll'] ? counter['is_single_roll'] : 0;
+            temp_item['auto_cut_enabled'] = counter['auto_cut_enabled']
+              ? counter['auto_cut_enabled']
               : 0;
-            temp_item['auto_cut_enabled'] = counter_details['auto_cut_enabled']
-              ? counter_details['auto_cut_enabled']
-              : 0;
-            temp_item['sticker_height'] = counter_details['sticker_height']
-              ? counter_details['sticker_height']
+            temp_item['sticker_height'] = counter['sticker_height']
+              ? counter['sticker_height']
               : '40';
-            temp_item['sticker_width'] = counter_details['sticker_width']
-              ? counter_details['sticker_width']
-              : '48';
+            temp_item['sticker_width'] = counter['sticker_width'] ? counter['sticker_width'] : '48';
           }
           new_items_list.push(temp_item);
           item_copy_count += 1;
@@ -1160,7 +1145,7 @@ function getOrderTypeString(order_details, rest_details, language = null) {
 }
 
 function getModifiedOrderNo(order_details) {
-  if (order_details['platform'] === 'grab') {
+  if (order_details['platform'] === 'grab' || order_details['platform'] === 'grabfood') {
     return `${order_details['order_no']} ( ${order_details['op_no']} )`;
   } else {
     return `${order_details['order_no']} ( ${order_details['order_id']} )`;
@@ -1373,6 +1358,17 @@ function getAllergicItemsList(allergic_items) {
   return allergic_items_list;
 }
 
+/* Get is_paid status of order  */
+function getIsPaid(bill) {
+  let is_paid = 0;
+  try {
+    const balance = Number(bill['balance']);
+    const paid = Number(bill['paid']);
+    is_paid = balance < 0 ? 4 : balance === 0 ? 3 : balance > 0 && paid > 0 ? 2 : 1;
+  } catch (e) {}
+  return is_paid;
+}
+
 module.exports = {
   getOnlySuccessfulPayments,
   getAddons,
@@ -1398,6 +1394,7 @@ module.exports = {
   getCurrentLocale,
   getRoundOffValue,
   getAllergicItemsList,
+  getIsPaid,
 };
 
 //console.log(formatv2("", [{ name: "saurabh" }]));

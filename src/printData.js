@@ -18,6 +18,7 @@ const {
   getOrderTypeString,
   getPrintLanguage,
   getAllergicItemsList,
+  getIsPaid,
 } = require('../utils/utils');
 const { localize, generateReportV2, generateReceiptV2 } = require('../utils/printing-utils');
 const { KeyName } = require('../config/enums');
@@ -337,31 +338,13 @@ function generatePrintData(
       // -------------- type=4 : for counters only or auto accept case -------------
       else if (type == 4 && itr) {
         invalid = false;
-        let print_code = 0;
+        if (!checkPosPaidOrders(order_details, bill_details, rest_details)) {
+          let print_code = 0;
 
-        const on_accept_new_order = getSettingVal(rest_details, 'on_accept_new_order');
-        const on_accept_new_itr = getSettingVal(rest_details, 'on_accept_new_itr');
+          const on_accept_new_order = getSettingVal(rest_details, 'on_accept_new_order');
+          const on_accept_new_itr = getSettingVal(rest_details, 'on_accept_new_itr');
 
-        if (!on_accept_new_order && !on_accept_new_itr) {
-          receipt_data = receipt_data.concat(
-            generateCounterReceipt(
-              { ...order_details },
-              rest_details,
-              subcat_counters,
-              itr,
-              4,
-              kitchen_counter_details,
-              printer_mapping,
-            ),
-          );
-        } else {
-          print_code = itr === 1 ? on_accept_new_order : on_accept_new_itr;
-        }
-
-        if (print_code > 0) {
-          // 2: counter_obj
-          if ((print_code & 2) === 2) {
-            // generate counter data
+          if (!on_accept_new_order && !on_accept_new_itr) {
             receipt_data = receipt_data.concat(
               generateCounterReceipt(
                 { ...order_details },
@@ -373,32 +356,52 @@ function generatePrintData(
                 printer_mapping,
               ),
             );
+          } else {
+            print_code = itr === 1 ? on_accept_new_order : on_accept_new_itr;
           }
-          const master_enabled = getSettingVal(rest_details, 'master_docket');
-          if (master_enabled && master_enabled > 0) {
-            // 4: master order list
-            if ((print_code & 4) == 4) {
-              const note_type = itr > 1 ? 'Order Updated' : '';
-              // generate master list data
-              receipt_data.push(
-                generateMasterOrderReceipt(
+
+          if (print_code > 0) {
+            // 2: counter_obj
+            if ((print_code & 2) === 2) {
+              // generate counter data
+              receipt_data = receipt_data.concat(
+                generateCounterReceipt(
                   { ...order_details },
                   rest_details,
+                  subcat_counters,
                   itr,
-                  note_type,
-                  true,
-                  '',
-                  '',
+                  4,
+                  kitchen_counter_details,
+                  printer_mapping,
                 ),
               );
             }
-          }
-          if ((print_code & 1) === 1) {
-            // 1: receipt obj
-            // generating receipt data
-            receipt_data.push(
-              generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
-            );
+            const master_enabled = getSettingVal(rest_details, 'master_docket');
+            if (master_enabled && master_enabled > 0) {
+              // 4: master order list
+              if ((print_code & 4) == 4) {
+                const note_type = itr > 1 ? 'Order Updated' : '';
+                // generate master list data
+                receipt_data.push(
+                  generateMasterOrderReceipt(
+                    { ...order_details },
+                    rest_details,
+                    itr,
+                    note_type,
+                    true,
+                    '',
+                    '',
+                  ),
+                );
+              }
+            }
+            if ((print_code & 1) === 1) {
+              // 1: receipt obj
+              // generating receipt data
+              receipt_data.push(
+                generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
+              );
+            }
           }
         }
       }
@@ -407,45 +410,22 @@ function generatePrintData(
       // ------------------------------- type=3 : for void dishes --------------------------
       else if (type === 3 && qty > 0 && oid !== '') {
         invalid = false;
-        let voided_item = {};
-        const void_index = order_details.void_items
-          ? order_details.void_items.findIndex((e) => e.order_item_id === oid)
-          : -1;
-        if (void_index > -1) {
-          voided_item = { ...order_details.void_items[void_index] };
-          voided_item.item_quantity = qty;
-        }
-        let print_code = 0;
-
-        const on_void_unaccepted = getSettingVal(rest_details, 'on_void_unaccepted');
-        const on_void_accepted = getSettingVal(rest_details, 'on_void_accepted');
-        const on_void_new_itr = getSettingVal(rest_details, 'on_void_new_itr');
-
-        if (!on_void_unaccepted && !on_void_accepted && !on_void_new_itr) {
-          receipt_data = receipt_data.concat(
-            generateVoidAndCancelCounterReceipt(
-              { ...order_details },
-              3,
-              rest_details,
-              '',
-              oid,
-              qty,
-              subcat_counters,
-              kitchen_counter_details,
-            ),
-          );
-        } else {
-          if (voided_item.item_status === 0 && voided_item.itr === 1) {
-            print_code = on_void_unaccepted;
-          } else if (voided_item.item_status === 0 && voided_item.itr > 1) {
-            print_code = on_void_new_itr;
-          } else if ([1, 2, 3].includes(voided_item.item_status)) {
-            print_code = on_void_accepted;
+        if (!this.checkPosPaidOrders(order_details, bill_details, rest_details)) {
+          let voided_item = {};
+          const void_index = order_details.void_items
+            ? order_details.void_items.findIndex((e) => e.order_item_id === oid)
+            : -1;
+          if (void_index > -1) {
+            voided_item = { ...order_details.void_items[void_index] };
+            voided_item.item_quantity = qty;
           }
-        }
+          let print_code = 0;
 
-        if (print_code > 0) {
-          if ((print_code & 2) === 2) {
+          const on_void_unaccepted = getSettingVal(rest_details, 'on_void_unaccepted');
+          const on_void_accepted = getSettingVal(rest_details, 'on_void_accepted');
+          const on_void_new_itr = getSettingVal(rest_details, 'on_void_new_itr');
+
+          if (!on_void_unaccepted && !on_void_accepted && !on_void_new_itr) {
             receipt_data = receipt_data.concat(
               generateVoidAndCancelCounterReceipt(
                 { ...order_details },
@@ -458,28 +438,53 @@ function generatePrintData(
                 kitchen_counter_details,
               ),
             );
+          } else {
+            if (voided_item.item_status === 0 && voided_item.itr === 1) {
+              print_code = on_void_unaccepted;
+            } else if (voided_item.item_status === 0 && voided_item.itr > 1) {
+              print_code = on_void_new_itr;
+            } else if ([1, 2, 3].includes(voided_item.item_status)) {
+              print_code = on_void_accepted;
+            }
           }
 
-          const master_enabled = getSettingVal(rest_details, 'master_docket');
-          if (master_enabled && master_enabled > 0) {
-            if ((print_code & 4) === 4) {
-              receipt_data.push(
-                generateMasterOrderReceipt(
+          if (print_code > 0) {
+            if ((print_code & 2) === 2) {
+              receipt_data = receipt_data.concat(
+                generateVoidAndCancelCounterReceipt(
                   { ...order_details },
+                  3,
                   rest_details,
-                  true,
-                  null,
                   '',
-                  '',
-                  '',
+                  oid,
+                  qty,
+                  subcat_counters,
+                  kitchen_counter_details,
                 ),
               );
+            }
 
-              if ((print_code & 8) === 8) {
-                // 8: print master docket
+            const master_enabled = getSettingVal(rest_details, 'master_docket');
+            if (master_enabled && master_enabled > 0) {
+              if ((print_code & 4) === 4) {
                 receipt_data.push(
-                  generateVoidMasterReceipt({ ...order_details }, rest_details, voided_item),
+                  generateMasterOrderReceipt(
+                    { ...order_details },
+                    rest_details,
+                    true,
+                    null,
+                    true,
+                    '',
+                    '',
+                  ),
                 );
+
+                if ((print_code & 8) === 8) {
+                  // 8: print master docket
+                  receipt_data.push(
+                    generateVoidMasterReceipt({ ...order_details }, rest_details, voided_item),
+                  );
+                }
               }
             }
           }
@@ -490,8 +495,6 @@ function generatePrintData(
       // ------------------ type=5 : show canceled order items/declined items --------------------
       else if (type === 5 && itr) {
         invalid = false;
-
-        //const on_decline = rest_details['settings']['print']['on_decline'];
 
         const on_decline = getSettingVal(rest_details, 'on_decline');
         if ((on_decline & 2) === 2) {
@@ -598,6 +601,95 @@ function generatePrintData(
           );
         }
       }
+      // type=8 (pos preapid order receipt print)
+      else if (type == 8 && itr) {
+        /*
+          --------- case of prepaid ordering from POS ---------
+          final receipt bill is generated by default and other
+          receipts are generated on basis of auto print settings 
+          1 --> order bill is paid
+          2 --> restaurant POS prepaid flag is enabled
+          3 --> order by MM
+        */
+        invalid = false;
+        if (!checkPosPaidOrders(order_details, bill_details, rest_details)) {
+          /* -------- final bill generation -------- */
+          if (order_details.items?.length > 0) {
+            itr = order_details.items[order_details.items?.length - 1]['itr'];
+          }
+
+          // generating receipt data
+          receipt_data.push(
+            generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
+          );
+
+          /* -------- create other receipts if ordered from POS -------- */
+          if (isPosOrder(order_details) && rest_details?.settings?.global?.is_pos_prepaid_enabled) {
+            /* -------- counter/master receipt generation -------- */
+            let print_code = 0;
+
+            const on_accept_new_order = getSettingVal(rest_details, 'on_accept_new_order');
+            const on_accept_new_itr = getSettingVal(rest_details, 'on_accept_new_itr');
+
+            if (!on_accept_new_order && !on_accept_new_itr) {
+              receipt_data = receipt_data.concat(
+                generateCounterReceipt(
+                  { ...order_details },
+                  rest_details,
+                  subcat_counters,
+                  itr,
+                  4,
+                  kitchen_counter_details,
+                  printer_mapping,
+                  '',
+                  '',
+                  '',
+                ),
+              );
+            } else {
+              print_code = itr === 1 ? on_accept_new_order : on_accept_new_itr;
+            }
+
+            if (print_code > 0) {
+              // 2: counter_obj
+              if ((print_code & 2) === 2) {
+                receipt_data = receipt_data.concat(
+                  generateCounterReceipt(
+                    { ...order_details },
+                    rest_details,
+                    subcat_counters,
+                    itr,
+                    4,
+                    kitchen_counter_details,
+                    printer_mapping,
+                    '',
+                    '',
+                    '',
+                  ),
+                );
+              }
+              const master_enabled = getSettingVal(rest_details, 'master_docket');
+              if (master_enabled && master_enabled > 0) {
+                // 4: master order list
+                if ((print_code & 4) == 4) {
+                  const note_type = itr > 1 ? 'Order Updated' : '';
+                  receipt_data.push(
+                    generateMasterOrderReceipt(
+                      { ...order_details },
+                      rest_details,
+                      true,
+                      note_type,
+                      true,
+                      '',
+                      '',
+                    ),
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
 
       return receipt_data;
     }
@@ -615,13 +707,14 @@ function generatePrintData(
         if (!bill_detail) {
           return [];
         }
-
+        const language = getPrintLanguage(rest_details);
         order_detail['allergic_items'] = getAllergicItemsList(order_detail['allergic_items']);
 
         /* Attach order type bit map in order_details */
         order_type_bit = getOrderTypeBinaryPlace(order_detail.order_type);
         try {
           const result = getOrderTypeString({ ...order_detail }, rest_details);
+          order_details.order_type = result.order_type;
           order_detail.table_no = result.table_no;
         } catch (e) {
           this.logger.error(e);
@@ -862,6 +955,44 @@ function generateOrderPrintPopUpResponse(
     return [];
   }
   return [];
+}
+
+/**
+ * Checks whether a prepaid order made through a Point of Sale (POS) system has been unpaid for.
+ *
+ * @param {Object} orderDetails - Details of the order being checked, including the order_by property representing the method of ordering.
+ * @param {Object} billDetails - Details of the bill for the order being checked.
+ * @param {Object} restDetails - Details of the restaurant, including a settings object containing a global object with the is_pos_prepaid_enabled property.
+ * @returns {boolean} Returns true if the order has been unpaid for, false otherwise.
+ */
+function checkPosPaidOrders(orderDetails, billDetails, restDetails) {
+  let result = false;
+  try {
+    const isPosPrepaidEnabled = restDetails?.settings?.global?.is_pos_prepaid_enabled;
+    const isOrderPaid = getIsPaid(billDetails) < 3;
+    const isOrderPlacedByPos = ['MM', 'mPOS'].includes(orderDetails.order_by);
+
+    result = isPosPrepaidEnabled && isOrderPlacedByPos && isOrderPaid ? true : false;
+  } catch (e) {
+    this.logger.error('Unable to check prepaid POS order condition due to following error ', e);
+  }
+  return result;
+}
+
+/**
+ * Check if an order is placed by a POS (Point of Sale) device.
+ *
+ * @param orderDetails - The details of the order to be checked.
+ * @returns `true` if the order is placed by a POS device, `false` otherwise.
+ * @throws `NotAcceptableException` if the order creation source could not be identified.
+ */
+function isPosOrder(orderDetails) {
+  try {
+    const isOrderPlacedByPos = ['MM', 'mPOS'].includes(orderDetails.order_by);
+    return isOrderPlacedByPos;
+  } catch (e) {
+    return false;
+  }
 }
 
 module.exports = {
