@@ -861,9 +861,11 @@ function generateCounterReceipt(
     });
   }
 
-  receipt_data = receipt_data.filter(
-    (elem, index, self) => index === self.findIndex((t) => t.ptr_id === elem.ptr_id),
-  );
+  if (type == 6) {
+    receipt_data = receipt_data.filter(
+      (elem, index, self) => index === self.findIndex((t) => t.ptr_id === elem.ptr_id),
+    );
+  }
 
   let final_receipt_data = [];
   const configurable_settings = getSettingVal(rest_details, 'configurable_settings');
