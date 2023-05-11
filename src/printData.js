@@ -806,6 +806,9 @@ function createPrinterMappingsHelper(kitchenCounterDetails, itemDetails, subcate
             printer_name: kitchenCounterDetail['printer_name'],
             kitchen_counter_id: kitchenCounterDetail['kitchen_counter_id'],
             /* initialising sticker printer configurations */
+            is_sticker_printer: kitchenCounterDetail['is_sticker_printer']
+              ? kitchenCounterDetail['is_sticker_printer']
+              : 0,
             is_single_roll: kitchenCounterDetail['is_single_roll']
               ? kitchenCounterDetail['is_single_roll']
               : 0,
