@@ -603,7 +603,7 @@ function getCashInfo(
 
   const cash_info = cash_mgt_data;
   if (cash_info.length === 0) {
-    throw new Error(localize('cashManagementNotFoundError', language));
+    return [];
   }
   const response = {};
   let active_epoch;

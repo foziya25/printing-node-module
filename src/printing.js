@@ -442,8 +442,9 @@ function mergeReceiptData(temp_obj, obj, rest_details) {
     temp_obj['body'][KeyName.CUSTOMER_NAME] += ', ' + obj['body'][KeyName.CUSTOMER_NAME];
   }
 
-  let temp = [...temp_obj['order']['allergic_items']];
+  let temp = [];
   if (temp_obj['order']['allergic_items']) {
+    temp = [...temp_obj['order']['allergic_items']];
     for (const allergic_item of obj['order']['allergic_items']) {
       let matched = false;
       for (const temp_obj_allergic_item of temp_obj['order']['allergic_items']) {
@@ -1638,9 +1639,7 @@ function cashierReport(
 
   const found_orders = order_details_aggregate;
   let cash_sales_by_orders = 0;
-  if (found_orders.length === 0) {
-    this.logger.warn('No orders found');
-  } else {
+  if (found_orders.length > 0) {
     const order_ids_list = [];
     for (const order of found_orders) {
       order_ids_list.push(order.order_id);
