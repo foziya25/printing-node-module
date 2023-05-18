@@ -10,6 +10,7 @@ const {
   AddonVariantReceiptEnum,
   AddonVariantNameEnum,
   AddonVariantBitEnum,
+  PrintLanguage,
 } = require('../config/enums');
 
 const { getLocalizedData, getPrintLanguage, getSettingVal } = require('./utils');
@@ -116,8 +117,14 @@ function insertHeaders(obj, keys = [], language = CountryMapping.MALAYSIA.langua
 function addItems(items, rest_details, configurable_settings, language) {
   const split_addon_variant = getSettingVal(rest_details, 'split_addon_variant');
   language = language || getPrintLanguage(rest_details);
+  const qty_align = getSettingVal(rest_details, 'qty_align');
 
   const temp_arr = [];
+  let header_array = [{ name: `${localize(KeyName.ITEM_NAME, language).toUpperCase()}` }];
+  const qty_header = { name: 'QTY', fw: 6, fa: FontAlign.RIGHT };
+  if (qty_align !== 'l') {
+    header_array.push(qty_header);
+  }
   temp_arr.push(
     formatv2(
       '',
@@ -133,13 +140,19 @@ function addItems(items, rest_details, configurable_settings, language) {
   for (const item of items) {
     const strike = item['strike'] && item['strike'] === 1 ? 1 : 0;
     if (item['name'] && item['name'].trim()) {
+      let print_array = [
+        { name: item['name'].toUpperCase(), strike: strike },
+        { name: item['qty'].toString(), fw: 6, fa: FontAlign.RIGHT, strike: strike },
+      ];
+      if (qty_align === 'l') {
+        print_array = [
+          { name: item['qty'].toString() + ' x ' + item['name'].toUpperCase(), strike: strike },
+        ];
+      }
       temp_arr.push(
         formatv2(
           '',
-          [
-            { name: item['name'].toUpperCase(), strike: strike },
-            { name: item['qty'].toString(), fw: 6, fa: FontAlign.RIGHT, strike: strike },
-          ],
+          print_array,
           configurable_settings ? configurable_settings['item_name']['fs'] : undefined,
           configurable_settings ? configurable_settings['item_name']['ft'] : undefined,
         ),
@@ -588,15 +601,9 @@ function getCashInfo(
     throw new Error(localize('restaurantNotFoundError', language));
   }
 
-  //check if cash management system exists or not.
-  // const pipeline1 = [
-  //   { $match: { restaurant_id: restaurant_id } },
-  //   { $project: { _id: 0, cash_in_drawer: 1, active_epoch: 1 } },
-  // ];
-  // const cash_info = await this.cashMgtRepository.cashMgtAggregation(pipeline1, false, true);
   const cash_info = cash_mgt_data;
   if (cash_info.length === 0) {
-    throw new BadRequestException(localize('cashManagementNotFoundError', language));
+    return [];
   }
   const response = {};
   let active_epoch;
@@ -615,7 +622,7 @@ function getCashInfo(
     response['total-open-cashier'] = 0;
     let type_wise_result = {};
     let result = [];
-    for (cash_mgt_entry of cash_mgt_entries_data) {
+    for (const cash_mgt_entry of cash_mgt_entries_data) {
       if (
         cash_mgt_entry['restaurant_id'] === rest_details['id'] &&
         cash_mgt_entry['created_at'] >= active_epoch

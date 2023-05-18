@@ -482,6 +482,10 @@ class PaymentConfig {
     ];
   }
 
+  getOfflineRefundOnlyList() {
+    return ['offline_citibank'];
+  }
+
   /* Get online payment methods excluding netbanking */
   getOnlinePmtMethods() {
     return [...this.getOnlineWalletList(), ...this.getCreditCardList()];
@@ -537,6 +541,11 @@ const getPmtMethods = (type) => {
   // 6:offline cards
   if (type.includes(6)) {
     pmt_channels = pmt_channels.concat(pmtConfig.getOfflineCreditCardList());
+  }
+  // 7:refund only pmt methods
+  if (type.includes(7)) {
+    // pmt_channels = pmt_channels.concat(pmtConfig.getRefundOnlyMethodList());
+    pmt_channels = pmt_channels.concat(pmtConfig.getOfflineRefundOnlyList());
   }
   for (const channel of pmt_channels) {
     obj[channel] = pmt_obj[channel];

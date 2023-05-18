@@ -150,10 +150,10 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false) {
         ]),
       );
     }
-    if (item['addon'] && item['addon'].trim()) {
+    if (item['variant'] && item['variant'].trim()) {
       splitAddonVariantByLine(
-        item['addon'],
-        AddonVariantNameEnum.ADDON,
+        item['variant'],
+        AddonVariantNameEnum.VARIANT,
         0,
         AddonVariantReceiptEnum.RECEIPT,
         split_addon_variant,
@@ -164,10 +164,10 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false) {
       });
     }
 
-    if (item['variant'] && item['variant'].trim()) {
+    if (item['addon'] && item['addon'].trim()) {
       splitAddonVariantByLine(
-        item['variant'],
-        AddonVariantNameEnum.VARIANT,
+        item['addon'],
+        AddonVariantNameEnum.ADDON,
         0,
         AddonVariantReceiptEnum.RECEIPT,
         split_addon_variant,
@@ -199,6 +199,7 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false) {
     }
   }
   data['data'].push(line_break());
+
   for (const bill of obj['order']['bill']) {
     if (bill['name'] === KeyName.TOTAL) {
       data['data'].push(line_break());
@@ -375,6 +376,7 @@ function convertCounterObj(
   order_type_bit,
   configurable_settings = {},
   options = {},
+  reprinted_data = false,
 ) {
   // for old receispt design
   if (getSettingVal(rest_details, 'response_format') === 0) {
@@ -400,6 +402,24 @@ function convertCounterObj(
     });
   }
 
+  if (reprinted_data && reprinted_data === true) {
+    data['data'].push(line_break());
+    data['data'].push(
+      formatv2(
+        '',
+        [
+          {
+            name: 'REPRINTED',
+          },
+        ],
+        FontSize.MEDIUM,
+        FontType.BOLD,
+        FontAlign.CENTER,
+      ),
+    );
+    data['data'].push(line_break());
+  }
+
   data['data'].push(
     formatv2(
       '',
@@ -413,7 +433,10 @@ function convertCounterObj(
       FontAlign.CENTER,
     ),
   );
-  if (configurable_settings[KeyName.ORDERTYPE]['show'] === 1) {
+  if (
+    configurable_settings[KeyName.ORDERTYPE]['show'] === 1 &&
+    configurable_settings[KeyName.ORDERTYPE]['section'] === PrintSection.HEADER
+  ) {
     data['data'].push(line_break());
     data['data'].push(
       formatv2(
@@ -460,6 +483,25 @@ function convertCounterObj(
 
   for (const item of item_arr) {
     data['data'].push(item);
+  }
+  if (
+    configurable_settings[KeyName.ORDERTYPE]['show'] === 1 &&
+    configurable_settings[KeyName.ORDERTYPE]['section'] === PrintSection.FOOTER
+  ) {
+    data['data'].push(line_break());
+    data['data'].push(
+      formatv2(
+        '',
+        [
+          {
+            name: obj[KeyName.ORDERTYPE].toUpperCase(),
+          },
+        ],
+        configurable_settings[KeyName.ORDERTYPE]['fs'],
+        configurable_settings[KeyName.ORDERTYPE]['ft'],
+        FontAlign.CENTER,
+      ),
+    );
   }
   if (obj['note'] && obj['note'].length > 0) {
     data['data'].push(line_break());
@@ -558,7 +600,7 @@ function convertCounterObj(
 }
 
 /* convert master object  */
-function convertMasterObj(obj, rest_details, options = {}) {
+function convertMasterObj(obj, rest_details, options = {}, reprinted_data = false) {
   // for old receipt design
   if (getSettingVal(rest_details, 'response_format') === 0) {
     return convertToOldCounterObj(obj);
@@ -572,6 +614,24 @@ function convertMasterObj(obj, rest_details, options = {}) {
   data['p_width'] = '72';
   data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
   data['data'] = [];
+  // Insert 'REPRINTED' bcz it is required if attempt_print>1
+  if (reprinted_data && reprinted_data === true) {
+    data['data'].push(line_break());
+    data['data'].push(
+      formatv2(
+        '',
+        [
+          {
+            name: 'REPRINTED',
+          },
+        ],
+        FontSize.MEDIUM,
+        FontType.BOLD,
+        FontAlign.CENTER,
+      ),
+    );
+    data['data'].push(line_break());
+  }
   data['data'].push(
     formatv2(
       '',
