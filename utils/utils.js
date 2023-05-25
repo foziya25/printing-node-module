@@ -217,17 +217,24 @@ function getOnlySuccessfulPayments(payments_list) {
 }
 
 /* Get order_type text */
-const getOrderTypeText = (order_type) => {
+const getOrderTypeText = (
+  order_type,
+  format = 0,
+  table_id = '',
+  language = PrintLanguage.DEFAULT,
+) => {
   order_type = Number(order_type);
   const txt =
     order_type === 0
-      ? 'Dine In'
+      ? localize(KeyName.DINEIN, language)
       : order_type === 1
-      ? 'Delivery'
+      ? localize(KeyName.DELIVERY, language)
+      : order_type === 2 && table_id === 'takeaway'
+      ? localize(KeyName.TAKEAWAY, language)
       : order_type === 2
-      ? 'Pickup'
-      : 'NA';
-  return txt;
+      ? localize(KeyName.PICKUP, language)
+      : localize('na', language);
+  return format === 1 ? txt.toLowerCase() : format === 2 ? txt.toUpperCase() : txt;
 };
 
 /* get printing language from restaurant settings */
