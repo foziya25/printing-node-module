@@ -860,7 +860,7 @@ function generateCounterReceipt(
     return [];
   }
 
-  // receipt_data = formatCounterObj(receipt_data, type, rest_details);
+  receipt_data = formatCounterObj(receipt_data, type, rest_details);
 
   /* Finally pushing every receipt of master counter list in receipt data array */
   if (master_counter_arr.length > 0) {
@@ -1632,7 +1632,7 @@ function cashierReport(
   }
   const cashier_open_epoch = result[0].created_at;
   const cash_info = getCashInfo(
-    rest_details['id'],
+    rest_details,
     cashier_open_epoch,
     cash_mgt_data,
     cash_mgt_entries_data,
