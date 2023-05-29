@@ -72,6 +72,7 @@ function generateBillReceipt(
 
   // object to store the same items for final bill aggregating purpose
   let print_data_item_mapping = {};
+  const language = getPrintLanguage(rest_details);
 
   const obj = {};
   obj['type'] = 'receipt';
@@ -107,8 +108,14 @@ function generateBillReceipt(
       append_list.forEach((str) => obj['header'].push(str));
     }
   }
+
+  const result = getOrderTypeString(order_details, rest_details, language);
+
+  order_details['order_type'] = result.order_type;
+  order_details['table_no'] = result.table_no;
+
   obj['body'] = {};
-  obj['body'][KeyName.ORDERTYPE] = getOrderTypeText(order_details['order_type']);
+  obj['body'][KeyName.ORDERTYPE] = order_details['order_type'];
 
   if (!['', null, undefined].includes(order_details['table_no'])) {
     obj['body'][KeyName.TABLE] = order_details['table_no'].toString();
@@ -853,7 +860,7 @@ function generateCounterReceipt(
     return [];
   }
 
-  // receipt_data = formatCounterObj(receipt_data, type, rest_details);
+  receipt_data = formatCounterObj(receipt_data, type, rest_details);
 
   /* Finally pushing every receipt of master counter list in receipt data array */
   if (master_counter_arr.length > 0) {
@@ -1054,9 +1061,13 @@ function generateVoidAndCancelCounterReceipt(
     items_list = [...order_details['items']];
   }
 
+  const result = getOrderTypeString(order_details, rest_details, language);
+
+  order_details['order_type'] = result.order_type;
+  order_details['table_no'] = result.table_no;
+
   /* Creating mapping of kc_id with its printer_name and counter_name*/
   const printer_mapping = {};
-  order_details['order_type'] = getOrderTypeText(order_details['order_type']);
 
   // const printer_mapping = await this.getPrinterName([...items_list], restaurant_id);
 
@@ -1621,7 +1632,7 @@ function cashierReport(
   }
   const cashier_open_epoch = result[0].created_at;
   const cash_info = getCashInfo(
-    rest_details['id'],
+    rest_details,
     cashier_open_epoch,
     cash_mgt_data,
     cash_mgt_entries_data,
