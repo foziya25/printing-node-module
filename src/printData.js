@@ -113,7 +113,7 @@ function generateCashierReportData(
         amount = undefined;
       }
       const created_at = result['created_at'];
-      const date = moment.tz(moment.unix(created_at), timezone).format('DD/MM/YYYY');
+      const date = moment.tz(moment.unix(created_at), timezone).format('YYYY-MM-DD');
       const time = moment.tz(moment.unix(created_at), timezone).format('hh:mm A');
 
       receipt = {
