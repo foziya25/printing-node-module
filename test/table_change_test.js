@@ -1,4 +1,4 @@
-const { generatePrintData } = require('./../printData');
+const { generatePrintData } = require('../src/printData');
 
 let rest_details = {
   _id: { $oid: '629f1445c204870048f0b9e7' },
