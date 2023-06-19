@@ -881,7 +881,10 @@ function generateCounterReceipt(
     for (const obj of receipt_data) {
       switch (type) {
         case 6:
-          final_receipt_data.push(convertTableTransferObj(obj, rest_details));
+          //Remove sticker_printer from table transfer
+          if (obj.type !== 'sticker_printer') {
+            final_receipt_data.push(convertTableTransferObj(obj, rest_details));
+          }
           break;
         default:
           final_receipt_data.push(
