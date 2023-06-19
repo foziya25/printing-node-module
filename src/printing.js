@@ -873,8 +873,6 @@ function generateCounterReceipt(
     receipt_data = receipt_data.filter(
       (elem, index, self) => index === self.findIndex((t) => t.ptr_id === elem.ptr_id),
     );
-    //Remove sticker_printer from table transfer
-    receipt_data = receipt_data.filter((obj) => obj.type !== 'sticker_printer');
   }
 
   let final_receipt_data = [];
@@ -883,7 +881,10 @@ function generateCounterReceipt(
     for (const obj of receipt_data) {
       switch (type) {
         case 6:
-          final_receipt_data.push(convertTableTransferObj(obj, rest_details));
+          //Remove sticker_printer from table transfer
+          if (obj.type !== 'sticker_printer') {
+            final_receipt_data.push(convertTableTransferObj(obj, rest_details));
+          }
           break;
         default:
           final_receipt_data.push(
