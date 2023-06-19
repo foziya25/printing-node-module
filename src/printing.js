@@ -873,6 +873,8 @@ function generateCounterReceipt(
     receipt_data = receipt_data.filter(
       (elem, index, self) => index === self.findIndex((t) => t.ptr_id === elem.ptr_id),
     );
+    //Remove sticker_printer from table transfer
+    receipt_data = receipt_data.filter((obj) => obj.type !== 'sticker_printer');
   }
 
   let final_receipt_data = [];
