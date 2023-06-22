@@ -399,7 +399,7 @@ function generatePrintData(
       // ------------------------------- type=3 : for void dishes --------------------------
       else if (type === 3 && qty > 0 && oid !== '') {
         invalid = false;
-        if (!this.checkPosPaidOrders(order_details, bill_details, rest_details)) {
+        if (!checkPosPaidOrders(order_details, bill_details, rest_details)) {
           let voided_item = {};
           const void_index = order_details.void_items
             ? order_details.void_items.findIndex((e) => e.order_item_id === oid)
