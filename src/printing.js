@@ -68,6 +68,7 @@ function generateBillReceipt(
   const pax_enabled = rest_details['settings']['print']['pax'];
   const show_logo = getSettingVal(rest_details, 'show_logo');
   const show_op_order_id = getSettingVal(rest_details, 'show_op_order_id', order_details);
+  const configurable_settings = getSettingVal(rest_details, 'configurable_settings');
   //const fc_restaurant_details = getFcRestaurant(order_details['kiosk_id']);
 
   // object to store the same items for final bill aggregating purpose
@@ -423,7 +424,7 @@ function generateBillReceipt(
   if (merge_bill) {
     return obj;
   }
-  return convertReceiptObj(obj, rest_details);
+  return convertReceiptObj(obj, rest_details, configurable_settings[FormatType.RECEIPT]);
 }
 
 function mergeReceiptData(temp_obj, obj, rest_details) {
@@ -868,12 +869,11 @@ function generateCounterReceipt(
       receipt_data.push(item);
     });
   }
- 
+
   if (type == 6) {
     receipt_data = receipt_data.filter(
       (elem, index, self) => index === self.findIndex((t) => t.printerName === elem.printerName),
     );
-    
   }
 
   let final_receipt_data = [];
