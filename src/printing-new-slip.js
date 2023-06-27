@@ -19,6 +19,7 @@ const {
   insertSpaceInReceipt,
   getOrderTypeBinaryPlace,
   getSettingVal,
+  DefaultConfigurablePrintSettings,
 } = require('../utils/utils');
 
 const {
@@ -34,11 +35,15 @@ const {
 } = require('../config/enums');
 
 /* function to convert the receipt obj to print format */
-function convertReceiptObj(obj, rest_details, reprinted_data = false) {
+function convertReceiptObj(obj, rest_details, reprinted_data = false, configurable_settings = {}) {
   // in case of old receipt design
   if (getSettingVal(rest_details, 'response_format') === 0) {
     return convertToOldReceiptObj(obj, rest_details.country);
   }
+  configurable_settings =
+    configurable_settings && Object.keys(configurable_settings).length > 0
+      ? configurable_settings
+      : DefaultConfigurablePrintSettings.bill_receipt;
 
   let language = getPrintLanguage(rest_details);
   const country = rest_details.country;
@@ -80,7 +85,13 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false) {
   );
   data['data'].push(line_break());
   if (obj['body'][KeyName.ORDER_SEQ]) {
-    data['data'].push(insertOrderSequence(obj['body'][KeyName.ORDER_SEQ], undefined, language));
+    data['data'].push(
+      insertOrderSequence(
+        obj['body'][KeyName.ORDER_SEQ],
+        configurable_settings?.order_seq ? configurable_settings.order_seq : undefined,
+        language,
+      ),
+    );
     data['data'].push(line_break());
   }
   const keys = [

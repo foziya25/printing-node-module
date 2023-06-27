@@ -22,7 +22,17 @@ const {
 const moment = require('moment-timezone');
 
 const DefaultConfigurablePrintSettings = {
-  bill_receipt: {},
+  bill_receipt: {
+    [KeyName.ORDER_SEQ]: {
+      name: 'ORDER NO',
+      show: ToShow.SHOW,
+      section: PrintSection.HEADER,
+      fs: FontSize.MEDIUM,
+      o_type: ForOrderType.ALL,
+      ft: FontType.BOLD,
+      priority: 1,
+    },
+  },
   counter_receipt: {
     header_space: 1,
     [KeyName.COUNTER_NAME]: {
@@ -1402,6 +1412,7 @@ module.exports = {
   getRoundOffValue,
   getAllergicItemsList,
   getIsPaid,
+  DefaultConfigurablePrintSettings,
 };
 
 //console.log(formatv2("", [{ name: "saurabh" }]));
