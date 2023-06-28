@@ -280,27 +280,30 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false, configurab
         ]),
       );
     } else {
-      data['data'].push(
-        formatv2('', [
-          { name: `${localiseFeeNames(bill['name'], language).toUpperCase()}: ` },
-          {
-            name:
-              bill['name'] != 'Transaction ID' &&
-              (Number(bill['value']) || Number(bill['value']) == 0)
-                ? obj['order']['currency'] +
-                  ' ' +
-                  getInternationalizedNumber(Number(bill['value']).toFixed(2), country)
-                : bill['value'],
-            fw:
-              bill['name'] != 'Transaction ID' &&
-              (Number(bill['value']) || Number(bill['value']) == 0)
-                ? 11
-                : bill['value'].length,
-            ft: FontType.BOLD,
-            fa: FontAlign.RIGHT,
-          },
-        ]),
-      );
+      // Remove unpaid value from payment_mode, Remove unpaid in printing
+      if (bill['value'] != KeyName.UNPAID) {
+        data['data'].push(
+          formatv2('', [
+            { name: `${localiseFeeNames(bill['name'], language).toUpperCase()}: ` },
+            {
+              name:
+                bill['name'] != 'Transaction ID' &&
+                (Number(bill['value']) || Number(bill['value']) == 0)
+                  ? obj['order']['currency'] +
+                    ' ' +
+                    getInternationalizedNumber(Number(bill['value']).toFixed(2), country)
+                  : bill['value'],
+              fw:
+                bill['name'] != 'Transaction ID' &&
+                (Number(bill['value']) || Number(bill['value']) == 0)
+                  ? 11
+                  : bill['value'].length,
+              ft: FontType.BOLD,
+              fa: FontAlign.RIGHT,
+            },
+          ]),
+        );
+      }
     }
   }
 

@@ -514,7 +514,7 @@ function mergeReceiptData(temp_obj, obj, rest_details) {
         temp[key]['value'] += temp[key]['value'] != '' ? ', ' + bill['value'] : bill['value'];
         matched = true;
         break;
-      } else if (temp_obj_bill['name'] == bill['name']) {
+      } else if (temp_obj_bill['name'] == bill['name'] && bill['value'] != KeyName.UNPAID) {
         temp[key]['value'] += bill['value'];
         temp[key]['value'] = getRoundOffValue(temp[key]['value'], 0.05);
         matched = true;
