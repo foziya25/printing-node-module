@@ -13,6 +13,9 @@ const {
   PrintLanguage,
 } = require('../config/enums');
 
+const {
+  convertEnglishToUppercase,
+} = require('../utils/utils');
 const { getLocalizedData, getPrintLanguage, getSettingVal } = require('./utils');
 
 // To format old next in new format
@@ -141,12 +144,12 @@ function addItems(items, rest_details, configurable_settings, language) {
     const strike = item['strike'] && item['strike'] === 1 ? 1 : 0;
     if (item['name'] && item['name'].trim()) {
       let print_array = [
-        { name: item['name'].toUpperCase(), strike: strike },
+        { name: convertEnglishToUppercase(item['name']), strike: strike },
         { name: item['qty'].toString(), fw: 6, fa: FontAlign.RIGHT, strike: strike },
       ];
       if (qty_align === 'l') {
         print_array = [
-          { name: item['qty'].toString() + ' x ' + item['name'].toUpperCase(), strike: strike },
+          { name: item['qty'].toString() + ' x ' + convertEnglishToUppercase(item['name']), strike: strike },
         ];
       }
       temp_arr.push(

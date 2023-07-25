@@ -1346,6 +1346,26 @@ function getCurrentLocale(locale, current_locale, country) {
   return current_locale;
 }
 
+//Convert Upper case to English Characters only
+function convertEnglishToUppercase(inputString) {
+  let result = '';
+
+  for (let i = 0; i < inputString.length; i++) {
+    const character = inputString.charAt(i);
+    const charCode = inputString.charCodeAt(i);
+
+    if (charCode >= 65 && charCode <= 90) { // Uppercase English characters
+      result += character;
+    } else if (charCode >= 97 && charCode <= 122) { // Lowercase English characters
+      result += character.toUpperCase();
+    } else {
+      result += character; // Chinese characters and others
+    }
+  }
+
+  return result;
+}
+
 // Get allergic items
 function getAllergicItemsList(allergic_items) {
   if (!allergic_items) {
@@ -1411,6 +1431,7 @@ module.exports = {
   getCurrentLocale,
   getRoundOffValue,
   getAllergicItemsList,
+  convertEnglishToUppercase,
   getIsPaid,
   DefaultConfigurablePrintSettings,
 };
