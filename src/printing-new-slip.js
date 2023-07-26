@@ -19,6 +19,7 @@ const {
   insertSpaceInReceipt,
   getOrderTypeBinaryPlace,
   getSettingVal,
+  convertEnglishToUppercase,
   DefaultConfigurablePrintSettings,
 } = require('../utils/utils');
 
@@ -144,7 +145,7 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false, configurab
     data['data'].push(
       formatv2('', [
         { name: item['qty'].toString(), fw: 6, fa: FontAlign.LEFT },
-        { name: item['name'].toUpperCase(), fa: FontAlign.LEFT },
+        { name: convertEnglishToUppercase(item['name']), fa: FontAlign.LEFT },
         {
           name: getInternationalizedNumber(Number(item['amount']).toFixed(2), country),
           fw: 10,
@@ -372,7 +373,7 @@ function convertStickerObj(obj, rest_details, options = {}) {
     );
   }
   for (const item of obj['items']) {
-    data['data'].push(formatv2('', [{ name: item['name'].toUpperCase() }]));
+    data['data'].push(formatv2('', [{ name: convertEnglishToUppercase(item['name'])}]));
     if (item['addon'] && item['addon'].trim()) {
       data['data'].push(formatv2('', [{ name: `${item['addon'].toUpperCase()}` }]));
     }
