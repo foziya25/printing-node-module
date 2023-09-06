@@ -711,6 +711,7 @@ function generateCounterReceipt(
         temp_item_data,
         printer_mapping,
         show_item_name_with_variant,
+        rest_details,
       );
       const ptr_ip = item['printer_name'] != '' ? item['printer_name'] : 'Default Printer';
       const ptr_id = item['ptr_id'] ? item['ptr_id'] : ptr_ip;
@@ -1042,6 +1043,7 @@ function generateVoidAndCancelCounterReceipt(
   qty = 1,
   subcat_counters = {},
   kitchen_counter_details = {},
+  printer_mapping = {},
 ) {
   let receipt_data = [];
   let decline_type = '';
@@ -1071,7 +1073,6 @@ function generateVoidAndCancelCounterReceipt(
   order_details['table_no'] = result.table_no;
 
   /* Creating mapping of kc_id with its printer_name and counter_name*/
-  const printer_mapping = {};
 
   // const printer_mapping = await this.getPrinterName([...items_list], restaurant_id);
 
@@ -1185,7 +1186,14 @@ function generateVoidAndCancelCounterReceipt(
 
       /* USING PASS BY REFERENCE,As a single item can be mapped to different counters and same goes to every
          variant present in a single item. */
-      separateVariantByCounter(item, temp_item_obj, temp_item_data, printer_mapping);
+      separateVariantByCounter(
+        item,
+        temp_item_obj,
+        temp_item_data,
+        printer_mapping,
+        false,
+        rest_details,
+      );
       const ptr_ip = item['printer_name'] != '' ? item['printer_name'] : 'Default Printer';
       const ptr_id = item['ptr_id'] ? item['ptr_id'] : ptr_ip;
 
