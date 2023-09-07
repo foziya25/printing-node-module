@@ -20,6 +20,7 @@ const {
   CountryMapping,
 } = require('../config/enums');
 const moment = require('moment-timezone');
+const { getCountryDetails } = require('./printing-utils');
 
 const DefaultConfigurablePrintSettings = {
   bill_receipt: {
@@ -410,7 +411,7 @@ function comboPrinting(
             } catch (e) {
               temp_item_data[item['itr'] + '_' + printer].push({
                 counterName: 'Default Counter',
-                printerName: 'Default Printer',
+                printerName: rest_details['printer'] ? rest_details['printer'] : 'Default Printer',
                 ptr_id: 'master',
               });
             }
@@ -456,6 +457,7 @@ function separateVariantByCounter(
   temp_item_data,
   printer_mapping,
   show_item_name_with_variant,
+  rest_details = {},
 ) {
   /* If variant_printer key is present then separate variant according to its kitchen counter*/
   const item_printers = item['kitchen_counter_id'] ? item['kitchen_counter_id'].split(',') : [];
@@ -486,14 +488,14 @@ function separateVariantByCounter(
           if (temp_item_data[item['itr'] + '_' + printer].length === 0) {
             try {
               temp_item_data[item['itr'] + '_' + printer].push({
-                counterName: printer_mapping[item['item_id']][printer]['counter_name'],
-                printerName: printer_mapping[item['item_id']][printer]['printer_name'],
-                ptr_id: printer_mapping[item['item_id']][printer]['ptr_id'],
+                counterName: printer_mapping[printer]['counter_name'],
+                printerName: printer_mapping[printer]['printer_name'],
+                ptr_id: printer || printer_mapping[printer]['ptr_id'],
               });
             } catch (e) {
               temp_item_data[item['itr'] + '_' + printer].push({
                 counterName: 'Default Counter',
-                printerName: 'Default Printer',
+                printerName: rest_details['printer'] ? rest_details['printer'] : 'Default Printer',
                 ptr_id: 'master',
               });
             }
@@ -1354,9 +1356,11 @@ function convertEnglishToUppercase(inputString) {
     const character = inputString.charAt(i);
     const charCode = inputString.charCodeAt(i);
 
-    if (charCode >= 65 && charCode <= 90) { // Uppercase English characters
+    if (charCode >= 65 && charCode <= 90) {
+      // Uppercase English characters
       result += character;
-    } else if (charCode >= 97 && charCode <= 122) { // Lowercase English characters
+    } else if (charCode >= 97 && charCode <= 122) {
+      // Lowercase English characters
       result += character.toUpperCase();
     } else {
       result += character; // Chinese characters and others
