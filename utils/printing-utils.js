@@ -13,9 +13,7 @@ const {
   PrintLanguage,
 } = require('../config/enums');
 
-const {
-  convertEnglishToUppercase,
-} = require('../utils/utils');
+const { convertEnglishToUppercase } = require('../utils/utils');
 const { getLocalizedData, getPrintLanguage, getSettingVal } = require('./utils');
 
 // To format old next in new format
@@ -149,7 +147,10 @@ function addItems(items, rest_details, configurable_settings, language) {
       ];
       if (qty_align === 'l') {
         print_array = [
-          { name: item['qty'].toString() + ' x ' + convertEnglishToUppercase(item['name']), strike: strike },
+          {
+            name: item['qty'].toString() + ' x ' + convertEnglishToUppercase(item['name']),
+            strike: strike,
+          },
         ];
       }
       temp_arr.push(
@@ -409,6 +410,7 @@ function splitAddonVariantByLine(
               {
                 name: show_variant_qty_obj.show ? show_variant_qty_obj.qty : '',
                 fw: 6,
+                fa: FontAlign.RIGHT,
                 strike: strike,
               },
             ],
@@ -452,7 +454,7 @@ function splitAddonVariantByLine(
                 ).toUpperCase()}: ${addon_variant_arr[idx].toUpperCase()}`,
                 strike: strike,
               },
-              { name: str, fw: 6, strike: strike },
+              { name: str, fw: 6, fa: FontAlign.RIGHT, strike: strike },
             ],
             configurable_settings ? configurable_settings[type.toLowerCase()]['fs'] : undefined,
             configurable_settings ? configurable_settings[type.toLowerCase()]['ft'] : undefined,
@@ -467,7 +469,7 @@ function splitAddonVariantByLine(
                 name: `${emptyString.repeat(type.length)} ${addon_variant_arr[idx].toUpperCase()}`,
                 strike: strike,
               },
-              { name: str, fw: 6, strike: strike },
+              { name: str, fw: 6, fa: FontAlign.RIGHT, strike: strike },
             ],
             configurable_settings ? configurable_settings[type.toLowerCase()]['fs'] : undefined,
             configurable_settings ? configurable_settings[type.toLowerCase()]['ft'] : undefined,
