@@ -741,7 +741,7 @@ function separateStickerPrinterObjects(
           const deep_copy = cloneDeep(counter_obj);
           deep_copy['items'] = [cloneDeep(item_obj)];
           deep_copy['items'][0]['qty'] = '1';
-          deep_copy['body']['NUMBER OF ITEMS'] = `${sticker_slips + 1}/${item_obj['qty']}`;
+          deep_copy['body'][KeyName.NO_OF_ITEMS] = `${sticker_slips + 1}/${item_obj['qty']}`;
           sticker_counter_array.push(deep_copy);
         }
         counter_obj['items'].splice(item_obj_idx, 1);
