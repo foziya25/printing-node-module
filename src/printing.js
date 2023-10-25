@@ -338,24 +338,23 @@ function generateBillReceipt(
         (Object.keys(getPmtMethods([3])).includes(payment_channel) && platform === 'easyeat') ||
         Object.keys(getPmtMethods([6])).includes(payment_channel)
       ) {
-        delete temp[payment_channel];
-        temp['credit_card'] = temp['credit_card'] ? temp['credit_card'] : {};
-        if (!temp['credit_card']['Amount Paid']) {
-          temp['credit_card']['Payment Mode'] = getPmtMethodName(payment_channel);
-          temp['credit_card']['Amount Paid'] = 0;
+        //delete temp[payment_channel];
+        //temp['credit_card'] = temp['credit_card'] ? temp['credit_card'] : {};
+        if (!temp[payment_channel]['Amount Paid']) {
+          temp[payment_channel]['Payment Mode'] = getPmtMethodName(payment_channel);
+          temp[payment_channel]['Amount Paid'] = 0;
           pmt_header += pmt_header ? ', ' : '';
-          pmt_header += temp['credit_card']['Payment Mode'];
+          pmt_header += temp[payment_channel]['Payment Mode'];
         }
-        temp['credit_card']['Amount Paid'] += payment['amount'];
-        temp['credit_card']['Amount Paid'] = temp['credit_card']['Amount Paid'];
+        temp[payment_channel]['Amount Paid'] += payment['amount'];
 
         if (payment['transaction_id']) {
           if (Object.keys(getPmtMethods([6])).includes(payment_channel)) {
             const transaction_id = payment['transaction_id'].trim();
-            if (temp['credit_card']['Transaction ID']) {
-              temp['credit_card']['Transaction ID'] += `, ${transaction_id}`;
+            if (temp[payment_channel]['Transaction ID']) {
+              temp[payment_channel]['Transaction ID'] += `, ${transaction_id}`;
             } else {
-              temp['credit_card']['Transaction ID'] = transaction_id;
+              temp[payment_channel]['Transaction ID'] = transaction_id;
             }
           }
         }
