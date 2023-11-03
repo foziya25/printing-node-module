@@ -129,10 +129,7 @@ function addItems(items, rest_details, configurable_settings, language) {
   temp_arr.push(
     formatv2(
       '',
-      [
-        { name: `${localize(KeyName.ITEM_NAME, language).toUpperCase()}` },
-        { name: 'QTY', fw: 6, fa: FontAlign.RIGHT },
-      ],
+      header_array,
       configurable_settings ? configurable_settings['item_name']['fs'] : undefined,
       configurable_settings ? configurable_settings['item_name']['ft'] : undefined,
     ),
