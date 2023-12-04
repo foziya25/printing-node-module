@@ -620,7 +620,6 @@ function convertCounterObj(
     data['data'].push(line_break());
   }
 
-  // data['data'].push(powered_by(language));
   return changeFontSize(data, options);
 }
 
@@ -758,8 +757,6 @@ function convertMasterObj(obj, rest_details, options = {}, reprinted_data = fals
     );
   }
 
-  //data['data'].push(line_break());
-  //data['data'].push(powered_by(language));
   return changeFontSize(data, options);
 }
 
@@ -804,8 +801,6 @@ function convertTableTransferObj(obj, rest_details, options) {
     ),
   );
 
-  //data['data'].push(line_break());
-  //data['data'].push(powered_by(language));
   return changeFontSize(data, options);
 }
 
@@ -896,8 +891,7 @@ function convertVoidAndCancelCounterObj(obj, options, rest_details) {
       data['data'].push(formatv2('', [{ name: item.toUpperCase() }]));
     }
   }
-  // data['data'].push(line_break());
-  // data['data'].push(powered_by(language));
+
   return changeFontSize(data, options);
 }
 
@@ -953,8 +947,6 @@ function convertVoidMasterObj(obj, options, rest_details) {
   for (const item of item_arr) {
     data['data'].push(item);
   }
-  // data['data'].push(line_break());
-  // data['data'].push(powered_by(language));
   return changeFontSize(data, options);
 }
 
@@ -1033,8 +1025,6 @@ function convertDeclineMasterObj(obj, options, rest_details) {
       data['data'].push(formatv2('', [{ name: item.toUpperCase() }]));
     }
   }
-  // data['data'].push(line_break());
-  // data['data'].push(powered_by(language));
   return changeFontSize(data, options);
 }
 
