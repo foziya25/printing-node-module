@@ -60,9 +60,20 @@ const insertOrderSequence = (order_seq, settings, language) => {
 const powered_by = () => {
   return {
     key: '',
-    value: 'POWERED BY - EASYEAT.AI',
+    value: 'POWERED BY - EASYEAT',
     fs: FontSize.SMALL,
     ft: FontType.BOLD,
+    fa: FontAlign.CENTER,
+  };
+};
+
+const boost_partnership = () => {
+  return {
+    key: '_boostimg_',
+    value:
+      'https://easyeat-dev-resources.s3.ap-south-1.amazonaws.com/easyeat-dev-resources/Frame+14035587.jpg',
+    fs: FontSize.SMALL,
+    ft: FontType.NORMAL,
     fa: FontAlign.CENTER,
   };
 };
@@ -924,6 +935,7 @@ module.exports = {
   FontType,
   changeFontSize,
   powered_by,
+  boost_partnership,
   formatv2,
   line_break,
   insertOrderSequence,
