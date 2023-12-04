@@ -70,8 +70,7 @@ const powered_by = () => {
 const boost_partnership = () => {
   return {
     key: '_boostimg_',
-    value:
-      'https://easyeat-dev-resources.s3.ap-south-1.amazonaws.com/easyeat-dev-resources/Frame+14035587.jpg',
+    value: 'https://easyeat-dev-resources.s3.ap-south-1.amazonaws.com/BOOST_EASYEAT.jpg',
     fs: FontSize.SMALL,
     ft: FontType.NORMAL,
     fa: FontAlign.CENTER,
