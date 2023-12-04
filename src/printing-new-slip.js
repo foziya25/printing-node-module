@@ -12,6 +12,7 @@ const {
   splitAddonVariantByLine,
   localiseFeeNames,
   insertCustomHeaderAndFooter,
+  boost_partnership,
 } = require('../utils/printing-utils');
 
 const {
@@ -313,8 +314,17 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false, configurab
     data['data'].push(formatv2('', [{ name: obj['footer'].toString() }]));
   }
 
-  data['data'].push(line_break());
-  data['data'].push(powered_by());
+  const partnership = rest_details['settings']['global']['partnership']
+    ? rest_details['settings']['global']['partnership']
+    : '';
+
+  if (partnership === 'boost') {
+    data['data'].push(boost_partnership());
+  } else {
+    data['data'].push(line_break());
+    data['data'].push(powered_by());
+  }
+
   const slip_font = rest_details['settings']['print']['slip_font']
     ? rest_details['settings']['print']['slip_font']
     : {};
@@ -373,7 +383,7 @@ function convertStickerObj(obj, rest_details, options = {}) {
     );
   }
   for (const item of obj['items']) {
-    data['data'].push(formatv2('', [{ name: convertEnglishToUppercase(item['name'])}]));
+    data['data'].push(formatv2('', [{ name: convertEnglishToUppercase(item['name']) }]));
     if (item['addon'] && item['addon'].trim()) {
       data['data'].push(formatv2('', [{ name: `${item['addon'].toUpperCase()}` }]));
     }
@@ -610,7 +620,7 @@ function convertCounterObj(
     data['data'].push(line_break());
   }
 
-  data['data'].push(powered_by(language));
+  // data['data'].push(powered_by(language));
   return changeFontSize(data, options);
 }
 
@@ -748,8 +758,8 @@ function convertMasterObj(obj, rest_details, options = {}, reprinted_data = fals
     );
   }
 
-  data['data'].push(line_break());
-  data['data'].push(powered_by(language));
+  //data['data'].push(line_break());
+  //data['data'].push(powered_by(language));
   return changeFontSize(data, options);
 }
 
@@ -794,8 +804,8 @@ function convertTableTransferObj(obj, rest_details, options) {
     ),
   );
 
-  data['data'].push(line_break());
-  data['data'].push(powered_by(language));
+  //data['data'].push(line_break());
+  //data['data'].push(powered_by(language));
   return changeFontSize(data, options);
 }
 
@@ -886,8 +896,8 @@ function convertVoidAndCancelCounterObj(obj, options, rest_details) {
       data['data'].push(formatv2('', [{ name: item.toUpperCase() }]));
     }
   }
-  data['data'].push(line_break());
-  data['data'].push(powered_by(language));
+  // data['data'].push(line_break());
+  // data['data'].push(powered_by(language));
   return changeFontSize(data, options);
 }
 
@@ -943,8 +953,8 @@ function convertVoidMasterObj(obj, options, rest_details) {
   for (const item of item_arr) {
     data['data'].push(item);
   }
-  data['data'].push(line_break());
-  data['data'].push(powered_by(language));
+  // data['data'].push(line_break());
+  // data['data'].push(powered_by(language));
   return changeFontSize(data, options);
 }
 
@@ -1023,8 +1033,8 @@ function convertDeclineMasterObj(obj, options, rest_details) {
       data['data'].push(formatv2('', [{ name: item.toUpperCase() }]));
     }
   }
-  data['data'].push(line_break());
-  data['data'].push(powered_by(language));
+  // data['data'].push(line_break());
+  // data['data'].push(powered_by(language));
   return changeFontSize(data, options);
 }
 
