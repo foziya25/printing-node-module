@@ -463,7 +463,7 @@ function generatePrintData(
                     { ...order_details },
                     rest_details,
                     true,
-                    null,
+                    '',
                     true,
                     '',
                     '',
@@ -589,7 +589,7 @@ function generatePrintData(
         const master_enabled = getSettingVal(rest_details, 'master_docket');
         if (master_enabled && master_enabled > 0) {
           receipt_data.push(
-            generateMasterOrderReceipt({ ...order_details }, rest_details, true, null, '', '', ''),
+            generateMasterOrderReceipt({ ...order_details }, rest_details, true, '', true, '', ''),
           );
         }
       }

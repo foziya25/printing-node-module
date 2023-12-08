@@ -818,8 +818,6 @@ function generateReportV2(obj, rest_details, for_close_enable) {
     data['data'].push(line_break());
   }
 
-  data['data'].push(powered_by());
-
   const slip_font = getSettingVal(rest_details, 'slip_font') || {};
   const options = { slip_font: slip_font[SlipType.CASH_MGT_REPORT] };
 
@@ -898,7 +896,6 @@ function generateReceiptV2(obj, rest_details) {
   data['data'].push(line_break(' '));
   data['data'].push(line_break(' '));
   data['data'].push(line_break());
-  data['data'].push(powered_by(language));
 
   const slip_font = getSettingVal(rest_details, 'slip_font') || {};
   const options = { slip_font: slip_font[SlipType.CASH_IN_OUT] };
