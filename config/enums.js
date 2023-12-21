@@ -115,6 +115,8 @@ const KeyName = {
   TOTAL: 'total',
   SUB_TOTAL: 'sub-total',
   BALANCE: 'balance',
+  AMOUNT_TO_BE_PAID: 'amount_to_be_paid',
+  AMOUNT_TO_REFUND: 'amount_to_refund',
   UNPAID: 'unpaid',
   PAID: 'paid',
   DINEIN: 'dine_in',

@@ -409,7 +409,17 @@ function generateBillReceipt(
   }
   const balance = bill_details.balance;
 
-  obj['order']['bill'].push({ name: 'Balance', value: balance });
+  if (balance >= 0) {
+    obj['order']['bill'].push({
+      name: localize(KeyName.AMOUNT_TO_BE_PAID, getPrintLanguage(rest_details)),
+      value: balance,
+    });
+  } else if (balance < 0) {
+    obj['order']['bill'].push({
+      name: localize(KeyName.AMOUNT_TO_REFUND, getPrintLanguage(rest_details)),
+      value: balance,
+    });
+  }
 
   obj['footer'] = [];
   try {

@@ -358,6 +358,8 @@ const idKeys = {
   txn_id: 'Txn Id',
   item_name: 'Nama Item',
   balance: 'SALDO',
+  amount_to_be_paid: 'Sisa Pembayaran',
+  amount_to_refund: 'Pengembalian Dana',
   bill_date: 'TANGGAL TAGIHAN',
   picked_up_from: 'DIAMBIL DARI',
   delivered_to: 'TERKIRIM KE',

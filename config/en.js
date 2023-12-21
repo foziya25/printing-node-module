@@ -353,6 +353,8 @@ const enKeys = {
   txn_id: 'Txn Id',
   item_name: 'Item Name',
   balance: 'BALANCE',
+  amount_to_be_paid: 'Amount to be Paid',
+  amount_to_refund: 'Amount to Refund',
   bill_date: 'BILL DATE',
   picked_up_from: 'PICKED UP FROM',
   delivered_to: 'DELIVERED TO',
