@@ -724,7 +724,7 @@ function generateReportV2(obj, rest_details, for_close_enable) {
   const data = {};
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
-  data['pr_width'] = '72';
+  data['pr_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['data'] = [];
   data['data'].push(line_break());
   data['data'].push(
@@ -830,7 +830,7 @@ function generateReceiptV2(obj, rest_details) {
   const data = {};
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
-  data['pr_width'] = '72';
+  data['pr_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['data'] = [];
   data['data'].push(line_break());
   data['data'].push(
