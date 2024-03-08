@@ -60,7 +60,7 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false, configurab
   insertFpAndThaiLanguageSupport(data, rest_details);
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
-  data['p_width'] = '72';
+  data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
   data['data'] = [];
   if (obj['logo']) {
@@ -417,7 +417,7 @@ function convertCounterObj(
 
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
-  data['p_width'] = '72';
+  data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
   data['data'] = [];
 
@@ -635,7 +635,7 @@ function convertMasterObj(obj, rest_details, options = {}, reprinted_data = fals
   insertFpAndThaiLanguageSupport(data, rest_details);
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
-  data['p_width'] = '72';
+  data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
   data['data'] = [];
   // Insert 'REPRINTED' bcz it is required if attempt_print>1
@@ -767,7 +767,7 @@ function convertTableTransferObj(obj, rest_details, options) {
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
   data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
-  data['p_width'] = '72';
+  data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['data'] = [];
   data['data'].push(line_break());
   data['data'].push(
@@ -814,7 +814,7 @@ function convertVoidAndCancelCounterObj(obj, options, rest_details) {
   const data = {};
   insertFpAndThaiLanguageSupport(data, rest_details);
   data['ptr_name'] = obj['printerName'];
-  data['p_width'] = '72';
+  data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
   data['data'] = [];
   data['data'].push(
@@ -906,7 +906,7 @@ function convertVoidMasterObj(obj, options, rest_details) {
   insertFpAndThaiLanguageSupport(data, rest_details);
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
-  data['p_width'] = '72';
+  data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
   data['data'] = [];
   data['data'].push(line_break());
@@ -964,7 +964,7 @@ function convertDeclineMasterObj(obj, options, rest_details) {
   const language = getPrintLanguage(rest_details);
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
-  data['p_width'] = '72';
+  data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
   data['data'] = [];
   data['data'].push(line_break());
