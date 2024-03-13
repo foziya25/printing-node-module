@@ -272,6 +272,7 @@ const pmt = {
   offline_offline_qris_bni: 'Offline QRIS BNI',
   offline_bank_transfer: 'Bank Transfer',
   rpp_duitnowqr: 'DuitNow',
+  boost_duitnow: 'Boost DuitNow',
   offline_ocbc: 'OCBC',
   offline_tazte: 'Tazte',
   'offline_grabfood_dine-in': 'GrabFood Dine-In',
@@ -326,6 +327,7 @@ class PaymentConfig {
       'qris',
       'gopay',
       'rpp_duitnowqr',
+      'boost_duitnow',
       'pine-labs-pos-channel',
       'pine-labs-upi-ewallet',
     ];
