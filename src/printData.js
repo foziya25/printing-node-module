@@ -411,23 +411,125 @@ function generatePrintData(
               print_code = on_void_accepted;
             }
 
-          if (print_code > 0) {
+            if (print_code > 0) {
+              if ((print_code & 2) === 2) {
+                receipt_data = receipt_data.concat(
+                  generateVoidAndCancelCounterReceipt(
+                    { ...order_details },
+                    3,
+                    rest_details,
+                    '',
+                    oid,
+                    qty,
+                    subcat_counters,
+                    kitchen_counter_details,
+                    printer_mapping,
+                  ),
+                );
+              }
+
+              const master_enabled = getSettingVal(rest_details, 'master_docket');
+              if (master_enabled && master_enabled > 0) {
+                if ((print_code & 4) === 4) {
+                  receipt_data.push(
+                    generateMasterOrderReceipt(
+                      { ...order_details },
+                      rest_details,
+                      true,
+                      '',
+                      true,
+                      '',
+                      '',
+                    ),
+                  );
+
+                  if ((print_code & 8) === 8) {
+                    // 8: print master docket
+                    receipt_data.push(
+                      generateVoidMasterReceipt({ ...order_details }, rest_details, voided_item),
+                    );
+                  }
+                }
+              }
+            }
+          }
+        }
+        // -----------------------------------------------------------------------------------------
+
+        // ------------------ type=5 : show canceled order items/declined items --------------------
+        else if (type === 5 && itr) {
+          invalid = false;
+
+          const on_decline = getSettingVal(rest_details, 'on_decline');
+          if ((on_decline & 2) === 2) {
+            receipt_data = receipt_data.concat(
+              generateVoidAndCancelCounterReceipt(
+                { ...order_details },
+                5,
+                rest_details,
+                itr,
+                oid,
+                qty,
+                subcat_counters,
+                kitchen_counter_details,
+                printer_mapping,
+              ),
+            );
+          }
+          const master_enabled = getSettingVal(rest_details, 'master_docket');
+          if (master_enabled && master_enabled > 0) {
+            if ((on_decline & 8) === 8) {
+              const decline_master_receipt = generateDeclineMasterReceipt(
+                { ...order_details },
+                rest_details,
+                itr,
+              );
+              if (Object.keys(decline_master_receipt).length > 0) {
+                receipt_data.push(decline_master_receipt);
+              }
+            }
+          }
+        }
+        // ----------------------------------------------------------------------------------
+
+        // ---------------------- type=6 : show slips on table change -----------------------
+        else if (type === 6) {
+          invalid = false;
+          let print_code = 0;
+
+          const on_table_change = getSettingVal(rest_details, 'on_table_change');
+
+          if (on_table_change && on_table_change > 0) {
+            print_code = on_table_change;
+            const note_type = localize(
+              KeyName.TABLE_CHANGED,
+              getSettingVal(rest_details, 'language'),
+            );
+            let old_tno = '';
+            try {
+              const old_tables = order_details['analytics']['old_tables'];
+              if (old_tables && old_tables.length > 0) {
+                const index = old_tables.length - 1;
+                old_tno = old_tables[index]['table_no'];
+              }
+            } catch (e) {}
+
             if ((print_code & 2) === 2) {
               receipt_data = receipt_data.concat(
-                generateVoidAndCancelCounterReceipt(
+                generateCounterReceipt(
                   { ...order_details },
-                  3,
                   rest_details,
-                  '',
-                  oid,
-                  qty,
                   subcat_counters,
+                  itr,
+                  6,
                   kitchen_counter_details,
                   printer_mapping,
+                  '',
+                  note_type,
+                  old_tno,
                 ),
               );
             }
-
             const master_enabled = getSettingVal(rest_details, 'master_docket');
             if (master_enabled && master_enabled > 0) {
               if ((print_code & 4) === 4) {
@@ -435,140 +537,46 @@ function generatePrintData(
                   generateMasterOrderReceipt(
                     { ...order_details },
                     rest_details,
-                    true,
-                    '',
+                    itr,
+                    note_type,
                     true,
                     '',
                     '',
                   ),
                 );
-
-                if ((print_code & 8) === 8) {
-                  // 8: print master docket
-                  receipt_data.push(
-                    generateVoidMasterReceipt({ ...order_details }, rest_details, voided_item),
-                  );
-                }
               }
             }
-          }
-        }
-      }
-      // -----------------------------------------------------------------------------------------
-
-      // ------------------ type=5 : show canceled order items/declined items --------------------
-      else if (type === 5 && itr) {
-        invalid = false;
-
-        const on_decline = getSettingVal(rest_details, 'on_decline');
-        if ((on_decline & 2) === 2) {
-          receipt_data = receipt_data.concat(
-            generateVoidAndCancelCounterReceipt(
-              { ...order_details },
-              5,
-              rest_details,
-              itr,
-              oid,
-              qty,
-              subcat_counters,
-              kitchen_counter_details,
-              printer_mapping,
-            ),
-          );
-        }
-        const master_enabled = getSettingVal(rest_details, 'master_docket');
-        if (master_enabled && master_enabled > 0) {
-          if ((on_decline & 8) === 8) {
-            const decline_master_receipt = generateDeclineMasterReceipt(
-              { ...order_details },
-              rest_details,
-              itr,
-            );
-            if (Object.keys(decline_master_receipt).length > 0) {
-              receipt_data.push(decline_master_receipt);
-            }
-          }
-        }
-      }
-      // ----------------------------------------------------------------------------------
-
-      // ---------------------- type=6 : show slips on table change -----------------------
-      else if (type === 6) {
-        invalid = false;
-        let print_code = 0;
-
-        const on_table_change = getSettingVal(rest_details, 'on_table_change');
-
-        if (on_table_change && on_table_change > 0) {
-          print_code = on_table_change;
-          const note_type = localize(
-            KeyName.TABLE_CHANGED,
-            getSettingVal(rest_details, 'language'),
-          );
-          let old_tno = '';
-          try {
-            const old_tables = order_details['analytics']['old_tables'];
-            if (old_tables && old_tables.length > 0) {
-              const index = old_tables.length - 1;
-              old_tno = old_tables[index]['table_no'];
-            }
-          } catch (e) {}
-
-          if ((print_code & 2) === 2) {
-            receipt_data = receipt_data.concat(
-              generateCounterReceipt(
-                { ...order_details },
-                rest_details,
-                subcat_counters,
-                itr,
-                6,
-                kitchen_counter_details,
-                printer_mapping,
-                '',
-                note_type,
-                old_tno,
-              ),
-            );
-          }
-          const master_enabled = getSettingVal(rest_details, 'master_docket');
-          if (master_enabled && master_enabled > 0) {
-            if ((print_code & 4) === 4) {
+            if ((print_code & 1) === 1) {
               receipt_data.push(
-                generateMasterOrderReceipt(
-                  { ...order_details },
-                  rest_details,
-                  itr,
-                  note_type,
-                  true,
-                  '',
-                  '',
-                ),
+                generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
               );
             }
           }
-          if ((print_code & 1) === 1) {
+        }
+        // ---------------------------------------------------------------------------
+
+        // type=7 : show master order list for restaurants which have master_docket = 1 in settings
+        else if (type == 7) {
+          invalid = false;
+
+          const master_enabled = getSettingVal(rest_details, 'master_docket');
+          if (master_enabled && master_enabled > 0) {
             receipt_data.push(
-              generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
+              generateMasterOrderReceipt(
+                { ...order_details },
+                rest_details,
+                true,
+                '',
+                true,
+                '',
+                '',
+              ),
             );
           }
         }
-      }
-      // ---------------------------------------------------------------------------
-
-      // type=7 : show master order list for restaurants which have master_docket = 1 in settings
-      else if (type == 7) {
-        invalid = false;
-
-        const master_enabled = getSettingVal(rest_details, 'master_docket');
-        if (master_enabled && master_enabled > 0) {
-          receipt_data.push(
-            generateMasterOrderReceipt({ ...order_details }, rest_details, true, '', true, '', ''),
-          );
-        }
-      }
-      // type=8 (pos preapid order receipt print)
-      else if (type == 8 && itr) {
-        /*
+        // type=8 (pos preapid order receipt print)
+        else if (type == 8 && itr) {
+          /*
           --------- case of prepaid ordering from POS ---------
           final receipt bill is generated by default and other
           receipts are generated on basis of auto print settings 
@@ -576,48 +584,30 @@ function generatePrintData(
           2 --> restaurant POS prepaid flag is enabled
           3 --> order by MM
         */
-        invalid = false;
-        if (!checkPosPaidOrders(order_details, bill_details, rest_details)) {
-          /* -------- final bill generation -------- */
-          if (order_details.items?.length > 0) {
-            itr = order_details.items[order_details.items?.length - 1]['itr'];
-          }
-
-          // generating receipt data
-          receipt_data.push(
-            generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
-          );
-
-          /* -------- create other receipts if ordered from POS -------- */
-          if (isPosOrder(order_details) && rest_details?.settings?.global?.is_pos_prepaid_enabled) {
-            /* -------- counter/master receipt generation -------- */
-            let print_code = 0;
-
-            const on_accept_new_order = getSettingVal(rest_details, 'on_accept_new_order');
-            const on_accept_new_itr = getSettingVal(rest_details, 'on_accept_new_itr');
-
-            if (!on_accept_new_order && !on_accept_new_itr) {
-              receipt_data = receipt_data.concat(
-                generateCounterReceipt(
-                  { ...order_details },
-                  rest_details,
-                  subcat_counters,
-                  itr,
-                  4,
-                  kitchen_counter_details,
-                  printer_mapping,
-                  '',
-                  '',
-                  '',
-                ),
-              );
-            } else {
-              print_code = itr === 1 ? on_accept_new_order : on_accept_new_itr;
+          invalid = false;
+          if (!checkPosPaidOrders(order_details, bill_details, rest_details)) {
+            /* -------- final bill generation -------- */
+            if (order_details.items?.length > 0) {
+              itr = order_details.items[order_details.items?.length - 1]['itr'];
             }
 
-            if (print_code > 0) {
-              // 2: counter_obj
-              if ((print_code & 2) === 2) {
+            // generating receipt data
+            receipt_data.push(
+              generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
+            );
+
+            /* -------- create other receipts if ordered from POS -------- */
+            if (
+              isPosOrder(order_details) &&
+              rest_details?.settings?.global?.is_pos_prepaid_enabled
+            ) {
+              /* -------- counter/master receipt generation -------- */
+              let print_code = 0;
+
+              const on_accept_new_order = getSettingVal(rest_details, 'on_accept_new_order');
+              const on_accept_new_itr = getSettingVal(rest_details, 'on_accept_new_itr');
+
+              if (!on_accept_new_order && !on_accept_new_itr) {
                 receipt_data = receipt_data.concat(
                   generateCounterReceipt(
                     { ...order_details },
@@ -632,77 +622,99 @@ function generatePrintData(
                     '',
                   ),
                 );
+              } else {
+                print_code = itr === 1 ? on_accept_new_order : on_accept_new_itr;
               }
-              const master_enabled = getSettingVal(rest_details, 'master_docket');
-              if (master_enabled && master_enabled > 0) {
-                // 4: master order list
-                if ((print_code & 4) == 4) {
-                  const note_type = itr > 1 ? 'Order Updated' : '';
-                  receipt_data.push(
-                    generateMasterOrderReceipt(
+
+              if (print_code > 0) {
+                // 2: counter_obj
+                if ((print_code & 2) === 2) {
+                  receipt_data = receipt_data.concat(
+                    generateCounterReceipt(
                       { ...order_details },
                       rest_details,
-                      true,
-                      note_type,
-                      true,
+                      subcat_counters,
+                      itr,
+                      4,
+                      kitchen_counter_details,
+                      printer_mapping,
+                      '',
                       '',
                       '',
                     ),
                   );
                 }
+                const master_enabled = getSettingVal(rest_details, 'master_docket');
+                if (master_enabled && master_enabled > 0) {
+                  // 4: master order list
+                  if ((print_code & 4) == 4) {
+                    const note_type = itr > 1 ? 'Order Updated' : '';
+                    receipt_data.push(
+                      generateMasterOrderReceipt(
+                        { ...order_details },
+                        rest_details,
+                        true,
+                        note_type,
+                        true,
+                        '',
+                        '',
+                      ),
+                    );
+                  }
+                }
               }
             }
           }
         }
+
+        return receipt_data;
       }
 
-      return receipt_data;
-    }
+      // ------------------------------ Case of merge bill --------------------------
+      else if (type === 1 && order_details.length > 0) {
+        const response_format = getSettingVal(rest_details, 'response_format');
+        let order_type_bit = 7;
+        const receipt_data = [];
+        let temp_obj = {};
+        for (const [key, order_detail] of Object.entries(order_details)) {
+          const bill_detail = bill_details.filter((e) => {
+            return order_detail['order_id'] === e['order_id'];
+          });
+          if (!bill_detail) {
+            return [];
+          }
+          order_detail['allergic_items'] = getAllergicItemsList(order_detail['allergic_items']);
 
-    // ------------------------------ Case of merge bill --------------------------
-    else if (type === 1 && order_details.length > 0) {
-      const response_format = getSettingVal(rest_details, 'response_format');
-      let order_type_bit = 7;
-      const receipt_data = [];
-      let temp_obj = {};
-      for (const [key, order_detail] of Object.entries(order_details)) {
-        const bill_detail = bill_details.filter((e) => {
-          return order_detail['order_id'] === e['order_id'];
-        });
-        if (!bill_detail) {
+          /* Attach order type bit map in order_details */
+          order_type_bit = getOrderTypeBinaryPlace(order_detail.order_type);
+          try {
+            const result = getOrderTypeString({ ...order_detail }, rest_details);
+            order_details.order_type = result.order_type;
+            order_detail.table_no = result.table_no;
+          } catch (e) {
+            this.logger.error(e);
+          }
+
+          const obj = generateBillReceipt({ ...order_detail }, rest_details, bill_detail[0], true);
+
+          if (parseInt(key) === 0) {
+            temp_obj = { ...obj };
+          } else {
+            temp_obj = mergeReceiptData(temp_obj, obj, rest_details);
+          }
+        }
+
+        const merge_v2 = convertReceiptObj(temp_obj, rest_details);
+        receipt_data.push(merge_v2);
+
+        if (receipt_data.length > 0) {
+          return receipt_data;
+        } else {
           return [];
         }
-        order_detail['allergic_items'] = getAllergicItemsList(order_detail['allergic_items']);
-
-        /* Attach order type bit map in order_details */
-        order_type_bit = getOrderTypeBinaryPlace(order_detail.order_type);
-        try {
-          const result = getOrderTypeString({ ...order_detail }, rest_details);
-          order_details.order_type = result.order_type;
-          order_detail.table_no = result.table_no;
-        } catch (e) {
-          this.logger.error(e);
-        }
-
-        const obj = generateBillReceipt({ ...order_detail }, rest_details, bill_detail[0], true);
-
-        if (parseInt(key) === 0) {
-          temp_obj = { ...obj };
-        } else {
-          temp_obj = mergeReceiptData(temp_obj, obj, rest_details);
-        }
-      }
-
-      const merge_v2 = convertReceiptObj(temp_obj, rest_details);
-      receipt_data.push(merge_v2);
-
-      if (receipt_data.length > 0) {
-        return receipt_data;
       } else {
         return [];
       }
-    } else {
-      return [];
     }
   } catch (e) {
     return [];
