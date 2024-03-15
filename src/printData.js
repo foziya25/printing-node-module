@@ -333,22 +333,6 @@ function generatePrintData(
           const on_accept_new_order = getSettingVal(rest_details, 'on_accept_new_order');
           const on_accept_new_itr = getSettingVal(rest_details, 'on_accept_new_itr');
 
-          // if (!on_accept_new_order && !on_accept_new_itr) {
-          //   receipt_data = receipt_data.concat(
-          //     generateCounterReceipt(
-          //       { ...order_details },
-          //       rest_details,
-          //       subcat_counters,
-          //       itr,
-          //       4,
-          //       kitchen_counter_details,
-          //       printer_mapping,
-          //     ),
-          //   );
-          // } else {
-          //   print_code = itr === 1 ? on_accept_new_order : on_accept_new_itr;
-          // }
-
           if (on_accept_new_order || on_accept_new_itr) {
             print_code = itr === 1 ? on_accept_new_order : on_accept_new_itr;
           }
@@ -417,30 +401,6 @@ function generatePrintData(
           const on_void_unaccepted = getSettingVal(rest_details, 'on_void_unaccepted');
           const on_void_accepted = getSettingVal(rest_details, 'on_void_accepted');
           const on_void_new_itr = getSettingVal(rest_details, 'on_void_new_itr');
-
-          // if (!on_void_unaccepted && !on_void_accepted && !on_void_new_itr) {
-          //   receipt_data = receipt_data.concat(
-          //     generateVoidAndCancelCounterReceipt(
-          //       { ...order_details },
-          //       3,
-          //       rest_details,
-          //       '',
-          //       oid,
-          //       qty,
-          //       subcat_counters,
-          //       kitchen_counter_details,
-          //       printer_mapping,
-          //     ),
-          //   );
-          // } else {
-          //   if (voided_item.item_status === 0 && voided_item.itr === 1) {
-          //     print_code = on_void_unaccepted;
-          //   } else if (voided_item.item_status === 0 && voided_item.itr > 1) {
-          //     print_code = on_void_new_itr;
-          //   } else if ([1, 2, 3].includes(voided_item.item_status)) {
-          //     print_code = on_void_accepted;
-          //   }
-          // }
 
           if (on_void_unaccepted || on_void_accepted || on_void_new_itr) {
             if (voided_item.item_status === 0 && voided_item.itr === 1) {
