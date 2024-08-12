@@ -309,9 +309,20 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false, configurab
     }
   }
 
-  if (obj['footer']) {
+  if (Array.isArray(obj?.footer) && obj.footer.length > 0) {
     data['data'].push(line_break());
-    data['data'].push(formatv2('', [{ name: obj['footer'].toString() }]));
+
+    const footerText = obj.footer[0];
+    if (typeof footerText === 'string' && footerText.length > 0) {
+      const array = footerText.split('\n');
+      array.forEach((line) => {
+        if (line) {
+          data['data'].push(
+            formatv2('', [{ name: line }], FontSize.SMALL, FontType.NORMAL, FontAlign.CENTER),
+          );
+        }
+      });
+    }
   }
 
   const partnership = rest_details['settings']['global']['partnership']
