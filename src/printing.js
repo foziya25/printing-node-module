@@ -1364,11 +1364,11 @@ function generateVoidMasterReceipt(order_details, rest_details, voided_item) {
   obj['items'] = [];
   if (
     (show_item_code & 16) == 16 &&
-    voided_item['item_code'] &&
-    voided_item['item_code'].trim() !== '' &&
-    !voided_item["item_name"].includes(`(${item["item_code"]})`)
+    voided_item["item_code"] &&
+    voided_item["item_code"].trim() !== "" &&
+    !voided_item["item_name"].includes(`(${voided_item["item_code"]})`)
   ) {
-    voided_item['item_name'] = '(' + voided_item['item_code'] + ') ' + voided_item['item_name'];
+    voided_item["item_name"] = `(${voided_item["item_code"]}) ${voided_item["item_name"]}`;
   }
   const item_obj = {
     name: voided_item['item_name'],
