@@ -165,8 +165,13 @@ function generateBillReceipt(
   for (const original_item of order_details['items']) {
     const item = { ...original_item };
     if (item['item_status'] != 5 && item['item_status'] != 6) {
-      if ((show_item_code & 8) == 8 && item['item_code'] && item['item_code'].trim() != '') {
-        item['item_name'] = `(${item['item_code']}) ${item['item_name']}`;
+      if (
+        (show_item_code & 8) == 8 &&
+        item["item_code"] &&
+        item["item_code"].trim() !== "" &&
+        !item["item_name"].includes(`(${item["item_code"]})`)
+      ) {
+        item["item_name"] = `(${item["item_code"]}) ${item["item_name"]}`;
       }
       const item_obj = {
         name: item['item_name'],
@@ -992,8 +997,13 @@ function generateMasterOrderReceipt(
   obj['items'] = [];
   for (const original_item of order_details['items']) {
     const item = { ...original_item };
-    if ((show_item_code & 16) == 16 && item['item_code'] && item['item_code'].trim() !== '') {
-      item['item_name'] = `(${item['item_code']}) ${item['item_name']}`;
+    if (
+      (show_item_code & 16) == 16 &&
+      item["item_code"] &&
+      item["item_code"].trim() !== "" &&
+      !item["item_name"].includes(`(${item["item_code"]})`)
+    ) {
+      item["item_name"] = `(${item["item_code"]}) ${item["item_name"]}`;
     }
     let temp_item = null;
     if (is_order_list) {
@@ -1354,10 +1364,11 @@ function generateVoidMasterReceipt(order_details, rest_details, voided_item) {
   obj['items'] = [];
   if (
     (show_item_code & 16) == 16 &&
-    voided_item['item_code'] &&
-    voided_item['item_code'].trim() !== ''
+    voided_item["item_code"] &&
+    voided_item["item_code"].trim() !== "" &&
+    !voided_item["item_name"].includes(`(${voided_item["item_code"]})`)
   ) {
-    voided_item['item_name'] = '(' + voided_item['item_code'] + ') ' + voided_item['item_name'];
+    voided_item["item_name"] = `(${voided_item["item_code"]}) ${voided_item["item_name"]}`;
   }
   const item_obj = {
     name: voided_item['item_name'],
@@ -1465,8 +1476,13 @@ function generateDeclineMasterReceipt(order_details, rest_details, itr) {
   for (const original_item of order_details['items']) {
     const item = { ...original_item };
     if (item['itr'] == itr && (item['item_status'] == 5 || item['item_status'] == 6)) {
-      if ((show_item_code & 16) == 16 && item['item_code'] && item['item_code'].trim() !== '') {
-        item['item_name'] = '(' + item['item_code'] + ') ' + item['item_name'];
+      if (
+        (show_item_code & 16) == 16 &&
+        item["item_code"] &&
+        item["item_code"].trim() !== "" &&
+        !item["item_name"].includes(`(${item["item_code"]})`)
+      ) {
+        item["item_name"] = `(${item["item_code"]}) ${item["item_name"]}`;
       }
       const item_obj = {
         name: item['item_name'],
