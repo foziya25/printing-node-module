@@ -107,6 +107,7 @@ const KeyName = {
   CASHIER: 'cashier',
   PAX: 'pax',
   STAFF_NAME: 'staff_name',
+  COUNTER_NAME: 'counter_name',
   CUSTOMER_NAME: 'customer_name',
   CUSTOMER_PHONE: 'customer_phone',
   PAYMENT_TYPE: 'payment_type',

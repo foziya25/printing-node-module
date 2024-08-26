@@ -319,6 +319,7 @@ const enKeys = {
   customer_phone: 'CUSTOMER PHONE',
   customer_name: 'CUSTOMER NAME',
   staff_name: 'STAFF NAME',
+  counter_name: 'COUNTER NAME',
   dine_in: 'Dine-In',
   takeaway: 'Takeaway',
   noOfItemsVoid: 'No of items voided',

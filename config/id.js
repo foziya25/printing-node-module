@@ -324,6 +324,7 @@ const idKeys = {
   customer_phone: 'TELEPON PELANGGAN',
   customer_name: 'NAMA PELANGGAN',
   staff_name: 'NAMA STAF',
+  counter_name: 'NAMA KONTER',
   dine_in: 'Makan-di-Tempat',
   takeaway: 'Takeaway',
   noOfItemsVoid: 'Jumlah item batal',

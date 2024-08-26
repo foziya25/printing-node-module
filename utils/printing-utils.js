@@ -762,6 +762,16 @@ function generateReportV2(obj, rest_details, for_close_enable) {
       ]),
     );
   }
+  if (obj['counter_name']) {
+    data['data'].push(
+      formatv2('', [
+        {
+          name: `${localize(KeyName.COUNTER_NAME, language)}: ${obj['counter_name'].toUpperCase()}`,
+          ft: FontType.BOLD,
+        },
+      ]),
+    );
+  }
   data['data'].push(line_break());
 
   const local_key = [
