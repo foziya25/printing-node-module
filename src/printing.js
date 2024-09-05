@@ -1762,15 +1762,16 @@ function swapQtyWithaddonName(addon_name) {
   const addons_list = addon_name.split(',');
   let swapped_str = '';
   addons_list.forEach((addon) => {
-    const [name, qty] = addon.split('x');
-    swapped_str +=
-      swapped_str == ''
-        ? qty
-          ? `${qty}x ${name.trim()}`
-          : `${name.trim()}`
-        : qty
-        ? `, ${qty}x ${name.trim()}`
-        : `, ${name.trim()}`;
+      const trimmedAddon = addon.trim();
+      const lastIndexOfX = trimmedAddon.lastIndexOf('x');
+      if (lastIndexOfX > 0) {
+        const name = trimmedAddon.slice(0, lastIndexOfX).trim();
+        const qty = trimmedAddon.slice(lastIndexOfX + 1).trim();
+
+        swapped_str += swapped_str === '' ? `${qty}x ${name}` : `, ${qty}x ${name}`;
+      } else {
+        swapped_str += swapped_str === '' ? trimmedAddon : `, ${trimmedAddon}`;
+      }
   });
   return swapped_str;
 }
