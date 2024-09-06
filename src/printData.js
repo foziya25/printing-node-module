@@ -41,6 +41,7 @@ function generateCashierReportData(
   print_data = true,
   cashier_report_data = [],
   staff_details = {},
+  device_id = null,
 ) {
   let receipt = {};
   try {
@@ -75,6 +76,7 @@ function generateCashierReportData(
           staff_details,
           country_code,
           language,
+          device_id,
         );
       }
       if (print_data) {

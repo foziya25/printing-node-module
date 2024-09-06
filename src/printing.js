@@ -1557,7 +1557,6 @@ function viewCashierReport(rest_details, cashier_report_data, country_code, lang
   if (!restaurant) {
     throw new Error(localize('restaurantNotFoundError', language));
   }
-
   const timezone = restaurant['time_zone'] ? restaurant['time_zone'] : 'Asia/Kuala_Lumpur';
   const printer_name =
     restaurant.cash_mgt_printer !== undefined &&
@@ -1627,6 +1626,7 @@ function cashierReport(
   user = {},
   country_code,
   language,
+  device_id = null,
 ) {
   language = language || CountryMapping.MALAYSIA.language;
   country_code = country_code || CountryMapping.MALAYSIA.country_code;
@@ -1643,6 +1643,7 @@ function cashierReport(
     throw new Error(localize('restaurantNotFoundError', language));
   }
   const timezone = restaurant['time_zone'] ? restaurant['time_zone'] : 'Asia/Kuala_Lumpur';
+  const is_multiple_cashier_enabled = restaurant?.settings?.global?.multiple_cashier;
   const printer_name =
     restaurant['cash_mgt_printer'] !== undefined &&
     restaurant['cash_mgt_printer'] !== null &&
@@ -1708,7 +1709,7 @@ function cashierReport(
     }
   }
 
-  return {
+  const resp = {
     date: moment.unix(moment().unix()).tz(timezone).format('DD/MM/YYYY'),
     time: moment.unix(moment().unix()).tz(timezone).format('hh:mm A'),
     open_cashier_date_time: moment
@@ -1756,6 +1757,10 @@ function cashierReport(
     close_cashier: `${localize('APPROVED BY', language)} ${close_cashier_user.toUpperCase()}`,
     printerName: printer_name,
   };
+  if (is_multiple_cashier_enabled && device_id) {
+    resp['counter_name'] = cash_mgt_data[0]?.counter_name;
+  }
+  return resp;
 }
 
 function swapQtyWithaddonName(addon_name) {
