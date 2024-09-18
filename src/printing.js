@@ -53,6 +53,7 @@ function generateBillReceipt(
   bill_details,
   merge_bill = false,
   fc_restaurant_details = {},
+  device_id = '',
 ) {
   if (order_details) {
     if (order_details.length == 1) {
@@ -438,7 +439,7 @@ function generateBillReceipt(
   if (merge_bill) {
     return obj;
   }
-  return convertReceiptObj(obj, rest_details, configurable_settings[FormatType.RECEIPT]);
+  return convertReceiptObj(obj, rest_details,false,configurable_settings[FormatType.RECEIPT],device_id);
 }
 
 function mergeReceiptData(temp_obj, obj, rest_details) {
@@ -1557,6 +1558,7 @@ function viewCashierReport(rest_details, cashier_report_data, country_code, lang
   if (!restaurant) {
     throw new Error(localize('restaurantNotFoundError', language));
   }
+  const is_multiple_cashier_enabled = restaurant?.settings?.global?.multiple_cashier;
   const timezone = restaurant['time_zone'] ? restaurant['time_zone'] : 'Asia/Kuala_Lumpur';
   const printer_name =
     restaurant.cash_mgt_printer !== undefined &&
@@ -1585,9 +1587,11 @@ function viewCashierReport(rest_details, cashier_report_data, country_code, lang
     denominations,
     staff_name,
     close_cashier,
+    device_id,
+    counter_name
   } = resp[0];
 
-  return {
+  const result = {
     date: date,
     time: moment.unix(close_cashier_epoch).tz(timezone).format('hh:mm A'),
     open_cashier_date_time: open_cashier_date_time,
@@ -1613,6 +1617,10 @@ function viewCashierReport(rest_details, cashier_report_data, country_code, lang
     close_cashier: close_cashier,
     printerName: printer_name,
   };
+  if (is_multiple_cashier_enabled && device_id) {
+    result['counter_name'] = counter_name;
+  }
+  return result;
 }
 
 function cashierReport(

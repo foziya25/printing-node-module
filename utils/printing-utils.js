@@ -719,11 +719,23 @@ function getCashInfo(
 //   return numberFormatter.format(number);
 // }
 
-function generateReportV2(obj, rest_details, for_close_enable) {
+function generateReportV2(obj, rest_details, for_close_enable,device_id = '') {
   const language = getPrintLanguage(rest_details);
+  const multipleCashierEnabled = rest_details?.settings?.global?.multiple_cashier === 1;
   const data = {};
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
+   //Updating bill receipt printer based on device id
+  if (multipleCashierEnabled && device_id) {
+    const printerObjMappedToDevice = rest_details?.receipt_printers.find(
+    (printer) => printer.status === 1 && printer?.device_ids?.includes(device_id),
+    );
+    if (printerObjMappedToDevice) {
+      data['ptr_name'] = printerObjMappedToDevice?.printer_ip;
+    } else {
+      console.log('Error No Printer Ip Mapped to this device');
+    }
+  }
   data['pr_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['data'] = [];
   data['data'].push(line_break());
@@ -834,12 +846,24 @@ function generateReportV2(obj, rest_details, for_close_enable) {
   return changeFontSize(data, options);
 }
 
-function generateReceiptV2(obj, rest_details) {
+function generateReceiptV2(obj, rest_details , device_id = '') {
   const language = getPrintLanguage(rest_details);
+  const multipleCashierEnabled = rest_details?.settings?.global?.multiple_cashier === 1;
   const country = rest_details['country'];
   const data = {};
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
+  //Updating bill receipt printer based on device id
+  if (multipleCashierEnabled && device_id) {
+    const printerObjMappedToDevice = rest_details?.receipt_printers.find(
+      (printer) => printer.status === 1 && printer?.device_ids?.includes(device_id),
+    );
+    if (printerObjMappedToDevice) {
+      data['ptr_name'] = printerObjMappedToDevice?.printer_ip;
+    } else {
+      console.log('Error No Printer Ip Mapped to this device');
+    }
+  }
   data['pr_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['data'] = [];
   data['data'].push(line_break());

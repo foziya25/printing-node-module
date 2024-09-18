@@ -87,7 +87,7 @@ function generateCashierReportData(
         receipt['type'] = 'cash-in';
         delete receipt['staff_name'];
         if (new_format === 1 && cash_mgt_format_override !== 1) {
-          receipt = [generateReportV2(receipt, restaurant, for_close_enable)];
+          receipt = [generateReportV2(receipt, restaurant, for_close_enable,device_id)];
         }
       }
     }
@@ -129,7 +129,7 @@ function generateCashierReportData(
         reason: result['reason'],
       };
       if (new_format === 1 && cash_mgt_format_override !== 1) {
-        receipt = [generateReceiptV2(receipt, restaurant)];
+        receipt = [generateReceiptV2(receipt, restaurant,device_id)];
       }
     }
   } catch (e) {}
@@ -191,6 +191,7 @@ function generatePrintData(
   logo_base_url = '',
   guest_id = '',
   staff_details = {},
+  device_id = '',
 ) {
   try {
     // generate print logo url for restaurant
@@ -297,7 +298,7 @@ function generatePrintData(
         invalid = false;
         // generating receipt data
         receipt_data.push(
-          generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
+          generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {},false,{},device_id),
         );
       }
       // ---------------------------------------------------------------------------
@@ -308,7 +309,7 @@ function generatePrintData(
 
         // generating receipt data
         receipt_data.push(
-          generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
+          generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {},false,{},device_id),
         );
 
         // generating counter data
@@ -378,7 +379,7 @@ function generatePrintData(
               // 1: receipt obj
               // generating receipt data
               receipt_data.push(
-                generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
+                generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {},false,{},device_id),
               );
             }
           }
@@ -551,7 +552,7 @@ function generatePrintData(
           }
           if ((print_code & 1) === 1) {
             receipt_data.push(
-              generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
+              generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {},false,{},device_id),
             );
           }
         }
@@ -588,7 +589,7 @@ function generatePrintData(
 
           // generating receipt data
           receipt_data.push(
-            generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {}),
+            generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {},false,{},device_id),
           );
 
           /* -------- create other receipts if ordered from POS -------- */

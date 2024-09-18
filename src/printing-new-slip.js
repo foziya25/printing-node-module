@@ -37,7 +37,7 @@ const {
 } = require('../config/enums');
 
 /* function to convert the receipt obj to print format */
-function convertReceiptObj(obj, rest_details, reprinted_data = false, configurable_settings = {}) {
+function convertReceiptObj(obj, rest_details, reprinted_data = false, configurable_settings = {} , device_id = '') {
   // in case of old receipt design
   if (getSettingVal(rest_details, 'response_format') === 0) {
     return convertToOldReceiptObj(obj, rest_details.country);
@@ -56,10 +56,22 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false, configurab
     ? `* ${localize(KeyName.UNPAID, language).toUpperCase()} *`
     : `* ${localize(KeyName.PAID, language).toUpperCase()} *`;
   const split_addon_variant = rest_details['settings']['print']['split_addon_variant'];
+  const multipleCashierEnabled = rest_details?.settings?.global?.multiple_cashier === 1;
   const data = {};
   insertFpAndThaiLanguageSupport(data, rest_details);
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
+  //Updating bill receipt printer based on device id
+  if (multipleCashierEnabled && device_id) {
+    const printerObjMappedToDevice = rest_details?.receipt_printers.find(
+    (printer) => printer.status === 1 && printer?.device_ids?.includes(device_id),
+    );
+    if (printerObjMappedToDevice) {
+    data['ptr_name'] = printerObjMappedToDevice?.printer_ip;
+    } else {
+      console.log("Error No Printer Ip Mapped to this device")
+    }
+  }
   data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
   data['data'] = [];
