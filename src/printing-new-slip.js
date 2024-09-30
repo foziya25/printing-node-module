@@ -647,7 +647,7 @@ function convertCounterObj(
 }
 
 /* convert master object  */
-function convertMasterObj(obj, rest_details, options = {}, reprinted_data = false) {
+function convertMasterObj(obj, rest_details, options = {}, reprinted_data = false, device_id = '') {
   // for old receipt design
   if (getSettingVal(rest_details, 'response_format') === 0) {
     return convertToOldCounterObj(obj);
@@ -656,11 +656,22 @@ function convertMasterObj(obj, rest_details, options = {}, reprinted_data = fals
   const language = getPrintLanguage(rest_details);
   const data = {};
   insertFpAndThaiLanguageSupport(data, rest_details);
+  const multipleCashierEnabled = rest_details?.settings?.global?.multiple_cashier === 1;
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
   data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
   data['ptr_id'] = obj['ptr_id'] ? obj['ptr_id'] : data['ptr_name'];
   data['data'] = [];
+  if (multipleCashierEnabled && device_id) {
+    const printerObjMappedToDevice = rest_details?.receipt_printers.find(
+      (printer) => printer.status === 1 && printer?.device_ids?.includes(device_id),
+    );
+    if (printerObjMappedToDevice) {
+      data['ptr_name'] = printerObjMappedToDevice?.printer_ip;
+    } else {
+      console.log('Error No Printer Ip Mapped to this device');
+    }
+  }
   // Insert 'REPRINTED' bcz it is required if attempt_print>1
   if (reprinted_data && reprinted_data === true) {
     data['data'].push(line_break());

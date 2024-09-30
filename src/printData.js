@@ -566,7 +566,7 @@ function generatePrintData(
         const master_enabled = getSettingVal(rest_details, 'master_docket');
         if (master_enabled && master_enabled > 0) {
           receipt_data.push(
-            generateMasterOrderReceipt({ ...order_details }, rest_details, true, '', true, '', ''),
+            generateMasterOrderReceipt({ ...order_details }, rest_details, true, '', true, '', '',device_id),
           );
         }
       }
@@ -697,7 +697,7 @@ function generatePrintData(
         }
       }
 
-      const merge_v2 = convertReceiptObj(temp_obj, rest_details);
+      const merge_v2 = convertReceiptObj(temp_obj, rest_details, false, {}, device_id);
       receipt_data.push(merge_v2);
 
       if (receipt_data.length > 0) {

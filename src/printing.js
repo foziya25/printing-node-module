@@ -930,6 +930,7 @@ function generateMasterOrderReceipt(
   is_order_list = false,
   note_reason = '',
   old_tno = '',
+  device_id = ''
 ) {
   const language = getPrintLanguage(rest_details);
   const result = getOrderTypeString(order_details, rest_details, language);
@@ -1051,7 +1052,7 @@ function generateMasterOrderReceipt(
   }
 
   obj['body'][KeyName.NO_OF_ITEMS] = noOfItems.toString();
-  return convertMasterObj(obj, rest_details);
+  return convertMasterObj(obj, rest_details,{},false,device_id);
 }
 
 function generateVoidAndCancelCounterReceipt(
