@@ -1709,8 +1709,7 @@ function cashierReport(
           if (
             payment.status === 1 &&
             payment.payment_method &&
-            payment.payment_method.toLowerCase() === 'cash' &&
-            (!is_multiple_cashier_enabled || (payment.device_id === device_id))
+            payment.payment_method.toLowerCase() === 'cash'
           ) {
             cash_sales_by_orders += payment.amount;
           }
