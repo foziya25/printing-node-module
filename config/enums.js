@@ -184,6 +184,8 @@ const KeyName = {
   DISH_OUT_OF_STOCK_TEXT: 'dish_out_of_stock',
   VARIANT_OUT_OF_STOCK_TEXT: 'variant_out_of_stock',
   ADDON_OUT_OF_STOCK_TEXT: 'addon_out_of_stock',
+  Scan_to_Order_Now:'Scan_to_Order_Now',
+  Expires_At:'Expires_At'
 };
 
 module.exports = {

@@ -887,6 +887,8 @@ const enKeys = {
   'Stock Update List Report': 'Stock Update List Report',
   'Stock Update Over Time': 'Stock Update Over Time',
   'Payment deleted successfully': 'Payment deleted successfully',
+  'Scan_to_Order_Now':'Scan to Order Now',
+  'Expires_At':'Expires at'
 };
 
 module.exports = { enKeys };

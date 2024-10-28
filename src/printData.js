@@ -11,7 +11,9 @@ const {
   mergeReceiptData,
   viewCashierReport,
 } = require('./printing');
-
+const {
+  formatv2
+} = require('../utils/printing-utils');
 const {
   getSettingVal,
   getOrderTypeBinaryPlace,
@@ -21,7 +23,7 @@ const {
   getIsPaid,
 } = require('../utils/utils');
 const { localize, generateReportV2, generateReceiptV2 } = require('../utils/printing-utils');
-const { KeyName } = require('../config/enums');
+const { KeyName,FontAlign,FontSize,FontType} = require('../config/enums');
 
 const { convertReceiptObj } = require('./printing-new-slip');
 
@@ -1011,11 +1013,132 @@ function isPosOrder(orderDetails) {
     return false;
   }
 }
+function generateDynamicQrPrintData(
+  rest_details,
+  table_id,
+  table_no,
+  expiry_time,
+  base_url='https://app.easyeat.ai',
+  language = 'en-US',
+  device_id = '',
+  qrsize = 550,
+) {
+  try {
+    const restaurant_id = rest_details['id'];
+    const restaurant = rest_details;
+    if (!restaurant) {
+      throw new Error(`Restaurant with id ${restaurant_id} not found`);
+    }
+    const isKiosk = restaurant?.settings?.global?.is_kiosk === 1;
+    const isFoodCourt = restaurant?.foodcourt && !isKiosk;
+    if (isFoodCourt) {
+      throw new Error(`Dynamic Qr Generation Not Possible in FoodCourt Child`);
+    }
+    const timezone = restaurant.time_zone;
+    let url = isKiosk
+    ? `/fc/${restaurant.nameid}?`
+    : `/dynamic/set_restaurant_qr.php?restaurant_id=${restaurant_id}&`;
+    const formattedExpiryTime = moment
+    .unix(expiry_time)
+    .tz(timezone)
+    .format('MMM DD, YYYY, hh:mm:ss A');
+    const epochValueInSeconds = expiry_time;
+    const qrString = `${base_url}${url}tid=${table_id}&validity=${restaurant_id.substring(
+      0,
+      4,
+    )}${epochValueInSeconds}${restaurant_id.substring(restaurant_id.length - 4)}`;
+    return generateDynamicQRPrinterObject(
+      restaurant,
+      table_no,
+      formattedExpiryTime,
+      qrString,
+      qrsize,
+      language,
+      device_id,
+    );
+  } catch (error) {
+  }
+}
 
+function generateDynamicQRPrinterObject(
+  rest_details,
+  table_no,
+  formattedExpiryTime,
+  qrString,
+  qrsize = 550, // default qrsize
+  language,
+  device_id = "",
+){
+  const data = {};
+  data['type'] = 'dynamicQR';
+  data['ptr_name'] = rest_details?.printer;
+  const multipleCashierEnabled = rest_details?.settings?.global?.multiple_cashier === 1;
+  //Updating bill receipt printer based on device id
+  if (multipleCashierEnabled && device_id) {
+    const printerObjMappedToDevice = rest_details?.receipt_printers.find(
+      (printer) => printer?.status === 1 && printer?.device_ids?.includes(device_id),
+    );
+    if (printerObjMappedToDevice) {
+      data['ptr_name'] = printerObjMappedToDevice?.printer_ip;
+    } else {
+      this.logger.error('Error No Printer Ip Mapped to this device');
+    }
+  }
+  data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
+  data['ptr_id'] = 'dynamicQR';
+  data['data'] = [];
+  // Add the "Scan to Order Now" heading
+  data['data'].push(
+    formatv2(
+      'heading',
+      [{ name: `${localize(KeyName.Scan_to_Order_Now, language)}` }],
+      FontSize.LARGE,
+      FontType.BOLD,
+      FontAlign.CENTER,
+    ),
+  );
+  const formattedObject = formatv2(
+    'qrString',
+    [{ name: qrString }], // Dynamically sized or defaulted
+    FontSize.SMALL,
+    FontType.BOLD,
+    FontAlign.CENTER,
+  );
+  // Manually add qrsize to the value array
+  if (Array.isArray(formattedObject.value)) {
+    formattedObject.value[0]['qrsize'] = qrsize;
+  }
+  data['data'].push(formattedObject);
+
+  // Add table information
+  data['data'].push(
+    formatv2(
+      'tableInfo',
+      [{ name: table_no.toUpperCase() }], // capitalize table ID
+      FontSize.LARGE,
+      FontType.BOLD,
+      FontAlign.CENTER,
+    ),
+  );
+
+  // Add expiry information
+  data['data'].push(
+    formatv2(
+      'validUpto',
+      [{ name: `${localize(KeyName.Expires_At, language)} ${formattedExpiryTime}` }],
+      FontSize.SMALL,
+      FontType.BOLD,
+      FontAlign.CENTER,
+    ),
+  );
+
+  return data;
+}
 module.exports = {
   generatePrintData,
   generateCashierReportData,
   cashDrawerKick,
   createPrinterMappingsHelper,
   generateOrderPrintPopUpResponse,
+  generateDynamicQrPrintData
 };
