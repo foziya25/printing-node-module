@@ -1080,8 +1080,6 @@ function generateDynamicQRPrinterObject(
     );
     if (printerObjMappedToDevice) {
       data['ptr_name'] = printerObjMappedToDevice?.printer_ip;
-    } else {
-      this.logger.error('Error No Printer Ip Mapped to this device');
     }
   }
   data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
