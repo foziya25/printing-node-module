@@ -21,6 +21,7 @@ const {
   getPrintLanguage,
   getAllergicItemsList,
   getIsPaid,
+  isBluetoothPrinter
 } = require('../utils/utils');
 const { localize, generateReportV2, generateReceiptV2 } = require('../utils/printing-utils');
 const { KeyName,FontAlign,FontSize,FontType} = require('../config/enums');
@@ -1082,15 +1083,22 @@ function generateDynamicQRPrinterObject(
       data['ptr_name'] = printerObjMappedToDevice?.printer_ip;
     }
   }
-  data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
+  data['p_width'] = rest_details['settings']['print']['p_width'] || 72;
   data['ptr_id'] = 'dynamicQR';
   data['data'] = [];
+  let bluetoothprinter = false;
+  if (
+      isBluetoothPrinter(data['ptr_name']) &&
+      (data['p_width'] === 48 || data['p_width'] === 58)
+  ){
+      bluetoothprinter = true;
+  }
   // Add the "Scan to Order Now" heading
   data['data'].push(
     formatv2(
       'heading',
       [{ name: `${localize(KeyName.Scan_to_Order_Now, language)}` }],
-      FontSize.LARGE,
+      !bluetoothprinter ? FontSize.LARGE : FontSize.SMALL,
       FontType.BOLD,
       FontAlign.CENTER,
     ),
@@ -1123,13 +1131,24 @@ function generateDynamicQRPrinterObject(
   data['data'].push(
     formatv2(
       'validUpto',
-      [{ name: `${localize(KeyName.Expires_At, language)} ${formattedExpiryTime}` }],
+      [{ name: `${localize(KeyName.Expires_At, language)} ${!bluetoothprinter ? formattedExpiryTime : ''}` }],
       FontSize.SMALL,
       FontType.BOLD,
       FontAlign.CENTER,
     ),
   );
 
+  if (bluetoothprinter) {
+    data['data'].push(
+      formatv2(
+        'validUpto',
+        [{ name: `${formattedExpiryTime}` }],
+        FontSize.SMALL,
+        FontType.BOLD,
+        FontAlign.CENTER,
+      ),
+    );
+  }
   return data;
 }
 module.exports = {

@@ -1410,6 +1410,10 @@ function getIsPaid(bill) {
   return is_paid;
 }
 
+function isBluetoothPrinter(inputString) {
+  const bluetoothAddressPattern = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
+  return bluetoothAddressPattern.test(inputString);
+}
 module.exports = {
   getOnlySuccessfulPayments,
   getAddons,
@@ -1438,6 +1442,7 @@ module.exports = {
   convertEnglishToUppercase,
   getIsPaid,
   DefaultConfigurablePrintSettings,
+  isBluetoothPrinter,
 };
 
 //console.log(formatv2("", [{ name: "saurabh" }]));
