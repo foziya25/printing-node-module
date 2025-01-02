@@ -28,7 +28,7 @@ const DefaultConfigurablePrintSettings = {
       name: 'ORDER NO',
       show: ToShow.SHOW,
       section: PrintSection.HEADER,
-      fs: FontSize.SMALL,
+      fs: FontSize.MEDIUM,
       o_type: ForOrderType.ALL,
       ft: FontType.BOLD,
       priority: 1,
