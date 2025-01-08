@@ -24,7 +24,7 @@ const {
   isBluetoothPrinter
 } = require('../utils/utils');
 const { localize, generateReportV2, generateReceiptV2 } = require('../utils/printing-utils');
-const { KeyName,FontAlign,FontSize,FontType} = require('../config/enums');
+const { KeyName,FontAlign,FontSize,FontType, KitchenCounterStatus } = require('../config/enums');
 
 const { convertReceiptObj } = require('./printing-new-slip');
 
@@ -831,8 +831,8 @@ function createPrinterMappingsHelper(kitchenCounterDetails, itemDetails, subcate
         }
         let { isStickerPrinter, isAutoEnabled, isSingleRoll, stickerHeight, stickerWidth } =
           getStickerValues(objectFromKitchenCountersCollection, kitchenCounterDetail);
-        if (kitchenCounterDetail['status'] === 1) {
-          subcatKitchenCounterMapping[subcategoryDetail['id']].push({
+          if ([KitchenCounterStatus.ACTIVE, KitchenCounterStatus.DISABLED].includes(kitchenCounterDetail['status'])) {
+            subcatKitchenCounterMapping[subcategoryDetail['id']].push({
             kc_id: kitchenCounterDetail['kitchen_counter_id'],
             counter_name: kitchenCounterDetail['counter_name'],
             printer_name: kitchenCounterDetail['printer_name'],

@@ -74,6 +74,12 @@ const FontAlign = {
   CENTER: 'c',
 };
 
+const KitchenCounterStatus = {
+  ACTIVE: 1,
+  DISABLED: 6,
+  DELETED: 9,
+};
+
 const CountryMapping = {
   MALAYSIA: {
     country: 'Malaysia',
@@ -204,4 +210,5 @@ module.exports = {
   FontSize,
   FontAlign,
   CountryMapping,
+  KitchenCounterStatus,
 };
