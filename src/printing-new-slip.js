@@ -809,6 +809,22 @@ function convertTableTransferObj(obj, rest_details, options) {
       '',
       [
         {
+          name: `${localize(KeyName.INVOICE).toUpperCase()}: ${obj['body'][KeyName.INVOICE]
+            .toString()
+            .toUpperCase()}`,
+        },
+      ],
+      undefined,
+      undefined,
+      FontAlign.CENTER,
+    ),
+  );
+  data['data'].push(line_break());
+  data['data'].push(
+    formatv2(
+      '',
+      [
+        {
           name: `${localize(KeyName.TABLE_TRANSFER, language)}`,
         },
       ],
