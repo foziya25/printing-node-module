@@ -125,7 +125,7 @@ function insertHeaders(obj, keys = [], language = CountryMapping.MALAYSIA.langua
 }
 
 // Function to add items in printing config v2
-function addItems(items, rest_details, configurable_settings, language) {
+function addItems(items, rest_details, configurable_settings, language,counter_case=false) {
   const split_addon_variant = getSettingVal(rest_details, 'split_addon_variant');
   language = language || getPrintLanguage(rest_details);
   const qty_align = getSettingVal(rest_details, 'qty_align');
@@ -225,6 +225,9 @@ function addItems(items, rest_details, configurable_settings, language) {
           configurable_settings ? configurable_settings['notes']['ft'] : undefined,
         ),
       );
+    }
+    if(counter_case){
+      temp_arr.push(line_break((' ')));
     }
   }
   return temp_arr;

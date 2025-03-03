@@ -527,7 +527,7 @@ function convertCounterObj(
   });
 
   data['data'].push(line_break());
-  const item_arr = addItems(obj['items'], rest_details, configurable_settings, language);
+  const item_arr = addItems(obj['items'], rest_details, configurable_settings, language,true);
 
   for (const item of item_arr) {
     data['data'].push(item);
