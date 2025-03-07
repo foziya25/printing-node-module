@@ -66,6 +66,15 @@ const powered_by = () => {
     fa: FontAlign.CENTER,
   };
 };
+const Scan_to_Pay_Now = (language) => {
+  return {
+    key: 'qrTitle',
+    value: `${localize(KeyName.Scan_To_Pay_Now, language)}`,
+    fs: FontSize.LARGE,
+    ft: FontType.BOLD,
+    fa: FontAlign.CENTER,
+  };
+};
 
 const boost_partnership = () => {
   return {
@@ -125,7 +134,7 @@ function insertHeaders(obj, keys = [], language = CountryMapping.MALAYSIA.langua
 }
 
 // Function to add items in printing config v2
-function addItems(items, rest_details, configurable_settings, language,counter_case=false) {
+function addItems(items, rest_details, configurable_settings, language, counter_case = false) {
   const split_addon_variant = getSettingVal(rest_details, 'split_addon_variant');
   language = language || getPrintLanguage(rest_details);
   const qty_align = getSettingVal(rest_details, 'qty_align');
@@ -226,8 +235,8 @@ function addItems(items, rest_details, configurable_settings, language,counter_c
         ),
       );
     }
-    if(counter_case){
-      temp_arr.push(line_break((' ')));
+    if (counter_case) {
+      temp_arr.push(line_break(' '));
     }
   }
   return temp_arr;
@@ -722,16 +731,16 @@ function getCashInfo(
 //   return numberFormatter.format(number);
 // }
 
-function generateReportV2(obj, rest_details, for_close_enable,device_id = '') {
+function generateReportV2(obj, rest_details, for_close_enable, device_id = '') {
   const language = getPrintLanguage(rest_details);
   const multipleCashierEnabled = rest_details?.settings?.global?.multiple_cashier === 1;
   const data = {};
   data['type'] = obj['type'];
   data['ptr_name'] = obj['printerName'];
-   //Updating bill receipt printer based on device id
+  //Updating bill receipt printer based on device id
   if (multipleCashierEnabled && device_id) {
     const printerObjMappedToDevice = rest_details?.receipt_printers.find(
-    (printer) => printer.status === 1 && printer?.device_ids?.includes(device_id),
+      (printer) => printer.status === 1 && printer?.device_ids?.includes(device_id),
     );
     if (printerObjMappedToDevice) {
       data['ptr_name'] = printerObjMappedToDevice?.printer_ip;
@@ -849,7 +858,7 @@ function generateReportV2(obj, rest_details, for_close_enable,device_id = '') {
   return changeFontSize(data, options);
 }
 
-function generateReceiptV2(obj, rest_details , device_id = '') {
+function generateReceiptV2(obj, rest_details, device_id = '') {
   const language = getPrintLanguage(rest_details);
   const multipleCashierEnabled = rest_details?.settings?.global?.multiple_cashier === 1;
   const country = rest_details['country'];
@@ -968,6 +977,7 @@ module.exports = {
   FontType,
   changeFontSize,
   powered_by,
+  Scan_to_Pay_Now,
   boost_partnership,
   formatv2,
   line_break,

@@ -108,6 +108,7 @@ const KeyName = {
   TIME: 'time',
   TABLE: 'table',
   NO_OF_ITEMS: 'no_of_items',
+  ORDER_ID: 'order_id',
   ORDER_SEQ: 'order_seq',
   ORDERTYPE: 'order_type',
   CASHIER: 'cashier',
@@ -190,8 +191,10 @@ const KeyName = {
   DISH_OUT_OF_STOCK_TEXT: 'dish_out_of_stock',
   VARIANT_OUT_OF_STOCK_TEXT: 'variant_out_of_stock',
   ADDON_OUT_OF_STOCK_TEXT: 'addon_out_of_stock',
-  Scan_to_Order_Now:'Scan_to_Order_Now',
-  Expires_At:'Expires_At'
+  Scan_to_Order_Now: 'Scan_to_Order_Now',
+  Scan_To_Pay_Now: 'Scan_To_Pay_Now',
+  PLATFORM: 'platform',
+  Expires_At: 'Expires_At',
 };
 
 module.exports = {

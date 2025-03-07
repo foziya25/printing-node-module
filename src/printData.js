@@ -11,9 +11,7 @@ const {
   mergeReceiptData,
   viewCashierReport,
 } = require('./printing');
-const {
-  formatv2
-} = require('../utils/printing-utils');
+const { formatv2 } = require('../utils/printing-utils');
 const {
   getSettingVal,
   getOrderTypeBinaryPlace,
@@ -21,10 +19,10 @@ const {
   getPrintLanguage,
   getAllergicItemsList,
   getIsPaid,
-  isBluetoothPrinter
+  isBluetoothPrinter,
 } = require('../utils/utils');
 const { localize, generateReportV2, generateReceiptV2 } = require('../utils/printing-utils');
-const { KeyName,FontAlign,FontSize,FontType, KitchenCounterStatus } = require('../config/enums');
+const { KeyName, FontAlign, FontSize, FontType, KitchenCounterStatus } = require('../config/enums');
 
 const { convertReceiptObj } = require('./printing-new-slip');
 
@@ -90,7 +88,7 @@ function generateCashierReportData(
         receipt['type'] = 'cash-in';
         delete receipt['staff_name'];
         if (new_format === 1 && cash_mgt_format_override !== 1) {
-          receipt = [generateReportV2(receipt, restaurant, for_close_enable,device_id)];
+          receipt = [generateReportV2(receipt, restaurant, for_close_enable, device_id)];
         }
       }
     }
@@ -132,7 +130,7 @@ function generateCashierReportData(
         reason: result['reason'],
       };
       if (new_format === 1 && cash_mgt_format_override !== 1) {
-        receipt = [generateReceiptV2(receipt, restaurant,device_id)];
+        receipt = [generateReceiptV2(receipt, restaurant, device_id)];
       }
     }
   } catch (e) {}
@@ -195,6 +193,7 @@ function generatePrintData(
   guest_id = '',
   staff_details = {},
   device_id = '',
+  base_url = 'https://app.easyeat.ai',
 ) {
   try {
     // generate print logo url for restaurant
@@ -301,7 +300,16 @@ function generatePrintData(
         invalid = false;
         // generating receipt data
         receipt_data.push(
-          generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {},false,{},device_id),
+          generateBillReceipt(
+            { ...order_details },
+            rest_details,
+            bill_details[0] || {},
+            false,
+            {},
+            device_id,
+            base_url,
+            !guest_id,
+          ),
         );
       }
       // ---------------------------------------------------------------------------
@@ -312,7 +320,14 @@ function generatePrintData(
 
         // generating receipt data
         receipt_data.push(
-          generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {},false,{},device_id),
+          generateBillReceipt(
+            { ...order_details },
+            rest_details,
+            bill_details[0] || {},
+            false,
+            {},
+            device_id,
+          ),
         );
 
         // generating counter data
@@ -382,7 +397,16 @@ function generatePrintData(
               // 1: receipt obj
               // generating receipt data
               receipt_data.push(
-                generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {},false,{},device_id),
+                generateBillReceipt(
+                  { ...order_details },
+                  rest_details,
+                  bill_details[0] || {},
+                  false,
+                  {},
+                  device_id,
+                  base_url,
+                  true,
+                ),
               );
             }
           }
@@ -555,7 +579,14 @@ function generatePrintData(
           }
           if ((print_code & 1) === 1) {
             receipt_data.push(
-              generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {},false,{},device_id),
+              generateBillReceipt(
+                { ...order_details },
+                rest_details,
+                bill_details[0] || {},
+                false,
+                {},
+                device_id,
+              ),
             );
           }
         }
@@ -569,7 +600,16 @@ function generatePrintData(
         const master_enabled = getSettingVal(rest_details, 'master_docket');
         if (master_enabled && master_enabled > 0) {
           receipt_data.push(
-            generateMasterOrderReceipt({ ...order_details }, rest_details, true, '', true, '', '',device_id),
+            generateMasterOrderReceipt(
+              { ...order_details },
+              rest_details,
+              true,
+              '',
+              true,
+              '',
+              '',
+              device_id,
+            ),
           );
         }
       }
@@ -592,7 +632,14 @@ function generatePrintData(
 
           // generating receipt data
           receipt_data.push(
-            generateBillReceipt({ ...order_details }, rest_details, bill_details[0] || {},false,{},device_id),
+            generateBillReceipt(
+              { ...order_details },
+              rest_details,
+              bill_details[0] || {},
+              false,
+              {},
+              device_id,
+            ),
           );
 
           /* -------- create other receipts if ordered from POS -------- */
@@ -831,8 +878,12 @@ function createPrinterMappingsHelper(kitchenCounterDetails, itemDetails, subcate
         }
         let { isStickerPrinter, isAutoEnabled, isSingleRoll, stickerHeight, stickerWidth } =
           getStickerValues(objectFromKitchenCountersCollection, kitchenCounterDetail);
-          if ([KitchenCounterStatus.ACTIVE, KitchenCounterStatus.DISABLED].includes(kitchenCounterDetail['status'])) {
-            subcatKitchenCounterMapping[subcategoryDetail['id']].push({
+        if (
+          [KitchenCounterStatus.ACTIVE, KitchenCounterStatus.DISABLED].includes(
+            kitchenCounterDetail['status'],
+          )
+        ) {
+          subcatKitchenCounterMapping[subcategoryDetail['id']].push({
             kc_id: kitchenCounterDetail['kitchen_counter_id'],
             counter_name: kitchenCounterDetail['counter_name'],
             printer_name: kitchenCounterDetail['printer_name'],
@@ -1019,7 +1070,7 @@ function generateDynamicQrPrintData(
   table_id,
   table_no,
   expiry_time,
-  base_url='https://app.easyeat.ai',
+  base_url = 'https://app.easyeat.ai',
   language = 'en-US',
   device_id = '',
   qrsize = 550,
@@ -1037,12 +1088,12 @@ function generateDynamicQrPrintData(
     }
     const timezone = restaurant.time_zone;
     let url = isKiosk
-    ? `/fc/${restaurant.nameid}?`
-    : `/dynamic/set_restaurant_qr.php?restaurant_id=${restaurant_id}&`;
+      ? `/fc/${restaurant.nameid}?`
+      : `/dynamic/set_restaurant_qr.php?restaurant_id=${restaurant_id}&`;
     const formattedExpiryTime = moment
-    .unix(expiry_time)
-    .tz(timezone)
-    .format('MMM DD, YYYY, hh:mm:ss A');
+      .unix(expiry_time)
+      .tz(timezone)
+      .format('MMM DD, YYYY, hh:mm:ss A');
     const epochValueInSeconds = expiry_time;
     const qrString = `${base_url}${url}tid=${table_id}&validity=${restaurant_id.substring(
       0,
@@ -1057,8 +1108,7 @@ function generateDynamicQrPrintData(
       language,
       device_id,
     );
-  } catch (error) {
-  }
+  } catch (error) {}
 }
 
 function generateDynamicQRPrinterObject(
@@ -1068,8 +1118,8 @@ function generateDynamicQRPrinterObject(
   qrString,
   qrsize = 550, // default qrsize
   language,
-  device_id = "",
-){
+  device_id = '',
+) {
   const data = {};
   data['type'] = 'dynamicQR';
   data['ptr_name'] = rest_details?.printer;
@@ -1087,11 +1137,8 @@ function generateDynamicQRPrinterObject(
   data['ptr_id'] = 'dynamicQR';
   data['data'] = [];
   let bluetoothprinter = false;
-  if (
-      isBluetoothPrinter(data['ptr_name']) &&
-      (data['p_width'] === 48 || data['p_width'] === 58)
-  ){
-      bluetoothprinter = true;
+  if (isBluetoothPrinter(data['ptr_name']) && (data['p_width'] === 48 || data['p_width'] === 58)) {
+    bluetoothprinter = true;
   }
   // Add the "Scan to Order Now" heading
   data['data'].push(
@@ -1131,7 +1178,13 @@ function generateDynamicQRPrinterObject(
   data['data'].push(
     formatv2(
       'validUpto',
-      [{ name: `${localize(KeyName.Expires_At, language)} ${!bluetoothprinter ? formattedExpiryTime : ''}` }],
+      [
+        {
+          name: `${localize(KeyName.Expires_At, language)} ${
+            !bluetoothprinter ? formattedExpiryTime : ''
+          }`,
+        },
+      ],
       FontSize.SMALL,
       FontType.BOLD,
       FontAlign.CENTER,
@@ -1157,5 +1210,5 @@ module.exports = {
   cashDrawerKick,
   createPrinterMappingsHelper,
   generateOrderPrintPopUpResponse,
-  generateDynamicQrPrintData
+  generateDynamicQrPrintData,
 };

@@ -895,8 +895,9 @@ const idKeys = {
   'Stock Update List Report': 'Laporan Daftar Pembaruan Stok',
   'Stock Update Over Time': 'Pembaruan Stok Seiring Waktu',
   'Payment deleted successfully': 'Pembayaran berhasil dihapus',
-  'Scan_to_Order_Now':'Scan untuk Pesan',
-  'Expires_At':'Berlaku hingga'
+  Scan_to_Order_Now: 'Scan untuk Pesan',
+  Scan_To_Pay_Now: 'Scan untuk Bayar Sekarang',
+  Expires_At: 'Berlaku hingga',
 };
 
 module.exports = { idKeys };

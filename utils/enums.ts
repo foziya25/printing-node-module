@@ -56,6 +56,7 @@ export enum KeyName {
   NO_OF_ITEMS = 'no_of_items',
   ORDER_SEQ = 'order_seq',
   ORDERTYPE = 'order_type',
+  ORDER_ID = 'order_id',
   CASHIER = 'cashier',
   PAX = 'pax',
   STAFF_NAME = 'staff_name',
@@ -132,4 +133,5 @@ export enum KeyName {
   DISH_OUT_OF_STOCK_TEXT = 'dish_out_of_stock',
   VARIANT_OUT_OF_STOCK_TEXT = 'variant_out_of_stock',
   ADDON_OUT_OF_STOCK_TEXT = 'addon_out_of_stock',
+  PLATFORM = 'platform',
 }

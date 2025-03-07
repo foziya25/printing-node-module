@@ -13,6 +13,7 @@ const {
   localiseFeeNames,
   insertCustomHeaderAndFooter,
   boost_partnership,
+  Scan_to_Pay_Now,
 } = require('../utils/printing-utils');
 
 const {
@@ -37,7 +38,15 @@ const {
 } = require('../config/enums');
 
 /* function to convert the receipt obj to print format */
-function convertReceiptObj(obj, rest_details, reprinted_data = false, configurable_settings = {} , device_id = '') {
+function convertReceiptObj(
+  obj,
+  rest_details,
+  reprinted_data = false,
+  configurable_settings = {},
+  device_id = '',
+  base_url,
+  isBillRecipt = false,
+) {
   // in case of old receipt design
   if (getSettingVal(rest_details, 'response_format') === 0) {
     return convertToOldReceiptObj(obj, rest_details.country);
@@ -64,12 +73,12 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false, configurab
   //Updating bill receipt printer based on device id
   if (multipleCashierEnabled && device_id) {
     const printerObjMappedToDevice = rest_details?.receipt_printers.find(
-    (printer) => printer.status === 1 && printer?.device_ids?.includes(device_id),
+      (printer) => printer.status === 1 && printer?.device_ids?.includes(device_id),
     );
     if (printerObjMappedToDevice) {
-    data['ptr_name'] = printerObjMappedToDevice?.printer_ip;
+      data['ptr_name'] = printerObjMappedToDevice?.printer_ip;
     } else {
-      console.log("Error No Printer Ip Mapped to this device")
+      console.log('Error No Printer Ip Mapped to this device');
     }
   }
   data['p_width'] = rest_details['settings']['print']['p_width'] || '72';
@@ -348,6 +357,58 @@ function convertReceiptObj(obj, rest_details, reprinted_data = false, configurab
     data['data'].push(powered_by());
   }
 
+  if (
+    rest_details &&
+    rest_details['settings'] &&
+    rest_details['settings']['global'] &&
+    rest_details['settings']['global']['enable_qr_on_print'] === 1
+  ) {
+    const billArray = obj['order']['bill'];
+    const amount_to_be_paid_lan = localize(
+      KeyName.AMOUNT_TO_BE_PAID,
+      getPrintLanguage(rest_details),
+    );
+    const amountToBePaidItem =
+      Array.isArray(billArray) && billArray.find((item) => item['name'] === amount_to_be_paid_lan);
+    const isPlatformEasyeat = obj['body'][KeyName.PLATFORM] === 'easyeat'; // Ensure 'obj.body' exists
+    const isDeliveryOrTakeaway = obj['body'][KeyName.ORDERTYPE]
+      ? [
+          localize(KeyName.DINEIN, getPrintLanguage(rest_details)),
+          localize(KeyName.TAKEAWAY, getPrintLanguage(rest_details)),
+        ].includes(obj['body'][KeyName.ORDERTYPE])
+      : false;
+    const isBalanceNonNegative = amountToBePaidItem && amountToBePaidItem['value'] > 0;
+    const isAllOnlinePaymentsEnabled = rest_details?.['block_pmt']
+      ? ['WALLET', 'CARD', 'NET-BANKING'].every((method) =>
+          rest_details['block_pmt'].some(
+            (item) => item['payment_method']?.toUpperCase() === method,
+          ),
+        )
+      : false;
+
+    if (
+      isPlatformEasyeat &&
+      isDeliveryOrTakeaway &&
+      isBalanceNonNegative &&
+      !isAllOnlinePaymentsEnabled &&
+      isBillRecipt
+    ) {
+      data['data'].push(Scan_to_Pay_Now(language));
+      data['data'].push(
+        qrString(
+          country,
+          'qrString',
+          obj,
+          base_url,
+          400, // QR size
+          FontSize.SMALL, // Font size
+          FontType.BOLD, // Font type
+          FontAlign.CENTER, // Font alignment
+        ),
+      );
+    }
+  }
+
   const slip_font = rest_details['settings']['print']['slip_font']
     ? rest_details['settings']['print']['slip_font']
     : {};
@@ -527,7 +588,7 @@ function convertCounterObj(
   });
 
   data['data'].push(line_break());
-  const item_arr = addItems(obj['items'], rest_details, configurable_settings, language,true);
+  const item_arr = addItems(obj['items'], rest_details, configurable_settings, language, true);
 
   for (const item of item_arr) {
     data['data'].push(item);
@@ -1213,7 +1274,41 @@ function keyCorrection(keys_mapping, obj) {
   }
   return obj;
 }
+function generatePaymentUrl(country, obj, base_url) {
+  // Set base URL based on the country code
 
+  const url = base_url;
+  const finalUrl = `${url}/payments/${obj['body'][KeyName.ORDER_ID]}?qr=true`;
+
+  return finalUrl;
+}
+function qrString(
+  country,
+  key = 'qrString',
+  obj,
+  base_url,
+  qrsize = 400, // Default QR size
+  fs = FontSize.SMALL, // Default Font Size
+  ft = FontType.BOLD, // Default Font Type
+  fa = FontAlign.CENTER, // Default Font Alignment
+) {
+  // Generate dynamic URL using the passed rest_details and bill_details
+  const url = generatePaymentUrl(country, obj, base_url);
+
+  return {
+    key: key,
+    value: [
+      {
+        name: url, // Use the dynamically generated URL
+        qrsize: qrsize,
+        // Set the QR size
+      },
+    ],
+    fs: fs, // Font size
+    ft: ft, // Font type
+    fa: fa, // Font alignment
+  };
+}
 module.exports = {
   convertReceiptObj,
   convertCounterObj,

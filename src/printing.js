@@ -54,6 +54,8 @@ function generateBillReceipt(
   merge_bill = false,
   fc_restaurant_details = {},
   device_id = '',
+  base_url,
+  isBillRecipt = false,
 ) {
   if (order_details) {
     if (order_details.length == 1) {
@@ -123,6 +125,8 @@ function generateBillReceipt(
     obj['body'][KeyName.TABLE] = order_details['table_no'].toString();
   }
   obj['body'][KeyName.INVOICE] = `#${order_details['order_no']}`;
+  obj['body'][KeyName.ORDER_ID] = order_details['order_id'];
+  obj['body'][KeyName.PLATFORM] = order_details['platform'];
   obj['body'][KeyName.ORDER_SEQ] = order_details['kiosk_order_seq']
     ? order_details['kiosk_order_seq']
     : order_details['order_seq'];
@@ -168,11 +172,11 @@ function generateBillReceipt(
     if (item['item_status'] != 5 && item['item_status'] != 6) {
       if (
         (show_item_code & 8) == 8 &&
-        item["item_code"] &&
-        item["item_code"].trim() !== "" &&
-        !item["item_name"].includes(`(${item["item_code"]})`)
+        item['item_code'] &&
+        item['item_code'].trim() !== '' &&
+        !item['item_name'].includes(`(${item['item_code']})`)
       ) {
-        item["item_name"] = `(${item["item_code"]}) ${item["item_name"]}`;
+        item['item_name'] = `(${item['item_code']}) ${item['item_name']}`;
       }
       const item_obj = {
         name: item['item_name'],
@@ -439,7 +443,15 @@ function generateBillReceipt(
   if (merge_bill) {
     return obj;
   }
-  return convertReceiptObj(obj, rest_details,false,configurable_settings[FormatType.RECEIPT],device_id);
+  return convertReceiptObj(
+    obj,
+    rest_details,
+    false,
+    configurable_settings[FormatType.RECEIPT],
+    device_id,
+    base_url,
+    isBillRecipt,
+  );
 }
 
 function mergeReceiptData(temp_obj, obj, rest_details) {
@@ -930,7 +942,7 @@ function generateMasterOrderReceipt(
   is_order_list = false,
   note_reason = '',
   old_tno = '',
-  device_id = ''
+  device_id = '',
 ) {
   const language = getPrintLanguage(rest_details);
   const result = getOrderTypeString(order_details, rest_details, language);
@@ -1001,11 +1013,11 @@ function generateMasterOrderReceipt(
     const item = { ...original_item };
     if (
       (show_item_code & 16) == 16 &&
-      item["item_code"] &&
-      item["item_code"].trim() !== "" &&
-      !item["item_name"].includes(`(${item["item_code"]})`)
+      item['item_code'] &&
+      item['item_code'].trim() !== '' &&
+      !item['item_name'].includes(`(${item['item_code']})`)
     ) {
-      item["item_name"] = `(${item["item_code"]}) ${item["item_name"]}`;
+      item['item_name'] = `(${item['item_code']}) ${item['item_name']}`;
     }
     let temp_item = null;
     if (is_order_list) {
@@ -1052,7 +1064,7 @@ function generateMasterOrderReceipt(
   }
 
   obj['body'][KeyName.NO_OF_ITEMS] = noOfItems.toString();
-  return convertMasterObj(obj, rest_details,{},false,device_id);
+  return convertMasterObj(obj, rest_details, {}, false, device_id);
 }
 
 function generateVoidAndCancelCounterReceipt(
@@ -1366,11 +1378,11 @@ function generateVoidMasterReceipt(order_details, rest_details, voided_item) {
   obj['items'] = [];
   if (
     (show_item_code & 16) == 16 &&
-    voided_item["item_code"] &&
-    voided_item["item_code"].trim() !== "" &&
-    !voided_item["item_name"].includes(`(${voided_item["item_code"]})`)
+    voided_item['item_code'] &&
+    voided_item['item_code'].trim() !== '' &&
+    !voided_item['item_name'].includes(`(${voided_item['item_code']})`)
   ) {
-    voided_item["item_name"] = `(${voided_item["item_code"]}) ${voided_item["item_name"]}`;
+    voided_item['item_name'] = `(${voided_item['item_code']}) ${voided_item['item_name']}`;
   }
   const item_obj = {
     name: voided_item['item_name'],
@@ -1480,11 +1492,11 @@ function generateDeclineMasterReceipt(order_details, rest_details, itr) {
     if (item['itr'] == itr && (item['item_status'] == 5 || item['item_status'] == 6)) {
       if (
         (show_item_code & 16) == 16 &&
-        item["item_code"] &&
-        item["item_code"].trim() !== "" &&
-        !item["item_name"].includes(`(${item["item_code"]})`)
+        item['item_code'] &&
+        item['item_code'].trim() !== '' &&
+        !item['item_name'].includes(`(${item['item_code']})`)
       ) {
-        item["item_name"] = `(${item["item_code"]}) ${item["item_name"]}`;
+        item['item_name'] = `(${item['item_code']}) ${item['item_name']}`;
       }
       const item_obj = {
         name: item['item_name'],
@@ -1589,7 +1601,7 @@ function viewCashierReport(rest_details, cashier_report_data, country_code, lang
     staff_name,
     close_cashier,
     device_id,
-    counter_name
+    counter_name,
   } = resp[0];
 
   const result = {
@@ -1710,7 +1722,7 @@ function cashierReport(
             payment.status === 1 &&
             payment.payment_method &&
             payment.payment_method.toLowerCase() === 'cash' &&
-            (!is_multiple_cashier_enabled || (payment.device_id === device_id))
+            (!is_multiple_cashier_enabled || payment.device_id === device_id)
           ) {
             cash_sales_by_orders += payment.amount;
           }
@@ -1777,16 +1789,16 @@ function swapQtyWithaddonName(addon_name) {
   const addons_list = addon_name.split(',');
   let swapped_str = '';
   addons_list.forEach((addon) => {
-      const trimmedAddon = addon.trim();
-      const lastIndexOfX = trimmedAddon.lastIndexOf('x');
-      if (lastIndexOfX > 0) {
-        const name = trimmedAddon.slice(0, lastIndexOfX).trim();
-        const qty = trimmedAddon.slice(lastIndexOfX + 1).trim();
+    const trimmedAddon = addon.trim();
+    const lastIndexOfX = trimmedAddon.lastIndexOf('x');
+    if (lastIndexOfX > 0) {
+      const name = trimmedAddon.slice(0, lastIndexOfX).trim();
+      const qty = trimmedAddon.slice(lastIndexOfX + 1).trim();
 
-        swapped_str += swapped_str === '' ? `${qty}x ${name}` : `, ${qty}x ${name}`;
-      } else {
-        swapped_str += swapped_str === '' ? trimmedAddon : `, ${trimmedAddon}`;
-      }
+      swapped_str += swapped_str === '' ? `${qty}x ${name}` : `, ${qty}x ${name}`;
+    } else {
+      swapped_str += swapped_str === '' ? trimmedAddon : `, ${trimmedAddon}`;
+    }
   });
   return swapped_str;
 }
