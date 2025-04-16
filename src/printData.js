@@ -603,7 +603,7 @@ function generatePrintData(
             generateMasterOrderReceipt(
               { ...order_details },
               rest_details,
-              true,
+              itr,
               '',
               true,
               '',
